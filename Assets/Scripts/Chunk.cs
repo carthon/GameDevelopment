@@ -56,7 +56,7 @@ public class Chunk : MonoBehaviour {
             if (meshCollider.sharedMesh == null) {
                 meshCollider.sharedMesh = mesh;
             }
-            meshCollider.cookingOptions = MeshColliderCookingOptions.CookForFasterSimulation;
+            //meshCollider.cookingOptions = MeshColliderCookingOptions.CookForFasterSimulation;
             // force update
             UpdateCollider();
         }
