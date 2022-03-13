@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.Serialization;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -11,7 +13,7 @@ namespace StarterAssets
 {
 	[RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-	[RequireComponent(typeof(PlayerInput))]
+	[RequireComponent(typeof(UnityEngine.InputSystem.PlayerInput))]
 #endif
 	public class ThirdPersonController : MonoBehaviour
 	{
@@ -47,6 +49,8 @@ namespace StarterAssets
 		public float GroundedRadius = 0.28f;
 		[Tooltip("What layers the character uses as ground")]
 		public LayerMask GroundLayers;
+		[Tooltip("Enables or disables gravity")]
+		public bool applyGravity = true;
 
 		[Header("Cinemachine")]
 		[Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
@@ -251,7 +255,7 @@ namespace StarterAssets
 				}
 
 				// stop our velocity dropping infinitely when grounded
-				if (_verticalVelocity < 0.0f)
+				if (_verticalVelocity < 0.0f && applyGravity)
 				{
 					_verticalVelocity = -2f;
 				}
@@ -325,6 +329,8 @@ namespace StarterAssets
 			
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+			Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+			Gizmos.DrawLine(transform.position, targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 		}
 	}
 }
