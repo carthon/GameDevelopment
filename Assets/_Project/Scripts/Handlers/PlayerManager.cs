@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime;
 using System.Security.Cryptography;
 using _Project.Scripts.Components;
 using _Project.Scripts.Components.Items;
+using _Project.Scripts.UI;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,9 +15,9 @@ namespace _Project.Scripts.Handlers {
         private Locomotion locomotion;
         private Animator animator;
         private Inventory inventory;
-        private HotbarHandler hotbarHandler;
         private AgressionHandler agressionHandler;
-
+        private List<EquipmentSlotHandler> equimentSlotHandlers;
+        
         private CameraHandler cameraHandler;
         public bool lockCamera;
         public Item sword;
@@ -32,7 +35,7 @@ namespace _Project.Scripts.Handlers {
             animator = GetComponentInChildren<Animator>();
             locomotion = GetComponent<Locomotion>();
             agressionHandler = GetComponent<AgressionHandler>();
-            hotbarHandler = GetComponent<HotbarHandler>();
+            equimentSlotHandlers = GetComponentsInChildren<EquipmentSlotHandler>().ToList();
             inventory = new Inventory("Player Inventory", 2);
             UIHandler.instance.AddInventory(inventory);
             moveDirection = Vector3.zero;
@@ -42,17 +45,16 @@ namespace _Project.Scripts.Handlers {
         
         private void FixedUpdate() {
             float delta = Time.fixedDeltaTime;
-            if (cameraHandler != null && !lockCamera) {
+            if (cameraHandler != null) {
                 TickCamera(delta);
             }
         }
         
         private void TickCamera(float delta){
-            moveDirection = cameraHandler.cameraTransform.forward * inputHandler.vertical;
-            moveDirection += cameraHandler.cameraTransform.right * inputHandler.horizontal;
-            moveDirection.y = 0;
             cameraHandler.FollowTarget(delta);
-            cameraHandler.HandleCameraRotation(delta, inputHandler.mouseX, inputHandler.mouseY);
+            if (!lockCamera) {
+                cameraHandler.HandleCameraRotation(delta, inputHandler.mouseX, inputHandler.mouseY);
+            }
         }
 
         private void Update() {
@@ -66,10 +68,10 @@ namespace _Project.Scripts.Handlers {
             
             HandleLocomotion(delta);
             
-            if (inputHandler.rb_Input)
-                agressionHandler.HandleLightAttack((WeaponItem) hotbarHandler.GetActiveItem());
-            if (inputHandler.rt_Input)
-                agressionHandler.HandleHeavyAttack((WeaponItem) hotbarHandler.GetActiveItem());
+            //if (inputHandler.rb_Input)
+                //agressionHandler.HandleLightAttack((WeaponItem) hotbarHandler.GetActiveItem());
+            //if (inputHandler.rt_Input)
+            //agressionHandler.HandleHeavyAttack((WeaponItem) hotbarHandler.GetActiveItem());
         }
 
         private void HandleUI(float delta) {
@@ -77,10 +79,21 @@ namespace _Project.Scripts.Handlers {
                 bool isDisplaying = UIHandler.instance.isDisplaying;
                 UIHandler.instance.DisplayAllInventories(isDisplaying);
                 UIHandler.instance.isDisplaying = !isDisplaying;
+                lockCamera = isDisplaying;
+                UIHandler.instance.hotbarPanel.OnInventoryEquipItem += HandleEquipment;
             }
         }
-        
+        private void HandleEquipment(UIItemSlot item) {
+            if (item.GetItemStack().Item.GetType() == typeof(WeaponItem)) {
+                WeaponItem weaponItem = (WeaponItem) item.GetItemStack().Item;
+                equimentSlotHandlers[1].LoadItemModel(item);
+            }
+        }
+
         private void HandleLocomotion(float delta) {
+            moveDirection = cameraHandler.cameraTransform.forward * inputHandler.vertical;
+            moveDirection += cameraHandler.cameraTransform.right * inputHandler.horizontal;
+            moveDirection.y = 0;
             locomotion.isRolling = inputHandler.rollFlag;
             locomotion.isSprinting = inputHandler.sprintFlag;
             locomotion.HandleMovement(delta, moveDirection);

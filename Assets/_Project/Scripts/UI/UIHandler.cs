@@ -17,13 +17,14 @@ namespace _Project.Scripts.Handlers {
 
         private List<UIInventoryPanel> modalInventories;
         [SerializeField] public MouseFollower mouseFollower;
+        public UIHotbarPanel hotbarPanel;
         public GameObject modalInventoryPrefab;
-        public GameObject hotbarUIPrefab;
-        public Vector2 mousePosition;
-        // Start is called before the first frame update
+        public UIItemSlot draggedItem;
+
         private void Awake() {
             instance = this;
             modalInventories = new List<UIInventoryPanel>();
+            if (hotbarPanel == null) GetComponentInChildren<UIHotbarPanel>();
             if (mouseFollower == null) mouseFollower = GetComponentInChildren<MouseFollower>();
             mouseFollower.Toggle(false);
         }
@@ -37,11 +38,6 @@ namespace _Project.Scripts.Handlers {
                 modalInventories.Add(inventoryPanel);
             else
                 Debug.LogWarning("An inventory with that name already exists");
-        }
-
-        public void LoadHotbarUI(HotbarHandler hotbarHandler) {
-            UIHotbarPanel uiHotbarPanel = GetComponentInChildren<UIHotbarPanel>();
-            uiHotbarPanel.SetHotbarHandler(hotbarHandler);
         }
 
 

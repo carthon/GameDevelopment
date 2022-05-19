@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using _Project.Scripts.Components;
+using _Project.Scripts.Components.Items;
 using _Project.Scripts.Handlers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace _Project.Scripts.UI {
-    public class UIInventoryPanel: MonoBehaviour {
+    public class UIInventoryPanel: UIItemSlotEventHandler {
         private Inventory inventory;
-        private List<UIInventoryItem> inventorySlotsUI;
         [Header("Header")]
         [SerializeField] private Transform headerArea;
         [SerializeField] private TextMeshProUGUI titleField;
@@ -20,51 +20,22 @@ namespace _Project.Scripts.UI {
 
         public void CreateInventoryUI() {
             if (inventory.GetInventorySlots() != null)
-                inventorySlotsUI = new List<UIInventoryItem>();
+                uiSlots = new List<UIItemSlot>();
             for (int i = inventory.Count; i < inventory.Size; i++) {
+                UIItemSlot uiItemSlot = Instantiate(itemSlotPrefab, inventoryHolder).GetComponent<UIItemSlot>();
+                uiItemSlot.Parent = inventory;
+                uiSlots.Add(uiItemSlot);
                 inventory.OnItemAddedToSlot += HandleNewItem;
-                UIInventoryItem itemSlot = Instantiate(itemSlotPrefab, inventoryHolder).GetComponent<UIInventoryItem>();
-                inventorySlotsUI.Add(itemSlot);
-                itemSlot.OnItemClicked += HandleItemSelection;
-                itemSlot.OnItemBeginDrag += HandleBeginDrag;
-                itemSlot.OnItemEndDrag += HandleEndDrag;
-                itemSlot.OnItemDroppedOn += HandleSwap;
-                itemSlot.OnRightMouseBtnClick += HandleShowItemActions;
+                uiItemSlot.OnItemClicked += HandleItemSelection;
+                uiItemSlot.OnItemBeginDrag += HandleBeginDrag;
+                uiItemSlot.OnItemEndDrag += HandleEndDrag;
+                uiItemSlot.OnItemDroppedOn += HandleSwap;
+                uiItemSlot.OnRightMouseBtnClick += HandleShowItemActions;
             }
-        }
-        private void HandleItemSelection(UIInventoryItem itemSlot) {
-            Debug.Log(itemSlot.name);
-        }
-        private void HandleShowItemActions(UIInventoryItem obj) {
-        }
-        private void HandleSwap(UIInventoryItem obj) {
-            Debug.Log("Dropped on " + obj.GetAsignedItem());
-            // Item que va a ser sustituido
-            int swapSlotIndex = inventorySlotsUI.IndexOf(obj);
-            // Item agarrado
-            int lastSlotIndex = inventorySlotsUI.FindIndex(slot => slot.GetAsignedItem() == draggedItem);
-            if (swapSlotIndex == -1) return;
-
-            inventorySlotsUI[lastSlotIndex].SetData(inventorySlotsUI[swapSlotIndex].GetAsignedItem());
-            inventorySlotsUI[swapSlotIndex].SetData(draggedItem); ;
-        }
-        private void HandleEndDrag(UIInventoryItem obj) {
-            MouseFollower mouseFollower = UIHandler.instance.mouseFollower;
-            mouseFollower.Toggle(false);
-        }
-        private void HandleBeginDrag(UIInventoryItem obj) {
-            MouseFollower mouseFollower = UIHandler.instance.mouseFollower;
-            mouseFollower.Toggle(true);
-            if (obj.GetAsignedItem() != null) {
-                mouseFollower.SetData(obj.GetAsignedItem());
-                draggedItem = obj.GetAsignedItem();
-            }
-            else
-                Debug.Log("Couldnt grab an empty object!");
         }
         private void HandleNewItem(int slot) {
-            Item item = inventory.GetItem(slot);
-            inventorySlotsUI[slot].SetData(item);
+            ItemStack item = inventory.GetItem(slot);
+            uiSlots[slot].SetData(item);
         }
 
         public void Display(bool display) {

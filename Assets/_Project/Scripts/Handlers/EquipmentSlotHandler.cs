@@ -1,4 +1,6 @@
-﻿using _Project.Scripts.Components;
+﻿using System;
+using _Project.Scripts.Components;
+using _Project.Scripts.UI;
 using UnityEngine;
 
 namespace _Project.Scripts.Handlers {
@@ -20,6 +22,10 @@ namespace _Project.Scripts.Handlers {
                 currentItemOnSlot = null;
                 Destroy(currentItemModel);
             }
+        }
+
+        public void LoadItemModel(UIItemSlot item) {
+            LoadItemModel(item.GetItemStack().Item);
         }
 
         public void LoadItemModel(Item item) {

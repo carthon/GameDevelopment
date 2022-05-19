@@ -1,5 +1,6 @@
 ﻿using System;
 using _Project.Scripts.Components;
+using _Project.Scripts.Components.Items;
 using _Project.Scripts.Handlers;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,15 +8,15 @@ using UnityEngine.InputSystem;
 namespace _Project.Scripts.UI {
     public class MouseFollower : MonoBehaviour {
         [SerializeField] private Canvas canvas;
-        [SerializeField] private UIInventoryItem uiItem;
+        [SerializeField] private UIItemSlot uiItemSlot;
 
         private void Awake() {
             canvas = transform.parent.GetComponent<Canvas>();
-            uiItem = GetComponentInChildren<UIInventoryItem>();
+            uiItemSlot = GetComponentInChildren<UIItemSlot>();
         }
 
-        public void SetData(Item item) {
-            uiItem.SetData(item);
+        public void SetData(ItemStack item) {
+            uiItemSlot.SetData(item);
         }
 
         private void Update() {

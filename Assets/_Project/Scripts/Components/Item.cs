@@ -5,7 +5,6 @@ namespace _Project.Scripts.Components {
         [Header("Item Information")]
         public Sprite itemIcon;
         public string itemName;
-        public int quantity;
         public GameObject modelPrefab;
 
         private void Init(Sprite itemIcon, string itemName, GameObject modelPrefab) {
