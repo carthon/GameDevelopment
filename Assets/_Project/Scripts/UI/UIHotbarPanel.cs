@@ -12,9 +12,11 @@ using UnityEngine.UIElements;
 namespace _Project.Scripts.UI {
     public class UIHotbarPanel : UIItemSlotEventHandler {
         [SerializeField] private Transform hotbarTransform;
+        [SerializeField] private PlayerManager playerManager;
         private UIItemSlot handSlot;
+        private UIItemSlot draggedItem;
         public event Action<UIItemSlot> OnInventoryEquipItem;
-        private int activeSlot = 0;
+        public int activeSlot = 0;
         private void Awake() {
             uiSlots = hotbarTransform.GetComponentsInChildren<UIItemSlot>().ToList();
 
@@ -22,28 +24,28 @@ namespace _Project.Scripts.UI {
                 uiItemSlot.OnItemClicked += HandleItemSelection;
                 uiItemSlot.OnItemBeginDrag += HandleBeginDrag;
                 uiItemSlot.OnItemEndDrag += HandleEndDrag;
-                uiItemSlot.OnItemDroppedOn += HandleSwap;
                 uiItemSlot.OnRightMouseBtnClick += HandleShowItemActions;
             }
-        }
-        public void HandleClick() {
-            Debug.Log("Test");
+            uiSlots[activeSlot].Select();
         }
         protected override void HandleSwap(UIItemSlot obj) {
             draggedItem = UIHandler.instance.draggedItem;
-            int index = uiSlots.IndexOf(obj);
-            if (uiSlots[index] != null && draggedItem != null)
-                uiSlots[index].SetData(draggedItem.GetItemStack());
-        }
-        protected override void HandleItemSelection(UIItemSlot itemSlot) {
-            uiSlots[activeSlot].Deselect();
-            itemSlot.Select();
-            activeSlot = uiSlots.IndexOf(itemSlot);
-            OnInventoryEquipItem?.Invoke(itemSlot);
+            Debug.Log("Handling Swap with" + obj);
+            if (draggedItem != null) {
+                int index = uiSlots.IndexOf(obj);
+                if (uiSlots[index] != null && draggedItem != null) {
+                    uiSlots[index].SetData(draggedItem.GetItemStack());
+                    UIHandler.instance.draggedItem = null;
+                }
+                if (activeSlot == index)
+                    OnInventoryEquipItem?.Invoke(obj);
+            }
         }
         public void UpdateHotbarSlot(ItemStack itemStack) {
             //uiSlots[index].SetData();
         }
+
+        public UIItemSlot GetItemInSlot(int slot) => uiSlots[slot];
 
         public void UpdateEquippedItem(EquipmentSlotHandler slot) {
             Item item = slot.currentItemOnSlot;
@@ -52,5 +54,6 @@ namespace _Project.Scripts.UI {
             //else
                 //handSlots[1].sprite = item.itemIcon;
         }
+        public int GetSlotFromItem(UIItemSlot item) => uiSlots.IndexOf(item);
     }
 }

@@ -17,6 +17,8 @@ namespace _Project.Scripts.Handlers {
         private Inventory inventory;
         private AgressionHandler agressionHandler;
         private List<EquipmentSlotHandler> equimentSlotHandlers;
+
+        [SerializeField] private UIHotbarPanel hotbarPanel;
         
         private CameraHandler cameraHandler;
         public bool lockCamera;
@@ -36,13 +38,18 @@ namespace _Project.Scripts.Handlers {
             locomotion = GetComponent<Locomotion>();
             agressionHandler = GetComponent<AgressionHandler>();
             equimentSlotHandlers = GetComponentsInChildren<EquipmentSlotHandler>().ToList();
+            hotbarPanel = (hotbarPanel == null) ? GetComponent<UIHotbarPanel>() : hotbarPanel;
             inventory = new Inventory("Player Inventory", 2);
             UIHandler.instance.AddInventory(inventory);
             moveDirection = Vector3.zero;
             inventory.AddItem(sword, 0);
             inventory.AddItem(dagger, 1);
+            EventSubscriber();
         }
-        
+        private void EventSubscriber() {
+            hotbarPanel.OnInventoryEquipItem += HandleEquipment;
+        }
+
         private void FixedUpdate() {
             float delta = Time.fixedDeltaTime;
             if (cameraHandler != null) {
@@ -80,15 +87,44 @@ namespace _Project.Scripts.Handlers {
                 UIHandler.instance.DisplayAllInventories(isDisplaying);
                 UIHandler.instance.isDisplaying = !isDisplaying;
                 lockCamera = isDisplaying;
-                UIHandler.instance.hotbarPanel.OnInventoryEquipItem += HandleEquipment;
+            }
+            HandleEquipment(inputHandler.hotbarSlot, inputHandler.leftHandEquip);
+        }
+
+        #region HandleEquipment
+
+        public void HandleEquipment(UIItemSlot item) => HandleEquipment(item, false);
+        public void HandleEquipment(UIItemSlot item, bool isLeft = false) {
+            int activeSlot = hotbarPanel.activeSlot;
+            int hand = isLeft ? 0 : 1;
+            int otherHand = isLeft ? 1 : 0;
+            equimentSlotHandlers[hand].LoadItemModel(item);
+            if (isLeft) {
+                if (equimentSlotHandlers[otherHand] == null)
+                    equimentSlotHandlers[otherHand].UnloadItemAndDestroy();
+                else
+                    SwapEquipment(equimentSlotHandlers[hand], equimentSlotHandlers[otherHand]);
+            }
+            if (activeSlot != hotbarPanel.GetSlotFromItem(item)) {
+                hotbarPanel.GetItemInSlot(activeSlot).Deselect();
+            }
+            item.Select();
+            hotbarPanel.activeSlot = hotbarPanel.GetSlotFromItem(item);
+        }
+        public void HandleEquipment(int slot, bool isLeft = false) {
+            if ((hotbarPanel.activeSlot != slot && !isLeft) 
+                || isLeft) {
+                UIItemSlot item = hotbarPanel.GetItemInSlot(slot);
+                if (item != null)
+                    HandleEquipment(item, isLeft);
             }
         }
-        private void HandleEquipment(UIItemSlot item) {
-            if (item.GetItemStack().Item.GetType() == typeof(WeaponItem)) {
-                WeaponItem weaponItem = (WeaponItem) item.GetItemStack().Item;
-                equimentSlotHandlers[1].LoadItemModel(item);
-            }
+        private void SwapEquipment(EquipmentSlotHandler equipmentSlotHandler1, EquipmentSlotHandler equipmentSlotHandler2) {
+            Item tmp = equipmentSlotHandler2.currentItemOnSlot;
+            equipmentSlotHandler2.LoadItemModel(equipmentSlotHandler1.currentItemOnSlot);
+            equipmentSlotHandler1.LoadItemModel(tmp);
         }
+        #endregion
 
         private void HandleLocomotion(float delta) {
             moveDirection = cameraHandler.cameraTransform.forward * inputHandler.vertical;
@@ -107,6 +143,7 @@ namespace _Project.Scripts.Handlers {
             inputHandler.rb_Input = false;
             inputHandler.rt_Input = false;
             inputHandler.playerOverview = false;
+            inputHandler.leftHandEquip = false;
         }
     }
 }

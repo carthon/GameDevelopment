@@ -56,8 +56,6 @@ namespace _Project.Scripts.UI {
             OnItemDroppedOn?.Invoke(this);
         }
         public void OnPointerClick(BaseEventData data) {
-            if (empty)
-                return;
             PointerEventData pointerData = (PointerEventData) data;
             if(pointerData.button == PointerEventData.InputButton.Right)
                 OnRightMouseBtnClick?.Invoke(this);
@@ -65,5 +63,7 @@ namespace _Project.Scripts.UI {
                 OnItemClicked?.Invoke(this);
         }
         public ItemStack GetItemStack() => _itemStack;
+
+        public bool IsEmpty() => empty;
     }
 }

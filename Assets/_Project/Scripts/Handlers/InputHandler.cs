@@ -4,23 +4,29 @@ using Vector2 = UnityEngine.Vector2;
 
 namespace _Project.Scripts.Handlers {
     public class InputHandler : MonoBehaviour {
+        [Header("Movement Input")]
         public float horizontal;
         public float vertical;
         public float mouseX;
         public float mouseY;
         
+        [Header("Basic Inputs")]
         public bool b_Input;
         public bool rb_Input;
         public bool rt_Input;
-        public bool playerOverview;
         public bool rollFlag;
         public bool sprintFlag;
 
         private PlayerControlls inputActions;
         
+        [Header("UI Inputs")]
+        public bool playerOverview;
+        public int hotbarSlot;
+        
         private Vector2 movementInput;
         private Vector2 cameraInput;
         private float rollInputTimer;
+        public bool leftHandEquip;
 
         public void OnEnable() {
             if (inputActions == null) {
@@ -45,6 +51,8 @@ namespace _Project.Scripts.Handlers {
 
         private void HandleUIInput(float delta) {
             inputActions.UIActions.PlayerOverview.performed += i => playerOverview = true;
+            inputActions.UIActions.HotbarInput.performed += i => hotbarSlot = (int) i.ReadValue<float>();
+            inputActions.UIActions.EquipLeftHand.performed += i => leftHandEquip = true;
         }
 
         private void MoveInput(float delta) {

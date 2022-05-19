@@ -202,6 +202,22 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""HotbarInput"",
+                    ""type"": ""Value"",
+                    ""id"": ""2977c2ec-6acd-422c-8f9f-daab8847678e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""EquipLeftHand"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""65087058-4e50-4458-b3b5-34b33ad9a911"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -213,6 +229,127 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PlayerOverview"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""18f28a16-ff2e-4be4-93fd-0b399f373e27"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=0)"",
+                    ""groups"": """",
+                    ""action"": ""HotbarInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""66f0d446-bbd3-45b6-a078-3505e626d8c2"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": """",
+                    ""action"": ""HotbarInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7c781b78-f303-4097-936b-8494dedaf5e8"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": """",
+                    ""action"": ""HotbarInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d1f8160-eaec-45bf-a575-1a748ac82d0d"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": """",
+                    ""action"": ""HotbarInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f1a5f8b-68c5-4c22-b8c0-034eb715723a"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": """",
+                    ""action"": ""HotbarInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0da877fb-bdb4-43dc-a787-cf1af7311c67"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=5)"",
+                    ""groups"": """",
+                    ""action"": ""HotbarInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bfa15fc1-4fdf-45f1-9a9b-13cc383e9409"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=6)"",
+                    ""groups"": """",
+                    ""action"": ""HotbarInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a85d38f-8a5f-4989-8aa7-4e2bde533c64"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=7)"",
+                    ""groups"": """",
+                    ""action"": ""HotbarInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""929b2ddc-c70a-47dc-bd3f-dc9b421a2610"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=8)"",
+                    ""groups"": """",
+                    ""action"": ""HotbarInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c0e04e5c-818d-4669-80f6-1e803f414c9c"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=9)"",
+                    ""groups"": """",
+                    ""action"": ""HotbarInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a4e092ca-c9ce-4014-8eb3-397f76904945"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EquipLeftHand"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -233,6 +370,8 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
         // UIActions
         m_UIActions = asset.FindActionMap("UIActions", throwIfNotFound: true);
         m_UIActions_PlayerOverview = m_UIActions.FindAction("PlayerOverview", throwIfNotFound: true);
+        m_UIActions_HotbarInput = m_UIActions.FindAction("HotbarInput", throwIfNotFound: true);
+        m_UIActions_EquipLeftHand = m_UIActions.FindAction("EquipLeftHand", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -373,11 +512,15 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_UIActions;
     private IUIActionsActions m_UIActionsActionsCallbackInterface;
     private readonly InputAction m_UIActions_PlayerOverview;
+    private readonly InputAction m_UIActions_HotbarInput;
+    private readonly InputAction m_UIActions_EquipLeftHand;
     public struct UIActionsActions
     {
         private @PlayerControlls m_Wrapper;
         public UIActionsActions(@PlayerControlls wrapper) { m_Wrapper = wrapper; }
         public InputAction @PlayerOverview => m_Wrapper.m_UIActions_PlayerOverview;
+        public InputAction @HotbarInput => m_Wrapper.m_UIActions_HotbarInput;
+        public InputAction @EquipLeftHand => m_Wrapper.m_UIActions_EquipLeftHand;
         public InputActionMap Get() { return m_Wrapper.m_UIActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -390,6 +533,12 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
                 @PlayerOverview.started -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnPlayerOverview;
                 @PlayerOverview.performed -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnPlayerOverview;
                 @PlayerOverview.canceled -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnPlayerOverview;
+                @HotbarInput.started -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnHotbarInput;
+                @HotbarInput.performed -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnHotbarInput;
+                @HotbarInput.canceled -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnHotbarInput;
+                @EquipLeftHand.started -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnEquipLeftHand;
+                @EquipLeftHand.performed -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnEquipLeftHand;
+                @EquipLeftHand.canceled -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnEquipLeftHand;
             }
             m_Wrapper.m_UIActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -397,6 +546,12 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
                 @PlayerOverview.started += instance.OnPlayerOverview;
                 @PlayerOverview.performed += instance.OnPlayerOverview;
                 @PlayerOverview.canceled += instance.OnPlayerOverview;
+                @HotbarInput.started += instance.OnHotbarInput;
+                @HotbarInput.performed += instance.OnHotbarInput;
+                @HotbarInput.canceled += instance.OnHotbarInput;
+                @EquipLeftHand.started += instance.OnEquipLeftHand;
+                @EquipLeftHand.performed += instance.OnEquipLeftHand;
+                @EquipLeftHand.canceled += instance.OnEquipLeftHand;
             }
         }
     }
@@ -415,5 +570,7 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
     public interface IUIActionsActions
     {
         void OnPlayerOverview(InputAction.CallbackContext context);
+        void OnHotbarInput(InputAction.CallbackContext context);
+        void OnEquipLeftHand(InputAction.CallbackContext context);
     }
 }

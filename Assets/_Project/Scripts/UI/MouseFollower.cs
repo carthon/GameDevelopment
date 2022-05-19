@@ -9,6 +9,7 @@ namespace _Project.Scripts.UI {
     public class MouseFollower : MonoBehaviour {
         [SerializeField] private Canvas canvas;
         [SerializeField] private UIItemSlot uiItemSlot;
+        public bool Active { get; private set; }
 
         private void Awake() {
             canvas = transform.parent.GetComponent<Canvas>();
@@ -27,6 +28,7 @@ namespace _Project.Scripts.UI {
 
         public void Toggle(bool val) {
             gameObject.SetActive(val);
+            Active = val;
         }
     }
 }

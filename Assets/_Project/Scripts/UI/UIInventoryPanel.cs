@@ -15,8 +15,6 @@ namespace _Project.Scripts.UI {
         [Header("Body")]
         [SerializeField] private Transform inventoryHolder;
         [SerializeField] private GameObject itemSlotPrefab;
-        
-        private Item draggedItem;
 
         public void CreateInventoryUI() {
             if (inventory.GetInventorySlots() != null)
@@ -29,7 +27,6 @@ namespace _Project.Scripts.UI {
                 uiItemSlot.OnItemClicked += HandleItemSelection;
                 uiItemSlot.OnItemBeginDrag += HandleBeginDrag;
                 uiItemSlot.OnItemEndDrag += HandleEndDrag;
-                uiItemSlot.OnItemDroppedOn += HandleSwap;
                 uiItemSlot.OnRightMouseBtnClick += HandleShowItemActions;
             }
         }

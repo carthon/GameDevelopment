@@ -6,8 +6,6 @@ using UnityEngine;
 namespace _Project.Scripts.Handlers {
     public class EquipmentSlotHandler : MonoBehaviour {
         public Transform parentOverride;
-        public bool isLeftHandSlot;
-        public bool isRightHandSlot;
         public Item currentItemOnSlot;
 
         public GameObject currentItemModel;
