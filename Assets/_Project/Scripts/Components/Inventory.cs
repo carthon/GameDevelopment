@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Project.Scripts.Components.Items;
 using _Project.Scripts.UI;
 using UnityEditor.Experimental.GraphView;
@@ -13,7 +14,6 @@ namespace _Project.Scripts.Components {
         public event Action<int> OnItemPulledFromSlot;
         public string Name { get; set; }
         public int Size { get; private set; }
-        public int Count { get; private set; }
 
         public Inventory(string name, int size) {
             Name = name;
@@ -29,38 +29,75 @@ namespace _Project.Scripts.Components {
 
         private void Init() {
             items = new List<ItemStack>();
-            items.AddRange(new ItemStack[Size]);
         }
 
         public ItemStack GetItem(int slot) {
             ItemStack item = null;
-            if (items[slot] != null)
+            if (slot >= 0 && slot < items.Count && items[slot] != null)
                 item = items[slot];
             return item;
         }
 
-        public void AddItem(Item item, int slot) {
-            ItemStack itemStack = new ItemStack(item);
-            items[slot] = itemStack;
-            items[slot].Count++;
-            Count++;
+        public bool AddItemToSlot(ItemStack itemStack, int slot) {
+            bool success = false;
+            ItemStack itemInInventory = items.Find(item => itemStack.Item == item.Item);
+            if (itemInInventory != null) {
+                if ((int) itemInInventory.Size < itemInInventory.Count) {
+                    itemInInventory.Count += itemStack.Count;
+                    success = true;
+                }
+            }
+            else {
+                if (items.Count == 0)
+                    items.Add(itemStack);
+                else
+                    items.Insert(slot, itemStack);
+                success = true;
+            }
             OnItemAddedToSlot?.Invoke(slot);
+            return success;
         }
-        public Item PullItem(int slot) {
-            Item item = items[slot].Item;
-            items[slot].Count--;
-            if (items[slot].Count <= 0)
-                items[slot] = null;
-            Count--;
-            OnItemPulledFromSlot?.Invoke(slot);
-            return item;
+        public bool AddItemToSlot(Item item, int slot) {
+            ItemStack itemStack = new ItemStack(item);
+            itemStack.Count++;
+            return AddItemToSlot(itemStack, slot);
+        }
+
+        public bool AddItem(Item item) {
+            ItemStack itemStack = new ItemStack(item);
+            itemStack.Count++;
+            return AddItemToSlot(item, 0);
+        }
+        public bool AddItem(ItemStack item) {
+            return AddItemToSlot(item, 0);
+        }
+
+        public bool AddToInventory(ItemStack itemStack, Inventory inventory) {
+            bool success = inventory.AddItem(itemStack);
+            if (success) {
+                success = PullItem(itemStack) !=null;
+            }
+            return success;
+        }
+
+        public ItemStack PullItem(ItemStack itemStack) {
+            int indexOf = items.IndexOf(itemStack);
+            return PullItem(indexOf);
+        }
+        
+        public ItemStack PullItem(int slot) {
+            ItemStack itemStack = null;
+            if (slot >= 0 && slot < Size) {
+                itemStack = items[slot];
+                items[slot].Count--;
+                if (items[slot].Count <= 0)
+                    items.RemoveAt(slot);
+                OnItemPulledFromSlot?.Invoke(slot);
+            }
+            return itemStack;
         }
         public List<ItemStack> GetInventorySlots() => items;
-        public void SwapSlotItems(UIItemSlot draggedItem, UIItemSlot otherItem) {
-            int index = draggedItem.Parent.GetInventorySlots().IndexOf(draggedItem.GetItemStack());
-            int otherIndex = otherItem.Parent.GetInventorySlots().IndexOf(otherItem.GetItemStack());
-            otherItem.Parent.GetInventorySlots()[otherIndex] = draggedItem.GetItemStack();
-            draggedItem.Parent.GetInventorySlots()[index] = otherItem.GetItemStack();
-        }
+
+        public int GetItemsCount() => items.Count;
     }
 }

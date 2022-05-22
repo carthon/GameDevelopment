@@ -15,10 +15,11 @@ namespace _Project.Scripts.UI {
             if (mouseFollower.Active){
                 mouseFollower.Toggle(false);
                 HandleSwap(itemSlot);
+                UIHandler.instance.draggedItem = null;
             }
             else {
                 mouseFollower.Toggle(true);
-                mouseFollower.SetData(itemSlot.GetItemStack());
+                mouseFollower.SetData(itemSlot);
                 UIHandler.instance.draggedItem = itemSlot;
             }
         }
@@ -26,19 +27,21 @@ namespace _Project.Scripts.UI {
         }
         protected virtual void HandleSwap(UIItemSlot obj) {
             draggedItem = UIHandler.instance.draggedItem;
-            Debug.Log("Handling Swap (Base) with" + obj);
             // Item que va a ser sustituido
             int newSlotIndex = uiSlots.IndexOf(obj);
-            ItemStack newItemStack = draggedItem.GetItemStack();
             // Item agarrado
             int lastSlotIndex = uiSlots.IndexOf(draggedItem);
-            ItemStack oldItemStack = uiSlots[newSlotIndex].GetItemStack();
             if (newSlotIndex == -1 && lastSlotIndex == -1) return;
 
-            obj.Parent.SwapSlotItems(obj, draggedItem);
-            uiSlots[lastSlotIndex].SetData(oldItemStack);
-            uiSlots[newSlotIndex].SetData(newItemStack);
-            UIHandler.instance.draggedItem = null;
+            SwapSlotItems(obj, draggedItem);
+            uiSlots[lastSlotIndex].SetData(uiSlots[newSlotIndex]);
+            uiSlots[newSlotIndex].SetData(draggedItem);
+        }
+        private void SwapSlotItems(UIItemSlot draggedItem, UIItemSlot otherItem) {
+            int index = draggedItem.Parent.GetInventorySlots().IndexOf(draggedItem.GetItemStack());
+            int otherIndex = otherItem.Parent.GetInventorySlots().IndexOf(otherItem.GetItemStack());
+            otherItem.Parent.GetInventorySlots()[otherIndex] = draggedItem.GetItemStack();
+            draggedItem.Parent.GetInventorySlots()[index] = otherItem.GetItemStack();
         }
         protected virtual void HandleEndDrag(UIItemSlot obj) {
         }

@@ -14,7 +14,7 @@ namespace _Project.Scripts.UI {
         [SerializeField] private TMP_Text quantityTxt;
         [SerializeField] private Image borderImage;
         public event Action<UIItemSlot> OnItemClicked, OnItemDroppedOn, OnItemBeginDrag, 
-            OnItemEndDrag, OnRightMouseBtnClick;
+            OnItemEndDrag, OnRightMouseBtnClick, OnPullItemStack;
         private bool empty = true;
         public Inventory Parent { get; set; }
 
@@ -25,6 +25,7 @@ namespace _Project.Scripts.UI {
 
         public void ResetData() {
             itemImage.gameObject.SetActive(false);
+            _itemStack = null;
             empty = true;
         }
         public void Deselect() {
@@ -32,11 +33,23 @@ namespace _Project.Scripts.UI {
         }
 
         public void SetData(ItemStack item) {
-            itemImage.gameObject.SetActive(true);
-            _itemStack = item;
-            itemImage.sprite = item.Item.itemIcon;
-            quantityTxt.text = _itemStack.Count + "";
-            empty = false;
+            if (item != null) {
+                itemImage.gameObject.SetActive(true);
+                _itemStack = item;
+                itemImage.sprite = item.Item.itemIcon;
+                quantityTxt.text = _itemStack.Count + "";
+                empty = false;
+            }
+        }
+        public void SetData(UIItemSlot item) {
+            if (item != null) {
+                itemImage.gameObject.SetActive(true);
+                _itemStack = item.GetItemStack();
+                itemImage.sprite = _itemStack.Item.itemIcon;
+                quantityTxt.text = _itemStack.Count + "";
+                Parent = item.Parent;
+                empty = false;
+            }
         }
 
         public void Select() {
@@ -61,6 +74,13 @@ namespace _Project.Scripts.UI {
                 OnRightMouseBtnClick?.Invoke(this);
             else 
                 OnItemClicked?.Invoke(this);
+        }
+        public ItemStack PullItemStack() {
+            ItemStack itemStack = _itemStack;
+            Parent.PullItem(_itemStack);
+            ResetData();
+            OnPullItemStack?.Invoke(this);
+            return itemStack;
         }
         public ItemStack GetItemStack() => _itemStack;
 

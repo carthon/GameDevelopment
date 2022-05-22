@@ -1,39 +1,50 @@
 ﻿using System;
 using _Project.Scripts.Components;
+using _Project.Scripts.Components.Items;
 using _Project.Scripts.UI;
 using UnityEngine;
 
 namespace _Project.Scripts.Handlers {
     public class EquipmentSlotHandler : MonoBehaviour {
         public Transform parentOverride;
-        public Item currentItemOnSlot;
+        public ItemStack currentItemOnSlot;
 
         public GameObject currentItemModel;
-
+        public Inventory lastInventory;
+        [SerializeField] private EquipmentSlot _equipmentSlot;
+        public EquipmentSlot GetEquipmentSlot() => _equipmentSlot;
         public void UnloadItemModel() {
             if (currentItemModel != null)
                 currentItemModel.SetActive(false);
         }
 
+
         public void UnloadItemAndDestroy() {
             if (currentItemModel != null) {
                 currentItemOnSlot = null;
+                lastInventory = null;
                 Destroy(currentItemModel);
             }
         }
 
         public void LoadItemModel(UIItemSlot item) {
-            LoadItemModel(item.GetItemStack().Item);
+            LoadItemModel(item.PullItemStack());
+            lastInventory = item.Parent;
         }
 
-        public void LoadItemModel(Item item) {
+        public void LoadItemModel(ItemStack itemStack, Inventory lastInventory) {
+            LoadItemModel(itemStack);
+            this.lastInventory = lastInventory;
+        }
+
+        public void LoadItemModel(ItemStack itemStack) {
             UnloadItemAndDestroy();
-            if (item == null) {
+            if (itemStack == null) {
                 UnloadItemModel();
                 return;
             }
-            currentItemOnSlot = item;
-            GameObject model = Instantiate(item.modelPrefab) as GameObject;
+            currentItemOnSlot = itemStack;
+            GameObject model = Instantiate(itemStack.Item.modelPrefab) as GameObject;
             if (model != null)
                 if (parentOverride != null)
                     model.transform.parent = parentOverride;
@@ -44,5 +55,7 @@ namespace _Project.Scripts.Handlers {
             model.transform.localScale = Vector3.one;
             currentItemModel = model;
         }
+
+        public BodyPart GetEquipmentBodyPart() => _equipmentSlot.GetBodyPart();
     }
 }

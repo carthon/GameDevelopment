@@ -32,7 +32,7 @@ namespace _Project.Scripts.Handlers {
         public void AddInventory(Inventory inventory) {
             GameObject inventoryUI = Instantiate(modalInventoryPrefab, layoutUI.transform);
             UIInventoryPanel inventoryPanel = inventoryUI.GetComponent<UIInventoryPanel>();
-            inventoryPanel.SetInventoryPanel(inventory);
+            inventoryPanel.SetInventory(inventory);
             inventoryPanel.CreateInventoryUI();
             if (!modalInventories.Find(inv => inv.gameObject.name == name))
                 modalInventories.Add(inventoryPanel);
@@ -40,11 +40,18 @@ namespace _Project.Scripts.Handlers {
                 Debug.LogWarning("An inventory with that name already exists");
         }
 
-
         public void DisplayAllInventories(bool display) {
             foreach (UIInventoryPanel inventory in modalInventories) {
                 inventory.Display(display);
             }
         }
+
+        public void SyncAllInventoryPanels() {
+            foreach (UIInventoryPanel inventoryPanel in modalInventories) {
+                inventoryPanel.SyncInventoryToUI();
+            }
+        }
+
+        public List<UIInventoryPanel> GetInventoryPanels() => modalInventories;
     }
 }

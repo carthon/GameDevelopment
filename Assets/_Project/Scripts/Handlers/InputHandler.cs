@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using Vector2 = UnityEngine.Vector2;
 
@@ -18,15 +19,19 @@ namespace _Project.Scripts.Handlers {
         public bool sprintFlag;
 
         private PlayerControlls inputActions;
-        
-        [Header("UI Inputs")]
-        public bool playerOverview;
-        public int hotbarSlot;
-        
+
         private Vector2 movementInput;
         private Vector2 cameraInput;
         private float rollInputTimer;
-        public bool leftHandEquip;
+        
+        [Header("UI")]
+        public int hotbarItems;
+        public bool equipInput;
+        
+        public Action<int> OnLeftHandEquip;
+        public Action<bool> OnActivateUI;
+        public Action<int> OnHotbarEquip;
+        public bool enableUI;
 
         public void OnEnable() {
             if (inputActions == null) {
@@ -50,9 +55,16 @@ namespace _Project.Scripts.Handlers {
         }
 
         private void HandleUIInput(float delta) {
-            inputActions.UIActions.PlayerOverview.performed += i => playerOverview = true;
-            inputActions.UIActions.HotbarInput.performed += i => hotbarSlot = (int) i.ReadValue<float>();
-            inputActions.UIActions.EquipLeftHand.performed += i => leftHandEquip = true;
+            inputActions.UIActions.PlayerOverview.performed += i => enableUI = true;
+            inputActions.UIActions.HotbarInput.performed += i => {
+                hotbarItems = (int) i.ReadValue<float>();
+                equipInput = true;
+            };
+            inputActions.UIActions.EquipLeftHand.performed += i => {
+                hotbarItems = -1;
+                equipInput = true;
+            };
+
         }
 
         private void MoveInput(float delta) {
