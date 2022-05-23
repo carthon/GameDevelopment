@@ -38,10 +38,7 @@ namespace _Project.Scripts.UI {
             uiSlots[newSlotIndex].SetData(draggedItem);
         }
         private void SwapSlotItems(UIItemSlot draggedItem, UIItemSlot otherItem) {
-            int index = draggedItem.Parent.GetInventorySlots().IndexOf(draggedItem.GetItemStack());
-            int otherIndex = otherItem.Parent.GetInventorySlots().IndexOf(otherItem.GetItemStack());
-            otherItem.Parent.GetInventorySlots()[otherIndex] = draggedItem.GetItemStack();
-            draggedItem.Parent.GetInventorySlots()[index] = otherItem.GetItemStack();
+            ItemStack.SwapItemsStack(draggedItem.GrabItemStack(), otherItem.GrabItemStack());
         }
         protected virtual void HandleEndDrag(UIItemSlot obj) {
         }

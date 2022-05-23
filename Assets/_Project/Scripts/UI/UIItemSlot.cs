@@ -15,8 +15,6 @@ namespace _Project.Scripts.UI {
         [SerializeField] private Image borderImage;
         public event Action<UIItemSlot> OnItemClicked, OnItemDroppedOn, OnItemBeginDrag, 
             OnItemEndDrag, OnRightMouseBtnClick, OnPullItemStack;
-        private bool empty = true;
-        public Inventory Parent { get; set; }
 
         private void Awake() {
             ResetData();
@@ -25,30 +23,26 @@ namespace _Project.Scripts.UI {
 
         public void ResetData() {
             itemImage.gameObject.SetActive(false);
-            _itemStack = null;
-            empty = true;
+            _itemStack = ItemStack.EMPTY;
         }
         public void Deselect() {
             borderImage.enabled = false;
         }
 
         public void SetData(ItemStack item) {
-            if (item != null) {
+            if (!item.IsEmpty()) {
                 itemImage.gameObject.SetActive(true);
                 _itemStack = item;
                 itemImage.sprite = item.Item.itemIcon;
-                quantityTxt.text = _itemStack.Count + "";
-                empty = false;
+                quantityTxt.text = _itemStack.GetCount() + "";
             }
         }
         public void SetData(UIItemSlot item) {
-            if (item != null) {
+            if (!item.IsEmpty()) {
                 itemImage.gameObject.SetActive(true);
                 _itemStack = item.GetItemStack();
                 itemImage.sprite = _itemStack.Item.itemIcon;
-                quantityTxt.text = _itemStack.Count + "";
-                Parent = item.Parent;
-                empty = false;
+                quantityTxt.text = _itemStack.GetCount() + "";
             }
         }
 
@@ -57,7 +51,7 @@ namespace _Project.Scripts.UI {
         }
 
         public void OnBeginDrag() {
-            if (empty)
+            if (_itemStack.IsEmpty())
                 return;
             OnItemBeginDrag?.Invoke(this);
         }
@@ -75,15 +69,16 @@ namespace _Project.Scripts.UI {
             else 
                 OnItemClicked?.Invoke(this);
         }
-        public ItemStack PullItemStack() {
-            ItemStack itemStack = _itemStack;
-            Parent.PullItem(_itemStack);
-            ResetData();
+        public ItemStack GrabItemStack()
+        {
+            ItemStack itemStack = ItemStack.EMPTY;
+            if (!IsEmpty())
+                itemStack = _itemStack.TakeStack();
             OnPullItemStack?.Invoke(this);
             return itemStack;
         }
         public ItemStack GetItemStack() => _itemStack;
 
-        public bool IsEmpty() => empty;
+        public bool IsEmpty() => this._itemStack.IsEmpty();
     }
 }

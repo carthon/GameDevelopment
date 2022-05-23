@@ -54,17 +54,9 @@ namespace _Project.Scripts.UI {
             //uiSlots[index].SetData();
         }
 
-        public UIItemSlot GetItemInSlot(int slot) => uiSlots[slot];
+        public UIItemSlot GetItemHolderInSlot(int slot) => uiSlots[slot];
 
-        public void UpdateEquippedItem(UIItemSlot slot, EquipmentSlotHandler equipmentSlot) {
-            if (equipmentSlot != null) {
-                BodyPart bodyPart = equipmentSlot.GetEquipmentBodyPart();
-                if (bodyPart == BodyPart.LEFT_HAND || bodyPart == BodyPart.RIGHT_HAND) {
-                    equipmentSlots[(int)bodyPart].SetData(slot);
-                    slot.PullItemStack();
-                }
-            }
-        }
-        public int GetSlotFromItem(UIItemSlot item) => uiSlots.IndexOf(item);
+        public ItemStack GetItemStackInSlot(int slot) => uiSlots[slot].GetItemStack ();
+        public int GetSlotFromItemHolder(UIItemSlot itemHolder) => uiSlots.IndexOf(itemHolder);
     }
 }

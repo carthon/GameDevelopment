@@ -10,7 +10,6 @@ namespace _Project.Scripts.Handlers {
         public ItemStack currentItemOnSlot;
 
         public GameObject currentItemModel;
-        public Inventory lastInventory;
         [SerializeField] private EquipmentSlot _equipmentSlot;
         public EquipmentSlot GetEquipmentSlot() => _equipmentSlot;
         public void UnloadItemModel() {
@@ -22,28 +21,17 @@ namespace _Project.Scripts.Handlers {
         public void UnloadItemAndDestroy() {
             if (currentItemModel != null) {
                 currentItemOnSlot = null;
-                lastInventory = null;
                 Destroy(currentItemModel);
             }
         }
 
-        public void LoadItemModel(UIItemSlot item) {
-            LoadItemModel(item.PullItemStack());
-            lastInventory = item.Parent;
-        }
-
-        public void LoadItemModel(ItemStack itemStack, Inventory lastInventory) {
-            LoadItemModel(itemStack);
-            this.lastInventory = lastInventory;
-        }
-
         public void LoadItemModel(ItemStack itemStack) {
             UnloadItemAndDestroy();
-            if (itemStack == null) {
+            if (itemStack.IsEmpty()) {
                 UnloadItemModel();
                 return;
             }
-            currentItemOnSlot = itemStack;
+            currentItemOnSlot = new ItemStack(itemStack);
             GameObject model = Instantiate(itemStack.Item.modelPrefab) as GameObject;
             if (model != null)
                 if (parentOverride != null)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using _Project.Scripts.Components.Items;
 using _Project.Scripts.UI;
+using Google.Protobuf.WellKnownTypes;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -11,7 +12,6 @@ namespace _Project.Scripts.Components {
         private List<ItemStack> items;
 
         public event Action<int> OnItemAddedToSlot;
-        public event Action<int> OnItemPulledFromSlot;
         public string Name { get; set; }
         public int Size { get; private set; }
 
@@ -32,72 +32,69 @@ namespace _Project.Scripts.Components {
         }
 
         public ItemStack GetItem(int slot) {
-            ItemStack item = null;
-            if (slot >= 0 && slot < items.Count && items[slot] != null)
+            ItemStack item = ItemStack.EMPTY;
+            if (slot >= 0 && slot < Size && !items[slot].IsEmpty())
                 item = items[slot];
             return item;
         }
 
-        public bool AddItemToSlot(ItemStack itemStack, int slot) {
-            bool success = false;
+        public int AddItemToSlot(ItemStack itemStack, int slot) {
             ItemStack itemInInventory = items.Find(item => itemStack.Item == item.Item);
+            int difference = 0;
             if (itemInInventory != null) {
-                if ((int) itemInInventory.Size < itemInInventory.Count) {
-                    itemInInventory.Count += itemStack.Count;
-                    success = true;
-                }
+                difference = itemInInventory.AddToStack(itemStack.GetCount());
+                return difference;
             }
-            else {
-                if (items.Count == 0)
-                    items.Add(itemStack);
-                else
-                    items.Insert(slot, itemStack);
-                success = true;
+            else if (slot >= 0 && slot < Size){
+                items.Insert(slot, itemStack);
             }
             OnItemAddedToSlot?.Invoke(slot);
-            return success;
+            return difference;
         }
-        public bool AddItemToSlot(Item item, int slot) {
-            ItemStack itemStack = new ItemStack(item);
-            itemStack.Count++;
+        public int AddItemToSlot(Item item, int slot) {
+            ItemStack itemStack = new ItemStack(item, slot, this);
+            itemStack.AddToStack(1);
             return AddItemToSlot(itemStack, slot);
         }
 
-        public bool AddItem(Item item) {
-            ItemStack itemStack = new ItemStack(item);
-            itemStack.Count++;
+        public int AddItem(Item item) {
+            ItemStack itemStack = new ItemStack(item, 0, this);
+            itemStack.AddToStack(1);
             return AddItemToSlot(item, 0);
         }
-        public bool AddItem(ItemStack item) {
+        public int AddItem(ItemStack item) {
             return AddItemToSlot(item, 0);
         }
 
-        public bool AddToInventory(ItemStack itemStack, Inventory inventory) {
-            bool success = inventory.AddItem(itemStack);
-            if (success) {
-                success = PullItem(itemStack) !=null;
-            }
-            return success;
+        public int TakeAmount(ItemStack itemStack, int amount)
+        {
+            int itemSlot = GetItemStackSlot(itemStack);
+            return items[itemSlot].TakeFromStack(amount);
         }
 
-        public ItemStack PullItem(ItemStack itemStack) {
-            int indexOf = items.IndexOf(itemStack);
-            return PullItem(indexOf);
+        public ItemStack TakeStack(ItemStack itemStack) {
+            int indexOf = GetItemStackSlot(itemStack);
+            return TakeStackFromSlot(indexOf);
         }
         
-        public ItemStack PullItem(int slot) {
+        public ItemStack TakeStackFromSlot(int slot) {
             ItemStack itemStack = null;
             if (slot >= 0 && slot < Size) {
-                itemStack = items[slot];
-                items[slot].Count--;
-                if (items[slot].Count <= 0)
-                    items.RemoveAt(slot);
-                OnItemPulledFromSlot?.Invoke(slot);
+                itemStack = items[slot].TakeStack();
             }
             return itemStack;
         }
+        public int GetItemStackSlot(ItemStack itemStack) => items.IndexOf(itemStack);
         public List<ItemStack> GetInventorySlots() => items;
 
-        public int GetItemsCount() => items.Count;
+        public int GetItemsCount()
+        {
+            int count = 0;
+            foreach (ItemStack itemStack in items) {
+                if (!itemStack.IsEmpty ())
+                    count++;
+            }
+            return count;
+        }
     }
 }

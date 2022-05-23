@@ -14,6 +14,8 @@ namespace _Project.Scripts.Components {
         public ItemSize Size;
         [field: TextArea]
         public string Description { get; set; }
+
+        private int maxStackSize;
         public bool isStackable;
         public int intID => GetInstanceID();
 
@@ -29,5 +31,7 @@ namespace _Project.Scripts.Components {
             item.Init(itemIcon, itemName, modelPrefab, itemSize);
             return item;
         }
+
+        public int GetMaxStackSize() => maxStackSize;
     }
 }

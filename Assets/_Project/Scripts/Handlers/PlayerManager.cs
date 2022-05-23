@@ -96,51 +96,46 @@ namespace _Project.Scripts.Handlers {
 
         #region HandleEquipment
         public void HandleEquipment(int hotbarSlot) {
-            UIItemSlot uiSlot = hotbarSlot != -1 ? hotbarPanel.GetItemInSlot(hotbarSlot) :  hotbarPanel.GetItemInSlot(hotbarPanel.activeSlot);
+            UIItemSlot uiSlot = hotbarSlot != -1 ? hotbarPanel.GetItemHolderInSlot(hotbarSlot) :  hotbarPanel.GetItemHolderInSlot(hotbarPanel.activeSlot);
             BodyPart bodypart = hotbarSlot != -1 ? BodyPart.RIGHT_HAND : BodyPart.LEFT_HAND;
             EquipmentSlotHandler equipmentSlotHandler = equipmentSlotHandlers[bodypart];
-            ItemStack item = uiSlot.GetItemStack();
+            ItemStack item = uiSlot.GrabItemStack();
             int activeSlot = hotbarPanel.activeSlot;
-            #region SelectionMechanic
-            if (activeSlot != hotbarPanel.GetSlotFromItem(uiSlot)) {
-                hotbarPanel.GetItemInSlot(activeSlot).Deselect();
+            int nextActiveSlot = hotbarPanel.GetSlotFromItemHolder(uiSlot);
+            
+            if (activeSlot != nextActiveSlot) {
+                hotbarPanel.GetItemHolderInSlot(activeSlot).Deselect();
             }
-            if (item == null) {
-                uiSlot.Select();
-                hotbarPanel.activeSlot = hotbarPanel.GetSlotFromItem(uiSlot);
-                equipmentSlotHandler.UnloadItemAndDestroy();
-                return;
+            if (item.IsEmpty()) {
+                UnEquipItem(uiSlot, equipmentSlotHandler);
             }
-            uiSlot.Select();
-            #endregion
-            #region EquipItem
-            if (item.Item.GetType() == typeof(Wereable)) {
-                Wereable wereable = (Wereable) item.Item;
-                equipmentSlotHandler = equipmentSlotHandlers[wereable.GetBodyPart()];
-            }
-            if (equipmentSlotHandler != null)
-                EquipOnSlot(equipmentSlotHandler, uiSlot);
-            if (item.Item != null && item.Item.GetType() == typeof(Wereable))
+            if (equipmentSlotHandler.currentItemOnSlot.IsEmpty())
+                EquipItem(uiSlot, equipmentSlotHandler);
+            if (!item.IsEmpty() && item.Item.GetType() == typeof(Wereable))
                 Debug.Log("Se puede equipar!");
-            #endregion
-            hotbarPanel.activeSlot = hotbarPanel.GetSlotFromItem(uiSlot);
+            hotbarPanel.activeSlot = nextActiveSlot;
             UIHandler.instance.SyncAllInventoryPanels();
         }
-
-        private void EquipOnSlot(EquipmentSlotHandler equipmentSlotHandler, UIItemSlot uiSlot) {
-            UIItemSlot tmpSlot = uiSlot;
-            if (equipmentSlotHandler.currentItemOnSlot != null) {
-                uiSlot.SetData(equipmentSlotHandler.currentItemOnSlot);
-                uiSlot.Parent = equipmentSlotHandler.lastInventory;
-                equipmentSlotHandler.UnloadItemAndDestroy();
-            }
-            equipmentSlotHandler.LoadItemModel(tmpSlot);
-            uiSlot.SetData(equipmentSlotHandler.currentItemOnSlot);
-            uiSlot.Parent = equipmentSlotHandler.lastInventory;
-            hotbarPanel.UpdateEquippedItem(tmpSlot, equipmentSlotHandler);
-        }
         #endregion
+        private void EquipItem(UIItemSlot uiItemSlot, EquipmentSlotHandler equipmentSlotHandler)
+        {
+            uiItemSlot.Select();
+            ItemStack itemStack = uiItemSlot.GrabItemStack ();
+            if (itemStack.IsEmpty())
+                equipmentSlotHandler.LoadItemModel(itemStack);
+            else {
+                ItemStack.SwapItemsStack(itemStack, equipmentSlotHandler.currentItemOnSlot);
+                equipmentSlotHandler.LoadItemModel(equipmentSlotHandler.currentItemOnSlot);
+            }
+        }
 
+        private void UnEquipItem(UIItemSlot uiItemSlot, EquipmentSlotHandler equipmentSlotHandler)
+        {
+            uiItemSlot.Select();
+            ItemStack itemStack = uiItemSlot.GrabItemStack ();
+            itemStack.GetInventory ().AddItem(itemStack);
+            equipmentSlotHandler.UnloadItemAndDestroy();
+        }
         private void HandleLocomotion(float delta) {
             moveDirection = cameraHandler.cameraTransform.forward * inputHandler.vertical;
             moveDirection += cameraHandler.cameraTransform.right * inputHandler.horizontal;
