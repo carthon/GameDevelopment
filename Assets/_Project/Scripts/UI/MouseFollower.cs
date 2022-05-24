@@ -18,6 +18,7 @@ namespace _Project.Scripts.UI {
 
         public void SetData(UIItemSlot itemSlot) {
             uiItemSlot.SetData(itemSlot);
+            uiItemSlot.SlotID = itemSlot.SlotID;
         }
 
         public UIItemSlot GetData() => uiItemSlot;

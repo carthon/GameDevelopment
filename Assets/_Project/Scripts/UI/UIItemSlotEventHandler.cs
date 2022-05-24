@@ -17,7 +17,7 @@ namespace _Project.Scripts.UI {
                 HandleSwap(itemSlot);
                 UIHandler.instance.draggedItem = null;
             }
-            else {
+            else if (!itemSlot.IsEmpty()){
                 mouseFollower.Toggle(true);
                 mouseFollower.SetData(itemSlot);
                 UIHandler.instance.draggedItem = itemSlot;

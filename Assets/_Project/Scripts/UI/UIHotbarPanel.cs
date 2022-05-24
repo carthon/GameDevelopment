@@ -15,16 +15,18 @@ namespace _Project.Scripts.UI {
         [SerializeField] private Transform handsGroup;
         [SerializeField] private List<UIItemSlot> equipmentSlots;
         private UIItemSlot draggedItemSlot;
-        public event Action<UIItemSlot> OnInventoryEquipItem;
         public int activeSlot = 0;
         private void Awake() {
             uiSlots = hotbarTransform.GetComponentsInChildren<UIItemSlot>().ToList();
             equipmentSlots = handsGroup.GetComponentsInChildren<UIItemSlot>().ToList();
+            int i = 0;
             foreach (UIItemSlot uiItemSlot in uiSlots) {
                 uiItemSlot.OnItemClicked += HandleItemSelection;
                 uiItemSlot.OnItemBeginDrag += HandleBeginDrag;
                 uiItemSlot.OnItemEndDrag += HandleEndDrag;
                 uiItemSlot.OnRightMouseBtnClick += HandleShowItemActions;
+                uiItemSlot.SlotID = i;
+                i++;
             }
             uiSlots[activeSlot].Select();
         }
@@ -33,21 +35,17 @@ namespace _Project.Scripts.UI {
             ItemStack draggedItem = draggedItemSlot.GetItemStack();
             bool itemSwaped = false;
             Debug.Log("Handling Swap with" + obj);
-            if (draggedItemSlot != null) {
-                int index = uiSlots.IndexOf(obj);
-                int indexDragged = uiSlots.FindIndex(itemPerSlot => draggedItem == itemPerSlot.GetItemStack());
-                if (uiSlots[index] != null && draggedItemSlot != null) {
-                    if (!uiSlots[index].IsEmpty() && indexDragged != -1) {
-                        uiSlots[indexDragged].SetData(obj);
-                        itemSwaped = true;
-                    }
-                    uiSlots[index].SetData(draggedItemSlot);
-                    if (indexDragged != -1 && !itemSwaped) {
-                        uiSlots[indexDragged].ResetData();
-                    }
+            if (!draggedItem.IsEmpty()) {
+                int index = obj.SlotID;
+                int indexInHotbar = uiSlots.FindIndex(itemPerSlot => draggedItem.Equals(itemPerSlot.GetItemStack()));
+                if (!obj.IsEmpty()) {
+                    uiSlots[draggedItemSlot.SlotID].SetData(obj.GetItemStack());
+                    itemSwaped = true;
                 }
-                if (activeSlot == index)
-                    OnInventoryEquipItem?.Invoke(obj);
+                if (!itemSwaped && indexInHotbar != -1) {
+                    uiSlots[indexInHotbar].ResetData();
+                }
+                uiSlots[index].SetData(draggedItem);
             }
         }
         public void UpdateHotbarSlot(ItemStack itemStack) {
@@ -58,5 +56,6 @@ namespace _Project.Scripts.UI {
 
         public ItemStack GetItemStackInSlot(int slot) => uiSlots[slot].GetItemStack ();
         public int GetSlotFromItemHolder(UIItemSlot itemHolder) => uiSlots.IndexOf(itemHolder);
+        public List<UIItemSlot> GetEquipmentSlots() => equipmentSlots;
     }
 }

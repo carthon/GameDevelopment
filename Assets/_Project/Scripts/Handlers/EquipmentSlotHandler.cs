@@ -7,20 +7,22 @@ using UnityEngine;
 namespace _Project.Scripts.Handlers {
     public class EquipmentSlotHandler : MonoBehaviour {
         public Transform parentOverride;
-        public ItemStack currentItemOnSlot;
+        public Inventory currentInventory;
 
         public GameObject currentItemModel;
         [SerializeField] private EquipmentSlot _equipmentSlot;
         public EquipmentSlot GetEquipmentSlot() => _equipmentSlot;
+        
+        private void Awake() {
+            currentInventory = new Inventory(1);
+        }
         public void UnloadItemModel() {
             if (currentItemModel != null)
                 currentItemModel.SetActive(false);
         }
-
-
         public void UnloadItemAndDestroy() {
             if (currentItemModel != null) {
-                currentItemOnSlot = null;
+                currentInventory.TakeStackFromSlot(0);
                 Destroy(currentItemModel);
             }
         }
@@ -31,7 +33,7 @@ namespace _Project.Scripts.Handlers {
                 UnloadItemModel();
                 return;
             }
-            currentItemOnSlot = new ItemStack(itemStack);
+            currentInventory.AddItem(new ItemStack(itemStack));
             GameObject model = Instantiate(itemStack.Item.modelPrefab) as GameObject;
             if (model != null)
                 if (parentOverride != null)
@@ -44,6 +46,7 @@ namespace _Project.Scripts.Handlers {
             currentItemModel = model;
         }
 
+        public bool IsEmpty() => currentInventory.GetItem(0).IsEmpty();
         public BodyPart GetEquipmentBodyPart() => _equipmentSlot.GetBodyPart();
     }
 }

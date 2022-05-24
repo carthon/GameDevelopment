@@ -213,7 +213,7 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""EquipLeftHand"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""65087058-4e50-4458-b3b5-34b33ad9a911"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

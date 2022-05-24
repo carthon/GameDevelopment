@@ -4,6 +4,7 @@ using _Project.Scripts.Components.Items;
 using _Project.Scripts.Handlers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace _Project.Scripts.UI {
@@ -21,19 +22,24 @@ namespace _Project.Scripts.UI {
                 uiSlots = new List<UIItemSlot>();
             for (int i = 0; i < inventory.Size; i++) {
                 UIItemSlot uiItemSlot = Instantiate(itemSlotPrefab, inventoryHolder).GetComponent<UIItemSlot>();
-                uiItemSlot.SetData(new ItemStack(inventory));
+                uiItemSlot.SetData(new ItemStack(inventory, i));
                 uiSlots.Add(uiItemSlot);
                 inventory.OnItemAddedToSlot += HandleNewItem;
+                inventory.OnItemTakenFromSlot += HandleItemTaken;
                 uiItemSlot.OnItemClicked += HandleItemSelection;
                 uiItemSlot.OnItemBeginDrag += HandleBeginDrag;
                 uiItemSlot.OnItemEndDrag += HandleEndDrag;
                 uiItemSlot.OnRightMouseBtnClick += HandleShowItemActions;
             }
         }
-        private void HandleNewItem(int slot) {
-            ItemStack item = inventory.GetItem(slot);
+        private void HandleNewItem(int slot, Inventory inventoryItem) {
+            ItemStack item = inventoryItem.GetItem(slot);
             uiSlots[slot].SetData(item);
-            SyncInventoryToUI();
+            SyncInventorySlot(slot);
+        }
+        private void HandleItemTaken(int slot, Inventory inventoryItem) {
+            uiSlots[slot].ResetData();
+            SyncInventorySlot(slot);
         }
 
         public void SyncInventoryToUI() {
@@ -41,9 +47,16 @@ namespace _Project.Scripts.UI {
             foreach (UIItemSlot uiItemSlot in uiSlots) {
                 uiItemSlot.ResetData();
                 ItemStack itemStack = inventory.GetItem(i);
-                uiItemSlot.SetData(itemStack);
+                itemStack.SetInventory(inventory);
+                itemStack.SetSlot(i);
+                if (!itemStack.IsEmpty()) 
+                    uiItemSlot.SetData(itemStack);
                 i++;
             }
+        }
+        public void SyncInventorySlot(int slot) {
+            ItemStack itemStack = inventory.GetItem(slot);
+            uiSlots[slot].SetData(itemStack);
         }
 
         public void Display(bool display) {

@@ -11,7 +11,8 @@ namespace _Project.Scripts.Components {
     public class Inventory {
         private List<ItemStack> items;
 
-        public event Action<int> OnItemAddedToSlot;
+        public event Action<int, Inventory> OnItemAddedToSlot;
+        public event Action<int, Inventory> OnItemTakenFromSlot;
         public string Name { get; set; }
         public int Size { get; private set; }
 
@@ -29,6 +30,9 @@ namespace _Project.Scripts.Components {
 
         private void Init() {
             items = new List<ItemStack>();
+            for (int i = 0; i < Size; i++) {
+                items.Add(new ItemStack(this, i));
+            }
         }
 
         public ItemStack GetItem(int slot) {
@@ -40,15 +44,17 @@ namespace _Project.Scripts.Components {
 
         public int AddItemToSlot(ItemStack itemStack, int slot) {
             ItemStack itemInInventory = items.Find(item => itemStack.Item == item.Item);
+            if (itemInInventory!= null) slot = itemInInventory.GetSlotID();
             int difference = 0;
             if (itemInInventory != null) {
                 difference = itemInInventory.AddToStack(itemStack.GetCount());
                 return difference;
             }
             else if (slot >= 0 && slot < Size){
-                items.Insert(slot, itemStack);
+                slot = items.FindIndex(item => item.IsEmpty());
+                items[slot].SetStack(itemStack);
             }
-            OnItemAddedToSlot?.Invoke(slot);
+            OnItemAddedToSlot?.Invoke(slot, this);
             return difference;
         }
         public int AddItemToSlot(Item item, int slot) {
@@ -69,6 +75,7 @@ namespace _Project.Scripts.Components {
         public int TakeAmount(ItemStack itemStack, int amount)
         {
             int itemSlot = GetItemStackSlot(itemStack);
+            OnItemTakenFromSlot?.Invoke(itemSlot, this);
             return items[itemSlot].TakeFromStack(amount);
         }
 
@@ -82,6 +89,7 @@ namespace _Project.Scripts.Components {
             if (slot >= 0 && slot < Size) {
                 itemStack = items[slot].TakeStack();
             }
+            OnItemTakenFromSlot?.Invoke(slot, this);
             return itemStack;
         }
         public int GetItemStackSlot(ItemStack itemStack) => items.IndexOf(itemStack);

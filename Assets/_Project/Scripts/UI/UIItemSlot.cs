@@ -13,6 +13,8 @@ namespace _Project.Scripts.UI {
         [SerializeField] private Image itemImage;
         [SerializeField] private TMP_Text quantityTxt;
         [SerializeField] private Image borderImage;
+        public int SlotID { get; set; }
+
         public event Action<UIItemSlot> OnItemClicked, OnItemDroppedOn, OnItemBeginDrag, 
             OnItemEndDrag, OnRightMouseBtnClick, OnPullItemStack;
 
@@ -23,7 +25,7 @@ namespace _Project.Scripts.UI {
 
         public void ResetData() {
             itemImage.gameObject.SetActive(false);
-            _itemStack = ItemStack.EMPTY;
+            _itemStack = new ItemStack();
         }
         public void Deselect() {
             borderImage.enabled = false;
@@ -33,6 +35,7 @@ namespace _Project.Scripts.UI {
             if (!item.IsEmpty()) {
                 itemImage.gameObject.SetActive(true);
                 _itemStack = item;
+                _itemStack.SetSlot(item.GetSlotID());
                 itemImage.sprite = item.Item.itemIcon;
                 quantityTxt.text = _itemStack.GetCount() + "";
             }
@@ -41,6 +44,7 @@ namespace _Project.Scripts.UI {
             if (!item.IsEmpty()) {
                 itemImage.gameObject.SetActive(true);
                 _itemStack = item.GetItemStack();
+                _itemStack.SetSlot(item.GetItemStack().GetSlotID());
                 itemImage.sprite = _itemStack.Item.itemIcon;
                 quantityTxt.text = _itemStack.GetCount() + "";
             }
@@ -69,15 +73,17 @@ namespace _Project.Scripts.UI {
             else 
                 OnItemClicked?.Invoke(this);
         }
-        public ItemStack GrabItemStack()
-        {
-            ItemStack itemStack = ItemStack.EMPTY;
+        public ItemStack GrabItemStack() {
+            ItemStack itemStack;
             if (!IsEmpty())
-                itemStack = _itemStack.TakeStack();
+                itemStack = _itemStack.GetInventory().TakeStack(_itemStack);
+            else
+                itemStack = _itemStack.GetCopy();
             OnPullItemStack?.Invoke(this);
             return itemStack;
         }
         public ItemStack GetItemStack() => _itemStack;
+        public ItemStack GetItemStackCopy() => new ItemStack(_itemStack);
 
         public bool IsEmpty() => this._itemStack.IsEmpty();
     }

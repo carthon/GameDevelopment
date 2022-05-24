@@ -15,8 +15,7 @@ namespace _Project.Scripts.Components {
         [field: TextArea]
         public string Description { get; set; }
 
-        private int maxStackSize;
-        public bool isStackable;
+        [SerializeField] private int maxStackSize;
         public int intID => GetInstanceID();
 
         private void Init(Sprite itemIcon, string itemName, GameObject modelPrefab, ItemSize itemSize) {
@@ -31,6 +30,7 @@ namespace _Project.Scripts.Components {
             item.Init(itemIcon, itemName, modelPrefab, itemSize);
             return item;
         }
+        public bool IsStackable() => maxStackSize != 1;
 
         public int GetMaxStackSize() => maxStackSize;
     }

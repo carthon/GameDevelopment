@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Shield
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 21300000, guid: 47c96e5414c2b4449920b448538df93a, type: 3}
-  itemName: Shield
   modelPrefab: {fileID: 182892, guid: a72fcdd51f52f5146b54b8faccf63756, type: 3}
   Size: 1
+  maxStackSize: 1
   isUnarmed: 0
   OH_Light_Attack_1: 
   OH_Heavy_Attack_1: 
