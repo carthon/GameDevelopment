@@ -1,31 +1,57 @@
 ﻿using System;
-using _Project.Scripts.Components;
 using _Project.Scripts.Components.Items;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace _Project.Scripts.UI {
     public class UIItemSlot : MonoBehaviour {
-        private ItemStack _itemStack;
-        [SerializeField] private Image itemImage;
-        [SerializeField] private TMP_Text quantityTxt;
-        [SerializeField] private Image borderImage;
-        public int SlotID { get; set; }
-
+        protected ItemStack itemStack;
+        [SerializeField] protected Image itemImage;
+        [SerializeField] protected TMP_Text quantityTxt;
+        [SerializeField] protected Image borderImage;
+        private UIInventoryPanel parent;
         public event Action<UIItemSlot> OnItemClicked, OnItemDroppedOn, OnItemBeginDrag, 
             OnItemEndDrag, OnRightMouseBtnClick, OnPullItemStack;
+        public int SlotID { get; set; }
 
         private void Awake() {
             ResetData();
             Deselect();
         }
 
+        public virtual void OnBeginDrag() {
+            InvokeEvent(OnItemBeginDrag, this);
+        }
+        public virtual void OnEndDrag() {
+            InvokeEvent(OnItemEndDrag, this);
+        }
+
+        public virtual void OnDrop() {
+            InvokeEvent(OnItemDroppedOn, this);
+        }
+        public virtual void OnPointerClick(BaseEventData data) {
+            PointerEventData pointerData = (PointerEventData) data;
+            if (pointerData.button == PointerEventData.InputButton.Right)
+                InvokeEvent(OnRightMouseBtnClick, this);
+            else
+                InvokeEvent(OnItemClicked, this);
+        }
+        private void InvokeEvent(Action<UIItemSlot> action, UIItemSlot slot) {
+            UIItemSlot itemSlot = slot;
+            if (slot.GetType() == typeof(UIHotbarSlot))
+                action?.Invoke((UIHotbarSlot) slot);
+            else if (slot.GetType() == typeof(UIEquipmentSlot))
+                action?.Invoke((UIEquipmentSlot) slot);
+            else
+                action?.Invoke((UIItemSlot) slot);
+        
+        }
+
         public void ResetData() {
             itemImage.gameObject.SetActive(false);
-            _itemStack = new ItemStack();
+            itemStack = new ItemStack();
         }
         public void Deselect() {
             borderImage.enabled = false;
@@ -34,57 +60,43 @@ namespace _Project.Scripts.UI {
         public void SetData(ItemStack item) {
             if (!item.IsEmpty()) {
                 itemImage.gameObject.SetActive(true);
-                _itemStack = item;
-                _itemStack.SetSlot(item.GetSlotID());
+                itemStack = item;
+                itemStack.SetSlot(item.GetSlotID());
                 itemImage.sprite = item.Item.itemIcon;
-                quantityTxt.text = _itemStack.GetCount() + "";
+                quantityTxt.text = itemStack.GetCount() + "";
             }
+            else
+                ResetData();
         }
         public void SetData(UIItemSlot item) {
             if (!item.IsEmpty()) {
                 itemImage.gameObject.SetActive(true);
-                _itemStack = item.GetItemStack();
-                _itemStack.SetSlot(item.GetItemStack().GetSlotID());
-                itemImage.sprite = _itemStack.Item.itemIcon;
-                quantityTxt.text = _itemStack.GetCount() + "";
+                itemStack = item.GetItemStack();
+                //itemStack.SetSlot(item.GetItemStack().GetSlotID());
+                itemImage.sprite = itemStack.Item.itemIcon;
+                quantityTxt.text = itemStack.GetCount() + "";
             }
         }
 
+        public void UpdateData() {
+            if (!itemStack.IsEmpty()) {
+                itemImage.gameObject.SetActive(true);
+                itemImage.sprite = itemStack.Item.itemIcon;
+                quantityTxt.text = itemStack.GetCount() + "";
+            }
+            else {
+                itemImage.gameObject.SetActive(false);
+            }
+        }
         public void Select() {
             borderImage.enabled = true;
         }
+        public ItemStack GetItemStack() => itemStack;
+        public ItemStack GetItemStackCopy() => new ItemStack(itemStack);
 
-        public void OnBeginDrag() {
-            if (_itemStack.IsEmpty())
-                return;
-            OnItemBeginDrag?.Invoke(this);
-        }
-        public void OnEndDrag() {
-            OnItemEndDrag?.Invoke(this);
-        }
-
-        public void OnDrop() {
-            OnItemDroppedOn?.Invoke(this);
-        }
-        public void OnPointerClick(BaseEventData data) {
-            PointerEventData pointerData = (PointerEventData) data;
-            if(pointerData.button == PointerEventData.InputButton.Right)
-                OnRightMouseBtnClick?.Invoke(this);
-            else 
-                OnItemClicked?.Invoke(this);
-        }
-        public ItemStack GrabItemStack() {
-            ItemStack itemStack;
-            if (!IsEmpty())
-                itemStack = _itemStack.GetInventory().TakeStack(_itemStack);
-            else
-                itemStack = _itemStack.GetCopy();
-            OnPullItemStack?.Invoke(this);
-            return itemStack;
-        }
-        public ItemStack GetItemStack() => _itemStack;
-        public ItemStack GetItemStackCopy() => new ItemStack(_itemStack);
-
-        public bool IsEmpty() => this._itemStack.IsEmpty();
+        public virtual UIPanelsBase GetParent() => parent;
+        public void SetParent(UIInventoryPanel panel) => parent = panel;
+        
+        public bool IsEmpty() => this.itemStack.IsEmpty();
     }
 }

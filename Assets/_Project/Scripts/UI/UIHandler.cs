@@ -16,10 +16,10 @@ namespace _Project.Scripts.Handlers {
         public bool isDisplaying = false;
 
         private List<UIInventoryPanel> modalInventories;
+        private PlayerManager playerManager;
         [SerializeField] public MouseFollower mouseFollower;
         public UIHotbarPanel hotbarPanel;
         public GameObject modalInventoryPrefab;
-        public UIItemSlot draggedItem;
 
         private void Awake() {
             instance = this;
@@ -53,5 +53,7 @@ namespace _Project.Scripts.Handlers {
         }
 
         public List<UIInventoryPanel> GetInventoryPanels() => modalInventories;
+        public void SetPlayer(PlayerManager newPlayerManager) => playerManager = newPlayerManager;
+        public PlayerManager GetPlayer() => playerManager;
     }
 }

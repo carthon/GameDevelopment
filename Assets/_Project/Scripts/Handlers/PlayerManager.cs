@@ -14,7 +14,6 @@ namespace _Project.Scripts.Handlers {
         private Inventory inventory;
         private AgressionHandler agressionHandler;
         
-        [SerializeField] private Dictionary<BodyPart,EquipmentSlotHandler> equipmentSlotHandlers;
 
         [SerializeField] private UIHotbarPanel hotbarPanel;
         
@@ -38,16 +37,10 @@ namespace _Project.Scripts.Handlers {
             hotbarPanel = (hotbarPanel == null) ? GetComponent<UIHotbarPanel>() : hotbarPanel;
             inventory = new Inventory("Player Inventory", 2);
             UIHandler.instance.AddInventory(inventory);
-            equipmentSlotHandlers = new Dictionary<BodyPart, EquipmentSlotHandler>();
-            foreach (EquipmentSlotHandler equipmentSlotHandler in GetComponentsInChildren<EquipmentSlotHandler>()) {
-                equipmentSlotHandlers.Add(equipmentSlotHandler.GetEquipmentBodyPart(), equipmentSlotHandler);
-            }
+            UIHandler.instance.SetPlayer(this);
             moveDirection = Vector3.zero;
             inventory.AddItem(sword);
             inventory.AddItem(dagger);
-            EventSubscriber();
-        }
-        private void EventSubscriber() {
         }
 
         private void FixedUpdate() {
@@ -89,68 +82,10 @@ namespace _Project.Scripts.Handlers {
                 lockCamera = isDisplaying;
             }
             if (inputHandler.equipInput) {
-                HandleEquipment(inputHandler.hotbarItems);
+                bool isLeft = inputHandler.hotbarItems == -1;
+                hotbarPanel.UseItem(inputHandler.hotbarItems, isLeft);
                 inputHandler.equipInput = false;
             }
-        }
-
-        #region HandleEquipment
-        public void HandleEquipment(int hotbarSlot) {
-            UIItemSlot uiSlot = hotbarSlot != -1 ? hotbarPanel.GetItemHolderInSlot(hotbarSlot) :  hotbarPanel.GetItemHolderInSlot(hotbarPanel.activeSlot);
-            BodyPart bodypart = hotbarSlot != -1 ? BodyPart.RIGHT_HAND : BodyPart.LEFT_HAND;
-            EquipmentSlotHandler equipmentSlotHandler = equipmentSlotHandlers[bodypart];
-            int activeSlot = hotbarPanel.activeSlot;
-            int nextActiveSlot = hotbarPanel.GetSlotFromItemHolder(uiSlot);
-            ItemStack item = uiSlot.GetItemStack();
-            
-            if (activeSlot != nextActiveSlot) {
-                hotbarPanel.GetItemHolderInSlot(activeSlot).Deselect();
-            }
-            // @TODO: Revisar el cuando equipa o desequipa un objeto, ahora los equipmentSlots tienen un inventario de un slot
-            if (item.Equals(equipmentSlotHandler.currentInventory.GetItem(0))) {
-                UnEquipItem(uiSlot, equipmentSlotHandler);
-            }else
-                EquipItem(uiSlot, equipmentSlotHandler);
-            if (!item.IsEmpty() && item.Item.GetType() == typeof(Wereable))
-                Debug.Log("Se puede equipar!");
-            hotbarPanel.activeSlot = nextActiveSlot;
-        }
-        #endregion
-        private void EquipItem(UIItemSlot uiItemSlot, EquipmentSlotHandler equipmentSlotHandler)
-        {
-            uiItemSlot.Select();
-            ItemStack itemStack = uiItemSlot.GrabItemStack();
-            EquipmentSlotHandler sameItemEquiped = equipmentSlotHandlers.Values.ToList()
-                .Find(otherItem => otherItem.currentInventory.Equals(itemStack));
-            if (equipmentSlotHandler.IsEmpty() && sameItemEquiped == null)
-                equipmentSlotHandler.LoadItemModel(itemStack);
-            else if(!itemStack.IsEmpty() || sameItemEquiped != null) {
-                ItemStack realItemStack = sameItemEquiped != null ? sameItemEquiped.currentInventory.TakeStackFromSlot(0) : itemStack;
-                ItemStack.SwapItemsStack(realItemStack, equipmentSlotHandler.currentInventory.TakeStackFromSlot(0));
-                if (sameItemEquiped == null) 
-                    itemStack.GetInventory().AddItem(realItemStack);
-                else if (sameItemEquiped.IsEmpty()){
-                    hotbarPanel.GetEquipmentSlots()[(int) sameItemEquiped.GetEquipmentBodyPart()].ResetData();
-                    sameItemEquiped.UnloadItemAndDestroy();
-                }
-                else {
-                    hotbarPanel.GetEquipmentSlots()[(int) sameItemEquiped.GetEquipmentBodyPart()].SetData(sameItemEquiped.currentInventory.GetItem(0));
-                    sameItemEquiped.LoadItemModel(sameItemEquiped.currentInventory.GetItem(0));
-                }
-                    
-                equipmentSlotHandler.LoadItemModel(equipmentSlotHandler.currentInventory.GetItem(0));
-            }
-            hotbarPanel.GetEquipmentSlots()[(int)equipmentSlotHandler.GetEquipmentBodyPart()].SetData(equipmentSlotHandler.currentInventory.GetItem(0));
-            //UIHandler.instance.SyncAllInventoryPanels();
-        }
-
-        private void UnEquipItem(UIItemSlot uiItemSlot, EquipmentSlotHandler equipmentSlotHandler)
-        {
-            uiItemSlot.Select();
-            ItemStack itemStack = equipmentSlotHandler.currentInventory.TakeStackFromSlot(0);
-            itemStack.GetInventory().AddItem(itemStack);
-            equipmentSlotHandler.UnloadItemAndDestroy();
-            hotbarPanel.GetEquipmentSlots()[(int)equipmentSlotHandler.GetEquipmentBodyPart()].ResetData();
         }
         private void HandleLocomotion(float delta) {
             moveDirection = cameraHandler.cameraTransform.forward * inputHandler.vertical;

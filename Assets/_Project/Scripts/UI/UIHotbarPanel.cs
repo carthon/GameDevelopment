@@ -5,57 +5,96 @@ using _Project.Scripts.Components;
 using _Project.Scripts.Components.Items;
 using _Project.Scripts.Handlers;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 namespace _Project.Scripts.UI {
-    public class UIHotbarPanel : UIItemSlotEventHandler {
+    public partial class UIHotbarPanel : UIPanelsBase {
         [SerializeField] private Transform hotbarTransform;
         [SerializeField] private Transform handsGroup;
-        [SerializeField] private List<UIItemSlot> equipmentSlots;
-        private UIItemSlot draggedItemSlot;
+        [SerializeField] private List<UIEquipmentSlot> equipmentSlots;
+        private List<UIHotbarSlot> hotbarSlots;
         public int activeSlot = 0;
-        private void Awake() {
-            uiSlots = hotbarTransform.GetComponentsInChildren<UIItemSlot>().ToList();
-            equipmentSlots = handsGroup.GetComponentsInChildren<UIItemSlot>().ToList();
+        
+        protected override void Start() {
+            base.Start();
+            hotbarSlots = hotbarTransform.GetComponentsInChildren<UIHotbarSlot>().ToList();
+            equipmentSlots = handsGroup.GetComponentsInChildren<UIEquipmentSlot>().ToList();
             int i = 0;
-            foreach (UIItemSlot uiItemSlot in uiSlots) {
-                uiItemSlot.OnItemClicked += HandleItemSelection;
-                uiItemSlot.OnItemBeginDrag += HandleBeginDrag;
-                uiItemSlot.OnItemEndDrag += HandleEndDrag;
-                uiItemSlot.OnRightMouseBtnClick += HandleShowItemActions;
+            foreach (UIHotbarSlot uiItemSlot in hotbarSlots) {
                 uiItemSlot.SlotID = i;
+                uiItemSlot.SetParent(this);
+                uiItemSlot.OnItemClicked += HandleItemSelection;
                 i++;
             }
-            uiSlots[activeSlot].Select();
+            foreach (UIEquipmentSlot uiEquipmentSlot in equipmentSlots) {
+                Debug.Log("Setting equipment to " + uiEquipmentSlot.GetEquipmentSlot().GetBodyPart() + "\nto UIElement: " + uiEquipmentSlot);
+                equipmentSlotHandlers[uiEquipmentSlot.GetEquipmentSlot().GetBodyPart()].SetParent(uiEquipmentSlot);
+            }
+            hotbarSlots[activeSlot].Select();
         }
-        protected override void HandleSwap(UIItemSlot obj) {
-            draggedItemSlot = UIHandler.instance.draggedItem;
+
+        public override void HandleSwap(UIItemSlot obj) {
+            UIItemSlot draggedItemSlot = UIHandler.instance.mouseFollower.GetData();
             ItemStack draggedItem = draggedItemSlot.GetItemStack();
             bool itemSwaped = false;
             Debug.Log("Handling Swap with" + obj);
             if (!draggedItem.IsEmpty()) {
                 int index = obj.SlotID;
-                int indexInHotbar = uiSlots.FindIndex(itemPerSlot => draggedItem.Equals(itemPerSlot.GetItemStack()));
+                int indexInHotbar = hotbarSlots.FindIndex(itemPerSlot => draggedItem.Equals(itemPerSlot.GetItemStack()));
                 if (!obj.IsEmpty()) {
-                    uiSlots[draggedItemSlot.SlotID].SetData(obj.GetItemStack());
+                    hotbarSlots[draggedItemSlot.SlotID].SetData(obj.GetItemStack());
                     itemSwaped = true;
                 }
                 if (!itemSwaped && indexInHotbar != -1) {
-                    uiSlots[indexInHotbar].ResetData();
+                    hotbarSlots[indexInHotbar].ResetData();
                 }
-                uiSlots[index].SetData(draggedItem);
+                hotbarSlots[index].SetData(draggedItem);
             }
         }
-        public void UpdateHotbarSlot(ItemStack itemStack) {
-            //uiSlots[index].SetData();
+        public void UseItem(int hotbarInput, bool isLeft) {
+            BodyPart bodyPart = BodyPart.RIGHT_HAND;
+            int hotbarSlotIndex = hotbarInput != -1 ? hotbarInput : activeSlot;
+            if (hotbarSlots[hotbarSlotIndex].GetItemStack().Item == null)
+                return;
+            hotbarSlots[activeSlot].Deselect();
+            hotbarSlots[hotbarSlotIndex].Select();
+            ItemStack itemStack = hotbarSlots[hotbarSlotIndex].GetItemStack();
+            if (itemStack == null)
+                return;
+            Item itemToUse = itemStack.Item;
+            if (isLeft) bodyPart = BodyPart.LEFT_HAND;
+            if (itemToUse.GetType() == typeof(Wereable)) bodyPart = ((Wereable) itemToUse).GetBodyPart();
+            UIEquipmentSlot equipmentSlot = equipmentSlots.Find(slot => slot.GetEquipmentSlot().GetBodyPart() == bodyPart);
+            if (!itemStack.IsEmpty()){
+                equipmentSlot.EquipItem(itemStack, equipmentSlotHandlers[bodyPart]);
+            }else {
+                //@TODO : Revisar. Hay que ponerle que haga swap cuando tiene que hacerlo
+                SwapEquipmentSlots(equipmentSlotHandlers[bodyPart], equipmentSlotHandlers[BodyPart.RIGHT_HAND]);
+                // if (bodyPart == BodyPart.LEFT_HAND) {
+                //SwapEquipmentSlots(equipmentSlotHandlers[bodyPart], equipmentSlotHandlers[BodyPart.RIGHT_HAND]);
+                // }
+                // else {
+                //     equipmentSlot.UnEquipItem(equipmentSlotHandlers[bodyPart]);
+                //     hotbarSlots[activeSlot].Deselect();
+                // }
+            }
+            activeSlot = hotbarSlotIndex;
+        }
+        private void SwapEquipmentSlots(EquipmentSlotHandler equipmentSlotHandler, EquipmentSlotHandler otherEquipmentSlotHandler) {
+            ItemStack itemStack = equipmentSlotHandler.currentInventory.GetItem(0);
+            ItemStack otherItemStack = otherEquipmentSlotHandler.currentInventory.GetItem(0);
+            equipmentSlotHandler.currentInventory.SwapItemsInInventory(otherEquipmentSlotHandler.currentInventory, itemStack, otherItemStack);
         }
 
-        public UIItemSlot GetItemHolderInSlot(int slot) => uiSlots[slot];
+        public UIHotbarSlot GetItemHolderInSlot(int slot) => hotbarSlots[slot];
 
-        public ItemStack GetItemStackInSlot(int slot) => uiSlots[slot].GetItemStack ();
-        public int GetSlotFromItemHolder(UIItemSlot itemHolder) => uiSlots.IndexOf(itemHolder);
-        public List<UIItemSlot> GetEquipmentSlots() => equipmentSlots;
+        public ItemStack GetItemStackInSlot(int slot) => hotbarSlots[slot].GetItemStack();
+        public int GetSlotFromItemHolder(UIHotbarSlot itemHolder) => hotbarSlots.IndexOf(itemHolder);
+        public List<UIEquipmentSlot> GetEquipmentSlots() => equipmentSlots;
     }
 }

@@ -9,7 +9,10 @@ namespace _Project.Scripts {
     public class EquipmentSlot : ScriptableObject {
         [SerializeField] private Transform overrideTransform;
         [SerializeField] private BodyPart bodyPart;
+        private EquipmentSlotHandler parent;
         public BodyPart GetBodyPart() => bodyPart;
+        public void SetParent(EquipmentSlotHandler newParent) => parent = newParent;
+        public EquipmentSlotHandler GetParent() => parent;
     }
 
     public enum BodyPart {

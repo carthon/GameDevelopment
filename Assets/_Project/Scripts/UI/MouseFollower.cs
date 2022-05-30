@@ -20,6 +20,10 @@ namespace _Project.Scripts.UI {
             uiItemSlot.SetData(itemSlot);
             uiItemSlot.SlotID = itemSlot.SlotID;
         }
+        public void SetData(ItemStack itemStack) {
+            uiItemSlot.SetData(itemStack);
+            uiItemSlot.SlotID = itemStack.GetSlotID();
+        }
 
         public UIItemSlot GetData() => uiItemSlot;
 
@@ -37,6 +41,9 @@ namespace _Project.Scripts.UI {
             PositionOnMouse();
             gameObject.SetActive(val);
             Active = val;
+        }
+        public void ResetData() {
+            uiItemSlot.ResetData();
         }
     }
 }
