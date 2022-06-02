@@ -5,12 +5,6 @@ using _Project.Scripts.Components;
 using _Project.Scripts.Components.Items;
 using _Project.Scripts.Handlers;
 using UnityEngine;
-using UnityEngine.Android;
-using UnityEngine.EventSystems;
-using UnityEngine.Networking;
-using UnityEngine.PlayerLoop;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace _Project.Scripts.UI {
     public partial class UIHotbarPanel : UIPanelsBase {
@@ -57,9 +51,10 @@ namespace _Project.Scripts.UI {
             }
         }
         public void UseItem(int hotbarInput, bool isLeft) {
-            BodyPart bodyPart = BodyPart.RIGHT_HAND;
+            BodyPart bodyPart = isLeft ? BodyPart.LEFT_HAND : BodyPart.RIGHT_HAND;
             int hotbarSlotIndex = hotbarInput != -1 ? hotbarInput : activeSlot;
-            if (hotbarSlots[hotbarSlotIndex].GetItemStack().Item == null)
+            EquipmentSlotHandler equipmentSlotHandler = equipmentSlotHandlers[bodyPart];
+            if (hotbarSlots[hotbarSlotIndex].GetItemStack().Item == null && equipmentSlotHandler == null)
                 return;
             hotbarSlots[activeSlot].Deselect();
             hotbarSlots[hotbarSlotIndex].Select();
@@ -71,17 +66,11 @@ namespace _Project.Scripts.UI {
             if (itemToUse.GetType() == typeof(Wereable)) bodyPart = ((Wereable) itemToUse).GetBodyPart();
             UIEquipmentSlot equipmentSlot = equipmentSlots.Find(slot => slot.GetEquipmentSlot().GetBodyPart() == bodyPart);
             if (!itemStack.IsEmpty()){
-                equipmentSlot.EquipItem(itemStack, equipmentSlotHandlers[bodyPart]);
-            }else {
-                //@TODO : Revisar. Hay que ponerle que haga swap cuando tiene que hacerlo
+                equipmentSlot.EquipItem(itemStack, equipmentSlotHandler);
+            } else if (equipmentSlotHandler.currentInventory.GetItem(0).Equals(itemStack)) {
+                equipmentSlot.UnEquipItem(equipmentSlotHandler);
+            } else {
                 SwapEquipmentSlots(equipmentSlotHandlers[bodyPart], equipmentSlotHandlers[BodyPart.RIGHT_HAND]);
-                // if (bodyPart == BodyPart.LEFT_HAND) {
-                //SwapEquipmentSlots(equipmentSlotHandlers[bodyPart], equipmentSlotHandlers[BodyPart.RIGHT_HAND]);
-                // }
-                // else {
-                //     equipmentSlot.UnEquipItem(equipmentSlotHandlers[bodyPart]);
-                //     hotbarSlots[activeSlot].Deselect();
-                // }
             }
             activeSlot = hotbarSlotIndex;
         }

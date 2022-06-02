@@ -5,32 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aea2bea4-eef4-46ed-83e6-81c0978d1e91" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/UI/EquipmentSlot.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/UI/EquipmentSlot.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/UI/HotbarSlot.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/UI/HotbarSlot.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIEquipmentSlot.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIEquipmentSlot.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIHotbarSlot.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIHotbarSlot.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIPanelsBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/UI/HandSlot.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/UI/HandSlot.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/UI/HotbarUI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/UI/HotbarUI.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/UI/ItemSlot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/UI/ItemSlot.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Development/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Development/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Inventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Inventory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Items/EquipmentSlot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Items/EquipmentSlot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Items/ItemStack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Items/ItemStack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/EquipmentSlotHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/EquipmentSlotHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/PlayerManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/MouseFollower.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/MouseFollower.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIHotbarPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIHotbarPanel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIInventoryPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIInventoryPanel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIItemSlot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIItemSlot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIItemSlotEventHandler.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIItemSlotEventHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/UIPanelsBase.cs.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,15 +85,15 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="rider.run.widget.enabled.cache" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C#" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/Assets/External Assets/StarterAssets/InputSystem/StarterAssetsInputs.cs" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="13112">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="26400">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="13112" />
+      <option name="pid" value="26400" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -208,7 +185,9 @@
       <workItem from="1653600866242" duration="5424000" />
       <workItem from="1653648907788" duration="15220000" />
       <workItem from="1653748582669" duration="3889000" />
-      <workItem from="1653910011611" duration="2753000" />
+      <workItem from="1653910011611" duration="2854000" />
+      <workItem from="1654084429560" duration="1050000" />
+      <workItem from="1654114538275" duration="7283000" />
     </task>
     <task id="LOCAL-00001" summary="Added inventory System">
       <created>1652876249440</created>
@@ -266,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653395236339</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Swap Mechanic Update">
+      <created>1653912861596</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1653912861596</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,7 +281,8 @@
     <MESSAGE value="Left and Right Equipment mechanic" />
     <MESSAGE value="Inventory System Update" />
     <MESSAGE value="Updated Inventory System. EquipmentSlotHandler tiene ahora un inventario por cada item que esta cargando" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated Inventory System. EquipmentSlotHandler tiene ahora un inventario por cada item que esta cargando" />
+    <MESSAGE value="Swap Mechanic Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Swap Mechanic Update" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

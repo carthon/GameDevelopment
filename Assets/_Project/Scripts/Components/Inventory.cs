@@ -150,5 +150,6 @@ namespace _Project.Scripts.Components {
             //OnInventorySwap?.Invoke(itemStack, otherItemStack);
             return true;
         }
+        public bool IsEmpty() => freeSpace == Size;
     }
 }
