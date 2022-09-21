@@ -7,6 +7,7 @@ TagManager:
   - CinemachineTarget
   - LookCollider
   - Feet
+  - Grid
   layers:
   - Default
   - TransparentFX
@@ -17,9 +18,9 @@ TagManager:
   - Player
   - IgnoreSelf
   - Controller
-  - 
-  - 
-  - 
+  - Item
+  - TopUi
+  - FirstPersonRenderer
   - 
   - 
   - 
@@ -41,6 +42,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: TopUi
+    uniqueID: 3671658707
+    locked: 0
   - name: UI
     uniqueID: 2621385681
     locked: 0

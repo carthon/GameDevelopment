@@ -1,5 +1,4 @@
-﻿using System;
-using _Project.Scripts.Components.Items;
+﻿using _Project.Scripts.Components.Items;
 using UnityEngine;
 
 namespace _Project.Scripts.Handlers {

@@ -129,6 +129,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "PickItem",
+                    "type": "Button",
+                    "id": "f7cb1430-a33a-41bb-aa55-fd7f77248b4a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "be516336-9ad7-4b5a-a2a9-a5f585f3e086",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -175,6 +191,28 @@
                     "action": "RT",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dfe3f8f2-06cd-457f-85c4-c16229bd0468",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PickItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "604e8fb0-ec2c-4635-8c30-e80537f11920",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -202,6 +240,14 @@
                     "name": "EquipLeftHand",
                     "type": "Button",
                     "id": "65087058-4e50-4458-b3b5-34b33ad9a911",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DropItem",
+                    "type": "Button",
+                    "id": "f7c77032-09d8-4c17-9945-9024536af275",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -337,6 +383,63 @@
                     "processors": "",
                     "groups": "",
                     "action": "EquipLeftHand",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe28139e-91f8-4e4b-86fb-2432e7e33673",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DropItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Camera",
+            "id": "e72614af-63f3-4c49-bab5-f433f8d9236e",
+            "actions": [
+                {
+                    "name": "OrbitalView",
+                    "type": "Button",
+                    "id": "135948c7-612d-4d20-83f8-e9b49bc7633d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SwapPersonCamera",
+                    "type": "Button",
+                    "id": "7487ad45-73c0-4327-8ed2-e2c61f383e90",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a3780bb0-7908-4903-9f42-ac00efb237bf",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OrbitalView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8c76cf85-21d8-42c4-91c9-e4bde68b1dcb",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwapPersonCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

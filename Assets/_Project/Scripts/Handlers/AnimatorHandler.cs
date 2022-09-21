@@ -1,88 +1,107 @@
-﻿using System;
-using _Project.Scripts.Components;
+﻿using _Project.Scripts.Components;
+using FishNet.Component.Animating;
 using UnityEngine;
-using UnityEngine.LowLevel;
 
 namespace _Project.Scripts.Handlers {
     public class AnimatorHandler : MonoBehaviour {
-        public Animator animator;
-        public Locomotion locomotion;
-        public bool canRotate;
-        
+
         private static readonly int IsInteracting = Animator.StringToHash("isInteracting");
+        private static readonly int IsSprinting = Animator.StringToHash("isSprinting");
+        private static readonly int IsFalling = Animator.StringToHash("isFalling");
         private static readonly int Vertical = Animator.StringToHash("Vertical");
         private static readonly int Horizontal = Animator.StringToHash("Horizontal");
+        private static readonly int IsMoving = Animator.StringToHash("isMoving");
+        private static readonly int Jumped = Animator.StringToHash("Jumped");
+        private NetworkAnimator _networkAnimator;
+        private Animator _animator;
+        private Locomotion _locomotion;
+
+        public void LateUpdate() {
+            _networkAnimator.ResetTrigger(Jumped);
+        }
+        private void OnAnimatorMove() {
+            if (_animator.GetBool(IsInteracting) == false)
+                return;
+
+            var delta = Time.deltaTime;
+            _locomotion.Rb.drag = 0;
+            var deltaPosition = _animator.deltaPosition;
+            deltaPosition.y = 0;
+            var velocity = deltaPosition / delta;
+            _locomotion.Rb.velocity = velocity;
+        }
 
         public void Initialize() {
-            animator = GetComponent<Animator>();
-            locomotion = GetComponentInParent<Locomotion>();
+            _animator = GetComponent<Animator>();
+            _networkAnimator = GetComponent<NetworkAnimator>();
+            if (_animator == null)
+                _animator = GetComponentInChildren<Animator>();
+            if (_networkAnimator == null)
+                _networkAnimator = GetComponentInChildren<NetworkAnimator>();
+            _locomotion = GetComponentInParent<Locomotion>();
         }
-        
+
         public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, bool isSprinting) {
 
             #region Vertical
+
             float v = 0;
 
-            if (verticalMovement > 0 && verticalMovement < 0.55f) {
+            if (verticalMovement > 0 && verticalMovement < 0.55f)
                 v = 0.5f;
-            }else if (verticalMovement > 0.55f) {
+            else if (verticalMovement > 0.55f)
                 v = 1;
-            }else if (verticalMovement < 0 && verticalMovement > -0.55f) {
+            else if (verticalMovement < 0 && verticalMovement > -0.55f)
                 v = -0.5f;
-            }else if (verticalMovement < -0.55f) {
+            else if (verticalMovement < -0.55f)
                 v = -1;
-            }
-            else {
+            else
                 v = 0;
-            }
+
             #endregion
+
             #region Horizontal
+
             float h = 0;
 
-            if (horizontalMovement > 0 && horizontalMovement < 0.55f) {
+            if (horizontalMovement > 0 && horizontalMovement < 0.55f)
                 h = 0.5f;
-            }else if (horizontalMovement > 0.55f) {
+            else if (horizontalMovement > 0.55f)
                 h = 1;
-            }else if (horizontalMovement < 0 && horizontalMovement > -0.55f) {
+            else if (horizontalMovement < 0 && horizontalMovement > -0.55f)
                 h = -0.5f;
-            }else if (horizontalMovement < -0.55f) {
+            else if (horizontalMovement < -0.55f)
                 h = -1;
-            }
-            else {
+            else
                 h = 0;
-            }
+
             #endregion
 
-            if (isSprinting) {
-                v = 2;
-                h = horizontalMovement;
-            }
-            animator.SetFloat(Vertical, v, 0.1f, Time.deltaTime);
-            animator.SetFloat(Horizontal, h, 0.1f, Time.deltaTime);
+            _animator.SetBool(IsFalling, !_locomotion.IsGrounded);
+            _animator.SetBool(IsSprinting, isSprinting);
+            _animator.SetFloat(Vertical, v, 0.1f, Time.deltaTime);
+            _animator.SetFloat(Horizontal, h, 0.1f, Time.deltaTime);
         }
 
         public void PlayTargetAnimation(string targetAnim, bool isInteracting, int layer) {
-            animator.applyRootMotion = isInteracting;
-            animator.SetBool(IsInteracting, isInteracting);
-            animator.CrossFade(targetAnim,.2f, layer);
+            _animator.applyRootMotion = isInteracting;
+            _animator.SetBool(IsInteracting, isInteracting);
+            _animator.CrossFade(targetAnim, .2f, layer);
         }
         public void PlayTargetAnimation(string targetAnim, bool isInteracting) {
-            animator.applyRootMotion = isInteracting;
-            animator.SetBool(IsInteracting, isInteracting);
-            animator.CrossFade(targetAnim,.2f);
+            _animator.applyRootMotion = isInteracting;
+            _animator.SetBool(IsInteracting, isInteracting);
+            _animator.CrossFade(targetAnim, .2f);
         }
-        private void OnAnimatorMove() {
-            if (animator.GetBool(IsInteracting) == false)
-                return;
 
-            float delta = Time.deltaTime;
-            locomotion.rigidbody.drag = 0;
-            Vector3 deltaPosition = animator.deltaPosition;
-            deltaPosition.y = 0;
-            Vector3 velocity = deltaPosition / delta;
-            locomotion.rigidbody.velocity = velocity;
+        public void TriggerJump() {
+            _networkAnimator.SetTrigger(Jumped);
         }
-        public void CanRotate() => canRotate = true;
-        public void StopRotation() => canRotate = false;
+        public void SetMoving(bool locomotionIsMoving) {
+            _animator.SetBool(IsMoving, locomotionIsMoving);
+        }
+        public void SetSprinting(bool isSprinting) {
+            _animator.SetBool(IsSprinting, isSprinting);
+        }
     }
 }
