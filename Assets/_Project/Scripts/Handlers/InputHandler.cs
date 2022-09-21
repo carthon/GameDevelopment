@@ -1,96 +1,140 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Vector2 = UnityEngine.Vector2;
 
 namespace _Project.Scripts.Handlers {
     public class InputHandler : MonoBehaviour {
-        [Header("Movement Input")]
-        public float horizontal;
-        public float vertical;
-        public float mouseX;
-        public float mouseY;
-        
+
         [Header("Basic Inputs")]
-        public bool b_Input;
-        public bool rb_Input;
-        public bool rt_Input;
-        public bool rollFlag;
-        public bool sprintFlag;
+        private bool _b_Input;
+        private Vector2 _cameraInput;
+        private bool _dropItem;
 
-        private PlayerControlls inputActions;
+        private PlayerControlls _inputActions;
+        private bool _j_Input;
 
-        private Vector2 movementInput;
-        private Vector2 cameraInput;
-        private float rollInputTimer;
-        
-        [Header("UI")]
-        public int hotbarItems;
-        public bool equipInput;
-        
-        public Action<int> OnLeftHandEquip;
-        public Action<bool> OnActivateUI;
-        public Action<int> OnHotbarEquip;
-        public bool enableUI;
+        private Vector2 _movementInput;
+        private Action<bool> _OnActivateUI;
+        private Action<int> _OnHotbarEquip;
+        private Action<int> _OnLeftHandEquip;
+        private bool _rb_Input;
+        private float _rollInputTimer;
+        private bool _rt_Input;
+
+        public float MouseX { get; private set; }
+
+        public float MouseY { get; private set; }
+
+        public bool SwapView { get; private set; }
+
+        public bool FirstPerson { get; private set; }
+
+        [field: Header("Movement Input")]
+        public float Horizontal { get; private set; }
+
+        public float Vertical { get; private set; }
+
+        public bool IsMoving { get => Math.Abs(Vertical) > 0 || Math.Abs(Horizontal) > 0; }
+        public bool IsSprinting { get; private set; }
+
+        public bool IsRolling { get; private set; }
+
+        public bool IsJumping { get; private set; }
+
+        public bool IsPicking { get; private set; }
+
+        public bool IsUIEnabled { get; private set; }
+
+        [field: Header("UI")]
+        public int HotbarSlot { get; private set; }
+
+        public bool EquipInput { get; private set; }
+
+        public void LateUpdate() {
+            SwapView = false;
+            FirstPerson = false;
+            IsRolling = false;
+            IsSprinting = false;
+            IsJumping = false;
+            IsPicking = false;
+            EquipInput = false;
+        }
 
         public void OnEnable() {
-            if (inputActions == null) {
-                inputActions = new PlayerControlls();
-                inputActions.PlayerSpaceMovement.Movement.performed += inputActions => movementInput = inputActions.ReadValue<Vector2>();
-                inputActions.PlayerSpaceMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
+            if (_inputActions == null) {
+                _inputActions = new PlayerControlls();
+                _inputActions.PlayerSpaceMovement.Movement.performed += i => _movementInput = i.ReadValue<Vector2>();
+                _inputActions.PlayerSpaceMovement.Camera.performed += i => _cameraInput = i.ReadValue<Vector2>();
             }
-            
-            inputActions.Enable();
+
+            _inputActions.Enable();
         }
 
         private void OnDisable() {
-            inputActions.Disable();
+            _inputActions.Disable();
         }
 
         public void TickInput(float delta) {
             MoveInput(delta);
-            HandleRollInput(delta);
+            HandleCameraInput(delta);
+            HandleRollAndSprintInput(delta);
+            HandleJumpInput(delta);
             HandleAttackInput(delta);
             HandleUIInput(delta);
         }
+        private void HandleCameraInput(float delta) {
+            MouseX = _cameraInput.x;
+            MouseY = _cameraInput.y;
+            _inputActions.Camera.OrbitalView.performed += i => SwapView = true;
+            _inputActions.Camera.SwapPersonCamera.performed += i => FirstPerson = true;
+        }
 
         private void HandleUIInput(float delta) {
-            inputActions.UIActions.PlayerOverview.performed += i => enableUI = true;
-            inputActions.UIActions.HotbarInput.performed += i => {
-                hotbarItems = (int) i.ReadValue<float>();
-                equipInput = true;
+            IsUIEnabled = _inputActions.UIActions.PlayerOverview.phase == InputActionPhase.Started;
+            _dropItem = _inputActions.UIActions.DropItem.phase == InputActionPhase.Started;
+            IsPicking = _inputActions.PlayerActions.PickItem.phase == InputActionPhase.Started;
+            _inputActions.UIActions.HotbarInput.performed += i => {
+                HotbarSlot = (int) i.ReadValue<float>();
+                EquipInput = true;
             };
-            inputActions.UIActions.EquipLeftHand.performed += i => {
-                hotbarItems = -1;
-                equipInput = true;
+            _inputActions.UIActions.EquipLeftHand.performed += i => {
+                HotbarSlot = -1;
+                EquipInput = true;
             };
-
         }
 
         private void MoveInput(float delta) {
-            horizontal = movementInput.x;
-            vertical = movementInput.y;
-            mouseX = cameraInput.x;
-            mouseY = cameraInput.y;
+            Horizontal = _movementInput.x;
+            Vertical = _movementInput.y;
         }
 
         private void HandleAttackInput(float delta) {
-            inputActions.PlayerActions.RB.performed += i => rb_Input = true;
-            inputActions.PlayerActions.RB.performed += i => rt_Input = true;
+            _rb_Input = _inputActions.PlayerActions.RB.phase == InputActionPhase.Started;
+            _rt_Input = _inputActions.PlayerActions.RB.phase == InputActionPhase.Started;
         }
 
-        private void HandleRollInput(float delta) {
-            b_Input = inputActions.PlayerActions.Roll.phase == InputActionPhase.Started;
-            if (b_Input) {
-                rollInputTimer += delta;
-                sprintFlag = true;
-            }else{
-                if (rollInputTimer > 0 && rollInputTimer < .5f) {
-                    sprintFlag = false;
-                    rollFlag = true;
-                    rollInputTimer = 0;
-                }else if (rollInputTimer > 0)
-                    rollInputTimer = 0;
+        private void HandleJumpInput(float delta) {
+            _j_Input = _inputActions.PlayerActions.Jump.phase == InputActionPhase.Started;
+            if (_j_Input)
+                IsJumping = true;
+        }
+
+        private void HandleRollAndSprintInput(float delta) {
+            _b_Input = _inputActions.PlayerActions.Roll.phase == InputActionPhase.Started;
+            if (_b_Input) {
+                _rollInputTimer += delta;
+                if (Vertical >= 0)
+                    IsSprinting = true;
+            }
+            else {
+                if (_rollInputTimer > 0 && _rollInputTimer < .5f) {
+                    IsSprinting = false;
+                    IsRolling = true;
+                    _rollInputTimer = 0;
+                }
+                else if (_rollInputTimer > 0) {
+                    _rollInputTimer = 0;
+                }
             }
         }
     }

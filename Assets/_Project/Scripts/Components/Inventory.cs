@@ -1,155 +1,172 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using _Project.Scripts.Components.Items;
-using _Project.Scripts.UI;
-using Google.Protobuf.WellKnownTypes;
-using UnityEditor.Experimental.GraphView;
+using _Project.Scripts.Components;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
-namespace _Project.Scripts.Components {
-    [Serializable]
-    public class Inventory {
-        private List<ItemStack> items;
+public class Inventory {
 
-        public event Action<int> OnItemAddedToSlot;
-        public event Action<int> OnItemTakenFromSlot;
-        public event Action<Inventory, int> OnInventoryChange;
-        public event Action<ItemStack, ItemStack> OnInventorySwap;
-        public string Name { get; set; }
-        public int Size { get; private set; }
+    private int _freeSpace;
+    private List<ItemStack> _items;
 
-        private int freeSpace;
+    public Inventory(string name, int size) {
+        Name = name;
+        Size = size;
+        Init();
+    }
 
-        public Inventory(string name, int size) {
-            Name = name;
-            Size = size;
-            Init();
+    public Inventory(int size) {
+        Name = "No name";
+        Size = size;
+        Init();
+    }
+    public string Name { get; set; }
+    public int Size { get; }
+
+    public event Action<int, ItemStack> OnInventoryChange;
+
+    private void Init() {
+        _freeSpace = Size;
+        _items = new List<ItemStack>();
+        for (var i = 0; i < Size; i++) {
+            var itemStack = new ItemStack(this, i);
+            _items.Add(itemStack);
         }
+    }
 
-        public Inventory(int size) {
-            Name = "No Name";
-            Size = size;
-            Init();
-        }
+    public ItemStack GetItemStack(int slot) {
+        var item = new ItemStack(this, slot);
+        if (IsValidSlot(slot))
+            item = _items[slot];
+        else
+            item.SetSlot(-1);
+        return item;
+    }
 
-        private void Init() {
-            freeSpace = Size;
-            items = new List<ItemStack>();
-            for (int i = 0; i < Size; i++) {
-                items.Add(new ItemStack(this, i));
-            }
-        }
-
-        public ItemStack GetItem(int slot) {
-            ItemStack item = ItemStack.EMPTY;
-            if (slot >= 0 && slot < Size && !items[slot].IsEmpty())
-                item = items[slot];
-            return item;
-        }
-
-        public int AddItemToSlot(ItemStack itemStack, int slot) {
-            int possibleSlot = FindItemStackSlot(itemStack);
-            slot = possibleSlot >= 0 ? possibleSlot : slot;
-            int difference = 0;
-            if (freeSpace >= 1) {
-                if (possibleSlot != -1) {
-                    difference = AddToStack(slot, itemStack.GetCount());
+    public ItemStack AddItemStackToSlot(ItemStack itemStack, int slot) {
+        var itemLeftOver = new ItemStack(itemStack);
+        itemLeftOver.SetCount(0);
+        if (_freeSpace >= 1) {
+            if (IsValidSlot(slot)) {
+                if (itemStack.Item != null) {
+                    if (itemStack.Item.Equals(_items[slot].Item) &&
+                        itemStack.GetCount() <= _items[slot].Item.GetMaxStackSize()) {
+                        itemLeftOver.SetCount(AddToStack(slot, itemStack.GetCount()));
+                    }
+                    else {
+                        _freeSpace -= 1;
+                        _items[slot].SetStack(itemStack);
+                    }
                 }
-                else if (slot >= 0 && slot < Size) {
-                    slot = items.FindIndex(item => item.IsEmpty());
-                    items[slot].SetStack(itemStack);
-                    items[slot].SetSlot(slot);
-                    freeSpace -= 1;
-                }
-                OnItemAddedToSlot?.Invoke(slot);
-                OnInventoryChange?.Invoke(this, slot);
+                if (itemLeftOver.GetCount() > 0) itemLeftOver = AddItemStack(itemLeftOver);
+                OnInventoryChange?.Invoke(slot, _items[slot]);
             }
-            else {
-                difference = -1;
-                Debug.Log("NO FREE SPACE!");
-            }
-            return difference;
         }
-        public int AddItemToSlot(Item item, int slot) {
-            ItemStack itemStack = new ItemStack(item, slot, this);
-            itemStack.SetCount(1);
-            return AddItemToSlot(itemStack, slot);
+        else {
+            Debug.Log("NO FREE SPACE!");
         }
+        return itemLeftOver;
+    }
 
-        public int AddItem(Item item) {
-            ItemStack itemStack = new ItemStack(item, 0, this);
-            itemStack.SetCount(1);
-            return AddItemToSlot(itemStack, 0);
+    public ItemStack AddItemStack(ItemStack itemStack) {
+        var slot = FindItemStackSlot(itemStack);
+        var difference = new ItemStack(itemStack);
+        difference.SetCount(0);
+        if (_freeSpace >= 1) {
+            if (slot == -1 || _items[slot].IsFull())
+                slot = _items.FindIndex(item => item.IsEmpty());
+            difference = AddItemStackToSlot(itemStack, slot);
         }
-        public int AddItem(ItemStack item) {
-            if (item.IsEmpty())
-                return -1;
-            return AddItemToSlot(item, 0);
+        else {
+            Debug.Log("No free space!");
         }
-        
-        private int AddToStack(int slot, int amount)
-        {
-            int difference = 0;
-            int itemCount = items[slot].GetCount();
-            int maxStackSize = items[slot].Item.GetMaxStackSize();
-            difference = (itemCount + amount) -  maxStackSize;
-            if ((amount + itemCount) <= maxStackSize)
-                items[slot].SetCount(itemCount + amount);
-            if (difference < 0) difference = 0;
-            return difference;
-        }
-        
-        public ItemStack TryAddItem(ItemStack itemStack) {
-            ItemStack itemStackCopy = new ItemStack(itemStack);
-            int difference = AddItem(itemStack);
-            if (difference != -1) {
-                itemStackCopy = ItemStack.EMPTY;
-            }
-            return itemStackCopy;
-        }
+        return difference;
+    }
 
-        public ItemStack TakeStack(ItemStack itemStack) {
-            int indexOf = FindItemStackSlot(itemStack);
-            return TakeStackFromSlot(indexOf);
+    /// <summary>
+    ///     Adds an amount of items on a slot
+    /// </summary>
+    /// <param name="slot"></param>
+    /// <param name="amount"></param>
+    /// <returns>The amount of items that couldn't be added to that slot due overflow</returns>
+    private int AddToStack(int slot, int amount) {
+        var itemCount = _items[slot].GetCount();
+        var maxStackSize = _items[slot].Item.GetMaxStackSize();
+        var difference = itemCount + amount - maxStackSize;
+        //Si la diferencia es negativa, significa que no se ha llenado el stack
+        if (difference < 0) {
+            _items[slot].SetCount(itemCount + amount);
+            difference = 0;
         }
-        
-        public ItemStack TakeStackFromSlot(int slot) {
-            ItemStack itemStackCopy = new ItemStack(items[slot]);
-            if (slot >= 0 && slot < Size && !items[slot].IsEmpty()) {
-                int count = items[slot].GetCount();
-                int difference = count - items[slot].GetCount();
-                int finalCount = difference > 0 ? difference : 0;
-                items[slot].SetCount(finalCount);
-                itemStackCopy.SetCount(itemStackCopy.GetCount() - difference);
-                if (finalCount <= 0)
-                    freeSpace += 1;
-                OnItemTakenFromSlot?.Invoke(slot);
-                OnInventoryChange?.Invoke(this, slot);
-            }
-            return itemStackCopy;
+        else {
+            _items[slot].SetCount(maxStackSize);
         }
-        public int FindItemStackSlot(ItemStack itemStack) => items.FindIndex(item => item.Equals(itemStack));
-        public List<ItemStack> GetInventorySlots() => items;
+        return difference;
+    }
 
-        public int GetFreeSpace() => freeSpace;
-        public void SetStack(int slot, ItemStack itemStack) {
-            if (itemStack.IsEmpty())
-                freeSpace += 1;
-            items[slot].SetStack(itemStack);
-            OnInventoryChange?.Invoke(this, slot);
+    public ItemStack TakeItemsFromSlot(int slot, int count) {
+        var itemStackCopy = new ItemStack(this, slot);
+        if (IsValidSlot(slot) && !_items[slot].IsEmpty()) {
+            itemStackCopy = new ItemStack(_items[slot]);
+            var newCount = _items[slot].GetCount() - count;
+            if (newCount <= 0) {
+                _freeSpace += 1;
+                newCount = 0;
+            }
+            _items[slot].SetCount(newCount);
+            OnInventoryChange?.Invoke(slot, itemStackCopy);
         }
-        public bool SwapItemsInInventory(Inventory otherInventory, ItemStack itemStack, ItemStack otherItemStack) {
-            int itemStackSlot = FindItemStackSlot(itemStack);
-            int otherItemStackSlot = otherInventory.FindItemStackSlot(otherItemStack);
-            if (itemStackSlot == -1 && otherItemStackSlot == -1)
-                return false;
-            ItemStack tempItemStack = itemStack.GetCopy();
-            if (itemStackSlot != -1) this.SetStack(itemStackSlot, otherItemStack);
-            otherInventory.SetStack(otherItemStackSlot, tempItemStack);
-            //OnInventorySwap?.Invoke(itemStack, otherItemStack);
-            return true;
-        }
-        public bool IsEmpty() => freeSpace == Size;
+        return itemStackCopy;
+    }
+
+    public ItemStack TakeStack(ItemStack itemStack) {
+        var indexOf = FindItemStackSlot(itemStack);
+        return TakeStackFromSlot(indexOf);
+    }
+
+    public ItemStack TakeStackFromSlot(int slot) {
+        var itemStackCopy = new ItemStack(this, slot);
+        if (slot >= 0 && slot < Size && !_items[slot].IsEmpty()) itemStackCopy = TakeItemsFromSlot(slot, _items[slot].Item.GetMaxStackSize());
+        return itemStackCopy;
+    }
+    public void DropItemInSlot(int slot, Vector3 worldPos) {
+        var lootTable = new LootTable();
+        var itemStack = TakeStackFromSlot(slot);
+        lootTable.AddToLootTable(itemStack);
+        //GetParent().SetData(itemStack.GetInventory().GetItem(itemStack.GetSlotID()));
+        var worldItem = Object.Instantiate(itemStack.Item.modelPrefab, worldPos, Quaternion.identity);
+        var pickableItem = worldItem.AddComponent<Grabbable>();
+        pickableItem.SetLootTable(lootTable);
+        worldItem.AddComponent<Rigidbody>();
+    }
+    public int FindItemStackSlot(ItemStack itemStack) {
+        return _items.FindIndex(item => item.Item != null && item.Item.Equals(itemStack.Item) && !item.IsFull());
+    }
+
+    public List<ItemStack> GetInventorySlots() {
+        return _items;
+    }
+
+    public int GetFreeSpace() {
+        return _freeSpace;
+    }
+    public bool SwapItemsInInventory(Inventory otherInventory, int itemStackSlot, int otherItemStackSlot) {
+        if (itemStackSlot == -1 && otherItemStackSlot == -1)
+            return false;
+
+        var thisItemStack = TakeStackFromSlot(itemStackSlot);
+        var otherItemStack = otherInventory.TakeStackFromSlot(itemStackSlot);
+        if (itemStackSlot != -1) AddItemStackToSlot(otherItemStack, otherItemStackSlot);
+        otherInventory.AddItemStackToSlot(thisItemStack, itemStackSlot);
+        return true;
+    }
+    public List<ItemStack> GetItemStacksByType(Item item) {
+        return _items.FindAll(itemStack => itemStack.Item != null && itemStack.Item.Equals(item));
+    }
+    public bool IsValidSlot(int slot) {
+        return slot >= 0 && slot < Size;
+    }
+    public bool IsEmpty() {
+        return _freeSpace == Size;
     }
 }

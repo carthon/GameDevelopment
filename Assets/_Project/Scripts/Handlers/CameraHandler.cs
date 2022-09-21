@@ -1,81 +1,133 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using _Project.Scripts.Components;
+using _Project.Scripts.Handlers;
+using Cinemachine;
+using Scripts.DataClasses;
 using UnityEngine;
 
-namespace _Project.Scripts.Handlers {
-    public class CameraHandler : MonoBehaviour {
-        public Transform targetTransform;
-        public Transform cameraTransform;
-        public Transform cameraPivotTransform;
-        public Transform myTransform;
-        private Vector3 cameraTransformPosition;
-        private LayerMask ignoreLayers;
-        private Vector3 cameraFollowVelocity = Vector3.zero;
+public class CameraHandler : MonoBehaviour {
+    [SerializeField]
+    private int layerFirstPerson = 11;
 
-        public static CameraHandler Singleton;
+    [SerializeField]
+    private CameraData _cameraData;
+    [SerializeField]
+    private Transform _cameraPivot;
+    [SerializeField]
+    private Transform _cameraFollow;
+    [SerializeField]
+    private float _followSmoothness = 1f;
+    private CinemachineVirtualCamera _activeCamera;
 
-        private float targetPosition;
-        private float defaultPosition;
-        private float lookSpeed = 0.1f;
-        private float followSpeed = 0.1f;
-        private float pivotSpeed = 0.03f;
+    private readonly int _activeCameraPriorityModifier = 31337;
+    private float _cameraPitch;
+    private CinemachineVirtualCamera _firstPersonCamera;
 
-        private float lookAngle;
-        private float pivotAngle;
-        public float minimumPivot = -35;
-        public float maximumPivot = 35;
+    private InputHandler _inputHandler;
+    private Locomotion _locomotion;
 
-        public float cameraSphereRadius = .2f;
-        public float cameraCollisionOffset = .2f;
-        public float minimumCollisionOffset = .2f;
+    private CinemachineVirtualCamera _orbitalCamera;
+    private CinemachineInputProvider _orbitalCameraInput;
+    private Vector3 _playerLookInput = Vector3.zero;
 
-        private void Awake() {
-            if (Singleton != null && Singleton != this)
-                Destroy(this);
-            else
-                Singleton = this;
-            myTransform = transform;
-            defaultPosition = cameraTransform.localPosition.z;
-            ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10);
-        }
+    [Header("Camera")]
+    private Transform _playerTransform;
+    private Vector3 _previousLookInput = Vector3.zero;
+    private CinemachineVirtualCamera _thirdPersonCamera;
+    public bool UsingFirstPersonCamera { get; set; }
+    public bool UsingOrbitalCamera { get; set; }
+    public Camera MainCamera { get; private set; }
+    public CameraData CameraData => _cameraData;
 
-        public void FollowTarget(float delta) {
-            Vector3 targetPosition = Vector3.SmoothDamp(myTransform.position, targetTransform.position, ref cameraFollowVelocity, delta / followSpeed);
-            myTransform.position = targetPosition;
-            HandleCameraCollision(delta);
-        }
-
-        public void HandleCameraRotation(float delta, float mouseXInput, float mouseYInput) {
-            lookAngle += (mouseXInput * lookSpeed) / delta;
-            pivotAngle -= (mouseYInput * pivotSpeed) / delta;
-            pivotAngle = Mathf.Clamp(pivotAngle, minimumPivot, maximumPivot);
-
-            Vector3 rotation = Vector3.zero;
-            rotation.y = lookAngle;
-            Quaternion targetRotation = Quaternion.Euler(rotation);
-            myTransform.rotation = targetRotation;
-
-            rotation = Vector3.zero;
-            rotation.x = pivotAngle;
-            
-            targetRotation = Quaternion.Euler(rotation);
-            cameraPivotTransform.localRotation = targetRotation;
-        }
-        public void HandleCameraCollision(float delta) {
-            targetPosition = defaultPosition;
-            RaycastHit hit;
-            Vector3 direction = cameraTransform.position - cameraPivotTransform.position;
-            direction.Normalize();
-
-            if (Physics.SphereCast(cameraPivotTransform.position, cameraSphereRadius, direction, out hit, Mathf.Abs(targetPosition), ignoreLayers)) {
-                float dis = Vector3.Distance(cameraPivotTransform.position, hit.point);
-                targetPosition = -(dis - cameraCollisionOffset);
-            }
-            if (Mathf.Abs(targetPosition) < minimumCollisionOffset) 
-                targetPosition = -minimumCollisionOffset;
-            cameraTransformPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, delta / .2f);
-            cameraTransform.localPosition = cameraTransformPosition;
+    public void InitializeCamera() {
+        _inputHandler = GetComponent<InputHandler>();
+        _locomotion = GetComponent<Locomotion>();
+        MainCamera = Camera.main;
+        _orbitalCamera.Follow = _cameraFollow;
+        _firstPersonCamera.Follow = _cameraFollow;
+        _thirdPersonCamera.Follow = _cameraFollow;
+        _orbitalCamera.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = _cameraData.sensitivityX;
+        _orbitalCamera.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = _cameraData.sensitivityY;
+        _orbitalCameraInput = _orbitalCamera.GetComponent<CinemachineInputProvider>();
+        var main = MainCamera.GetComponent<CinemachineBrain>();
+        main.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
+        ChangeCamera();
+    }
+    public void Tick(float delta) {
+        if (_inputHandler.SwapView || _inputHandler.FirstPerson)
+            ChangeCamera();
+    }
+    public void FixedTick(float delta) {
+        if (!UsingOrbitalCamera) {
+            CameraPitch();
+            //CameraSnapFollow(delta);
         }
     }
+    private void ChangeCamera() {
+        UsingOrbitalCamera = false;
+        //var main = MainCamera.GetComponent<CinemachineBrain>();
+        if (_inputHandler.SwapView) {
+            SetCameraPriorities(_orbitalCamera);
+            UsingOrbitalCamera = true;
+            UsingFirstPersonCamera = false;
+        }
+        else if (_firstPersonCamera == _activeCamera) {
+            //Sets to thirdPerson
+            SetCameraPriorities(_firstPersonCamera, _thirdPersonCamera);
+            Debug.Log(layerFirstPerson);
+            MainCamera.cullingMask &= ~(1 << layerFirstPerson);
+            UsingFirstPersonCamera = false;
+        }
+        else if (_thirdPersonCamera == _activeCamera) {
+            //Sets to firstPerson
+            SetCameraPriorities(_thirdPersonCamera, _firstPersonCamera);
+            MainCamera.cullingMask |= 1 << layerFirstPerson;
+            UsingFirstPersonCamera = true;
+        }
+        else {
+            _firstPersonCamera.Priority += _activeCameraPriorityModifier;
+            _activeCamera = _firstPersonCamera;
+            UsingFirstPersonCamera = true;
+        }
+        //main.m_UpdateMethod = UsingFirstPersonCamera ? CinemachineBrain.UpdateMethod.SmartUpdate : CinemachineBrain.UpdateMethod.FixedUpdate;
+    }
+    private void SetCameraPriorities(CinemachineVirtualCamera newCamera) {
+        _activeCamera.Priority -= _activeCameraPriorityModifier;
+        newCamera.Priority += _activeCameraPriorityModifier;
+        _activeCamera = newCamera;
+    }
+    private void SetCameraPriorities(CinemachineVirtualCamera current, CinemachineVirtualCamera newCamera) {
+        current.Priority -= _activeCameraPriorityModifier;
+        newCamera.Priority += _activeCameraPriorityModifier;
+        _activeCamera = newCamera;
+    }
+    public Vector3 GetLookInput(float mouseX, float mouseY) {
+        _previousLookInput = _playerLookInput;
+        _playerLookInput = new Vector3(mouseX, mouseY, 0);
+        return Vector3.Lerp(_previousLookInput, _playerLookInput * Time.deltaTime, _cameraData.playerLookInputLerpSpeed);
+    }
+    private void CameraSnapFollow(float delta) {
+        var cameraPivot = _cameraPivot.transform.position;
+        var cameraFollow = _cameraFollow.transform.position;
+        _cameraPivot.transform.position = cameraFollow;
+    }
+    private void CameraPitch() {
+        var rotationValues = _cameraPivot.rotation.eulerAngles;
+        _cameraPitch += -1 * _playerLookInput.y * _cameraData.cameraPitchSpeedMult;
+        _cameraPitch = Mathf.Clamp(_cameraPitch, -_cameraData.pitchLimitTopLimit, _cameraData.pitchLimitBottomLimit);
+        _cameraPivot.rotation = Quaternion.Euler(_cameraPitch, rotationValues.y, rotationValues.z);
+    }
+    public void SetOrbitalCamera(CinemachineVirtualCamera find) {
+        _orbitalCamera = find;
+    }
+    public void SetFirstPersonCamera(CinemachineVirtualCamera find) {
+        _firstPersonCamera = find;
+    }
+    public void SetThirdPersonCamera(CinemachineVirtualCamera find) {
+        _thirdPersonCamera = find;
+    }
+    public void SetPlayerFollow(Transform player) {
+        _playerTransform = player;
+    }
+    public Transform CameraFollow { get => _cameraPivot; }
+    public void SetOrbitalInput(bool state) => _orbitalCameraInput.enabled = state;
 }
