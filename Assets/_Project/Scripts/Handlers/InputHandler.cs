@@ -74,7 +74,8 @@ namespace _Project.Scripts.Handlers {
             _inputActions.Disable();
         }
 
-        public void TickInput(float delta) {
+        public void Update() {
+            float delta = Time.deltaTime;
             MoveInput(delta);
             HandleCameraInput(delta);
             HandleRollAndSprintInput(delta);

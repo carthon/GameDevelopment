@@ -41,6 +41,7 @@ public class PlayerController : NetworkBehaviour {
     }
     public override void OnStartServer() {
         base.OnStartServer();
+        _inputHandler.enabled = false;
         SubscribeToTimeManager(true);
     }
     public override void OnStartClient() {
@@ -66,11 +67,8 @@ public class PlayerController : NetworkBehaviour {
         if (!IsOwner)
             return;
         var delta = Time.fixedDeltaTime;
-        if (tickInputHandler) {
-            _inputHandler.TickInput(delta);
-            HandleItemPickUp(delta);
-            _cameraHandler.Tick(delta);
-        }
+        HandleItemPickUp(delta);
+        _cameraHandler.Tick(delta);
         HandleUIInteractions(delta);
         HandleAnimations(delta);
         if (tickInputHandler && !_inputHandler.IsUIEnabled)
@@ -115,6 +113,7 @@ public class PlayerController : NetworkBehaviour {
         _moveDirection = new Vector2(calculateDirection.x, calculateDirection.z);
         _locomotion.IsMoving = data.isMoving;
         _locomotion.IsSprinting = data.isSprinting;
+        _locomotion.IsJumping = data.isJumping;
         _locomotion.RelativeDirection = new Vector3(data.Horizontal, 0, data.Vertical);
         _locomotion.TargetPosition = new Vector3(_moveDirection.x, 0, _moveDirection.y).normalized;
         _locomotion.Tick();
@@ -154,12 +153,14 @@ public class PlayerController : NetworkBehaviour {
         public float RotationX;
         public bool isMoving;
         public bool isSprinting;
-        public MoveData(float horizontal, float vertical, float rotationX, bool isMoving, bool isSprinting) {
+        public bool isJumping;
+        public MoveData(float horizontal, float vertical, float rotationX, bool isMoving, bool isSprinting, bool isJumping) {
             Horizontal = horizontal;
             Vertical = vertical;
             RotationX = rotationX;
             this.isMoving = isMoving;
             this.isSprinting = isSprinting;
+            this.isJumping = isJumping;
         }
     }
 
@@ -264,16 +265,18 @@ public class PlayerController : NetworkBehaviour {
     private void GatherInputs(out MoveData data) {
         data = default;
         if (_inputHandler != null && tickInputHandler) {
-            _locomotion.IsSprinting = _inputHandler.IsSprinting;
-            _locomotion.IsJumping = _inputHandler.IsJumping;
-            _locomotion.IsMoving = Math.Abs(_inputHandler.Horizontal) > 0 || Math.Abs(_inputHandler.Vertical) > 0;
+            bool isMoving = Math.Abs(_inputHandler.Horizontal) > 0 || Math.Abs(_inputHandler.Vertical) > 0;
+            bool isSprinting = _inputHandler.IsSprinting;
+            bool isJumping = _inputHandler.IsJumping;
             
             float horizontal = _inputHandler.Horizontal;
             float vertical = _inputHandler.Vertical;
             Vector3 rotationX = _cameraHandler.GetLookInput(_inputHandler.MouseX, _inputHandler.MouseY);
             float resultRotation = rotationX.x * _cameraHandler.CameraData.rotationMultiplier;
-
-            data = new MoveData(horizontal, vertical, resultRotation, _locomotion.IsMoving, _inputHandler.IsSprinting);
+            if (!isMoving && resultRotation == 0)
+                return;
+            data = new MoveData(horizontal, vertical, resultRotation, 
+                isMoving, isSprinting, isJumping);
         }
     }
 

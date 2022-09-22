@@ -69,12 +69,11 @@ public class PredictionMotor : NetworkBehaviour
     public override void OnStartClient() {
         base.OnStartClient();
         SubscribeToTimeManager(true);
-        _inputHandler = GetComponent<InputHandler>();
     }
     public override void OnStartServer() {
         base.OnStartServer();
         SubscribeToTimeManager(true);
-        _inputHandler = null;
+        _inputHandler.enabled = false;
     }
     private void OnTick() {
         if (base.IsOwner) {
@@ -141,8 +140,7 @@ public class PredictionMotor : NetworkBehaviour
     }
     private void GatherInputs(out MoveData data) {
         data = default;
-        if (_inputHandler != null) {
-            _inputHandler.TickInput(0);
+        if (_inputHandler.isActiveAndEnabled) {
             //if (!_inputHandler.IsMoving)
             //    return;
             float horizontal = _inputHandler.Horizontal;
