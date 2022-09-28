@@ -6,10 +6,22 @@ namespace _Project.Scripts {
         public UIHandler uiHandler;
         public Transform spawnPoint;
         private GameObject _player;
-        public static GodEntity Instance { get; private set; }
+        private static GodEntity _singleton;
+        public static GodEntity Singleton
+        {
+            get => _singleton;
+            private set {
+                if (_singleton == null)
+                    _singleton = value;
+                else if(_singleton != null) {
+                    Debug.Log($"{nameof(GodEntity)} instance already exists, destroying duplicate!");
+                    Destroy(value);
+                }
+            }
+        }
 
         private void Awake() {
-            Instance = this;
+            Singleton = this;
             Application.targetFrameRate = -1;
         }
         public void SetUpPlayer() {

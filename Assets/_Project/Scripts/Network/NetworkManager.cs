@@ -2,6 +2,7 @@ using System;
 using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class NetworkManager : MonoBehaviour {
     private static NetworkManager _singleton;
@@ -48,6 +49,7 @@ public class NetworkManager : MonoBehaviour {
         IsServer = true;
         Server = new Server();
         Server.Start(port, maxClientCount);
+        Server.ClientDisconnected += PlayerLeft;
     }
     public void InitializeClient() {
         IsClient = true;
@@ -69,11 +71,15 @@ public class NetworkManager : MonoBehaviour {
         if (IsServer) {
             Server.Stop();
             IsServer = false;
+            Server.ClientDisconnected -= PlayerLeft;
         }
     }
     private void DidConnect(object sender, EventArgs args) { UIHandler.Instance.UpdateButtonsText(); }
     private void FailedToConnect (object sender, EventArgs args){ UIHandler.Instance.UpdateButtonsText(); }
     private void DidDisconnect (object sender, EventArgs args){ UIHandler.Instance.UpdateButtonsText(); }
+    private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) {
+        Destroy(PlayerManager.list[e.Id].gameObject);
+    }
     private void OnApplicationQuit() {
         StopServer();
         StopClient();

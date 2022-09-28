@@ -1,5 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using _Project.Scripts;
+using _Project.Scripts.Components;
 using RiptideNetworking;
 using UnityEngine;
 
@@ -18,6 +21,21 @@ public class PlayerManager : MonoBehaviour {
     {
         
     }
+
+    private void OnDestroy() {
+        list.Remove(Id);
+    }
+
     [MessageHandler((ushort) NetworkManager.ClientToServerId.name)]
-    private static void 
+    private static void Name(ushort fromClientId, Message message) {
+        Spawn(fromClientId, message.GetString(), new Vector3(0,1f,0));
+    }
+    private static void Spawn(ushort id, string username, Vector3 position) {
+        PlayerManager player = Instantiate(GodEntity.Singleton.playerPrefab, position, Quaternion.identity).GetComponent<PlayerManager>();
+        player.name = $"Player {id} ({(string.IsNullOrEmpty(username) ? "Guest" : username)}";
+        player.Id = id;
+        player.Username = string.IsNullOrEmpty(username) ? $"Guest {id}" : username;
+        
+        list.Add(id, player);
+    }
 }
