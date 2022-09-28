@@ -1,5 +1,4 @@
 ﻿using _Project.Scripts.Components;
-using FishNet.Component.Animating;
 using UnityEngine;
 
 namespace _Project.Scripts.Handlers {
@@ -12,13 +11,9 @@ namespace _Project.Scripts.Handlers {
         private static readonly int Horizontal = Animator.StringToHash("Horizontal");
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
         private static readonly int Jumped = Animator.StringToHash("Jumped");
-        private NetworkAnimator _networkAnimator;
         private Animator _animator;
         private Locomotion _locomotion;
 
-        public void LateUpdate() {
-            _networkAnimator.ResetTrigger(Jumped);
-        }
         private void OnAnimatorMove() {
             if (_animator.GetBool(IsInteracting) == false)
                 return;
@@ -33,11 +28,8 @@ namespace _Project.Scripts.Handlers {
 
         public void Initialize() {
             _animator = GetComponent<Animator>();
-            _networkAnimator = GetComponent<NetworkAnimator>();
             if (_animator == null)
                 _animator = GetComponentInChildren<Animator>();
-            if (_networkAnimator == null)
-                _networkAnimator = GetComponentInChildren<NetworkAnimator>();
             _locomotion = GetComponentInParent<Locomotion>();
         }
 
@@ -92,10 +84,6 @@ namespace _Project.Scripts.Handlers {
             _animator.applyRootMotion = isInteracting;
             _animator.SetBool(IsInteracting, isInteracting);
             _animator.CrossFade(targetAnim, .2f);
-        }
-
-        public void TriggerJump() {
-            _networkAnimator.SetTrigger(Jumped);
         }
         public void SetMoving(bool locomotionIsMoving) {
             _animator.SetBool(IsMoving, locomotionIsMoving);
