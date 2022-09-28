@@ -25,9 +25,8 @@ public class NetworkManager : MonoBehaviour {
     [SerializeField] private string hostAddress;
     [SerializeField] private ushort maxClientCount;
 
-    public enum ClientToServerId : ushort {
-        name = 1,
-    }
+    public enum ClientToServerId : ushort { name = 1, }
+    public enum ServerToClientId : ushort { playerSpawned = 1, }
 
     void Awake() {
         _singleton = this;
@@ -77,9 +76,7 @@ public class NetworkManager : MonoBehaviour {
     private void DidConnect(object sender, EventArgs args) { UIHandler.Instance.UpdateButtonsText(); }
     private void FailedToConnect (object sender, EventArgs args){ UIHandler.Instance.UpdateButtonsText(); }
     private void DidDisconnect (object sender, EventArgs args){ UIHandler.Instance.UpdateButtonsText(); }
-    private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) {
-        Destroy(PlayerManager.list[e.Id].gameObject);
-    }
+    private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) { Destroy(PlayerManager.list[e.Id].gameObject); }
     private void OnApplicationQuit() {
         StopServer();
         StopClient();

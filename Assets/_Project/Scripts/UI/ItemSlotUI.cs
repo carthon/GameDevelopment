@@ -95,7 +95,7 @@ public class ItemSlotUI : MonoBehaviour {
     public void OnRemoveButton() {
         var itemInv = _itemStack.GetInventory();
         UIHandler.Instance.UpdateVisuals = true;
-        itemInv.DropItemInSlot(_itemStack.GetSlotID(), GodEntity.Singleton.GetPlayer().transform.position + Vector3.up * 5f);
+        itemInv.DropItemInSlot(_itemStack.GetSlotID(), Vector3.up * 5f);
     }
     public virtual void OnBeginDrag() {
         InvokeEvent(OnItemBeginDrag, this);

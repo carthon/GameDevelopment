@@ -2,10 +2,11 @@
 
 namespace _Project.Scripts {
     public class GodEntity : MonoBehaviour {
-        public GameObject playerPrefab;
         public UIHandler uiHandler;
         public Transform spawnPoint;
-        private GameObject _player;
+        [Header("Prefabs")]
+        [SerializeField] private GameObject _playerPrefab;
+        public GameObject PlayerPrefab { get; private set; }
         private static GodEntity _singleton;
         public static GodEntity Singleton
         {
@@ -22,15 +23,11 @@ namespace _Project.Scripts {
 
         private void Awake() {
             Singleton = this;
+            PlayerPrefab = _playerPrefab;
             Application.targetFrameRate = -1;
-        }
-        public void SetUpPlayer() {
         }
         public UIHandler GetUIHandler() {
             return uiHandler;
-        }
-        public GameObject GetPlayer() {
-            return _player;
         }
     }
 }

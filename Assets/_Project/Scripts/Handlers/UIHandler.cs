@@ -30,8 +30,11 @@ public class UIHandler : MonoBehaviour {
 
     public void StartStopClient() {
         NetworkManager networkManager = NetworkManager.Singleton;
-        
-        if (!networkManager.Client.IsConnected) networkManager.InitializeClient();
+
+        if (!networkManager.Client.IsConnected) {
+            networkManager.InitializeClient();
+            SendName();
+        }
         else networkManager.StopClient();
     }
 
