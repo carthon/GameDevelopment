@@ -4,8 +4,8 @@ using _Project.Scripts.Network;
 using RiptideNetworking;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour {
-    public static Dictionary<ushort, PlayerManager> list = new Dictionary<ushort, PlayerManager>();
+public class PlayerNetworkManager : MonoBehaviour {
+    public static Dictionary<ushort, PlayerNetworkManager> list = new Dictionary<ushort, PlayerNetworkManager>();
     public ushort Id { get; private set; }
     public bool IsLocal { get; private set; }
     public string Username { get; private set; }
@@ -26,33 +26,34 @@ public class PlayerManager : MonoBehaviour {
     }
     private static void Spawn(ushort id, string username, Vector3 position) {
         NetworkManager net = NetworkManager.Singleton;
-        PlayerManager player = Instantiate(GodEntity.Singleton.PlayerPrefab, position, Quaternion.identity).GetComponent<PlayerManager>();
+        PlayerNetworkManager playerNetwork = Instantiate(GodEntity.Singleton.PlayerPrefab, position, Quaternion.identity).GetComponent<PlayerNetworkManager>();
         if(net.IsServer) {
-            foreach (PlayerManager otherPlayer in list.Values) {
+            foreach (PlayerNetworkManager otherPlayer in list.Values) {
                 otherPlayer.SendSpawned(id);
             }
         }
         if (net.IsClient) {
-            player.IsLocal = id == net.Client.Id;
+            playerNetwork.IsLocal = id == net.Client.Id;
         }
-        player.name = $"Player {id} ({(string.IsNullOrEmpty(username) ? "Guest" : username)}";
-        player.Id = id;
-        player.Username = string.IsNullOrEmpty(username) ? $"Guest {id}" : username;
+        playerNetwork.name = $"Player {id} {(string.IsNullOrEmpty(username) ? "Guest" : username)}";
+        playerNetwork.Id = id;
+        playerNetwork.Username = string.IsNullOrEmpty(username) ? $"Guest {id}" : username;
 
-        player.SendSpawned();
-        list.Add(id, player);
+        playerNetwork.SendSpawned();
+        list.Add(id, playerNetwork);
     }
 
 #region Messages
     [MessageHandler((ushort) NetworkManager.ClientToServerId.name)]
     private static void Name(ushort fromClientId, Message message) {
         if (NetworkManager.Singleton.IsServer) {
-            Spawn(fromClientId, message.GetString(), GodEntity.Singleton.spawnPoint.position);
+            Spawn(fromClientId, message.GetString(), GodEntity.Singleton.spawnPoint.position + 
+                Vector3.right * Random.value * 4);
         }
     }
     [MessageHandler((ushort)NetworkManager.ServerToClientId.playerSpawned)]
     private static void SpawnPlayer(Message message) {
-        if (NetworkManager.Singleton.IsClient) {
+        if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
             Spawn(message.GetUShort(), message.GetString(), message.GetVector3());
         }
     }
