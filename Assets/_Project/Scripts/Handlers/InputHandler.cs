@@ -49,8 +49,7 @@ namespace _Project.Scripts.Handlers {
         public int HotbarSlot { get; private set; }
 
         public bool EquipInput { get; private set; }
-
-        public void LateUpdate() {
+        public void ClearInputs() {
             SwapView = false;
             FirstPerson = false;
             IsRolling = false;
@@ -59,7 +58,6 @@ namespace _Project.Scripts.Handlers {
             IsPicking = false;
             EquipInput = false;
         }
-
         public void OnEnable() {
             if (_inputActions == null) {
                 _inputActions = new PlayerControlls();

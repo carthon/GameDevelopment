@@ -54,7 +54,7 @@ public class UIHandler : MonoBehaviour {
     public void SendName() {
         NetworkManager networkManager = NetworkManager.Singleton;
         if (networkManager.IsClient) {
-            Message message = Message.Create(MessageSendMode.reliable, (ushort) NetworkManager.ClientToServerId.name);
+            Message message = Message.Create(MessageSendMode.reliable, (ushort) NetworkManager.ClientToServerId.username);
             message.AddString(usernameField.text);
             networkManager.Client.Send(message);
         }
