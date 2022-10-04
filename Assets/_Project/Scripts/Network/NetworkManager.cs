@@ -23,7 +23,7 @@ public class NetworkManager : MonoBehaviour {
     public bool IsClient { get; private set; }
 
     [SerializeField] private ushort port;
-    [SerializeField] private string hostAddress;
+    [SerializeField] public string hostAddress;
     [SerializeField] private ushort maxClientCount;
 
     public enum ClientToServerId : ushort {
@@ -42,8 +42,6 @@ public class NetworkManager : MonoBehaviour {
     public Client Client { get; private set; }  
     public void Start() {
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
-        Client = new Client();
-        Server = new Server();
     }
     private void FixedUpdate() {
         if (IsServer)
@@ -59,6 +57,7 @@ public class NetworkManager : MonoBehaviour {
     }
     public void InitializeClient() {
         IsClient = true;
+        Client = new Client();
         Client.Connected += DidConnect;
         Client.Disconnected += DidDisconnect;
         Client.ConnectionFailed += FailedToConnect;

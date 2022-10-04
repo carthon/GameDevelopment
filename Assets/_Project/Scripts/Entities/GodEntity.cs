@@ -7,6 +7,7 @@ namespace _Project.Scripts {
         [Header("Prefabs")]
         [SerializeField] private GameObject _playerPrefab;
         public GameObject PlayerPrefab { get; private set; }
+        public PlayerNetworkManager PlayerInstance { get; set; }
         private static GodEntity _singleton;
         public static GodEntity Singleton
         {

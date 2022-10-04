@@ -48,13 +48,8 @@ public class PlayerNetworkManager : MonoBehaviour {
         NotifySpawn(isDeSpawning:true);
         list.Remove(Id);
     }
-    private static void Spawn(ushort id, string username, Vector3 position, bool isDeSpawning = false) {
+    private static void Spawn(ushort id, string username, Vector3 position) {
         NetworkManager net = NetworkManager.Singleton;
-        if (isDeSpawning) {
-            Debug.Log($"DeSpawning ID: {id}");
-            Destroy(list[id].gameObject);
-            return;
-        }
         PlayerNetworkManager playerNetwork = Instantiate(GodEntity.Singleton.PlayerPrefab, position, Quaternion.identity).GetComponent<PlayerNetworkManager>();
         if(net.IsServer) {
             foreach (PlayerNetworkManager otherPlayer in list.Values) {
@@ -63,6 +58,7 @@ public class PlayerNetworkManager : MonoBehaviour {
         }
         if (net.IsClient) {
             playerNetwork.IsLocal = id == net.Client.Id;
+            GodEntity.Singleton.PlayerInstance = playerNetwork;
         }
         playerNetwork.name = $"Player {id} {(string.IsNullOrEmpty(username) ? "Guest" : username)}";
         playerNetwork.Id = id;
@@ -84,7 +80,7 @@ public class PlayerNetworkManager : MonoBehaviour {
     [MessageHandler((ushort)NetworkManager.ServerToClientId.playerSpawned)]
     private static void SpawnPlayerClient(Message message) {
         if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
-            Spawn(message.GetUShort(), message.GetString(), message.GetVector3(), message.GetBool());
+            Spawn(message.GetUShort(), message.GetString(), message.GetVector3());
         }
     }
     [MessageHandler((ushort) NetworkManager.ServerToClientId.playerMovement)]
@@ -138,7 +134,7 @@ public class PlayerNetworkManager : MonoBehaviour {
         NetworkManager net = NetworkManager.Singleton;
         if (net.IsServer) {
             Message message = AddSpawnData(Message.Create(
-                MessageSendMode.reliable, (ushort)NetworkManager.ServerToClientId.playerSpawned).AddBool(isDeSpawning));
+                MessageSendMode.reliable, (ushort)NetworkManager.ServerToClientId.playerSpawned));
             if (toClientId == UInt16.MaxValue)
                 net.Server.SendToAll(message);
             else
