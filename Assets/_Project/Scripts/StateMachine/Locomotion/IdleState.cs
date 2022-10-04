@@ -17,4 +17,5 @@ public class IdleState : AbstractBaseState {
     public override void UpdateState() {
         CheckSwitchStates();
     }
+    public override string StateName { get => "IdleState"; }
 }

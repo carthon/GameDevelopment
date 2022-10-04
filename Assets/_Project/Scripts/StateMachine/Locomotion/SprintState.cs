@@ -19,4 +19,5 @@ public class SprintState : AbstractBaseState {
     public override void UpdateState() {
         CheckSwitchStates();
     }
+    public override string StateName { get => "SprintState"; }
 }

@@ -6,6 +6,7 @@ public abstract class AbstractBaseState {
     protected bool _isRootState = false;
     protected LocomotionStateFactory factory;
     protected Locomotion locomotion;
+    public abstract string StateName { get; }
 
     protected AbstractBaseState(LocomotionStateFactory factory, Locomotion locomotion) {
         this.factory = factory;

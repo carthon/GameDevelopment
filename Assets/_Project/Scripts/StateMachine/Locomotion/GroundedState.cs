@@ -4,6 +4,7 @@ namespace Scripts.StateMachine.Locomotion {
     public class GroundedState : AbstractBaseState {
         private GameObject _lastHit;
         private Vector3 _lastHitPosition;
+        
         public GroundedState(LocomotionStateFactory factory, _Project.Scripts.Components.Locomotion locomotion) : base(factory, locomotion) {
             _isRootState = true;
             InitializeSubState();
@@ -74,5 +75,6 @@ namespace Scripts.StateMachine.Locomotion {
             }
             return groundPoint;
         }
+        public override string StateName { get => "GroundedState"; }
     }
 }

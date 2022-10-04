@@ -44,4 +44,5 @@ public class JumpState : AbstractBaseState {
         locomotion.Rb.velocity = new Vector3(appliedVelocity.x, locomotion.Rb.velocity.y, appliedVelocity.z);
         //}
     }
+    public override string StateName => "JumpState";
 }

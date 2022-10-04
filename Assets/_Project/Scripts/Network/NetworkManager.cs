@@ -3,6 +3,7 @@ using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour {
     private static NetworkManager _singleton;
@@ -70,6 +71,7 @@ public class NetworkManager : MonoBehaviour {
             Client.Disconnected -= DidDisconnect;
             Client.ConnectionFailed -= FailedToConnect;
             Client.Disconnect();
+            if(!IsServer) SceneManager.LoadScene(0);
         }
     }
     public void StopServer() {

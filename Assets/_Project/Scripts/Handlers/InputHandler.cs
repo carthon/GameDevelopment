@@ -30,6 +30,7 @@ namespace _Project.Scripts.Handlers {
         public bool FirstPerson { get; private set; }
 
         [field: Header("Movement Input")]
+        public Vector2 MovementInput { get => _movementInput; }
         public float Horizontal { get; private set; }
 
         public float Vertical { get; private set; }
