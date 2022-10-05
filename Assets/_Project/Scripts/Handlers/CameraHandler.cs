@@ -1,3 +1,4 @@
+using System;
 using _Project.Scripts.Components;
 using _Project.Scripts.Handlers;
 using Cinemachine;
@@ -59,11 +60,11 @@ public class CameraHandler : MonoBehaviour {
         if (_inputHandler.SwapView || _inputHandler.FirstPerson)
             ChangeCamera();
     }
-    public void FixedTick(float delta) {
+    public void FixedTick() {
         if (!UsingOrbitalCamera) {
             CameraPitch();
-            //CameraYaw();
-            CameraSnapFollow(delta);
+            CameraYaw();
+            CameraSnapFollow();
             CameraSnapRotation();
         }
     }
@@ -78,7 +79,6 @@ public class CameraHandler : MonoBehaviour {
         else if (_firstPersonCamera == _activeCamera) {
             //Sets to thirdPerson
             SetCameraPriorities(_firstPersonCamera, _thirdPersonCamera);
-            Debug.Log(layerFirstPerson);
             MainCamera.cullingMask &= ~(1 << layerFirstPerson);
             UsingFirstPersonCamera = false;
         }
@@ -108,12 +108,12 @@ public class CameraHandler : MonoBehaviour {
     public Vector3 GetDirectionFromMouse(float mouseX, float mouseY) {
         _previousLookInput = _playerLookInput;
         _playerLookInput = new Vector3(mouseX, mouseY, 0);
-        return Vector3.Lerp(_previousLookInput, _playerLookInput * Time.deltaTime, _cameraData.playerLookInputLerpSpeed);
+        return Vector3.Lerp(_previousLookInput, _playerLookInput, _cameraData.playerLookInputLerpSpeed);
     }
     private void CameraSnapRotation() {
         _cameraFollow.rotation = _cameraPivot.rotation;
     }
-    private void CameraSnapFollow(float delta) {
+    private void CameraSnapFollow() {
         var cameraPivot = _cameraPivot.transform.position;
         var cameraFollow = _cameraFollow.transform.position;
         _cameraPivot.transform.position = cameraFollow;
@@ -126,8 +126,8 @@ public class CameraHandler : MonoBehaviour {
     }
     private void CameraYaw() {
         var rotationValues = _cameraPivot.rotation.eulerAngles;
-        _cameraYaw += -1 * _playerLookInput.x * _cameraData.cameraPitchSpeedMult;
-        _cameraYaw = Mathf.Clamp(_cameraPitch, -_cameraData.pitchLimitTopLimit, _cameraData.pitchLimitBottomLimit);
+        _cameraYaw += _playerLookInput.x * _cameraData.cameraPitchSpeedMult;
+        //_cameraYaw = Mathf.Clamp(_cameraPitch, -_cameraData.pitchLimitTopLimit, _cameraData.pitchLimitBottomLimit);
         _cameraPivot.rotation = Quaternion.Euler(rotationValues.x, _cameraYaw, rotationValues.z);
     }
     public void SetOrbitalCamera(CinemachineVirtualCamera find) {

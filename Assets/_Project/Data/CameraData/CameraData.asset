@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CameraData
   m_EditorClassIdentifier: 
   playerLookInputLerpSpeed: 1
-  cameraPitchSpeedMult: 1
-  rotationMultiplier: 1
+  cameraPitchSpeedMult: 0.1
+  rotationMultiplier: 0.1
   pitchLimitTopLimit: 89.9
   pitchLimitBottomLimit: 89
   sensitivityX: 0.1
