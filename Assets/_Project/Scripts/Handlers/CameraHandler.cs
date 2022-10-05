@@ -3,6 +3,7 @@ using _Project.Scripts.Handlers;
 using Cinemachine;
 using Scripts.DataClasses;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class CameraHandler : MonoBehaviour {
     [SerializeField]
@@ -23,7 +24,6 @@ public class CameraHandler : MonoBehaviour {
     private CinemachineVirtualCamera _firstPersonCamera;
 
     private InputHandler _inputHandler;
-    private Locomotion _locomotion;
 
     private CinemachineVirtualCamera _orbitalCamera;
     private CinemachineInputProvider _orbitalCameraInput;
@@ -40,8 +40,10 @@ public class CameraHandler : MonoBehaviour {
 
     public void InitializeCamera() {
         _inputHandler = GetComponent<InputHandler>();
-        _locomotion = GetComponent<Locomotion>();
         MainCamera = Camera.main;
+        SetOrbitalCamera(GameObject.Find("OrbitalCamera").GetComponent<CinemachineVirtualCamera>());
+        SetFirstPersonCamera(GameObject.Find("1stPersonCamera").GetComponent<CinemachineVirtualCamera>());
+        SetThirdPersonCamera(GameObject.Find("3rdPersonCamera").GetComponent<CinemachineVirtualCamera>());
         _orbitalCamera.Follow = _cameraFollow;
         _firstPersonCamera.Follow = _cameraFollow;
         _thirdPersonCamera.Follow = _cameraFollow;
@@ -59,7 +61,7 @@ public class CameraHandler : MonoBehaviour {
     public void FixedTick(float delta) {
         if (!UsingOrbitalCamera) {
             CameraPitch();
-            //CameraSnapFollow(delta);
+            CameraSnapFollow(delta);
         }
     }
     private void ChangeCamera() {
@@ -100,7 +102,7 @@ public class CameraHandler : MonoBehaviour {
         newCamera.Priority += _activeCameraPriorityModifier;
         _activeCamera = newCamera;
     }
-    public Vector3 GetLookInput(float mouseX, float mouseY) {
+    public Vector3 GetDirectionFromMouse(float mouseX, float mouseY) {
         _previousLookInput = _playerLookInput;
         _playerLookInput = new Vector3(mouseX, mouseY, 0);
         return Vector3.Lerp(_previousLookInput, _playerLookInput * Time.deltaTime, _cameraData.playerLookInputLerpSpeed);
@@ -128,6 +130,7 @@ public class CameraHandler : MonoBehaviour {
     public void SetPlayerFollow(Transform player) {
         _playerTransform = player;
     }
-    public Transform CameraFollow { get => _cameraPivot; }
+    public Transform CameraFollow { get => _cameraFollow; }
+    public Transform CameraPivot { get => _cameraPivot; }
     public void SetOrbitalInput(bool state) => _orbitalCameraInput.enabled = state;
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using _Project.Scripts;
 using _Project.Scripts.UI;
 using RiptideNetworking;
@@ -15,28 +16,23 @@ public class UIHandler : MonoBehaviour {
     public ItemPickerUI ItemPickerUI;
     [SerializeField] private List<InventoryUI> _inventories;
     public DragItemHandlerUI dragItemHandlerUI;
-    public GameObject debugTexts;
-    public List<TextMeshProUGUI> debugVars;
     public HotbarUI _hotbarUi;
 
     [SerializeField] private Button _startClient;
     [SerializeField] private Button _startServer;
     [SerializeField] private InputField usernameField;
     [SerializeField] private InputField serverIp;
+    [SerializeField] private InputField port;
     public bool UpdateVisuals { get; set; }
 
     public void Awake() {
         _inventories = new List<InventoryUI>();
         _hotbarUi = GetComponentInChildren<HotbarUI>();
         Instance = this;
-        serverIp.text = NetworkManager.Singleton.hostAddress;
     }
-    private void OnValidate() {
-        debugVars = debugTexts.GetComponentsInChildren<TextMeshProUGUI>().ToList();
-        for (int i = debugVars.Count - 1; i >= 0; i--) {
-            if (i % 2 == 0)
-                debugVars.RemoveAt(i);
-        }
+    private void Start() {
+        serverIp.text = NetworkManager.Singleton.hostAddress;
+        port.text = NetworkManager.Singleton.port.ToString();
     }
     private void Update() {
     }
@@ -45,23 +41,45 @@ public class UIHandler : MonoBehaviour {
         NetworkManager networkManager = NetworkManager.Singleton;
 
         if (networkManager.Client == null || !networkManager.Client.IsConnected) {
-            networkManager.hostAddress = serverIp.text;
+            if (!ValidateConnectionValues()) return;
             networkManager.InitializeClient();
             SendName();
         }
         else networkManager.StopClient();
+    }
+    private bool ValidateConnectionValues() {
+        NetworkManager networkManager = NetworkManager.Singleton;
+        bool valid = true;
+        if (Regex.Match(serverIp.text, "^((25[0-5]|(2[0-4]|1[0-9]|[1-9]|)[0-9])(\\.(?!$)|$)){4}$").Success)
+            networkManager.hostAddress = serverIp.text;
+        else {
+            serverIp.text = "Ip no válida";
+            valid = false;
+        }
+        if (Regex.Match(serverIp.text, "\\d+").Success)
+            networkManager.port = ushort.Parse(port.text);
+        else {
+            port.text = "Puerto no válido";
+            valid = false;
+        }
+        return valid;
     }
 
     public void UpdateButtonsText() {
         NetworkManager networkManager = NetworkManager.Singleton;
         _startServer.GetComponentInChildren<Text>().text = networkManager.Server != null ? "Stop Server" : "Start Server";
         _startClient.GetComponentInChildren<Text>().text = networkManager.Client != null ? "Stop Client" : "Start Client";
-        debugVars[0].text = NetworkManager.Singleton.IsClient.ToString();
-        debugVars[1].text = NetworkManager.Singleton.IsServer.ToString();
-        debugVars[2].text = GodEntity.Singleton.PlayerInstance != null ? "False" : "True";
-        if (GodEntity.Singleton.PlayerInstance != null) debugVars[3].text = GodEntity.Singleton.PlayerInstance.Id.ToString();
     }
-
+    public void OnGUI() {
+        GUILayout.BeginArea(new Rect(Vector2.right * (Screen.width - 200), new Vector2(200,500)));
+        GUILayout.BeginVertical("box");
+        GUILayout.TextField($"IsClient: {NetworkManager.Singleton.IsClient.ToString()}");
+        GUILayout.TextField($"IsServer: {NetworkManager.Singleton.IsServer.ToString()}");
+        GUILayout.TextField($"IsLocal: {(GodEntity.Singleton.PlayerInstance != null).ToString()}");
+        GUILayout.TextField($"ClientId: {GodEntity.Singleton.PlayerInstance?.Id.ToString()}");
+        GUILayout.BeginVertical();
+        GUILayout.EndArea();
+    }
     public void StartStopServer() {
         NetworkManager networkManager = NetworkManager.Singleton;
         

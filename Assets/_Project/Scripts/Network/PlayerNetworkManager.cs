@@ -4,6 +4,7 @@ using _Project.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
+using Cinemachine;
 using RiptideNetworking;
 using TMPro.Examples;
 using UnityEditor;
@@ -15,24 +16,35 @@ public class PlayerNetworkManager : MonoBehaviour {
     public static Dictionary<ushort, PlayerNetworkManager> list = new Dictionary<ushort, PlayerNetworkManager>();
     private InputHandler _inputHandler;
     private Locomotion _locomotion;
+    private CameraHandler _cameraHandler;
+    private Inventory _inventory;
+    
     [SerializeField] private Transform _camTransform;
     public ushort Id { get; private set; }
     public bool IsLocal { get; private set; }
     public string Username { get; private set; }
 
-    private void Start() {
-    }
-    public void Initialize() {
+    public void InitializeComponents() {
         _inputHandler = GetComponent<InputHandler>();
         _locomotion = GetComponent<Locomotion>();
         _locomotion.SetUp();
+        _cameraHandler = GetComponent<CameraHandler>();
     }
     private void OnSpawn() {
-        Initialize();
+        InitializeComponents();
         _inputHandler.enabled = IsLocal;
+        if (NetworkManager.Singleton.IsClient) {
+            Cursor.lockState = CursorLockMode.Locked;
+            _cameraHandler.InitializeCamera();
+            _inventory = new Inventory("PlayerInventory", 9);
+        }
     }
     private void FixedUpdate() {
+        float delta = Time.deltaTime;
         if (NetworkManager.Singleton.IsClient) {
+            _cameraHandler.Tick(delta);
+            _cameraHandler.FixedTick(delta);
+            HandleRotation(new Vector2(_inputHandler.MouseX, _inputHandler.MouseY));
             SendInput();
             _inputHandler?.ClearInputs();
         }
@@ -41,6 +53,11 @@ public class PlayerNetworkManager : MonoBehaviour {
             Physics.Simulate(Time.fixedDeltaTime);
             SendMovement();
         }
+    }
+    private void HandleRotation(Vector2 mouseInput) {
+        var rb = _locomotion.Rb;
+        rb.rotation = Quaternion.Euler(0.0f, rb.rotation.eulerAngles.y +
+            mouseInput.x * _cameraHandler.CameraData.rotationMultiplier * Time.deltaTime, 0.0f);
     }
 
     private void OnDestroy() {
@@ -93,6 +110,8 @@ public class PlayerNetworkManager : MonoBehaviour {
         if (IsLocal){
             Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ClientToServerId.input);
             message.AddVector2(_inputHandler.MovementInput);
+            message.AddQuaternion(_locomotion.Rb.rotation);
+            message.AddQuaternion(_cameraHandler.CameraPivot.rotation);
             bool[] actions = new[] {
                 _inputHandler.IsMoving,
                 _inputHandler.IsJumping,
@@ -116,8 +135,18 @@ public class PlayerNetworkManager : MonoBehaviour {
     private static void ReceiveInput(ushort fromClientId, Message message) {
         if (list.TryGetValue(fromClientId, out PlayerNetworkManager player)) {
             Vector2 moveInput = message.GetVector2();
+            Quaternion rotation = message.GetQuaternion();
+            Quaternion headRotation = message.GetQuaternion();
             bool[] actions = message.GetBools();
-            player._locomotion.TargetPosition = new Vector3(moveInput.x,0, moveInput.y);
+            
+            Transform playerTransform = player.transform;
+            var calculateDirection = moveInput.y * playerTransform.forward +
+                moveInput.x * playerTransform.right;
+            calculateDirection = calculateDirection.normalized;
+            player._cameraHandler.CameraPivot.rotation = headRotation;
+            player._locomotion.TargetPosition = calculateDirection;
+            player._locomotion.RelativeDirection = new Vector3(moveInput.x, 0, moveInput.y);
+            player._locomotion.Rb.rotation = rotation;
             player._locomotion.IsMoving = actions[0];
             player._locomotion.IsJumping = actions[1];
             player._locomotion.IsSprinting = actions[2];

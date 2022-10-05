@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &477440593835774036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5170374738899031071}
+  m_Layer: 0
+  m_Name: CameraPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5170374738899031071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477440593835774036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 557854041270062911}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3622935598701061172
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +140,7 @@ GameObject:
   - component: {fileID: 6359775968453607743}
   - component: {fileID: 5794613100633698382}
   - component: {fileID: 4731772600566018907}
+  - component: {fileID: 2536222641960887298}
   m_Layer: 0
   m_Name: NetworkPlayer
   m_TagString: Untagged
@@ -130,6 +161,7 @@ Transform:
   m_Children:
   - {fileID: 78384133881138938}
   - {fileID: 7024764628993516763}
+  - {fileID: 5170374738899031071}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -187,6 +219,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f9669d6ef794642a684c257d40e0e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2536222641960887298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5153115448672837777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d5a6272a0f213419fed18e0edca08f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerFirstPerson: 11
+  _cameraData: {fileID: 11400000, guid: 17ed788bb317ca4458fca01381181068, type: 2}
+  _cameraPivot: {fileID: 5170374738899031071}
+  _cameraFollow: {fileID: 3274492839817243503}
+  _followSmoothness: 1
 --- !u!1 &5808091565037176956
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +279,7 @@ GameObject:
   - component: {fileID: 2678128497071464180}
   - component: {fileID: 6187830485716363452}
   m_Layer: 0
-  m_Name: Visor
+  m_Name: Cabeso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,8 +293,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6921400961275075461}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0073878765, y: 0.3152194, z: 0.4693861}
-  m_LocalScale: {x: 0.61495566, y: 0.29285, z: 0.29285}
+  m_LocalPosition: {x: 0, y: 1.207, z: 0.07}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children: []
   m_Father: {fileID: 78384133881138938}
   m_RootOrder: 0

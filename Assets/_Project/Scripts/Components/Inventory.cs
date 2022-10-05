@@ -14,7 +14,6 @@ public class Inventory {
         Size = size;
         Init();
     }
-
     public Inventory(int size) {
         Name = "No name";
         Size = size;

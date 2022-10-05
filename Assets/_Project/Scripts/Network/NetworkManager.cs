@@ -22,7 +22,7 @@ public class NetworkManager : MonoBehaviour {
     public bool IsServer { get; private set; }
     public bool IsClient { get; private set; }
 
-    [SerializeField] private ushort port;
+    [SerializeField] public ushort port;
     [SerializeField] public string hostAddress;
     [SerializeField] private ushort maxClientCount;
 
