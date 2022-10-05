@@ -4,12 +4,8 @@ using _Project.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
-using Cinemachine;
 using RiptideNetworking;
-using TMPro.Examples;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
 using Random = UnityEngine.Random;
 
 public class PlayerNetworkManager : MonoBehaviour {
@@ -42,9 +38,8 @@ public class PlayerNetworkManager : MonoBehaviour {
     private void FixedUpdate() {
         float delta = Time.deltaTime;
         if (NetworkManager.Singleton.IsClient) {
+            HandleRotation(_cameraHandler.GetDirectionFromMouse(_inputHandler.MouseX, _inputHandler.MouseY));
             _cameraHandler.Tick(delta);
-            _cameraHandler.FixedTick(delta);
-            HandleRotation(new Vector2(_inputHandler.MouseX, _inputHandler.MouseY));
             SendInput();
             _inputHandler?.ClearInputs();
         }
@@ -54,10 +49,11 @@ public class PlayerNetworkManager : MonoBehaviour {
             SendMovement();
         }
     }
-    private void HandleRotation(Vector2 mouseInput) {
+    private void HandleRotation(Vector3 mouseInput) {
         var rb = _locomotion.Rb;
         rb.rotation = Quaternion.Euler(0.0f, rb.rotation.eulerAngles.y +
             mouseInput.x * _cameraHandler.CameraData.rotationMultiplier * Time.deltaTime, 0.0f);
+        _cameraHandler.FixedTick(Time.deltaTime);
     }
 
     private void OnDestroy() {
@@ -144,9 +140,9 @@ public class PlayerNetworkManager : MonoBehaviour {
                 moveInput.x * playerTransform.right;
             calculateDirection = calculateDirection.normalized;
             player._cameraHandler.CameraPivot.rotation = headRotation;
+            player._locomotion.Rb.rotation = rotation;
             player._locomotion.TargetPosition = calculateDirection;
             player._locomotion.RelativeDirection = new Vector3(moveInput.x, 0, moveInput.y);
-            player._locomotion.Rb.rotation = rotation;
             player._locomotion.IsMoving = actions[0];
             player._locomotion.IsJumping = actions[1];
             player._locomotion.IsSprinting = actions[2];

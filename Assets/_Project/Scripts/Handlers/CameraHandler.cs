@@ -21,6 +21,7 @@ public class CameraHandler : MonoBehaviour {
 
     private readonly int _activeCameraPriorityModifier = 31337;
     private float _cameraPitch;
+    private float _cameraYaw;
     private CinemachineVirtualCamera _firstPersonCamera;
 
     private InputHandler _inputHandler;
@@ -61,7 +62,9 @@ public class CameraHandler : MonoBehaviour {
     public void FixedTick(float delta) {
         if (!UsingOrbitalCamera) {
             CameraPitch();
+            //CameraYaw();
             CameraSnapFollow(delta);
+            CameraSnapRotation();
         }
     }
     private void ChangeCamera() {
@@ -107,6 +110,9 @@ public class CameraHandler : MonoBehaviour {
         _playerLookInput = new Vector3(mouseX, mouseY, 0);
         return Vector3.Lerp(_previousLookInput, _playerLookInput * Time.deltaTime, _cameraData.playerLookInputLerpSpeed);
     }
+    private void CameraSnapRotation() {
+        _cameraFollow.rotation = _cameraPivot.rotation;
+    }
     private void CameraSnapFollow(float delta) {
         var cameraPivot = _cameraPivot.transform.position;
         var cameraFollow = _cameraFollow.transform.position;
@@ -117,6 +123,12 @@ public class CameraHandler : MonoBehaviour {
         _cameraPitch += -1 * _playerLookInput.y * _cameraData.cameraPitchSpeedMult;
         _cameraPitch = Mathf.Clamp(_cameraPitch, -_cameraData.pitchLimitTopLimit, _cameraData.pitchLimitBottomLimit);
         _cameraPivot.rotation = Quaternion.Euler(_cameraPitch, rotationValues.y, rotationValues.z);
+    }
+    private void CameraYaw() {
+        var rotationValues = _cameraPivot.rotation.eulerAngles;
+        _cameraYaw += -1 * _playerLookInput.x * _cameraData.cameraPitchSpeedMult;
+        _cameraYaw = Mathf.Clamp(_cameraPitch, -_cameraData.pitchLimitTopLimit, _cameraData.pitchLimitBottomLimit);
+        _cameraPivot.rotation = Quaternion.Euler(rotationValues.x, _cameraYaw, rotationValues.z);
     }
     public void SetOrbitalCamera(CinemachineVirtualCamera find) {
         _orbitalCamera = find;
