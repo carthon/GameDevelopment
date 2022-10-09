@@ -6,6 +6,7 @@ using _Project.Scripts.Components;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
 using RiptideNetworking;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,9 +14,11 @@ public class PlayerNetworkManager : MonoBehaviour {
     public static Dictionary<ushort, PlayerNetworkManager> list = new Dictionary<ushort, PlayerNetworkManager>();
     private InputHandler _inputHandler;
     private Locomotion _locomotion;
+    private AnimatorHandler _animator;
     private CameraHandler _cameraHandler;
     private Inventory _inventory;
-    
+    private TextMeshProUGUI _usernameDisplay;
+
     public ushort Id { get; private set; }
     public bool IsLocal { get; private set; }
     public string Username { get; private set; }
@@ -23,39 +26,50 @@ public class PlayerNetworkManager : MonoBehaviour {
     public void InitializeComponents() {
         _inputHandler = GetComponent<InputHandler>();
         _locomotion = GetComponent<Locomotion>();
-        _locomotion.SetUp();
+        _animator = GetComponent<AnimatorHandler>();
         _cameraHandler = GetComponent<CameraHandler>();
+        _usernameDisplay = GetComponentInChildren<TextMeshProUGUI>();
+        _animator.Initialize();
+        _locomotion.SetUp();
     }
     private void OnSpawn() {
         InitializeComponents();
         _inputHandler.enabled = IsLocal;
         _cameraHandler.enabled = IsLocal;
-        if (NetworkManager.Singleton.IsClient && IsLocal) {
+        _usernameDisplay.text = Username;
+        if (IsLocal) {
             Cursor.lockState = CursorLockMode.Locked;
             _cameraHandler.InitializeCamera();
             _inventory = new Inventory("PlayerInventory", 9);
         }
     }
-    private void FixedUpdate() {
+    private void Update() {
         float delta = Time.deltaTime;
         if (IsLocal) {
-            Vector3 mouseInput = (_cameraHandler.GetDirectionFromMouse(_inputHandler.MouseX, _inputHandler.MouseY));
             HandleUI();
-            _cameraHandler.FixedTick();
             _cameraHandler.Tick(delta);
-            HandleRotation(mouseInput);
             SendInput();
             _inputHandler?.ClearInputs();
         }
+    }
+    private void FixedUpdate() {
+        float fixedDelta = Time.fixedDeltaTime;
+        HandleRotation();
+        _animator.UpdateAnimatorValues(_locomotion.RelativeDirection.z, _locomotion.RelativeDirection.x, _locomotion.IsSprinting);
+        if (IsLocal) {
+            Vector3 mouseInput = (_cameraHandler.GetDirectionFromMouse(_inputHandler.MouseX, _inputHandler.MouseY));
+            if (!_inputHandler.IsUIEnabled)
+                _cameraHandler.FixedTick();
+        }
         if (NetworkManager.Singleton.IsServer) {
-            _locomotion.Tick();
-            Physics.Simulate(Time.fixedDeltaTime);
+            _locomotion.FixedTick(fixedDelta);
+            Physics.Simulate(fixedDelta);
             SendMovement();
         }
     }
-    private void HandleRotation(Vector3 mouseInput) {
-        var rb = _locomotion.Rb;
-        rb.rotation = Quaternion.Euler(0.0f, _cameraHandler.CameraPivot.rotation.y, 0.0f);
+    private void HandleRotation() {
+        Quaternion newRotation = Quaternion.Euler(0.0f, _cameraHandler.CameraPivot.rotation.eulerAngles.y, 0.0f);
+        transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, _cameraHandler.CameraData.rotationMultiplier);
     }
 
     private void OnDestroy() {
@@ -89,13 +103,12 @@ public class PlayerNetworkManager : MonoBehaviour {
         if(!IsLocal)
             _locomotion.Rb.rotation = rotation;
     }
-    private void HandleLocomotion(Vector2 moveInput, bool[] actions) {
-        Transform playerTransform = transform;
-        var calculateDirection = moveInput.y * playerTransform.forward +
-            moveInput.x * playerTransform.right;
-        calculateDirection = calculateDirection.normalized;
-        _locomotion.TargetPosition = calculateDirection;
-        _locomotion.RelativeDirection = new Vector3(moveInput.x, 0, moveInput.y);
+    private void HandleLocomotion(Vector3 moveInput, bool[] actions) {
+        Transform cameraPivot = _cameraHandler.CameraPivot.transform;
+        _locomotion.TargetPosition = CalculateDirection(moveInput, cameraPivot);
+        _locomotion.RelativeDirection = moveInput;
+    }
+    private void HandleAnimations(bool[] actions) {
         _locomotion.IsMoving = actions[0];
         _locomotion.IsJumping = actions[1];
         _locomotion.IsSprinting = actions[2];
@@ -106,8 +119,13 @@ public class PlayerNetworkManager : MonoBehaviour {
         else if (Cursor.lockState == CursorLockMode.None && !_inputHandler.IsUIEnabled) Cursor.lockState = CursorLockMode.Locked;
         
     }
-
-#region Messages
+    private Vector3 CalculateDirection(Vector3 moveInput, Transform transform) {
+        var calculateDirection = moveInput.z * transform.forward +
+            moveInput.x * transform.right;
+        calculateDirection.y = 0;
+        return calculateDirection.normalized;
+    }
+    #region Messages
     #region Client Messages
     [MessageHandler((ushort)NetworkManager.ServerToClientId.playerSpawned)]
     private static void SpawnPlayerClient(Message message) {
@@ -115,33 +133,61 @@ public class PlayerNetworkManager : MonoBehaviour {
             Spawn(message.GetUShort(), message.GetString(), message.GetVector3());
         }
     }
+    [MessageHandler((ushort)NetworkManager.ServerToClientId.playerDespawn)]
+    private static void DeSpawnPlayer(Message message) {
+        if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
+            if (list.TryGetValue(message.GetUShort(), out PlayerNetworkManager player))
+                Destroy(player.gameObject);
+        }
+    }
     [MessageHandler((ushort) NetworkManager.ServerToClientId.playerMovement)]
     private static void ReceiveMovement(Message message) {
         if (list.TryGetValue(message.GetUShort(), out PlayerNetworkManager player)) {
-            player.SetPositionAndRotation(message.GetVector3(), message.GetQuaternion());
+            Vector3 position = message.GetVector3();
+            Vector3 relativeDirection = message.GetVector3();
+            Quaternion playerRotation = message.GetQuaternion();
+            Quaternion cameraRotation = message.GetQuaternion();
+            bool[] actions = message.GetBools();
+            player.SetPositionAndRotation(position, playerRotation);
+            if (!player.IsLocal) {
+                player._locomotion.RelativeDirection = relativeDirection;
+                player.HandleAnimations(actions);
+                player._cameraHandler.CameraPivot.rotation = cameraRotation;
+            }
         }
     }
     private void SendInput() {
         Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ClientToServerId.input);
+        Vector3 moveInput = new Vector3(_inputHandler.Horizontal, 0, _inputHandler.Vertical);
         bool[] actions = new[] {
             _inputHandler.IsMoving,
             _inputHandler.IsJumping,
             _inputHandler.IsSprinting
         };
-        message.AddVector2(_inputHandler.MovementInput);
+        Vector3 calculatedInput = CalculateDirection(_inputHandler.MovementInput, _cameraHandler.CameraPivot);
+        message.AddVector3(moveInput);
         message.AddBools(actions);
-        HandleLocomotion(_inputHandler.MovementInput, actions);
-        message.AddQuaternion(_locomotion.Rb.rotation);
+        HandleLocomotion(moveInput, actions);
+        HandleAnimations(actions);
+        message.AddQuaternion(_cameraHandler.CameraPivot.rotation);
         NetworkManager.Singleton.Client.Send(message);
     }
     #endregion
 
     #region Server Messages
     private void SendMovement() {
+        bool[] actions = new[] {
+            _locomotion.IsMoving,
+            _locomotion.IsJumping,
+            _locomotion.IsSprinting
+        };
         Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.playerMovement);
-        message.AddUShort(this.Id);
+        message.AddUShort(Id);
         message.AddVector3(transform.position);
+        message.AddVector3(_locomotion.RelativeDirection);
         message.AddQuaternion(transform.rotation);
+        message.AddQuaternion(_cameraHandler.CameraPivot.rotation);
+        message.AddBools(actions);
         NetworkManager.Singleton.Server.SendToAll(message);
     }
     [MessageHandler((ushort)NetworkManager.ClientToServerId.input)]
@@ -149,9 +195,12 @@ public class PlayerNetworkManager : MonoBehaviour {
         if (list.TryGetValue(fromClientId, out PlayerNetworkManager player)) {
             if (player.IsLocal && !NetworkManager.Singleton.IsServer) return;
             
-            Vector2 moveInput = message.GetVector2();
+            Vector3 moveInput = message.GetVector3();
             bool[] actions = message.GetBools();
+            Quaternion cameraPivot = message.GetQuaternion();
+            player._cameraHandler.CameraPivot.rotation = cameraPivot;
             player.HandleLocomotion(moveInput, actions);
+            player.HandleAnimations(actions);
         }
     }
     [MessageHandler((ushort) NetworkManager.ClientToServerId.username)]

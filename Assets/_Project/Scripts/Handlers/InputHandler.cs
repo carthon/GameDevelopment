@@ -54,7 +54,7 @@ namespace _Project.Scripts.Handlers {
             SwapView = false;
             FirstPerson = false;
             IsRolling = false;
-            IsSprinting = false;
+            //IsSprinting = false;
             IsJumping = false;
             IsPicking = false;
             EquipInput = false;
@@ -90,7 +90,7 @@ namespace _Project.Scripts.Handlers {
         }
 
         private void HandleUIInput(float delta) {
-            IsUIEnabled = _inputActions.UIActions.PlayerOverview.phase == InputActionPhase.Started;
+            IsUIEnabled = _inputActions.UIActions.PlayerOverview.phase == InputActionPhase.Performed;
             _dropItem = _inputActions.UIActions.DropItem.phase == InputActionPhase.Started;
             IsPicking = _inputActions.PlayerActions.PickItem.phase == InputActionPhase.Started;
             _inputActions.UIActions.HotbarInput.performed += i => {
@@ -114,13 +114,13 @@ namespace _Project.Scripts.Handlers {
         }
 
         private void HandleJumpInput(float delta) {
-            _j_Input = _inputActions.PlayerActions.Jump.phase == InputActionPhase.Started;
+            _j_Input = _inputActions.PlayerActions.Jump.phase == InputActionPhase.Performed;
             if (_j_Input)
                 IsJumping = true;
         }
 
         private void HandleRollAndSprintInput(float delta) {
-            _b_Input = _inputActions.PlayerActions.Roll.phase == InputActionPhase.Started;
+            _b_Input = _inputActions.PlayerActions.Roll.phase == InputActionPhase.Performed;
             if (_b_Input) {
                 _rollInputTimer += delta;
                 if (Vertical >= 0)
@@ -128,13 +128,13 @@ namespace _Project.Scripts.Handlers {
             }
             else {
                 if (_rollInputTimer > 0 && _rollInputTimer < .5f) {
-                    IsSprinting = false;
                     IsRolling = true;
                     _rollInputTimer = 0;
                 }
                 else if (_rollInputTimer > 0) {
                     _rollInputTimer = 0;
                 }
+                IsSprinting = false;
             }
         }
     }

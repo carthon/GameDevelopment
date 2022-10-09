@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1.18
   fallingSpeed: 2
-  runSpeed: 5
+  runSpeed: 100
   backwardsMultSpeed: 1
   strafeMultSpeed: 1
-  sprintSpeed: 10
+  sprintSpeed: 150
   inAirSpeed: 2
   jumpStrength: 300
   groundLayer:

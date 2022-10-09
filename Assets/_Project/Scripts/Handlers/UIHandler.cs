@@ -19,7 +19,9 @@ public class UIHandler : MonoBehaviour {
     public HotbarUI _hotbarUi;
 
     [SerializeField] private Button _startClient;
+    [SerializeField] private Text _startClientText;
     [SerializeField] private Button _startServer;
+    [SerializeField] private Text _startServerText;
     [SerializeField] private InputField usernameField;
     [SerializeField] private InputField serverIp;
     [SerializeField] private InputField port;
@@ -33,8 +35,20 @@ public class UIHandler : MonoBehaviour {
     private void Start() {
         serverIp.text = NetworkManager.Singleton.hostAddress;
         port.text = NetworkManager.Singleton.port.ToString();
+        _startClientText = _startClient.GetComponentInChildren<Text>();
+        _startServerText = _startServer.GetComponentInChildren<Text>();
     }
     private void Update() {
+        NetworkManager networkManager = NetworkManager.Singleton;
+        bool isServer = networkManager.Server != null && networkManager.IsServer;
+        bool isClient = networkManager.Client != null && networkManager.IsClient;
+        _startServerText.text = isServer ? "Stop Server" : "Start Server";
+        _startClientText.text = isClient ? "Stop Client" : "Start Client";
+        if (usernameField.enabled == isClient) {
+            usernameField.enabled = !isClient;
+            port.enabled = !isClient;
+            serverIp.enabled = !isClient;
+        }
     }
 
     public void StartStopClient() {
@@ -67,8 +81,10 @@ public class UIHandler : MonoBehaviour {
 
     public void UpdateButtonsText() {
         NetworkManager networkManager = NetworkManager.Singleton;
-        _startServer.GetComponentInChildren<Text>().text = networkManager.Server != null ? "Stop Server" : "Start Server";
-        _startClient.GetComponentInChildren<Text>().text = networkManager.Client != null ? "Stop Client" : "Start Client";
+        bool isServer = networkManager.Server != null || networkManager.IsServer;
+        bool isClient = networkManager.Client != null || networkManager.IsClient;
+        _startServerText.text = isServer ? "Stop Server" : "Start Server";
+        _startClientText.text = isClient ? "Stop Client" : "Start Client";
     }
     public void OnGUI() {
         GUILayout.BeginArea(new Rect(Vector2.right * (Screen.width - 200), new Vector2(200,500)));

@@ -33,6 +33,7 @@ public class NetworkManager : MonoBehaviour {
     public enum ServerToClientId : ushort {
         playerSpawned = 1,
         playerMovement,
+        playerDespawn,
     }
 
     void Awake() {
@@ -83,7 +84,14 @@ public class NetworkManager : MonoBehaviour {
     private void DidConnect(object sender, EventArgs args) { UIHandler.Instance.UpdateButtonsText(); }
     private void FailedToConnect (object sender, EventArgs args){ UIHandler.Instance.UpdateButtonsText(); }
     private void DidDisconnect(object sender, EventArgs args) { UIHandler.Instance.UpdateButtonsText(); }
-    private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) { Destroy(PlayerNetworkManager.list[e.Id].gameObject); }
+    private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) {
+        if (PlayerNetworkManager.list.TryGetValue(e.Id, out PlayerNetworkManager player)) {
+            Destroy(player.gameObject);
+            Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.playerDespawn);
+            message.AddUShort(e.Id);
+            Server.SendToAll(message);
+        }
+    }
     private void OnApplicationQuit() {
         StopServer();
         StopClient();

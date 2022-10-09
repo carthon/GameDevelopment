@@ -30,7 +30,6 @@ namespace _Project.Scripts.Handlers {
             _animator = GetComponent<Animator>();
             if (_animator == null)
                 _animator = GetComponentInChildren<Animator>();
-            _locomotion = GetComponentInParent<Locomotion>();
         }
 
         public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, bool isSprinting) {
@@ -69,7 +68,6 @@ namespace _Project.Scripts.Handlers {
 
             #endregion
 
-            _animator.SetBool(IsFalling, !_locomotion.IsGrounded);
             _animator.SetBool(IsSprinting, isSprinting);
             _animator.SetFloat(Vertical, v, 0.1f, Time.deltaTime);
             _animator.SetFloat(Horizontal, h, 0.1f, Time.deltaTime);
@@ -85,6 +83,8 @@ namespace _Project.Scripts.Handlers {
             _animator.SetBool(IsInteracting, isInteracting);
             _animator.CrossFade(targetAnim, .2f);
         }
+        public void SetBool(string targetBool, bool value) => _animator.SetBool(targetBool, value);
+        public void SetTrigger(string targetTrigger) => _animator.SetTrigger(targetTrigger);
         public void SetMoving(bool locomotionIsMoving) {
             _animator.SetBool(IsMoving, locomotionIsMoving);
         }
