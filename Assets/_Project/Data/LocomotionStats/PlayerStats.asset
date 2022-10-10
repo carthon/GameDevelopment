@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   height: 1.18
-  fallingSpeed: 2
-  runSpeed: 100
+  fallingSpeed: 10
+  runSpeed: 4
   backwardsMultSpeed: 1
   strafeMultSpeed: 1
-  sprintSpeed: 150
-  inAirSpeed: 2
+  sprintSpeed: 6
+  inAirSpeed: 0.1
   jumpStrength: 300
   groundLayer:
     serializedVersion: 2

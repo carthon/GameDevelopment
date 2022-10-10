@@ -36,4 +36,4 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
     }
 }
 [Serializable] public class DictionaryOfStringAndInt : SerializableDictionary<string, int> {}
-[Serializable] public class DictionaryOfStringAndTransform : SerializableDictionary<string, Transform> {}
+[Serializable] public class DictionaryOfUshortAndGameObject : SerializableDictionary<ushort, GameObject> {}

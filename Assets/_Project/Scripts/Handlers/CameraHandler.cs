@@ -64,8 +64,8 @@ public class CameraHandler : MonoBehaviour {
         if (!UsingOrbitalCamera) {
             CameraPitch();
             CameraYaw();
-            CameraSnapFollow();
-            CameraSnapRotation();
+            //CameraSnapFollow();
+            //CameraSnapRotation();
         }
     }
     private void ChangeCamera() {
@@ -107,8 +107,9 @@ public class CameraHandler : MonoBehaviour {
     }
     public Vector3 GetDirectionFromMouse(float mouseX, float mouseY) {
         _previousLookInput = _playerLookInput;
-        _playerLookInput = new Vector3(mouseX, mouseY, 0);
-        return Vector3.Lerp(_previousLookInput, _playerLookInput, _cameraData.playerLookInputLerpSpeed);
+        _playerLookInput = new Vector3(mouseX * _cameraData.sensitivityX, mouseY * _cameraData.sensitivityY, 0) * Time.fixedDeltaTime;
+        //return Vector3.Lerp(_previousLookInput, _playerLookInput, _cameraData.playerLookInputLerpSpeed);
+        return _playerLookInput;
     }
     private void CameraSnapRotation() {
         _cameraFollow.rotation = _cameraPivot.rotation;
@@ -120,13 +121,13 @@ public class CameraHandler : MonoBehaviour {
     }
     private void CameraPitch() {
         var rotationValues = _cameraPivot.rotation.eulerAngles;
-        _cameraPitch += -1 * _playerLookInput.y * _cameraData.cameraPitchSpeedMult;
+        _cameraPitch += -1 * _playerLookInput.y;
         _cameraPitch = Mathf.Clamp(_cameraPitch, -_cameraData.pitchLimitTopLimit, _cameraData.pitchLimitBottomLimit);
         _cameraPivot.rotation = Quaternion.Euler(_cameraPitch, rotationValues.y, rotationValues.z);
     }
     private void CameraYaw() {
         var rotationValues = _cameraPivot.rotation.eulerAngles;
-        _cameraYaw += _playerLookInput.x * _cameraData.cameraPitchSpeedMult;
+        _cameraYaw += _playerLookInput.x;
         //_cameraYaw = Mathf.Clamp(_cameraPitch, -_cameraData.pitchLimitTopLimit, _cameraData.pitchLimitBottomLimit);
         _cameraPivot.rotation = Quaternion.Euler(rotationValues.x, _cameraYaw, rotationValues.z);
     }

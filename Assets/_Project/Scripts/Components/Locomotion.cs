@@ -51,7 +51,7 @@ namespace _Project.Scripts.Components {
             var strafeMult = RelativeDirection == Vector3.right || RelativeDirection == Vector3.left ? _stats.strafeMultSpeed : 1;
             var backwardsMult = RelativeDirection == Vector3.back ? _stats.backwardsMultSpeed : 1;
             AppliedMovement = moveDirection * (CurrentMovementSpeed * strafeMult * backwardsMult);
-            AppliedMovement = new Vector3(AppliedMovement.x, 0, AppliedMovement.z) * delta;
+            AppliedMovement = new Vector3(AppliedMovement.x, 0, AppliedMovement.z);
         }
     }
 }

@@ -17,20 +17,32 @@ public class PlayerNetworkManager : MonoBehaviour {
     private AnimatorHandler _animator;
     private CameraHandler _cameraHandler;
     private Inventory _inventory;
+    private Grabler _grabler;
+    [SerializeField] private Transform model;
     private TextMeshProUGUI _usernameDisplay;
 
     public ushort Id { get; private set; }
     public bool IsLocal { get; private set; }
     public string Username { get; private set; }
 
+    [SerializeField] private float grabDistance = 5f;
+    
     public void InitializeComponents() {
         _inputHandler = GetComponent<InputHandler>();
         _locomotion = GetComponent<Locomotion>();
         _animator = GetComponent<AnimatorHandler>();
         _cameraHandler = GetComponent<CameraHandler>();
+        _inventory = new Inventory("PlayerInventory", 9);
+        _grabler = GetComponent<Grabler>();
+        _grabler.SetInventory(_inventory);
+        _grabler.CanPickUp = true;
         _usernameDisplay = GetComponentInChildren<TextMeshProUGUI>();
         _animator.Initialize();
         _locomotion.SetUp();
+        if (NetworkManager.Singleton.IsServer && !IsLocal)
+            foreach (Grabbable grabbable in Grabbable.list.Values) {
+                grabbable.SpawnItemMessage(Id);
+            }
     }
     private void OnSpawn() {
         InitializeComponents();
@@ -40,7 +52,6 @@ public class PlayerNetworkManager : MonoBehaviour {
         if (IsLocal) {
             Cursor.lockState = CursorLockMode.Locked;
             _cameraHandler.InitializeCamera();
-            _inventory = new Inventory("PlayerInventory", 9);
         }
     }
     private void Update() {
@@ -63,13 +74,14 @@ public class PlayerNetworkManager : MonoBehaviour {
         }
         if (NetworkManager.Singleton.IsServer) {
             _locomotion.FixedTick(fixedDelta);
-            Physics.Simulate(fixedDelta);
             SendMovement();
         }
     }
     private void HandleRotation() {
         Quaternion newRotation = Quaternion.Euler(0.0f, _cameraHandler.CameraPivot.rotation.eulerAngles.y, 0.0f);
-        transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, _cameraHandler.CameraData.rotationMultiplier);
+        model.rotation = Quaternion.Lerp(model.rotation, newRotation, _cameraHandler.CameraData.playerLookInputLerpSpeed * Time.fixedDeltaTime);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, _cameraHandler.CameraData.rotationMultiplier * Time.fixedDeltaTime);
+        //transform.rotation = newRotation;
     }
 
     private void OnDestroy() {
@@ -103,15 +115,31 @@ public class PlayerNetworkManager : MonoBehaviour {
         if(!IsLocal)
             _locomotion.Rb.rotation = rotation;
     }
-    private void HandleLocomotion(Vector3 moveInput, bool[] actions) {
+    private void HandleLocomotion(Vector3 moveInput) {
         Transform cameraPivot = _cameraHandler.CameraPivot.transform;
         _locomotion.TargetPosition = CalculateDirection(moveInput, cameraPivot);
         _locomotion.RelativeDirection = moveInput;
     }
+    //Aplica las acciones a los componentes necesarios. Es client-side,
+    //por lo que se replica en el servidor
     private void HandleAnimations(bool[] actions) {
         _locomotion.IsMoving = actions[0];
         _locomotion.IsJumping = actions[1];
         _locomotion.IsSprinting = actions[2];
+        _animator.SetBool("isPicking", actions[3]);
+        _animator.SetBool("isFalling", !_locomotion.IsGrounded);
+    }
+    private void HandlePicking() {
+        if(NetworkManager.Singleton.IsServer) {
+            Ray ray = new Ray(_cameraHandler.CameraPivot.position, _cameraHandler.CameraPivot.forward);
+            Grabbable grabbable = _grabler.GetPickableInRange(ray, grabDistance);
+            if(grabbable != null) {
+                LootTable leftovers = _grabler.TryPickItems(grabbable);
+                if (!leftovers.IsEmpty()) {
+                    Debug.Log("Sobran items!");
+                }
+            }
+        }
     }
     private void HandleUI(){
         if (_inputHandler.IsUIEnabled)
@@ -119,11 +147,14 @@ public class PlayerNetworkManager : MonoBehaviour {
         else if (Cursor.lockState == CursorLockMode.None && !_inputHandler.IsUIEnabled) Cursor.lockState = CursorLockMode.Locked;
         
     }
-    private Vector3 CalculateDirection(Vector3 moveInput, Transform transform) {
-        var calculateDirection = moveInput.z * transform.forward +
-            moveInput.x * transform.right;
+    private Vector3 CalculateDirection(Vector3 moveInput, Transform someTransform) {
+        var calculateDirection = moveInput.z * someTransform.forward +
+            moveInput.x * someTransform.right;
         calculateDirection.y = 0;
         return calculateDirection.normalized;
+    }
+    private Vector3 GetLookDirection() {
+        return _cameraHandler.CameraPivot.rotation.eulerAngles;
     }
     #region Messages
     #region Client Messages
@@ -149,6 +180,8 @@ public class PlayerNetworkManager : MonoBehaviour {
             Quaternion cameraRotation = message.GetQuaternion();
             bool[] actions = message.GetBools();
             player.SetPositionAndRotation(position, playerRotation);
+            player._locomotion.IsGrounded = actions[3];
+            //TODO: Implementar client prediction y una vez hecho quitar pasar el IsGrounded a través de la red
             if (!player.IsLocal) {
                 player._locomotion.RelativeDirection = relativeDirection;
                 player.HandleAnimations(actions);
@@ -157,17 +190,18 @@ public class PlayerNetworkManager : MonoBehaviour {
         }
     }
     private void SendInput() {
-        Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ClientToServerId.input);
         Vector3 moveInput = new Vector3(_inputHandler.Horizontal, 0, _inputHandler.Vertical);
         bool[] actions = new[] {
             _inputHandler.IsMoving,
             _inputHandler.IsJumping,
-            _inputHandler.IsSprinting
+            _inputHandler.IsSprinting,
+            _inputHandler.IsPicking
         };
-        Vector3 calculatedInput = CalculateDirection(_inputHandler.MovementInput, _cameraHandler.CameraPivot);
+        if (actions[3]) HandlePicking();
+        Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ClientToServerId.input);
         message.AddVector3(moveInput);
         message.AddBools(actions);
-        HandleLocomotion(moveInput, actions);
+        HandleLocomotion(moveInput);
         HandleAnimations(actions);
         message.AddQuaternion(_cameraHandler.CameraPivot.rotation);
         NetworkManager.Singleton.Client.Send(message);
@@ -176,10 +210,12 @@ public class PlayerNetworkManager : MonoBehaviour {
 
     #region Server Messages
     private void SendMovement() {
+        //TODO: Implementar client prediction y una vez hecho quitar pasar el IsGrounded a través de la red
         bool[] actions = new[] {
             _locomotion.IsMoving,
             _locomotion.IsJumping,
-            _locomotion.IsSprinting
+            _locomotion.IsSprinting,
+            _locomotion.IsGrounded
         };
         Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.playerMovement);
         message.AddUShort(Id);
@@ -193,14 +229,17 @@ public class PlayerNetworkManager : MonoBehaviour {
     [MessageHandler((ushort)NetworkManager.ClientToServerId.input)]
     private static void ReceiveInput(ushort fromClientId, Message message) {
         if (list.TryGetValue(fromClientId, out PlayerNetworkManager player)) {
+            //Si es host, entonces no recive el input (ya ha sido procesado por el servidor)
             if (player.IsLocal && !NetworkManager.Singleton.IsServer) return;
             
             Vector3 moveInput = message.GetVector3();
             bool[] actions = message.GetBools();
             Quaternion cameraPivot = message.GetQuaternion();
             player._cameraHandler.CameraPivot.rotation = cameraPivot;
-            player.HandleLocomotion(moveInput, actions);
+            player.HandleLocomotion(moveInput);
             player.HandleAnimations(actions);
+            if (actions[3])
+                player.HandlePicking();
         }
     }
     [MessageHandler((ushort) NetworkManager.ClientToServerId.username)]

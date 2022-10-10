@@ -18,6 +18,7 @@ public class Grabler : MonoBehaviour {
         var leftOvers = new List<ItemStack>();
         foreach (var itemInLootTable in itemTable.LootTables) {
             var leftOver = linkedInventory.AddItemStack(new ItemStack(itemInLootTable.Item, itemInLootTable.Count));
+            Debug.Log(leftOver.GetCount());
             leftOvers.Add(leftOver);
             itemInLootTable.Count = leftOver.GetCount();
         }
@@ -29,8 +30,8 @@ public class Grabler : MonoBehaviour {
 
     public Grabbable GetPickableInRange(Ray rayOrigin, float pickUpDistance) {
         RaycastHit hitInfo;
-        if (Physics.Raycast(rayOrigin, out hitInfo, pickUpDistance)) {
-            //Debug.DrawRay(rayOrigin.origin, rayOrigin.direction * pickUpDistance, Color.yellow, 30f);
+        if (Physics.Raycast(rayOrigin, out hitInfo, pickUpDistance, itemMask)) {
+            Debug.DrawRay(rayOrigin.origin, rayOrigin.direction * pickUpDistance, Color.yellow, 30f);
             var pickable = hitInfo.collider.GetComponent<Grabbable>();
             if (pickable)
                 return pickable;

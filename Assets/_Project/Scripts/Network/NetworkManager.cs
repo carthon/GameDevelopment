@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using _Project.Scripts.Components;
+using _Project.Scripts.Utils;
 using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
@@ -7,6 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour {
     private static NetworkManager _singleton;
+    public List<PrefabTuple> prefabList = new List<PrefabTuple>();
     public static NetworkManager Singleton
     {
         get => _singleton;
@@ -34,6 +38,8 @@ public class NetworkManager : MonoBehaviour {
         playerSpawned = 1,
         playerMovement,
         playerDespawn,
+        itemDespawn,
+        itemSpawn
     }
 
     void Awake() {
@@ -45,10 +51,12 @@ public class NetworkManager : MonoBehaviour {
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
     }
     private void FixedUpdate() {
-        if (IsServer)
-            Server.Tick();
         if (IsClient)
             Client.Tick();
+        if (IsServer) {
+            Server.Tick();
+            Physics.Simulate(Time.fixedDeltaTime);
+        }
     }
     public void InitializeServer() {
         IsServer = true;

@@ -92,7 +92,7 @@ namespace _Project.Scripts.Handlers {
         private void HandleUIInput(float delta) {
             IsUIEnabled = _inputActions.UIActions.PlayerOverview.phase == InputActionPhase.Performed;
             _dropItem = _inputActions.UIActions.DropItem.phase == InputActionPhase.Started;
-            IsPicking = _inputActions.PlayerActions.PickItem.phase == InputActionPhase.Started;
+            IsPicking = _inputActions.PlayerActions.PickItem.phase == InputActionPhase.Performed;
             _inputActions.UIActions.HotbarInput.performed += i => {
                 HotbarSlot = (int) i.ReadValue<float>();
                 EquipInput = true;

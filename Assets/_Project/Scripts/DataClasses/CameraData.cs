@@ -4,7 +4,6 @@ namespace Scripts.DataClasses {
     [CreateAssetMenu(menuName = "Data/CameraData", fileName = "Camera Data")]
     public class CameraData : ScriptableObject {
         public float playerLookInputLerpSpeed = 0.35f;
-        public float cameraPitchSpeedMult = 180.0f;
         public float rotationMultiplier;
         public float pitchLimitTopLimit = 90f;
         public float pitchLimitBottomLimit = 90f;
