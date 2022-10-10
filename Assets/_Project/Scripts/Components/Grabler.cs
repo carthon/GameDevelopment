@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Grabler : MonoBehaviour {
     [SerializeField] private LayerMask itemMask;
-    private Inventory linkedInventory;
+    public InventoryManager LinkedInventoryManager { get; set; }
     public bool CanPickUp { get; set; }
 
     public LootTable TryPickItems(Grabbable closestGrabbable) {
@@ -17,7 +17,7 @@ public class Grabler : MonoBehaviour {
 
         var leftOvers = new List<ItemStack>();
         foreach (var itemInLootTable in itemTable.LootTables) {
-            var leftOver = linkedInventory.AddItemStack(new ItemStack(itemInLootTable.Item, itemInLootTable.Count));
+            var leftOver = LinkedInventoryManager.AddItemStack(new ItemStack(itemInLootTable.Item, itemInLootTable.Count));
             Debug.Log(leftOver.GetCount());
             leftOvers.Add(leftOver);
             itemInLootTable.Count = leftOver.GetCount();
@@ -58,11 +58,4 @@ public class Grabler : MonoBehaviour {
     //     }
     //     return closestItem;
     // }
-
-    public Inventory GetInventory() {
-        return linkedInventory;
-    }
-    public void SetInventory(Inventory inventory) {
-        linkedInventory = inventory;
-    }
 }

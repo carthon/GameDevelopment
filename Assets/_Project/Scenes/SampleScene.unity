@@ -1956,7 +1956,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -50}
+  m_AnchoredPosition: {x: 1221, y: -59}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1201873836
@@ -2415,10 +2415,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 152ae4ccb27680e48a4395f35d81598e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabList:
-  - id: 1
-    model: {fileID: 7010931887659289211, guid: 5035a56e8dbc98d46a3a8394a4bb7285, type: 3}
-    item: {fileID: 11400000, guid: 3f1ca64c31b5ad44fa23598278bdc374, type: 2}
+  itemsDictionary:
+    keys:
+    - 3acc9e1d47c64217b9a305c215923faa
+    - 62a8f086d64c42f4b8b02bf1cf519887
+    - 2c5f0afbb2f64a7fa3c43002f8fb7969
+    values:
+    - {fileID: 11400000, guid: 3f1ca64c31b5ad44fa23598278bdc374, type: 2}
+    - {fileID: 11400000, guid: b456ff28580b4e34aa24d6c2b4bb75bb, type: 2}
+    - {fileID: 11400000, guid: 095be6d8dba38ce438c5c2a214af8e51, type: 2}
   port: 3478
   hostAddress: 127.0.0.1
   maxClientCount: 10
@@ -3889,10 +3894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d814ac78b404c14b674d195a9a4ab4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    id: 1
-    model: {fileID: 7010931887659289211, guid: 5035a56e8dbc98d46a3a8394a4bb7285, type: 3}
-    item: {fileID: 11400000, guid: 3f1ca64c31b5ad44fa23598278bdc374, type: 2}
+  item: {fileID: 11400000, guid: 3f1ca64c31b5ad44fa23598278bdc374, type: 2}
   count: 1
 --- !u!222 &1813961471177621905
 CanvasRenderer:
@@ -4765,10 +4767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d814ac78b404c14b674d195a9a4ab4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    id: 1
-    model: {fileID: 7010931887659289211, guid: 5035a56e8dbc98d46a3a8394a4bb7285, type: 3}
-    item: {fileID: 11400000, guid: 3f1ca64c31b5ad44fa23598278bdc374, type: 2}
+  item: {fileID: 11400000, guid: 3f1ca64c31b5ad44fa23598278bdc374, type: 2}
   count: 1
 --- !u!1 &9044240235684047336
 GameObject:

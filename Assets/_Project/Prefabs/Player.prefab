@@ -4625,6 +4625,7 @@ GameObject:
   - component: {fileID: 7222699574244167913}
   - component: {fileID: 6220639199907762609}
   - component: {fileID: 7076139496075712375}
+  - component: {fileID: 4402990852805173882}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -4776,6 +4777,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 2832005466120077985}
+  grabDistance: 5
+--- !u!114 &4402990852805173882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7222699574244167904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21a639c9d714051ab33004435c12d46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7222699575098919641
 GameObject:
   m_ObjectHideFlags: 0

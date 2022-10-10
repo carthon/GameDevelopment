@@ -13,6 +13,8 @@ public class Item : ScriptableObject, IEquatable<Item> {
     public string name;
     public GameObject modelPrefab;
     public ItemSize Size;
+    [ScriptableObjectId]
+    public string id;
     [field: TextArea]
     public string description;
 

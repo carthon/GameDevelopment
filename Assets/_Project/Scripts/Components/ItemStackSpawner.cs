@@ -1,17 +1,16 @@
-using _Project.Scripts.Utils;
 using UnityEngine;
 
 namespace _Project.Scripts.Components {
     public class ItemStackSpawner : MonoBehaviour {
-        public PrefabTuple item;
+        public Item item;
         public int count;
         public void Update() {
             if (NetworkManager.Singleton.IsServer) {
-                var itemRendered = Instantiate(item.model, transform);
+                var itemRendered = Instantiate(item.modelPrefab, transform);
                 var pickable = itemRendered.AddComponent<Grabbable>();
                 if (pickable) {
                     var lootTable = new LootTable();
-                    lootTable.AddToLootTable(item.item, count);
+                    lootTable.AddToLootTable(item, count);
                     pickable.SetLootTable(lootTable);
                     pickable.Initialize(Grabbable.nextId, item);
                     Grabbable.nextId++;

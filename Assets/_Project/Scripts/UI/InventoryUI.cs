@@ -11,7 +11,7 @@ public class InventoryUI : PanelBaseUI {
 
     public void SetUpInventory(Inventory inventory) {
         _inventory = inventory;
-        inventory.OnInventoryChange += UpdateUI;
+        inventory.OnSlotChange += UpdateUI;
 
         slots = GetComponentsInChildren<ItemSlotUI>();
         for (var i = 0; i < slots.Length; i++) {

@@ -33,7 +33,7 @@ namespace _Project.Scripts.UI {
             var hotbarSlotUI = (HotbarSlotUI) itemSlot;
             if (hotbarSlotUI.IsListening) {
                 hotbarSlotUI.ClearLink();
-                hotbarSlotUI.ItemStack.GetInventory().OnInventoryChange -= hotbarSlotUI.UpdateItemCount;
+                hotbarSlotUI.ItemStack.GetInventory().OnSlotChange -= hotbarSlotUI.UpdateItemCount;
                 hotbarSlotUI.IsListening = false;
             }
         }
@@ -43,7 +43,7 @@ namespace _Project.Scripts.UI {
             if (!hotbarSlotUI.IsListening) {
                 hotbarSlotUI.SetItemStack(itemStack);
                 hotbarSlotUI.LinkedItems.SetItemLinks(itemStack.GetInventory().GetItemStacksByType(hotbarSlotUI.ItemStack.Item), itemSlot.ItemStack.Item);
-                hotbarSlotUI.ItemStack.GetInventory().OnInventoryChange += hotbarSlotUI.UpdateItemCount;
+                hotbarSlotUI.ItemStack.GetInventory().OnSlotChange += hotbarSlotUI.UpdateItemCount;
                 hotbarSlotUI.SetItemStackCount(hotbarSlotUI.LinkedItems.GetItemsCount());
                 hotbarSlotUI.IsListening = true;
                 wasDropped = true;

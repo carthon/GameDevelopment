@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using _Project.Scripts.Network;
-using _Project.Scripts.Utils;
 using RiptideNetworking;
 using TMPro;
 using UnityEngine;
@@ -9,16 +8,16 @@ using UnityEngine;
 namespace _Project.Scripts.Components {
     public class Grabbable : MonoBehaviour {
         public static Dictionary<ushort, Grabbable> list = new Dictionary<ushort, Grabbable>();
-        public PrefabTuple prefabData;
+        public Item itemData;
         public static ushort nextId = 1;
         [SerializeField]
         private LootTable _lootTable;
         public bool HasItems => !_lootTable.IsEmpty();
         public ushort Id { get; private set; }
 
-        public void Initialize(ushort id, PrefabTuple prefab) {
+        public void Initialize(ushort id, Item prefab) {
                 Id = id;
-                prefabData = prefab;
+                itemData = prefab;
                 list.Add(Id, this);
                 UpdateID();
                 if (NetworkManager.Singleton.IsServer)
@@ -44,7 +43,7 @@ namespace _Project.Scripts.Components {
         public void SpawnItemMessage(ushort id = 0) {
             Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.itemSpawn);
             message.AddUShort(Id);
-            message.AddUShort(prefabData.id);
+            message.AddString(itemData.id);
             message.AddVector3(transform.position);
             message.AddQuaternion(transform.rotation);
             if (id == 0)
@@ -65,9 +64,10 @@ namespace _Project.Scripts.Components {
         private static void SpawnItemClient(Message message) {
             if (!NetworkManager.Singleton.IsServer) {
                 ushort id = message.GetUShort();
-                ushort modelId = message.GetUShort();
-                PrefabTuple prefabData = NetworkManager.Singleton.prefabList.Find((obj) => obj.id == modelId);
-                Grabbable grabbable = Instantiate(prefabData.model, message.GetVector3(), message.GetQuaternion()).GetComponent<Grabbable>();
+                string modelId = message.GetString();
+                Item prefabData = NetworkManager.Singleton.itemsDictionary[modelId];
+                Grabbable grabbable = Instantiate(prefabData.modelPrefab, message.GetVector3(), 
+                    message.GetQuaternion()).GetComponent<Grabbable>();
                 grabbable.Initialize(id, prefabData);
             }
         }

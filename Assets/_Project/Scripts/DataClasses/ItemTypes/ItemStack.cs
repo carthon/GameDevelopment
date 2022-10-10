@@ -1,5 +1,7 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 
+[Serializable]
 public class ItemStack {
     public static readonly ItemStack EMPTY = new ItemStack();
 

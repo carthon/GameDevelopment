@@ -16,7 +16,7 @@ public class PlayerNetworkManager : MonoBehaviour {
     private Locomotion _locomotion;
     private AnimatorHandler _animator;
     private CameraHandler _cameraHandler;
-    private Inventory _inventory;
+    private InventoryManager _inventoryManager;
     private Grabler _grabler;
     [SerializeField] private Transform model;
     private TextMeshProUGUI _usernameDisplay;
@@ -32,13 +32,15 @@ public class PlayerNetworkManager : MonoBehaviour {
         _locomotion = GetComponent<Locomotion>();
         _animator = GetComponent<AnimatorHandler>();
         _cameraHandler = GetComponent<CameraHandler>();
-        _inventory = new Inventory("PlayerInventory", 9);
+        _inventoryManager = GetComponent<InventoryManager>();
         _grabler = GetComponent<Grabler>();
-        _grabler.SetInventory(_inventory);
+        _grabler.LinkedInventoryManager = _inventoryManager;
+        _inventoryManager.Inventories.Add(new Inventory("PlayerInventory", 9));
         _grabler.CanPickUp = true;
         _usernameDisplay = GetComponentInChildren<TextMeshProUGUI>();
         _animator.Initialize();
         _locomotion.SetUp();
+        //TODO: Cambiarlo a que cuando el servidor detecte que se ha conectado un jugador, que le envíe los items a su alrededor
         if (NetworkManager.Singleton.IsServer && !IsLocal)
             foreach (Grabbable grabbable in Grabbable.list.Values) {
                 grabbable.SpawnItemMessage(Id);
@@ -52,6 +54,8 @@ public class PlayerNetworkManager : MonoBehaviour {
         if (IsLocal) {
             Cursor.lockState = CursorLockMode.Locked;
             _cameraHandler.InitializeCamera();
+            UIHandler.Instance.AddInventory(_inventoryManager.Inventories[0]);
+            UIHandler.Instance.TriggerInventory(0);
         }
     }
     private void Update() {
@@ -142,10 +146,14 @@ public class PlayerNetworkManager : MonoBehaviour {
         }
     }
     private void HandleUI(){
-        if (_inputHandler.IsUIEnabled)
+        if (_inputHandler.IsUIEnabled) {
             Cursor.lockState = CursorLockMode.None;
-        else if (Cursor.lockState == CursorLockMode.None && !_inputHandler.IsUIEnabled) Cursor.lockState = CursorLockMode.Locked;
-        
+            if (!UIHandler.Instance.ShowingInventory) UIHandler.Instance.TriggerInventory(0);
+        }
+        else if (Cursor.lockState == CursorLockMode.None && !_inputHandler.IsUIEnabled) {
+            Cursor.lockState = CursorLockMode.Locked;
+            if (UIHandler.Instance.ShowingInventory) UIHandler.Instance.TriggerInventory(0);
+        }
     }
     private Vector3 CalculateDirection(Vector3 moveInput, Transform someTransform) {
         var calculateDirection = moveInput.z * someTransform.forward +
@@ -258,6 +266,17 @@ public class PlayerNetworkManager : MonoBehaviour {
                 net.Server.SendToAll(message);
             else
                 net.Server.Send(message, toClientId);
+        }
+    }
+    [MessageHandler((ushort)NetworkManager.ClientToServerId.inventory)]
+    private static void SlotSwapServer(Message message) {
+        ushort playerId = message.GetUShort();
+        int inventoryId = message.GetInt();
+        int slot = message.GetInt();
+        int otherSlot = message.GetInt();
+        if (list.TryGetValue(playerId, out PlayerNetworkManager player)) {
+            Inventory inventory = player._inventoryManager.Inventories[inventoryId];
+            player._inventoryManager.Inventories[inventoryId].SwapItemsInInventory(inventory, slot, otherSlot);
         }
     }
     private Message AddSpawnData(Message message) {

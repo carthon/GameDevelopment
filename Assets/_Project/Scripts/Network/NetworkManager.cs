@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Project.Scripts.Components;
-using _Project.Scripts.Utils;
 using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour {
     private static NetworkManager _singleton;
-    public List<PrefabTuple> prefabList = new List<PrefabTuple>();
+    public DictionaryOfStringAndItems itemsDictionary;
     public static NetworkManager Singleton
     {
         get => _singleton;
@@ -33,17 +33,27 @@ public class NetworkManager : MonoBehaviour {
     public enum ClientToServerId : ushort {
         username = 1,
         input,
+        inventory
     }
     public enum ServerToClientId : ushort {
         playerSpawned = 1,
         playerMovement,
         playerDespawn,
         itemDespawn,
-        itemSpawn
+        itemSpawn,
+        inventory
     }
 
     void Awake() {
         _singleton = this;
+    }
+    private void OnValidate() {
+        Item[] items = Resources.LoadAll<Item>("Items");
+        Debug.Log($"Loaded {items.Length} items");
+        itemsDictionary = new DictionaryOfStringAndItems();
+        foreach (Item item in items) {
+            itemsDictionary.Add(item.id, item);
+        }
     }
     public Server Server { get; private set; }
     public Client Client { get; private set; }  

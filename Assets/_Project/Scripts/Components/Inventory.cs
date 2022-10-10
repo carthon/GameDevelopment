@@ -4,11 +4,15 @@ using _Project.Scripts.Components;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
+[Serializable]
 public class Inventory {
 
     private int _freeSpace;
     private List<ItemStack> _items;
-
+    public int Id { get; set; }
+    public event Action<int, ItemStack> OnSlotChange;
+    public event Action<int, int, int> OnSlotSwap;
+    
     public Inventory(string name, int size) {
         Name = name;
         Size = size;
@@ -22,7 +26,6 @@ public class Inventory {
     public string Name { get; set; }
     public int Size { get; }
 
-    public event Action<int, ItemStack> OnInventoryChange;
 
     private void Init() {
         _freeSpace = Size;
@@ -47,7 +50,7 @@ public class Inventory {
         itemLeftOver.SetCount(0);
         if (_freeSpace >= 1) {
             if (IsValidSlot(slot)) {
-                if (itemStack.Item != null) {
+                if (!itemStack.Item.Equals(null)) {
                     if (itemStack.Item.Equals(_items[slot].Item) &&
                         itemStack.GetCount() <= _items[slot].Item.GetMaxStackSize()) {
                         itemLeftOver.SetCount(AddToStack(slot, itemStack.GetCount()));
@@ -58,7 +61,7 @@ public class Inventory {
                     }
                 }
                 if (itemLeftOver.GetCount() > 0) itemLeftOver = AddItemStack(itemLeftOver);
-                OnInventoryChange?.Invoke(slot, _items[slot]);
+                OnSlotChange?.Invoke(slot, _items[slot]);
             }
         }
         else {
@@ -113,7 +116,7 @@ public class Inventory {
                 newCount = 0;
             }
             _items[slot].SetCount(newCount);
-            OnInventoryChange?.Invoke(slot, itemStackCopy);
+            OnSlotChange?.Invoke(slot, itemStackCopy);
         }
         return itemStackCopy;
     }
@@ -157,6 +160,8 @@ public class Inventory {
         var otherItemStack = otherInventory.TakeStackFromSlot(itemStackSlot);
         if (itemStackSlot != -1) AddItemStackToSlot(otherItemStack, otherItemStackSlot);
         otherInventory.AddItemStackToSlot(thisItemStack, itemStackSlot);
+        if(otherInventory == this)
+            OnSlotSwap?.Invoke(Id, itemStackSlot, otherItemStackSlot);
         return true;
     }
     public List<ItemStack> GetItemStacksByType(Item item) {

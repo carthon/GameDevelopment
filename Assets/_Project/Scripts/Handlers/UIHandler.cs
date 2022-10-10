@@ -17,6 +17,7 @@ public class UIHandler : MonoBehaviour {
     [SerializeField] private List<InventoryUI> _inventories;
     public DragItemHandlerUI dragItemHandlerUI;
     public HotbarUI _hotbarUi;
+    public bool ShowingInventory { get; private set; }
 
     [SerializeField] private Button _startClient;
     [SerializeField] private Text _startClientText;
@@ -124,6 +125,10 @@ public class UIHandler : MonoBehaviour {
             index = _inventories.Count - 1;
         }
         _inventories[index].SetUpInventory(inventory);
+    }
+    public void TriggerInventory(int slot) {
+        _inventories[slot].gameObject.SetActive(!_inventories[slot].gameObject.activeSelf);
+        ShowingInventory = _inventories[slot].gameObject.activeSelf;
     }
 
 }
