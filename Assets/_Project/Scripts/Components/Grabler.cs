@@ -18,7 +18,6 @@ public class Grabler : MonoBehaviour {
         var leftOvers = new List<ItemStack>();
         foreach (var itemInLootTable in itemTable.LootTables) {
             var leftOver = LinkedInventoryManager.AddItemStack(new ItemStack(itemInLootTable.Item, itemInLootTable.Count));
-            Debug.Log(leftOver.GetCount());
             leftOvers.Add(leftOver);
             itemInLootTable.Count = leftOver.GetCount();
         }

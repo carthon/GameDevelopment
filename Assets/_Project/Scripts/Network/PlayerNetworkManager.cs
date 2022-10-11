@@ -54,7 +54,7 @@ public class PlayerNetworkManager : MonoBehaviour {
         if (IsLocal) {
             Cursor.lockState = CursorLockMode.Locked;
             _cameraHandler.InitializeCamera();
-            UIHandler.Instance.AddInventory(_inventoryManager.Inventories[0]);
+            UIHandler.Instance.AddInventory(_inventoryManager.Inventories[0], _inventoryManager);
             UIHandler.Instance.TriggerInventory(0);
         }
     }
@@ -197,6 +197,20 @@ public class PlayerNetworkManager : MonoBehaviour {
             }
         }
     }
+    [MessageHandler((ushort)NetworkManager.ClientToServerId.itemSwap)]
+    private static void SlotSwapServer(Message message) {
+        if (!NetworkManager.Singleton.IsServer) return;
+        ushort playerId = message.GetUShort();
+        int[] data = message.GetInts();
+        int otherInventoryId = data[0];
+        int inventoryId = data[1];
+        int slot = data[2];
+        int otherSlot = data[3];
+        if (list.TryGetValue(playerId, out PlayerNetworkManager player)) {
+            Inventory otherInventory = player._inventoryManager.Inventories[otherInventoryId];
+            player._inventoryManager.Inventories[inventoryId].SwapItemsInInventory(otherInventory, slot, otherSlot);
+        }
+    }
     private void SendInput() {
         Vector3 moveInput = new Vector3(_inputHandler.Horizontal, 0, _inputHandler.Vertical);
         bool[] actions = new[] {
@@ -266,17 +280,6 @@ public class PlayerNetworkManager : MonoBehaviour {
                 net.Server.SendToAll(message);
             else
                 net.Server.Send(message, toClientId);
-        }
-    }
-    [MessageHandler((ushort)NetworkManager.ClientToServerId.inventory)]
-    private static void SlotSwapServer(Message message) {
-        ushort playerId = message.GetUShort();
-        int inventoryId = message.GetInt();
-        int slot = message.GetInt();
-        int otherSlot = message.GetInt();
-        if (list.TryGetValue(playerId, out PlayerNetworkManager player)) {
-            Inventory inventory = player._inventoryManager.Inventories[inventoryId];
-            player._inventoryManager.Inventories[inventoryId].SwapItemsInInventory(inventory, slot, otherSlot);
         }
     }
     private Message AddSpawnData(Message message) {

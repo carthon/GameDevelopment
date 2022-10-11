@@ -21,27 +21,30 @@ public class InventoryManager : MonoBehaviour {
 		inventory.Id = inventory.Size;
 		_inventories.Add(inventory);
 		inventory.OnSlotChange += InventoryOnSlotChange;
-		inventory.OnSlotSwap += InventoryOnSlotSwap;
+		inventory.OnSlotSwap += SwapSlot;
 	}
 	public void Remove(Inventory inventory) {
 		_inventories.Remove(inventory);
 	}
 	private void InventoryOnSlotChange(int slot, ItemStack itemStack) {
 		if (NetworkManager.Singleton.IsServer) {
-			Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.inventory);
+			//Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.inventory);
 		}
 	}
-	private void InventoryOnSlotSwap(int inventory, int slot, int otherSlot) {
-		if (_player.IsLocal && !NetworkManager.Singleton.IsServer) {
-			SendSlotSwapToServer(inventory, slot, otherSlot);
-		}
+	private void SwapSlot(int inventory, int otherInventory, int slot, int otherSlot) {
+		if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
+			SendSlotSwapToServer(inventory, otherInventory, slot, otherSlot);
 	}
-	private void SendSlotSwapToServer(int inventory, int slot, int otherSlot) {
-		Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ClientToServerId.inventory);
+	private void SendSlotSwapToServer(int inventory, int otherInventory, int slot, int otherSlot) {
+		Message message = Message.Create(MessageSendMode.reliable, (ushort)NetworkManager.ClientToServerId.itemSwap);
 		message.AddUShort(_player.Id);
-		message.AddInt(inventory);
-		message.AddInt(slot);
-		message.AddInt(otherSlot);
+		int[] data = new[] {
+			inventory,
+			otherInventory,
+			slot,
+			otherSlot
+		};
+		message.AddInts(data);
 		NetworkManager.Singleton.Client.Send(message);
 	}
 }

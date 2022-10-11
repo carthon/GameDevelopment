@@ -116,7 +116,7 @@ public class UIHandler : MonoBehaviour {
     public void Tick(float delta) {
         _hotbarUi.Tick(delta);
     }
-    public void AddInventory(Inventory inventory) {
+    public void AddInventory(Inventory inventory, InventoryManager inventoryManager) {
         var index = _inventories.FindIndex(inventoryUi => inventoryUi.IsConfigured);
         InventoryUI inventoryUi = null;
         if (index == -1 || _inventories.Count < 1) {
@@ -124,11 +124,16 @@ public class UIHandler : MonoBehaviour {
             _inventories.Add(inventoryUi);
             index = _inventories.Count - 1;
         }
-        _inventories[index].SetUpInventory(inventory);
+        _inventories[index].SetUpInventory(inventory, inventoryManager);
     }
     public void TriggerInventory(int slot) {
         _inventories[slot].gameObject.SetActive(!_inventories[slot].gameObject.activeSelf);
         ShowingInventory = _inventories[slot].gameObject.activeSelf;
     }
 
+    public void SwapSlots(int inventory1, int inventory2, int slot, int slot2) {
+        Debug.Log("SwappingSlots");
+        _inventories[inventory1].UpdateSlot(slot, null);
+        _inventories[inventory2].UpdateSlot(slot2, null);
+    }
 }

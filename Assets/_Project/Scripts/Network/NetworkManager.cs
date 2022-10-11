@@ -31,9 +31,9 @@ public class NetworkManager : MonoBehaviour {
     [SerializeField] private ushort maxClientCount;
 
     public enum ClientToServerId : ushort {
+        itemSwap,
         username = 1,
         input,
-        inventory
     }
     public enum ServerToClientId : ushort {
         playerSpawned = 1,
@@ -41,7 +41,6 @@ public class NetworkManager : MonoBehaviour {
         playerDespawn,
         itemDespawn,
         itemSpawn,
-        inventory
     }
 
     void Awake() {

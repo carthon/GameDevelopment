@@ -6,16 +6,21 @@ public class InventoryUI : PanelBaseUI {
     public Transform itemsParent;
 
     private Inventory _inventory;
+    private int _inventoryId;
     private ItemSlotUI[] slots;
+    public InventoryManager _inventoryManager;
     public bool IsConfigured { get; private set; }
 
-    public void SetUpInventory(Inventory inventory) {
+    public void SetUpInventory(Inventory inventory, InventoryManager inventoryManager) {
+        _inventoryId = inventory.Id;
         _inventory = inventory;
-        inventory.OnSlotChange += UpdateUI;
+        _inventoryManager = inventoryManager;
+        _inventory.OnSlotChange += UpdateSlot;
+        _inventory.OnSlotSwap += UIHandler.Instance.SwapSlots;
 
         slots = GetComponentsInChildren<ItemSlotUI>();
         for (var i = 0; i < slots.Length; i++) {
-            slots[i].SetItemStack(_inventory.GetItemStack(i));
+            slots[i].SetItemStack(inventory.GetItemStack(i));
             slots[i].ClearSlot();
             SubscribeEvents(slots[i]);
         }
@@ -23,7 +28,7 @@ public class InventoryUI : PanelBaseUI {
         transform.SetAsFirstSibling();
     }
 
-    public void UpdateUI(int slot, ItemStack itemStack) {
+    public void UpdateSlot(int slot, ItemStack itemStack) {
         var item = _inventory.GetItemStack(slot);
         if (!item.IsEmpty())
             slots[slot].SetItemStack(item);

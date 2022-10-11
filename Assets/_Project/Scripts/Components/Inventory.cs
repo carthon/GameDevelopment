@@ -11,7 +11,7 @@ public class Inventory {
     private List<ItemStack> _items;
     public int Id { get; set; }
     public event Action<int, ItemStack> OnSlotChange;
-    public event Action<int, int, int> OnSlotSwap;
+    public event Action<int, int, int, int> OnSlotSwap;
     
     public Inventory(string name, int size) {
         Name = name;
@@ -69,7 +69,6 @@ public class Inventory {
         }
         return itemLeftOver;
     }
-
     public ItemStack AddItemStack(ItemStack itemStack) {
         var slot = FindItemStackSlot(itemStack);
         var difference = new ItemStack(itemStack);
@@ -153,15 +152,19 @@ public class Inventory {
         return _freeSpace;
     }
     public bool SwapItemsInInventory(Inventory otherInventory, int itemStackSlot, int otherItemStackSlot) {
-        if (itemStackSlot == -1 && otherItemStackSlot == -1)
+        if (itemStackSlot == -1 && otherItemStackSlot == -1 && 
+            IsValidSlot(otherItemStackSlot) && otherInventory.IsValidSlot(itemStackSlot))
             return false;
 
-        var thisItemStack = TakeStackFromSlot(itemStackSlot);
-        var otherItemStack = otherInventory.TakeStackFromSlot(itemStackSlot);
-        if (itemStackSlot != -1) AddItemStackToSlot(otherItemStack, otherItemStackSlot);
-        otherInventory.AddItemStackToSlot(thisItemStack, itemStackSlot);
-        if(otherInventory == this)
-            OnSlotSwap?.Invoke(Id, itemStackSlot, otherItemStackSlot);
+        var thisItemStack = GetItemStack(itemStackSlot);
+        var otherItemStack = otherInventory.GetItemStack(itemStackSlot);
+        Debug.Log($"SwappingSlots {thisItemStack.Item} {otherItemStack.Item}");
+        if (itemStackSlot != -1)
+            _items[itemStackSlot].SetStack(otherItemStack);
+            //AddItemStackToSlot(otherItemStack, otherItemStackSlot);
+        otherInventory._items[itemStackSlot].SetStack(thisItemStack);
+        //otherInventory.AddItemStackToSlot(thisItemStack, itemStackSlot); 
+        OnSlotSwap?.Invoke(this.Id, otherInventory.Id, itemStackSlot, otherItemStackSlot);
         return true;
     }
     public List<ItemStack> GetItemStacksByType(Item item) {

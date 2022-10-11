@@ -27,16 +27,18 @@ public abstract class PanelBaseUI : MonoBehaviour {
     protected virtual void HandleDrop(ItemSlotUI itemSlot) {
         var dragItemHandlerUI = UIHandler.Instance.dragItemHandlerUI;
         HandleItemSwap(itemSlot.ItemStack, dragItemHandlerUI.itemDragging.ItemStack);
-        Debug.Log("Dropping from base");
         wasDropped = true;
     }
     private void HandleItemSwap(ItemStack itemSlot1, ItemStack itemSlot2) {
         var inventory1 = itemSlot1.GetInventory();
         var inventory2 = itemSlot2.GetInventory();
-        var itemStack1Copy = inventory1.TakeStackFromSlot(itemSlot1.GetSlotID());
-        var itemStack2Copy = inventory2.TakeStackFromSlot(itemSlot2.GetSlotID());
-        inventory1.AddItemStackToSlot(itemStack2Copy, itemStack1Copy.GetSlotID());
-        inventory2.AddItemStackToSlot(itemStack1Copy, itemStack2Copy.GetSlotID());
+        var itemStack1Copy = inventory1.GetItemStack(itemSlot1.GetSlotID());
+        inventory1.SwapItemsInInventory(inventory2, itemSlot1.GetSlotID(), itemSlot2.GetSlotID());
+        //var itemStack1Copy = inventory1.TakeStackFromSlot(itemSlot1.GetSlotID());
+        //var itemStack2Copy = inventory2.TakeStackFromSlot(itemSlot2.GetSlotID());
+        //inventory1.AddItemStackToSlot(itemStack2Copy, itemStack1Copy.GetSlotID());
+        //inventory2.AddItemStackToSlot(itemStack1Copy, itemStack2Copy.GetSlotID());
+        
         UIHandler.Instance.UpdateVisuals = true;
     }
     protected virtual void HandleEndDrag(ItemSlotUI itemSlot) {
