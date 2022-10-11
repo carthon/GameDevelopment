@@ -1,4 +1,5 @@
 ﻿using System;
+using _Project.Scripts;
 using JetBrains.Annotations;
 
 [Serializable]
@@ -8,6 +9,7 @@ public class ItemStack {
     private int count;
 
     private Inventory parent;
+    public Item Item { get; set; }
     private int slotID;
     public ItemStack(ItemStack itemStack) {
         Item = itemStack.Item;
@@ -35,13 +37,17 @@ public class ItemStack {
         slotID = -1;
         parent = null;
     }
+    public ItemStack(Item item, int count, int slotID) {
+        Item = item;
+        this.count = count;
+        this.slotID = slotID;
+    }
     public ItemStack(Item item, int slotID, Inventory parent) {
         Item = item;
         this.slotID = slotID;
         this.parent = parent;
         count = 0;
     }
-    public Item Item { get; set; }
 
     public int GetCount() {
         return count;

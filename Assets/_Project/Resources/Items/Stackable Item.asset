@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74817f17c69b79841bf3a6970a86eeb4, type: 3}
   m_Name: Stackable Item
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 21300000, guid: 45ff5a9f5ffb13c48a6d5b706cdf0e53, type: 3}
+  itemIcon: {fileID: 21300000, guid: d38a0cb070d92c54c8fe7b4a75957289, type: 3}
   name: Coin
   modelPrefab: {fileID: 7010931887659289211, guid: 5035a56e8dbc98d46a3a8394a4bb7285, type: 3}
   Size: 1

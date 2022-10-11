@@ -30,19 +30,6 @@ public class Item : ScriptableObject, IEquatable<Item> {
             Equals(modelPrefab, other.modelPrefab) &&
             Size == other.Size && description == other.description && maxStackSize == other.maxStackSize;
     }
-
-    private void Init(Sprite itemIcon, string itemName, GameObject modelPrefab, ItemSize itemSize) {
-        this.itemIcon = itemIcon;
-        name = itemName;
-        this.modelPrefab = modelPrefab;
-        Size = itemSize;
-    }
-
-    public static Item CreateItem(Sprite itemIcon, string itemName, GameObject modelPrefab, ItemSize itemSize) {
-        var item = CreateInstance<Item>();
-        item.Init(itemIcon, itemName, modelPrefab, itemSize);
-        return item;
-    }
     public bool IsStackable() {
         return maxStackSize != 1;
     }

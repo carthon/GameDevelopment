@@ -29,13 +29,12 @@ public class Grabler : MonoBehaviour {
 
     public Grabbable GetPickableInRange(Ray rayOrigin, float pickUpDistance) {
         RaycastHit hitInfo;
+        Grabbable pickable = null;
         if (Physics.Raycast(rayOrigin, out hitInfo, pickUpDistance, itemMask)) {
             Debug.DrawRay(rayOrigin.origin, rayOrigin.direction * pickUpDistance, Color.yellow, 30f);
-            var pickable = hitInfo.collider.GetComponent<Grabbable>();
-            if (pickable)
-                return pickable;
+            pickable = hitInfo.collider.GetComponent<Grabbable>();
         }
-        return null;
+        return pickable;
     }
 
     // public Grabbable GetClosestItem() {

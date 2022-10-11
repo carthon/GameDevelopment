@@ -31,9 +31,9 @@ public class NetworkManager : MonoBehaviour {
     [SerializeField] private ushort maxClientCount;
 
     public enum ClientToServerId : ushort {
-        itemSwap,
         username = 1,
         input,
+        itemSwap,
     }
     public enum ServerToClientId : ushort {
         playerSpawned = 1,
@@ -41,6 +41,7 @@ public class NetworkManager : MonoBehaviour {
         playerDespawn,
         itemDespawn,
         itemSpawn,
+        inventoryChange,
     }
 
     void Awake() {
@@ -79,6 +80,7 @@ public class NetworkManager : MonoBehaviour {
         Client.Connected += DidConnect;
         Client.Disconnected += DidDisconnect;
         Client.ConnectionFailed += FailedToConnect;
+        Client.MessageReceived += ClientOnMessageReceived;
         Client.Connect($"{hostAddress}:{port}");
     }
     public void StopClient() {
@@ -108,6 +110,10 @@ public class NetworkManager : MonoBehaviour {
             message.AddUShort(e.Id);
             Server.SendToAll(message);
         }
+    }
+    
+    private void ClientOnMessageReceived(object sender, ClientMessageReceivedEventArgs e) {
+        UIHandler.Instance.networkDebugMessages++;
     }
     private void OnApplicationQuit() {
         StopServer();

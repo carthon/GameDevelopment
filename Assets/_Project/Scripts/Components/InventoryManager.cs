@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using _Project.Scripts.Network;
 using RiptideNetworking;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour {
 	private List<Inventory> _inventories = new List<Inventory>();
-	public List<Inventory> Inventories { get => _inventories; }
+	public List<Inventory> Inventories => _inventories;
 	private PlayerNetworkManager _player;
+	public PlayerNetworkManager Player { set => _player = value; }
 	public ItemStack AddItemStack(ItemStack itemStack) {
 		foreach (Inventory inventory in _inventories) {
 			ItemStack leftovers = inventory.AddItemStack(itemStack);
@@ -17,34 +19,57 @@ public class InventoryManager : MonoBehaviour {
 		}
 		return itemStack;
 	}
+	private void SetItemStackInInventory(ItemStack itemStack, int inventoryId) {
+		if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
+			_inventories[inventoryId].GetInventorySlots()[itemStack.GetSlotID()].SetStack(itemStack);
+			UIHandler.Instance.UpdateInventorySlot(inventoryId, itemStack.GetSlotID());
+		}
+	}
 	public void Add(Inventory inventory) {
-		inventory.Id = inventory.Size;
+		inventory.Id = _inventories.Count;
 		_inventories.Add(inventory);
 		inventory.OnSlotChange += InventoryOnSlotChange;
-		inventory.OnSlotSwap += SwapSlot;
+		inventory.OnSlotSwap += SendSlotSwapToServer;
 	}
 	public void Remove(Inventory inventory) {
 		_inventories.Remove(inventory);
 	}
+	#region Server Messages
 	private void InventoryOnSlotChange(int slot, ItemStack itemStack) {
-		if (NetworkManager.Singleton.IsServer) {
-			//Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.inventory);
+		if (NetworkManager.Singleton.IsServer && !_player.IsLocal) {
+			Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.inventoryChange);
+			message.AddUShort(_player.Id);
+			message.AddInt(itemStack.GetInventory().Id);
+			message.AddItemStack(itemStack);
+			NetworkManager.Singleton.Server.Send(message, _player.Id);
 		}
 	}
-	private void SwapSlot(int inventory, int otherInventory, int slot, int otherSlot) {
-		if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
-			SendSlotSwapToServer(inventory, otherInventory, slot, otherSlot);
+	[MessageHandler((ushort)NetworkManager.ServerToClientId.inventoryChange)]
+	private static void ReceiveSlotChangeServer(Message message) {
+		if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
+			ushort playerId = message.GetUShort();
+			int inventoryId = message.GetInt();
+			ItemStack itemStack = message.GetItemStack();
+			if (PlayerNetworkManager.list.TryGetValue(playerId, out PlayerNetworkManager player)) {
+				player.InventoryManager.SetItemStackInInventory(itemStack, inventoryId);
+			}
+		}
 	}
+
+	#endregion
+	#region Client Messages
 	private void SendSlotSwapToServer(int inventory, int otherInventory, int slot, int otherSlot) {
-		Message message = Message.Create(MessageSendMode.reliable, (ushort)NetworkManager.ClientToServerId.itemSwap);
-		message.AddUShort(_player.Id);
-		int[] data = new[] {
-			inventory,
-			otherInventory,
-			slot,
-			otherSlot
-		};
-		message.AddInts(data);
-		NetworkManager.Singleton.Client.Send(message);
+		if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer){
+			int[] data = new[] {
+				inventory,
+				otherInventory,
+				slot,
+				otherSlot
+			};
+			Message message = Message.Create(MessageSendMode.reliable, (ushort)NetworkManager.ClientToServerId.itemSwap);
+			message.AddInts(data);
+			NetworkManager.Singleton.Client.Send(message);
+		}
 	}
+	#endregion
 }

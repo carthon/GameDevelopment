@@ -39,7 +39,7 @@ public class Inventory {
     public ItemStack GetItemStack(int slot) {
         var item = new ItemStack(this, slot);
         if (IsValidSlot(slot))
-            item = _items[slot];
+            item = _items[slot].GetCopy();
         else
             item.SetSlot(-1);
         return item;
@@ -141,7 +141,7 @@ public class Inventory {
         worldItem.AddComponent<Rigidbody>();
     }
     public int FindItemStackSlot(ItemStack itemStack) {
-        return _items.FindIndex(item => item.Item != null && item.Item.Equals(itemStack.Item) && !item.IsFull());
+        return _items.FindIndex(item => !(item.Item is null) && item.Item.Equals(itemStack.Item) && !item.IsFull());
     }
 
     public List<ItemStack> GetInventorySlots() {
@@ -157,13 +157,12 @@ public class Inventory {
             return false;
 
         var thisItemStack = GetItemStack(itemStackSlot);
-        var otherItemStack = otherInventory.GetItemStack(itemStackSlot);
-        Debug.Log($"SwappingSlots {thisItemStack.Item} {otherItemStack.Item}");
+        var otherItemStack = otherInventory.GetItemStack(otherItemStackSlot);
         if (itemStackSlot != -1)
             _items[itemStackSlot].SetStack(otherItemStack);
             //AddItemStackToSlot(otherItemStack, otherItemStackSlot);
-        otherInventory._items[itemStackSlot].SetStack(thisItemStack);
-        //otherInventory.AddItemStackToSlot(thisItemStack, itemStackSlot); 
+        otherInventory._items[otherItemStackSlot].SetStack(thisItemStack);
+        //otherInventory.AddItemStackToSlot(thisItemStack, itemStackSlot);
         OnSlotSwap?.Invoke(this.Id, otherInventory.Id, itemStackSlot, otherItemStackSlot);
         return true;
     }

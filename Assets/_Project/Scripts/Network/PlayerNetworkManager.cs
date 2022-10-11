@@ -24,6 +24,7 @@ public class PlayerNetworkManager : MonoBehaviour {
     public ushort Id { get; private set; }
     public bool IsLocal { get; private set; }
     public string Username { get; private set; }
+    public InventoryManager InventoryManager => _inventoryManager;
 
     [SerializeField] private float grabDistance = 5f;
     
@@ -33,9 +34,10 @@ public class PlayerNetworkManager : MonoBehaviour {
         _animator = GetComponent<AnimatorHandler>();
         _cameraHandler = GetComponent<CameraHandler>();
         _inventoryManager = GetComponent<InventoryManager>();
+        _inventoryManager.Player = this;
         _grabler = GetComponent<Grabler>();
         _grabler.LinkedInventoryManager = _inventoryManager;
-        _inventoryManager.Inventories.Add(new Inventory("PlayerInventory", 9));
+        _inventoryManager.Add(new Inventory("PlayerInventory", 9));
         _grabler.CanPickUp = true;
         _usernameDisplay = GetComponentInChildren<TextMeshProUGUI>();
         _animator.Initialize();
@@ -137,7 +139,7 @@ public class PlayerNetworkManager : MonoBehaviour {
         if(NetworkManager.Singleton.IsServer) {
             Ray ray = new Ray(_cameraHandler.CameraPivot.position, _cameraHandler.CameraPivot.forward);
             Grabbable grabbable = _grabler.GetPickableInRange(ray, grabDistance);
-            if(grabbable != null) {
+            if(!(grabbable is null)) {
                 LootTable leftovers = _grabler.TryPickItems(grabbable);
                 if (!leftovers.IsEmpty()) {
                     Debug.Log("Sobran items!");
@@ -197,20 +199,6 @@ public class PlayerNetworkManager : MonoBehaviour {
             }
         }
     }
-    [MessageHandler((ushort)NetworkManager.ClientToServerId.itemSwap)]
-    private static void SlotSwapServer(Message message) {
-        if (!NetworkManager.Singleton.IsServer) return;
-        ushort playerId = message.GetUShort();
-        int[] data = message.GetInts();
-        int otherInventoryId = data[0];
-        int inventoryId = data[1];
-        int slot = data[2];
-        int otherSlot = data[3];
-        if (list.TryGetValue(playerId, out PlayerNetworkManager player)) {
-            Inventory otherInventory = player._inventoryManager.Inventories[otherInventoryId];
-            player._inventoryManager.Inventories[inventoryId].SwapItemsInInventory(otherInventory, slot, otherSlot);
-        }
-    }
     private void SendInput() {
         Vector3 moveInput = new Vector3(_inputHandler.Horizontal, 0, _inputHandler.Vertical);
         bool[] actions = new[] {
@@ -247,6 +235,19 @@ public class PlayerNetworkManager : MonoBehaviour {
         message.AddQuaternion(_cameraHandler.CameraPivot.rotation);
         message.AddBools(actions);
         NetworkManager.Singleton.Server.SendToAll(message);
+    }
+    [MessageHandler((ushort)NetworkManager.ClientToServerId.itemSwap)]
+    private static void SlotSwapServer(ushort fromClientId, Message message) {
+        if (!NetworkManager.Singleton.IsServer) return;
+        int[] data = message.GetInts();
+        int inventoryId = data[0];
+        int otherInventoryId = data[1];
+        int slot = data[2];
+        int otherSlot = data[3];
+        if (list.TryGetValue(fromClientId, out PlayerNetworkManager player)) {
+            Inventory otherInventory = player._inventoryManager.Inventories[otherInventoryId];
+            player._inventoryManager.Inventories[inventoryId].SwapItemsInInventory(otherInventory, slot, otherSlot);
+        }
     }
     [MessageHandler((ushort)NetworkManager.ClientToServerId.input)]
     private static void ReceiveInput(ushort fromClientId, Message message) {

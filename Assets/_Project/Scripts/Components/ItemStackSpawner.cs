@@ -7,7 +7,7 @@ namespace _Project.Scripts.Components {
         public void Update() {
             if (NetworkManager.Singleton.IsServer) {
                 var itemRendered = Instantiate(item.modelPrefab, transform);
-                var pickable = itemRendered.AddComponent<Grabbable>();
+                var pickable = itemRendered.GetComponent<Grabbable>();
                 if (pickable) {
                     var lootTable = new LootTable();
                     lootTable.AddToLootTable(item, count);

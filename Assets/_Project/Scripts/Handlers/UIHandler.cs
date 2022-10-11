@@ -18,7 +18,7 @@ public class UIHandler : MonoBehaviour {
     public DragItemHandlerUI dragItemHandlerUI;
     public HotbarUI _hotbarUi;
     public bool ShowingInventory { get; private set; }
-
+    
     [SerializeField] private Button _startClient;
     [SerializeField] private Text _startClientText;
     [SerializeField] private Button _startServer;
@@ -26,6 +26,7 @@ public class UIHandler : MonoBehaviour {
     [SerializeField] private InputField usernameField;
     [SerializeField] private InputField serverIp;
     [SerializeField] private InputField port;
+    public int networkDebugMessages = 0;
     public bool UpdateVisuals { get; set; }
 
     public void Awake() {
@@ -94,6 +95,7 @@ public class UIHandler : MonoBehaviour {
         GUILayout.TextField($"IsServer: {NetworkManager.Singleton.IsServer.ToString()}");
         GUILayout.TextField($"IsLocal: {(GodEntity.Singleton.PlayerInstance != null).ToString()}");
         GUILayout.TextField($"ClientId: {GodEntity.Singleton.PlayerInstance?.Id.ToString()}");
+        GUILayout.TextField($"MessagesReceived: {networkDebugMessages.ToString()}");
         GUILayout.BeginVertical();
         GUILayout.EndArea();
     }
@@ -130,10 +132,12 @@ public class UIHandler : MonoBehaviour {
         _inventories[slot].gameObject.SetActive(!_inventories[slot].gameObject.activeSelf);
         ShowingInventory = _inventories[slot].gameObject.activeSelf;
     }
+    public void UpdateInventorySlot(int inventory, int slot) {
+        _inventories[inventory].UpdateSlot(slot, null);
+    }
 
     public void SwapSlots(int inventory1, int inventory2, int slot, int slot2) {
-        Debug.Log("SwappingSlots");
-        _inventories[inventory1].UpdateSlot(slot, null);
-        _inventories[inventory2].UpdateSlot(slot2, null);
+        UpdateInventorySlot(inventory1, slot);
+        UpdateInventorySlot(inventory2, slot2);
     }
 }

@@ -66,5 +66,27 @@ namespace _Project.Scripts.Network {
             return new Quaternion(message.GetFloat(), message.GetFloat(), message.GetFloat(), message.GetFloat());
         }
         #endregion
+        
+        #region ItemStack
+        /// <inheritdoc cref="AddItemStack(Message, ItemStack)"/>
+        /// <remarks>This method is simply an alternative way of calling <see cref="AddVector3(Message, Vector3)"/>.</remarks>
+        public static Message Add(this Message message, ItemStack value, int inventoryId) => AddItemStack(message, value);
+
+        /// <summary>Adds a <see cref="Vector3"/> to the message.</summary>
+        /// <param name="value">The <see cref="Vector3"/> to add.</param>
+        /// <returns>The message that the <see cref="Vector3"/> was added to.</returns>
+        public static Message AddItemStack(this Message message, ItemStack value)
+        {
+            return message.AddString(value.Item.id).AddInt(value.GetCount()).AddInt(value.GetSlotID());
+        }
+
+        /// <summary>Retrieves a <see cref="Vector3"/> from the message.</summary>
+        /// <returns>The <see cref="Vector3"/> that was retrieved.</returns>
+        public static ItemStack GetItemStack(this Message message)
+        {
+            return new ItemStack(NetworkManager.Singleton.itemsDictionary[message.GetString()], 
+                message.GetInt(), message.GetInt());
+        }
+        #endregion
     }
 }
