@@ -15,6 +15,7 @@ namespace _Project.Scripts.Components {
         public bool HasItems => !_lootTable.IsEmpty();
         public ushort Id { get; private set; }
 
+        
         public void Initialize(ushort id, Item prefab) {
                 Id = id;
                 itemData = prefab;

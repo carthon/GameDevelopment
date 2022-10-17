@@ -1,5 +1,6 @@
 using System;
 using _Project.Scripts;
+using RiptideNetworking;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -93,9 +94,17 @@ public class ItemSlotUI : MonoBehaviour {
     }
 
     public void OnRemoveButton() {
-        var itemInv = _itemStack.GetInventory();
         UIHandler.Instance.UpdateVisuals = true;
-        itemInv.DropItemInSlot(_itemStack.GetSlotID(), Vector3.up * 5f);
+        Debug.Log(_itemStack.Item.name);
+        Debug.Log(this.name);
+        if (!_itemStack.IsEmpty()) {
+            Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ClientToServerId.itemDrop);
+            message.AddInts(new[] {
+                _itemStack.GetInventory().Id,
+                _itemStack.GetSlotID()
+            });
+            NetworkManager.Singleton.Client.Send(message);
+        }
     }
     public virtual void OnBeginDrag() {
         InvokeEvent(OnItemBeginDrag, this);

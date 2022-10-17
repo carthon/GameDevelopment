@@ -26,7 +26,6 @@ public class UIHandler : MonoBehaviour {
     [SerializeField] private InputField usernameField;
     [SerializeField] private InputField serverIp;
     [SerializeField] private InputField port;
-    public int networkDebugMessages = 0;
     public bool UpdateVisuals { get; set; }
 
     public void Awake() {
@@ -95,7 +94,6 @@ public class UIHandler : MonoBehaviour {
         GUILayout.TextField($"IsServer: {NetworkManager.Singleton.IsServer.ToString()}");
         GUILayout.TextField($"IsLocal: {(GodEntity.Singleton.PlayerInstance != null).ToString()}");
         GUILayout.TextField($"ClientId: {GodEntity.Singleton.PlayerInstance?.Id.ToString()}");
-        GUILayout.TextField($"MessagesReceived: {networkDebugMessages.ToString()}");
         GUILayout.BeginVertical();
         GUILayout.EndArea();
     }

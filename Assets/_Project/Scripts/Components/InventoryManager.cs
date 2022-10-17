@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using _Project.Scripts.Components;
 using _Project.Scripts.Network;
 using RiptideNetworking;
 using UnityEngine;
@@ -18,6 +19,9 @@ public class InventoryManager : MonoBehaviour {
 			}
 		}
 		return itemStack;
+	}
+	public void DropItemStack(int inventoryId, int slotId) {
+		Inventories[inventoryId].DropItemInSlot(slotId, _player.transform.position, _player.transform.rotation);
 	}
 	private void SetItemStackInInventory(ItemStack itemStack, int inventoryId) {
 		if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
@@ -55,7 +59,13 @@ public class InventoryManager : MonoBehaviour {
 			}
 		}
 	}
-
+	[MessageHandler((ushort) NetworkManager.ClientToServerId.itemDrop)]
+	private static void DropItemOnSlotServer(ushort clientId, Message message) {
+		if (PlayerNetworkManager.list.TryGetValue(clientId, out PlayerNetworkManager player)) {
+			int[] data = message.GetInts();
+			player.GetComponent<InventoryManager>().DropItemStack(data[0], data[1]);
+		}
+	}
 	#endregion
 	#region Client Messages
 	private void SendSlotSwapToServer(int inventory, int otherInventory, int slot, int otherSlot) {

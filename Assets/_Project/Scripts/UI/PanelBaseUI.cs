@@ -47,6 +47,7 @@ public abstract class PanelBaseUI : MonoBehaviour {
         Debug.Log("Handling end drag");
         if (!wasDropped) {
             itemSlot.OnRemoveButton();
+            Debug.Log("Handling drop");
             UIHandler.Instance.UpdateVisuals = true;
         }
         wasDropped = false;

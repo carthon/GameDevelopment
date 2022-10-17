@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using _Project.Scripts.Components;
 using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
@@ -34,6 +31,7 @@ public class NetworkManager : MonoBehaviour {
         username = 1,
         input,
         itemSwap,
+        itemDrop
     }
     public enum ServerToClientId : ushort {
         playerSpawned = 1,
@@ -65,8 +63,8 @@ public class NetworkManager : MonoBehaviour {
             Client.Tick();
         if (IsServer) {
             Server.Tick();
-            Physics.Simulate(Time.fixedDeltaTime);
         }
+        Physics.Simulate(Time.fixedDeltaTime);
     }
     public void InitializeServer() {
         IsServer = true;
@@ -80,7 +78,6 @@ public class NetworkManager : MonoBehaviour {
         Client.Connected += DidConnect;
         Client.Disconnected += DidDisconnect;
         Client.ConnectionFailed += FailedToConnect;
-        Client.MessageReceived += ClientOnMessageReceived;
         Client.Connect($"{hostAddress}:{port}");
     }
     public void StopClient() {
@@ -110,10 +107,6 @@ public class NetworkManager : MonoBehaviour {
             message.AddUShort(e.Id);
             Server.SendToAll(message);
         }
-    }
-    
-    private void ClientOnMessageReceived(object sender, ClientMessageReceivedEventArgs e) {
-        UIHandler.Instance.networkDebugMessages++;
     }
     private void OnApplicationQuit() {
         StopServer();

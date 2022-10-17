@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Project.Scripts;
 using _Project.Scripts.Components;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -130,15 +131,16 @@ public class Inventory {
         if (slot >= 0 && slot < Size && !_items[slot].IsEmpty()) itemStackCopy = TakeItemsFromSlot(slot, _items[slot].Item.GetMaxStackSize());
         return itemStackCopy;
     }
-    public void DropItemInSlot(int slot, Vector3 worldPos) {
-        var lootTable = new LootTable();
+    public void DropItemInSlot(int slot, Vector3 worldPos, Quaternion rotation) {
         var itemStack = TakeStackFromSlot(slot);
-        lootTable.AddToLootTable(itemStack);
+        if (!itemStack.IsEmpty())
+            GodEntity.SpawnItem(itemStack, worldPos, rotation);
+        //lootTable.AddToLootTable(itemStack);
         //GetParent().SetData(itemStack.GetInventory().GetItem(itemStack.GetSlotID()));
-        var worldItem = Object.Instantiate(itemStack.Item.modelPrefab, worldPos, Quaternion.identity);
-        var pickableItem = worldItem.AddComponent<Grabbable>();
-        pickableItem.SetLootTable(lootTable);
-        worldItem.AddComponent<Rigidbody>();
+        //var worldItem = Object.Instantiate(itemStack.Item.modelPrefab, worldPos, Quaternion.identity);
+        //var pickableItem = worldItem.AddComponent<Grabbable>();
+        //pickableItem.SetLootTable(lootTable);
+        //worldItem.AddComponent<Rigidbody>();
     }
     public int FindItemStackSlot(ItemStack itemStack) {
         return _items.FindIndex(item => !(item.Item is null) && item.Item.Equals(itemStack.Item) && !item.IsFull());

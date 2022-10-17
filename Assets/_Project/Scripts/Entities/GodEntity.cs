@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _Project.Scripts.Components;
+using UnityEngine;
 
 namespace _Project.Scripts {
     public class GodEntity : MonoBehaviour {
@@ -30,5 +31,21 @@ namespace _Project.Scripts {
         public UIHandler GetUIHandler() {
             return uiHandler;
         }
+        public static bool SpawnItem(Item item, int count, Vector3 position, Quaternion rotation) {
+            bool success = false;
+            GameObject itemRendered = Instantiate(item.modelPrefab, position, rotation);
+            var pickable = itemRendered.GetComponent<Grabbable>();
+            if (pickable) {
+                var lootTable = new LootTable();
+                lootTable.AddToLootTable(item, count);
+                pickable.SetLootTable(lootTable);
+                pickable.Initialize(Grabbable.nextId, item);
+                Grabbable.nextId++;
+                success = true;
+            }
+            return success;
+        }
+        public static bool SpawnItem(ItemStack itemStack, Vector3 position, Quaternion rotation) => SpawnItem(itemStack.Item, itemStack.GetCount(), position, rotation);
+        public static bool SpawnItem(Item item, int count, Transform transform) => SpawnItem(item, count, transform.position, transform.rotation);
     }
 }
