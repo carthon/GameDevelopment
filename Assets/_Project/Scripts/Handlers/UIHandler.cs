@@ -79,15 +79,12 @@ public class UIHandler : MonoBehaviour {
         }
         return valid;
     }
-
-    public void UpdateButtonsText() {
+    public void OnGUI() {
         NetworkManager networkManager = NetworkManager.Singleton;
         bool isServer = networkManager.Server != null || networkManager.IsServer;
         bool isClient = networkManager.Client != null || networkManager.IsClient;
         _startServerText.text = isServer ? "Stop Server" : "Start Server";
         _startClientText.text = isClient ? "Stop Client" : "Start Client";
-    }
-    public void OnGUI() {
         GUILayout.BeginArea(new Rect(Vector2.right * (Screen.width - 200), new Vector2(200,500)));
         GUILayout.BeginVertical("box");
         GUILayout.TextField($"IsClient: {NetworkManager.Singleton.IsClient.ToString()}");
@@ -102,7 +99,6 @@ public class UIHandler : MonoBehaviour {
         
         if (networkManager.Server != null) networkManager.StopServer();
         else networkManager.InitializeServer();
-        UpdateButtonsText();
     }
     public void SendName() {
         NetworkManager networkManager = NetworkManager.Singleton;
@@ -124,7 +120,7 @@ public class UIHandler : MonoBehaviour {
             _inventories.Add(inventoryUi);
             index = _inventories.Count - 1;
         }
-        _inventories[index].SetUpInventory(inventory, inventoryManager);
+        _inventories[index].SetUpInventory(inventory);
     }
     public void TriggerInventory(int slot) {
         _inventories[slot].gameObject.SetActive(!_inventories[slot].gameObject.activeSelf);

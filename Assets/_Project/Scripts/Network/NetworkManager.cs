@@ -31,7 +31,8 @@ public class NetworkManager : MonoBehaviour {
         username = 1,
         input,
         itemSwap,
-        itemDrop
+        itemDrop,
+        itemEquip
     }
     public enum ServerToClientId : ushort {
         playerSpawned = 1,
@@ -40,6 +41,7 @@ public class NetworkManager : MonoBehaviour {
         itemDespawn,
         itemSpawn,
         inventoryChange,
+        itemEquip
     }
 
     void Awake() {
@@ -87,7 +89,7 @@ public class NetworkManager : MonoBehaviour {
             Client.Disconnected -= DidDisconnect;
             Client.ConnectionFailed -= FailedToConnect;
             Client.Disconnect();
-            if(!IsServer) SceneManager.LoadScene(0);
+            if(!IsServer) SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
     }
     public void StopServer() {
@@ -97,9 +99,9 @@ public class NetworkManager : MonoBehaviour {
             Server.ClientDisconnected -= PlayerLeft;
         }
     }
-    private void DidConnect(object sender, EventArgs args) { UIHandler.Instance.UpdateButtonsText(); }
-    private void FailedToConnect (object sender, EventArgs args){ UIHandler.Instance.UpdateButtonsText(); }
-    private void DidDisconnect(object sender, EventArgs args) { UIHandler.Instance.UpdateButtonsText(); }
+    private void DidConnect(object sender, EventArgs args) {  }
+    private void FailedToConnect (object sender, EventArgs args){  }
+    private void DidDisconnect(object sender, EventArgs args) {  }
     private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) {
         if (PlayerNetworkManager.list.TryGetValue(e.Id, out PlayerNetworkManager player)) {
             Destroy(player.gameObject);

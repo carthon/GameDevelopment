@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Project.Scripts;
-using _Project.Scripts.Components;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
-[Serializable]
 public class Inventory {
 
     private int _freeSpace;
@@ -113,10 +110,12 @@ public class Inventory {
             var newCount = _items[slot].GetCount() - count;
             if (newCount <= 0) {
                 _freeSpace += 1;
+                count += newCount;
                 newCount = 0;
             }
             _items[slot].SetCount(newCount);
-            OnSlotChange?.Invoke(slot, itemStackCopy);
+            itemStackCopy.SetCount(count);
+            OnSlotChange?.Invoke(slot, _items[slot]);
         }
         return itemStackCopy;
     }

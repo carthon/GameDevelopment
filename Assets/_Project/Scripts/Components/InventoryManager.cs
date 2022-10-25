@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using _Project.Scripts.Components;
 using _Project.Scripts.Network;
+using Google.Protobuf.WellKnownTypes;
 using RiptideNetworking;
 using UnityEngine;
 
@@ -21,7 +22,10 @@ public class InventoryManager : MonoBehaviour {
 		return itemStack;
 	}
 	public void DropItemStack(int inventoryId, int slotId) {
+		ItemStack droppedItemStack = Inventories[inventoryId].GetItemStack(slotId);
+		droppedItemStack.SetCount(0);
 		Inventories[inventoryId].DropItemInSlot(slotId, _player.transform.position, _player.transform.rotation);
+		InventoryOnSlotChange(slotId, droppedItemStack);
 	}
 	private void SetItemStackInInventory(ItemStack itemStack, int inventoryId) {
 		if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
@@ -36,10 +40,12 @@ public class InventoryManager : MonoBehaviour {
 		inventory.OnSlotSwap += SendSlotSwapToServer;
 	}
 	public void Remove(Inventory inventory) {
+		inventory.OnSlotChange -= InventoryOnSlotChange;
+		inventory.OnSlotSwap -= SendSlotSwapToServer;
 		_inventories.Remove(inventory);
 	}
 	#region Server Messages
-	private void InventoryOnSlotChange(int slot, ItemStack itemStack) {
+	public void InventoryOnSlotChange(int slot, ItemStack itemStack) {
 		if (NetworkManager.Singleton.IsServer && !_player.IsLocal) {
 			Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.inventoryChange);
 			message.AddUShort(_player.Id);
@@ -63,7 +69,7 @@ public class InventoryManager : MonoBehaviour {
 	private static void DropItemOnSlotServer(ushort clientId, Message message) {
 		if (PlayerNetworkManager.list.TryGetValue(clientId, out PlayerNetworkManager player)) {
 			int[] data = message.GetInts();
-			player.GetComponent<InventoryManager>().DropItemStack(data[0], data[1]);
+			player.InventoryManager.DropItemStack(data[0], data[1]);
 		}
 	}
 	#endregion

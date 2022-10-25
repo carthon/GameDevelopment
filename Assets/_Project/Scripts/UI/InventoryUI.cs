@@ -8,13 +8,11 @@ public class InventoryUI : PanelBaseUI {
     private Inventory _inventory;
     private int _inventoryId;
     private ItemSlotUI[] slots;
-    public InventoryManager _inventoryManager;
     public bool IsConfigured { get; private set; }
 
-    public void SetUpInventory(Inventory inventory, InventoryManager inventoryManager) {
+    public void SetUpInventory(Inventory inventory) {
         _inventoryId = inventory.Id;
         _inventory = inventory;
-        _inventoryManager = inventoryManager;
         _inventory.OnSlotChange += UpdateSlot;
         _inventory.OnSlotSwap += UIHandler.Instance.SwapSlots;
 

@@ -41,6 +41,7 @@ public class ItemStack {
         Item = item;
         this.count = count;
         this.slotID = slotID;
+        parent = null;
     }
     public ItemStack(Item item, int slotID, Inventory parent) {
         Item = item;

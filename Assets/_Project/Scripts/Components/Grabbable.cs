@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Components {
     public class Grabbable : MonoBehaviour {
-        public static Dictionary<ushort, Grabbable> list = new Dictionary<ushort, Grabbable>();
+        //public static Dictionary<ushort, Grabbable> list = new Dictionary<ushort, Grabbable>();
         public Item itemData;
         public static ushort nextId = 1;
         [SerializeField]
@@ -19,7 +19,9 @@ namespace _Project.Scripts.Components {
         public void Initialize(ushort id, Item prefab) {
                 Id = id;
                 itemData = prefab;
-                list.Add(Id, this);
+                if (!GodEntity.grabbableItems.TryGetValue(Id, out Grabbable grabbable))
+                    GodEntity.grabbableItems.Add(Id, this);
+                //Mantener esta línea si está en desarrollo
                 UpdateID();
                 if (NetworkManager.Singleton.IsServer)
                     SpawnItemMessage();
@@ -34,6 +36,7 @@ namespace _Project.Scripts.Components {
             return _lootTable;
         }
         public void OnDestroy() {
+            GodEntity.grabbableItems.Remove(this.Id);
             if (NetworkManager.Singleton.IsServer) {
                 Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.itemDespawn);
                 message.AddUShort(Id);
@@ -57,7 +60,7 @@ namespace _Project.Scripts.Components {
         [MessageHandler((ushort)NetworkManager.ServerToClientId.itemDespawn)]
         private static void DestroyItem(Message message) {
             if(!NetworkManager.Singleton.IsServer)
-                if (list.TryGetValue(message.GetUShort(), out Grabbable grabbable)) {
+                if (GodEntity.grabbableItems.TryGetValue(message.GetUShort(), out Grabbable grabbable)) {
                     Destroy(grabbable.gameObject);
                 }
         }

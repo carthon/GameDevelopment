@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Project.Scripts;
 using _Project.Scripts.Components;
 using UnityEngine;
 
@@ -21,7 +22,9 @@ public class Grabler : MonoBehaviour {
             leftOvers.Add(leftOver);
             itemInLootTable.Count = leftOver.GetCount();
         }
-        if (itemTable.IsEmpty()) Destroy(closestGrabbable.gameObject);
+        if (itemTable.IsEmpty()) {
+            Destroy(closestGrabbable.gameObject);
+        }
         itemTable = new LootTable();
         foreach (var itemStack in leftOvers) itemTable.AddToLootTable(itemStack);
         return itemTable;

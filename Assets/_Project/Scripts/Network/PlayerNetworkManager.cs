@@ -5,6 +5,7 @@ using _Project.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
+using _Project.Scripts.UI;
 using RiptideNetworking;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class PlayerNetworkManager : MonoBehaviour {
     private AnimatorHandler _animator;
     private CameraHandler _cameraHandler;
     private InventoryManager _inventoryManager;
+    private EquipmentHandler _equipmentHandler;
     private Grabler _grabler;
     [SerializeField] private Transform model;
     private TextMeshProUGUI _usernameDisplay;
@@ -25,6 +27,7 @@ public class PlayerNetworkManager : MonoBehaviour {
     public bool IsLocal { get; private set; }
     public string Username { get; private set; }
     public InventoryManager InventoryManager => _inventoryManager;
+    public EquipmentHandler EquipmentHandler => _equipmentHandler;
 
     [SerializeField] private float grabDistance = 5f;
     
@@ -34,6 +37,8 @@ public class PlayerNetworkManager : MonoBehaviour {
         _animator = GetComponent<AnimatorHandler>();
         _cameraHandler = GetComponent<CameraHandler>();
         _inventoryManager = GetComponent<InventoryManager>();
+        _equipmentHandler = GetComponent<EquipmentHandler>();
+        _equipmentHandler.Player = this;
         _inventoryManager.Player = this;
         _grabler = GetComponent<Grabler>();
         _grabler.LinkedInventoryManager = _inventoryManager;
@@ -42,9 +47,11 @@ public class PlayerNetworkManager : MonoBehaviour {
         _usernameDisplay = GetComponentInChildren<TextMeshProUGUI>();
         _animator.Initialize();
         _locomotion.SetUp();
+    }
+    private void SyncWorldData() {
         //TODO: Cambiarlo a que cuando el servidor detecte que se ha conectado un jugador, que le envíe los items a su alrededor
         if (NetworkManager.Singleton.IsServer && !IsLocal)
-            foreach (Grabbable grabbable in Grabbable.list.Values) {
+            foreach (Grabbable grabbable in GodEntity.grabbableItems.Values) {
                 grabbable.SpawnItemMessage(Id);
             }
     }
@@ -53,6 +60,7 @@ public class PlayerNetworkManager : MonoBehaviour {
         _inputHandler.enabled = IsLocal;
         _cameraHandler.enabled = IsLocal;
         _usernameDisplay.text = Username;
+        SyncWorldData();
         if (IsLocal) {
             Cursor.lockState = CursorLockMode.Locked;
             _cameraHandler.InitializeCamera();
@@ -116,6 +124,13 @@ public class PlayerNetworkManager : MonoBehaviour {
         playerNetwork.NotifySpawn();
         list.Add(id, playerNetwork);
     }
+    private void UpdateEquipment(ItemStack itemStack, BodyPart equipmentSlot, bool activeState){
+            if (activeState) {
+                _equipmentHandler.LoadItemModel(itemStack, equipmentSlot);
+            }
+            else
+                _equipmentHandler.UnloadItemModel(equipmentSlot);
+    }
     private void SetPositionAndRotation(Vector3 position, Quaternion rotation) {
         transform.position = position;
         if(!IsLocal)
@@ -156,6 +171,21 @@ public class PlayerNetworkManager : MonoBehaviour {
             Cursor.lockState = CursorLockMode.Locked;
             if (UIHandler.Instance.ShowingInventory) UIHandler.Instance.TriggerInventory(0);
         }
+        
+        if (_inputHandler.HotbarSlot != UIHandler.Instance._hotbarUi.ActiveSlot) {
+            HotbarUI hotbar = UIHandler.Instance._hotbarUi;
+            hotbar.ActiveSlot = _inputHandler.HotbarSlot;
+            ItemLinks linkedItemLinkInSlot = hotbar.GetItemLinkInSlot(hotbar.ActiveSlot);
+            if (linkedItemLinkInSlot != null && linkedItemLinkInSlot.LinkedStacks.Count > 0 && linkedItemLinkInSlot.LinkedStacks[0].GetCount() > 0) {
+                ItemStack itemStack = linkedItemLinkInSlot.LinkedStacks[0];
+                _equipmentHandler.LoadItemModel(itemStack, BodyPart.RightArm);
+                NotifyEquipment(itemStack, BodyPart.RightArm, true);
+            }
+            else {
+                _equipmentHandler.UnloadItemModel(BodyPart.RightArm);
+                NotifyEquipment(ItemStack.EMPTY, BodyPart.RightArm, false);
+            }
+        }
     }
     private Vector3 CalculateDirection(Vector3 moveInput, Transform someTransform) {
         var calculateDirection = moveInput.z * someTransform.forward +
@@ -191,11 +221,24 @@ public class PlayerNetworkManager : MonoBehaviour {
             bool[] actions = message.GetBools();
             player.SetPositionAndRotation(position, playerRotation);
             player._locomotion.IsGrounded = actions[3];
-            //TODO: Implementar client prediction y una vez hecho quitar pasar el IsGrounded a través de la red
             if (!player.IsLocal) {
                 player._locomotion.RelativeDirection = relativeDirection;
                 player.HandleAnimations(actions);
                 player._cameraHandler.CameraPivot.rotation = cameraRotation;
+            }
+        }
+    }
+    [MessageHandler((ushort) NetworkManager.ServerToClientId.itemEquip)]
+    private static void ReceiveEquipment(Message message) {
+        if (NetworkManager.Singleton.IsClient) {
+            if (list.TryGetValue(message.GetUShort(), out PlayerNetworkManager player)) {
+                ItemStack itemStack = message.GetItemStack();
+                BodyPart equipmentSlot = (BodyPart) message.GetInt();
+                bool activeStatus = message.GetBool();
+                if (!player.IsLocal) {
+                    Debug.Log($"Equipping: {itemStack.Item?.name} : {activeStatus} for Player: {player.Username}");
+                    player.UpdateEquipment(itemStack, equipmentSlot, activeStatus);
+                }
             }
         }
     }
@@ -220,7 +263,6 @@ public class PlayerNetworkManager : MonoBehaviour {
 
     #region Server Messages
     private void SendMovement() {
-        //TODO: Implementar client prediction y una vez hecho quitar pasar el IsGrounded a través de la red
         bool[] actions = new[] {
             _locomotion.IsMoving,
             _locomotion.IsJumping,
@@ -272,12 +314,46 @@ public class PlayerNetworkManager : MonoBehaviour {
                 Vector3.right * Random.value * 4);
         }
     }
-    private void NotifySpawn(ushort toClientId = UInt16.MaxValue) {
+    [MessageHandler((ushort) NetworkManager.ClientToServerId.itemEquip)]
+    private static void SpawnItemOnPlayer(ushort clientId, Message message) {
+        if (NetworkManager.Singleton.IsServer) {
+            ItemStack itemStack = message.GetItemStack();
+            BodyPart equipmentSlot = (BodyPart) message.GetInt();
+            bool activeState = message.GetBool();
+            if (list.TryGetValue(clientId, out PlayerNetworkManager player)) {
+                //Actualizo el equipamiento en el servidor
+                Debug.Log($"Equipping: {itemStack.Item?.name} : {activeState} for Player: {player.Username}");
+                player.UpdateEquipment(itemStack, equipmentSlot, activeState);
+                //Notifico al resto de jugadores
+                player.NotifyEquipment(itemStack, equipmentSlot, activeState, clientId);
+            }
+        }
+    }
+    private void NotifyEquipment(ItemStack itemStack, BodyPart equipmentSlot, bool activeState, ushort ofClientId = 0) {
+        NetworkManager net = NetworkManager.Singleton;
+        Message message;
+        if (net.IsServer) {
+            message = Message.Create(
+                MessageSendMode.reliable, (ushort)NetworkManager.ServerToClientId.itemEquip);
+            message.AddUShort(ofClientId);
+        } else {
+            message = Message.Create(
+                MessageSendMode.reliable, (ushort)NetworkManager.ClientToServerId.itemEquip);
+        }
+        message.AddItemStack(itemStack);
+        message.AddInt((int) equipmentSlot);
+        message.AddBool(activeState);
+        if (net.IsServer)
+            net.Server.SendToAll(message);
+        if (net.IsClient)
+            net.Client.Send(message);
+    }
+    private void NotifySpawn(ushort toClientId = 0) {
         NetworkManager net = NetworkManager.Singleton;
         if (net.IsServer) {
             Message message = AddSpawnData(Message.Create(
                 MessageSendMode.reliable, (ushort)NetworkManager.ServerToClientId.playerSpawned));
-            if (toClientId == UInt16.MaxValue)
+            if (toClientId == 0)
                 net.Server.SendToAll(message);
             else
                 net.Server.Send(message, toClientId);

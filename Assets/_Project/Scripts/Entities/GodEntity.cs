@@ -1,4 +1,5 @@
-﻿using _Project.Scripts.Components;
+﻿using System.Collections.Generic;
+using _Project.Scripts.Components;
 using UnityEngine;
 
 namespace _Project.Scripts {
@@ -7,6 +8,8 @@ namespace _Project.Scripts {
         public Transform spawnPoint;
         [Header("Prefabs")]
         [SerializeField] private GameObject _playerPrefab;
+        [Header("WorldData")]
+        public static Dictionary<ushort, Grabbable> grabbableItems = new Dictionary<ushort, Grabbable>();
         public GameObject PlayerPrefab { get; private set; }
         public PlayerNetworkManager PlayerInstance { get; set; }
         private static GodEntity _singleton;
@@ -27,9 +30,6 @@ namespace _Project.Scripts {
             Singleton = this;
             PlayerPrefab = _playerPrefab;
             Application.targetFrameRate = -1;
-        }
-        public UIHandler GetUIHandler() {
-            return uiHandler;
         }
         public static bool SpawnItem(Item item, int count, Vector3 position, Quaternion rotation) {
             bool success = false;
