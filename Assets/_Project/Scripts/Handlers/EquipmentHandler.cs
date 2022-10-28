@@ -7,13 +7,13 @@ using UnityEngine;
 public class EquipmentHandler : MonoBehaviour {
     [SerializeField]
     private List<EquipmentDisplayer> _equipmentSlots;
+    public List<EquipmentDisplayer> EquipmentDisplayers => _equipmentSlots;
     public PlayerNetworkManager Player { get; set; }
 
     private void Awake() {
         _equipmentSlots = GetComponentsInChildren<EquipmentDisplayer>().ToList();
         for (int i = 0; i < _equipmentSlots.Count; i++) {
             _equipmentSlots[i].Id = i;
-            //[i].OnItemEquipped += OnItemEquipped;
         }
     }
 

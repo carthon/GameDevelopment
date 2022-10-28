@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace _Project.Scripts.Components {
     public class Grabbable : MonoBehaviour {
-        //public static Dictionary<ushort, Grabbable> list = new Dictionary<ushort, Grabbable>();
         public Item itemData;
         public static ushort nextId = 1;
         [SerializeField]
@@ -15,7 +14,6 @@ namespace _Project.Scripts.Components {
         public bool HasItems => !_lootTable.IsEmpty();
         public ushort Id { get; private set; }
 
-        
         public void Initialize(ushort id, Item prefab) {
                 Id = id;
                 itemData = prefab;
@@ -23,8 +21,11 @@ namespace _Project.Scripts.Components {
                     GodEntity.grabbableItems.Add(Id, this);
                 //Mantener esta línea si está en desarrollo
                 UpdateID();
-                if (NetworkManager.Singleton.IsServer)
-                    SpawnItemMessage();
+                if (NetworkManager.Singleton.IsServer) {
+                    Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.itemSpawn);
+                    AddItemSpawnData(message);
+                    NetworkManager.Singleton.Server.SendToAll(message);
+                }
         }
         private void UpdateID() {
             GetComponentInChildren<TextMeshProUGUI>().text = Id.ToString();
@@ -44,16 +45,12 @@ namespace _Project.Scripts.Components {
             }
                 
         }
-        public void SpawnItemMessage(ushort id = 0) {
-            Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.itemSpawn);
+        public void AddItemSpawnData(Message message) {
+            //Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.itemSpawn);
             message.AddUShort(Id);
             message.AddString(itemData.id);
             message.AddVector3(transform.position);
             message.AddQuaternion(transform.rotation);
-            if (id == 0)
-                NetworkManager.Singleton.Server.SendToAll(message);
-            else
-                NetworkManager.Singleton.Server.Send(message, id);
         }
 
         #region ClientMessages
@@ -64,15 +61,26 @@ namespace _Project.Scripts.Components {
                     Destroy(grabbable.gameObject);
                 }
         }
+        #endregion
+
+        #region ServerMessages
         [MessageHandler((ushort)NetworkManager.ServerToClientId.itemSpawn)]
         private static void SpawnItemClient(Message message) {
             if (!NetworkManager.Singleton.IsServer) {
                 ushort id = message.GetUShort();
                 string modelId = message.GetString();
                 Item prefabData = NetworkManager.Singleton.itemsDictionary[modelId];
-                Grabbable grabbable = Instantiate(prefabData.modelPrefab, message.GetVector3(), 
-                    message.GetQuaternion()).GetComponent<Grabbable>();
+                Grabbable grabbable;
+                if (!GodEntity.grabbableItems.TryGetValue(id, out grabbable)) {
+                    grabbable = Instantiate(prefabData.modelPrefab, message.GetVector3(), 
+                        message.GetQuaternion()).GetComponent<Grabbable>();
+                }
+                else {
+                    grabbable.transform.position = message.GetVector3();
+                    grabbable.transform.rotation = message.GetQuaternion();
+                }
                 grabbable.Initialize(id, prefabData);
+                Debug.Log("Updating Grabbables");
             }
         }
         #endregion

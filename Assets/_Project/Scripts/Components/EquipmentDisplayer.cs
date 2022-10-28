@@ -13,6 +13,7 @@ public class EquipmentDisplayer : MonoBehaviour {
         set { _currentEquipedItem = value; } 
     }
     public GameObject CurrentItemModel { get; set; }
+    public bool IsActive => CurrentItemModel != null && CurrentItemModel.activeSelf && !CurrentEquipedItem.Equals(ItemStack.EMPTY);
 
     private void Start() {
         _overrideTransform = transform;

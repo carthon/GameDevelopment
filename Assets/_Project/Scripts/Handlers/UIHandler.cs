@@ -22,6 +22,7 @@ public class UIHandler : MonoBehaviour {
     [SerializeField] private Button _startClient;
     [SerializeField] private Text _startClientText;
     [SerializeField] private Button _startServer;
+    [SerializeField] public Button syncPlayerData;
     [SerializeField] private Text _startServerText;
     [SerializeField] private InputField usernameField;
     [SerializeField] private InputField serverIp;

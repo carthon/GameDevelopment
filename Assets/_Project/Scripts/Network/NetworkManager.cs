@@ -1,13 +1,38 @@
 using System;
+using _Project.Scripts;
+using _Project.Scripts.Components;
 using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class NetworkManager : MonoBehaviour {
     private static NetworkManager _singleton;
+    private static int _clientTick;
+    private static int _serverTick;
     public DictionaryOfStringAndItems itemsDictionary;
+    public static int ServerTick
+    {
+        get => _serverTick;
+        private set
+        {
+            if (value == int.MaxValue)
+                value = 0;
+            _serverTick = value;
+        }
+    }
+    public static int ClientTick
+    {
+        get => _clientTick;
+        private set
+        {
+            if (value == int.MaxValue)
+                value = 0;
+            _clientTick = value;
+        }
+    }
     public static NetworkManager Singleton
     {
         get => _singleton;
@@ -32,7 +57,8 @@ public class NetworkManager : MonoBehaviour {
         input,
         itemSwap,
         itemDrop,
-        itemEquip
+        itemEquip,
+        updateClient
     }
     public enum ServerToClientId : ushort {
         playerSpawned = 1,
@@ -41,7 +67,8 @@ public class NetworkManager : MonoBehaviour {
         itemDespawn,
         itemSpawn,
         inventoryChange,
-        itemEquip
+        itemEquip,
+        playerData
     }
 
     void Awake() {
@@ -55,16 +82,43 @@ public class NetworkManager : MonoBehaviour {
             itemsDictionary.Add(item.id, item);
         }
     }
+
+    #region Static Functions
+    public static void GrabbableToClient(ushort id = 0){
+        foreach (Grabbable grabbable in GodEntity.grabbableItems.Values) {
+            Message message = Message.Create(MessageSendMode.reliable, ServerToClientId.itemSpawn);
+            grabbable.AddItemSpawnData(message);
+            if (id == 0)
+                Singleton.Server.SendToAll(message);
+            else
+                Singleton.Server.Send(message, id);
+        }
+    }
+    public static void PlayersDataToClient(ushort id = 0) {
+        foreach (PlayerNetworkManager player in PlayerNetworkManager.list.Values) {
+            Message message = Message.Create(MessageSendMode.reliable, ServerToClientId.playerData);
+            message.AddUShort(player.Id);
+            player.AddRelevantData(message);
+            if (id == 0)
+                Singleton.Server.SendToAll(message);
+            else
+                Singleton.Server.Send(message, id);
+        }
+    }
+    #endregion
     public Server Server { get; private set; }
     public Client Client { get; private set; }  
     public void Start() {
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
     }
     private void FixedUpdate() {
-        if (IsClient)
+        if (IsClient) {
             Client.Tick();
+            ClientTick++;
+        }
         if (IsServer) {
             Server.Tick();
+            ServerTick++;
         }
         Physics.Simulate(Time.fixedDeltaTime);
     }
@@ -99,9 +153,13 @@ public class NetworkManager : MonoBehaviour {
             Server.ClientDisconnected -= PlayerLeft;
         }
     }
-    private void DidConnect(object sender, EventArgs args) {  }
+    private void DidConnect(object sender, EventArgs args) {
+        UIHandler.Instance.syncPlayerData.onClick.AddListener(() => {GodEntity.Singleton.PlayerInstance.SyncWorldData(true);});
+    }
     private void FailedToConnect (object sender, EventArgs args){  }
-    private void DidDisconnect(object sender, EventArgs args) {  }
+    private void DidDisconnect(object sender, EventArgs args) { 
+        UIHandler.Instance.syncPlayerData.onClick.RemoveAllListeners();
+    }
     private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) {
         if (PlayerNetworkManager.list.TryGetValue(e.Id, out PlayerNetworkManager player)) {
             Destroy(player.gameObject);

@@ -48,19 +48,21 @@ public class PlayerNetworkManager : MonoBehaviour {
         _animator.Initialize();
         _locomotion.SetUp();
     }
-    private void SyncWorldData() {
-        //TODO: Cambiarlo a que cuando el servidor detecte que se ha conectado un jugador, que le envíe los items a su alrededor
+    public void SyncWorldData(bool updateClient) {
+        //Envía la información desde el sevidor al cliente con los Objetos en la escena
         if (NetworkManager.Singleton.IsServer && !IsLocal)
-            foreach (Grabbable grabbable in GodEntity.grabbableItems.Values) {
-                grabbable.SpawnItemMessage(Id);
-            }
+            NetworkManager.GrabbableToClient(Id);
+        if (NetworkManager.Singleton.IsClient && updateClient) {
+            Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ClientToServerId.updateClient);
+            NetworkManager.Singleton.Client.Send(message);
+        }
     }
     private void OnSpawn() {
         InitializeComponents();
         _inputHandler.enabled = IsLocal;
         _cameraHandler.enabled = IsLocal;
         _usernameDisplay.text = Username;
-        SyncWorldData();
+        SyncWorldData(NetworkManager.Singleton.IsClient);
         if (IsLocal) {
             Cursor.lockState = CursorLockMode.Locked;
             _cameraHandler.InitializeCamera();
@@ -125,14 +127,16 @@ public class PlayerNetworkManager : MonoBehaviour {
         list.Add(id, playerNetwork);
     }
     private void UpdateEquipment(ItemStack itemStack, BodyPart equipmentSlot, bool activeState){
-            if (activeState) {
-                _equipmentHandler.LoadItemModel(itemStack, equipmentSlot);
-            }
-            else
-                _equipmentHandler.UnloadItemModel(equipmentSlot);
+        Debug.Log($"Updating Equipment: {itemStack.Item?.name} to {equipmentSlot.ToString()}:Active:{activeState}");
+        if (activeState) {
+            _equipmentHandler.LoadItemModel(itemStack, equipmentSlot);
+        }
+        else
+            _equipmentHandler.UnloadItemModel(equipmentSlot);
     }
-    private void SetPositionAndRotation(Vector3 position, Quaternion rotation) {
+    private void SetPositionAndRotation(Vector3 position, Vector3 rbVelocity,Quaternion rotation) {
         transform.position = position;
+        _locomotion.Rb.velocity = rbVelocity;
         if(!IsLocal)
             _locomotion.Rb.rotation = rotation;
     }
@@ -181,7 +185,7 @@ public class PlayerNetworkManager : MonoBehaviour {
                 _equipmentHandler.LoadItemModel(itemStack, BodyPart.RightArm);
                 NotifyEquipment(itemStack, BodyPart.RightArm, true);
             }
-            else {
+            else if (_inputHandler.HotbarSlot != -1 && _equipmentHandler.GetEquipmentSlotByBodyPart(BodyPart.RightArm).IsActive){
                 _equipmentHandler.UnloadItemModel(BodyPart.RightArm);
                 NotifyEquipment(ItemStack.EMPTY, BodyPart.RightArm, false);
             }
@@ -197,6 +201,32 @@ public class PlayerNetworkManager : MonoBehaviour {
         return _cameraHandler.CameraPivot.rotation.eulerAngles;
     }
     #region Messages
+    private void AddEquipmentData(Message message, ItemStack itemStack, BodyPart equipmentSlot, bool activeState) {
+        message.AddItemStack(itemStack);
+        message.AddInt((int) equipmentSlot);
+        message.AddBool(activeState);
+    }
+    public void AddSpawnData(Message message) {
+        message.AddUShort(Id);
+        message.AddString(Username);
+        message.AddVector3(transform.position);
+    }
+    public void AddRelevantData(Message message) {
+        message.AddInt(_equipmentHandler.EquipmentDisplayers.Count);
+        foreach (EquipmentDisplayer equipmentDisplayer in _equipmentHandler.EquipmentDisplayers) {
+            AddEquipmentData(message, equipmentDisplayer.CurrentEquipedItem, equipmentDisplayer.GetBodyPart(), equipmentDisplayer.IsActive);
+        }
+    }
+    private void ApplyRelevantData(Message message) {
+        int displayersCount = message.GetInt();
+        for (int i = 0; i < displayersCount; i++) {
+            ItemStack itemStack = message.GetItemStack();
+            BodyPart equipmentSlot = (BodyPart)message.GetInt();
+            bool isActive = message.GetBool();
+            
+            UpdateEquipment(itemStack, equipmentSlot, isActive);
+        }
+    }
     #region Client Messages
     [MessageHandler((ushort)NetworkManager.ServerToClientId.playerSpawned)]
     private static void SpawnPlayerClient(Message message) {
@@ -215,11 +245,12 @@ public class PlayerNetworkManager : MonoBehaviour {
     private static void ReceiveMovement(Message message) {
         if (list.TryGetValue(message.GetUShort(), out PlayerNetworkManager player)) {
             Vector3 position = message.GetVector3();
+            Vector3 rbVelocity = message.GetVector3();
             Vector3 relativeDirection = message.GetVector3();
             Quaternion playerRotation = message.GetQuaternion();
             Quaternion cameraRotation = message.GetQuaternion();
             bool[] actions = message.GetBools();
-            player.SetPositionAndRotation(position, playerRotation);
+            player.SetPositionAndRotation(position, rbVelocity, playerRotation);
             player._locomotion.IsGrounded = actions[3];
             if (!player.IsLocal) {
                 player._locomotion.RelativeDirection = relativeDirection;
@@ -236,7 +267,6 @@ public class PlayerNetworkManager : MonoBehaviour {
                 BodyPart equipmentSlot = (BodyPart) message.GetInt();
                 bool activeStatus = message.GetBool();
                 if (!player.IsLocal) {
-                    Debug.Log($"Equipping: {itemStack.Item?.name} : {activeStatus} for Player: {player.Username}");
                     player.UpdateEquipment(itemStack, equipmentSlot, activeStatus);
                 }
             }
@@ -254,10 +284,19 @@ public class PlayerNetworkManager : MonoBehaviour {
         Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ClientToServerId.input);
         message.AddVector3(moveInput);
         message.AddBools(actions);
+        message.AddInt(NetworkManager.ClientTick);
         HandleLocomotion(moveInput);
         HandleAnimations(actions);
         message.AddQuaternion(_cameraHandler.CameraPivot.rotation);
         NetworkManager.Singleton.Client.Send(message);
+    }
+    [MessageHandler((ushort) NetworkManager.ServerToClientId.playerData)]
+    private static void SyncClientWorld(Message message) {
+        ushort playerId = message.GetUShort();
+        if(list.TryGetValue(playerId, out PlayerNetworkManager player) && !player.IsLocal)
+            player.ApplyRelevantData(message);
+        else
+            Debug.Log($"Player {playerId} not found");
     }
     #endregion
 
@@ -272,6 +311,7 @@ public class PlayerNetworkManager : MonoBehaviour {
         Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.playerMovement);
         message.AddUShort(Id);
         message.AddVector3(transform.position);
+        message.AddVector3(_locomotion.Rb.velocity);
         message.AddVector3(_locomotion.RelativeDirection);
         message.AddQuaternion(transform.rotation);
         message.AddQuaternion(_cameraHandler.CameraPivot.rotation);
@@ -294,7 +334,7 @@ public class PlayerNetworkManager : MonoBehaviour {
     [MessageHandler((ushort)NetworkManager.ClientToServerId.input)]
     private static void ReceiveInput(ushort fromClientId, Message message) {
         if (list.TryGetValue(fromClientId, out PlayerNetworkManager player)) {
-            //Si es host, entonces no recive el input (ya ha sido procesado por el servidor)
+            //Si es host, entonces no recibe el input (ya ha sido procesado por el servidor)
             if (player.IsLocal && !NetworkManager.Singleton.IsServer) return;
             
             Vector3 moveInput = message.GetVector3();
@@ -322,12 +362,16 @@ public class PlayerNetworkManager : MonoBehaviour {
             bool activeState = message.GetBool();
             if (list.TryGetValue(clientId, out PlayerNetworkManager player)) {
                 //Actualizo el equipamiento en el servidor
-                Debug.Log($"Equipping: {itemStack.Item?.name} : {activeState} for Player: {player.Username}");
                 player.UpdateEquipment(itemStack, equipmentSlot, activeState);
                 //Notifico al resto de jugadores
                 player.NotifyEquipment(itemStack, equipmentSlot, activeState, clientId);
             }
         }
+    }
+    [MessageHandler((ushort) NetworkManager.ClientToServerId.updateClient)]
+    private static void SyncClientWorldData(ushort clientId, Message message) {
+        NetworkManager.GrabbableToClient(clientId);
+        NetworkManager.PlayersDataToClient(clientId);
     }
     private void NotifyEquipment(ItemStack itemStack, BodyPart equipmentSlot, bool activeState, ushort ofClientId = 0) {
         NetworkManager net = NetworkManager.Singleton;
@@ -340,9 +384,7 @@ public class PlayerNetworkManager : MonoBehaviour {
             message = Message.Create(
                 MessageSendMode.reliable, (ushort)NetworkManager.ClientToServerId.itemEquip);
         }
-        message.AddItemStack(itemStack);
-        message.AddInt((int) equipmentSlot);
-        message.AddBool(activeState);
+        AddEquipmentData(message, itemStack, equipmentSlot, activeState);
         if (net.IsServer)
             net.Server.SendToAll(message);
         if (net.IsClient)
@@ -351,19 +393,13 @@ public class PlayerNetworkManager : MonoBehaviour {
     private void NotifySpawn(ushort toClientId = 0) {
         NetworkManager net = NetworkManager.Singleton;
         if (net.IsServer) {
-            Message message = AddSpawnData(Message.Create(
-                MessageSendMode.reliable, (ushort)NetworkManager.ServerToClientId.playerSpawned));
+            Message message = Message.Create(MessageSendMode.reliable, (ushort) NetworkManager.ServerToClientId.playerSpawned);
+            AddSpawnData(message);
             if (toClientId == 0)
                 net.Server.SendToAll(message);
             else
                 net.Server.Send(message, toClientId);
         }
-    }
-    private Message AddSpawnData(Message message) {
-        message.AddUShort(Id);
-        message.AddString(Username);
-        message.AddVector3(transform.position);
-        return message;
     }
     #endregion
 #endregion
