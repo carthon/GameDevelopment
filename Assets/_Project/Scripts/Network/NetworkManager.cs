@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using _Project.Scripts;
 using _Project.Scripts.Components;
+using _Project.Scripts.Network.MessageDataStructures;
 using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
@@ -53,22 +55,22 @@ public class NetworkManager : MonoBehaviour {
     [SerializeField] private ushort maxClientCount;
 
     public enum ClientToServerId : ushort {
-        username = 1,
-        input,
-        itemSwap,
-        itemDrop,
-        itemEquip,
-        updateClient
+        serverUsername = 1,
+        serverInput,
+        serverItemSwap,
+        serverItemDrop,
+        serverItemEquip,
+        serverUpdateClient
     }
     public enum ServerToClientId : ushort {
-        playerSpawned = 1,
-        playerMovement,
-        playerDespawn,
-        itemDespawn,
-        itemSpawn,
-        inventoryChange,
-        itemEquip,
-        playerData
+        clientPlayerSpawned = 1,
+        clientPlayerMovement,
+        clientPlayerDespawn,
+        clientItemDespawn,
+        clientItemSpawn,
+        clientInventoryChange,
+        clientReceiveEquipment,
+        clientReceivePlayerData
     }
 
     void Awake() {
@@ -84,25 +86,25 @@ public class NetworkManager : MonoBehaviour {
     }
 
     #region Static Functions
-    public static void GrabbableToClient(ushort id = 0){
+    public static void GrabbableToClient(ushort toClientId = 0){
         foreach (Grabbable grabbable in GodEntity.grabbableItems.Values) {
-            Message message = Message.Create(MessageSendMode.reliable, ServerToClientId.itemSpawn);
-            grabbable.AddItemSpawnData(message);
-            if (id == 0)
-                Singleton.Server.SendToAll(message);
-            else
-                Singleton.Server.Send(message, id);
+            GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(grabbable.Id, grabbable.itemData.id, grabbable.transform.position, grabbable.transform.rotation);
+            NetworkMessage message = new NetworkMessage(MessageSendMode.reliable, (ushort) ServerToClientId.clientItemSpawn, grabbableData);
+            message.Send(false, toClientId);
         }
     }
     public static void PlayersDataToClient(ushort id = 0) {
-        foreach (PlayerNetworkManager player in PlayerNetworkManager.list.Values) {
-            Message message = Message.Create(MessageSendMode.reliable, ServerToClientId.playerData);
-            message.AddUShort(player.Id);
-            player.AddRelevantData(message);
-            if (id == 0)
-                Singleton.Server.SendToAll(message);
-            else
-                Singleton.Server.Send(message, id);
+        if (Singleton.IsServer) {
+            foreach (PlayerNetworkManager player in PlayerNetworkManager.list.Values) {
+                List<EquipmentMessageStruct> equipments = new List<EquipmentMessageStruct>();
+                foreach (EquipmentDisplayer equipmentDisplayer in player.EquipmentHandler.EquipmentDisplayers) {
+                    equipments.Add(new EquipmentMessageStruct(equipmentDisplayer.CurrentEquipedItem, 
+                        (int) equipmentDisplayer.GetBodyPart(), equipmentDisplayer.IsActive));
+                }
+                PlayerDataMessageStruct playerData = new PlayerDataMessageStruct(equipments, player.Id);
+                NetworkMessage message = new NetworkMessage(MessageSendMode.reliable, (ushort) ServerToClientId.clientReceivePlayerData, playerData);
+                message.Send(false, id);
+            }
         }
     }
     #endregion
@@ -153,17 +155,13 @@ public class NetworkManager : MonoBehaviour {
             Server.ClientDisconnected -= PlayerLeft;
         }
     }
-    private void DidConnect(object sender, EventArgs args) {
-        UIHandler.Instance.syncPlayerData.onClick.AddListener(() => {GodEntity.Singleton.PlayerInstance.SyncWorldData(true);});
-    }
+    private void DidConnect(object sender, EventArgs args) {  }
     private void FailedToConnect (object sender, EventArgs args){  }
-    private void DidDisconnect(object sender, EventArgs args) { 
-        UIHandler.Instance.syncPlayerData.onClick.RemoveAllListeners();
-    }
+    private void DidDisconnect(object sender, EventArgs args) {  }
     private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) {
         if (PlayerNetworkManager.list.TryGetValue(e.Id, out PlayerNetworkManager player)) {
             Destroy(player.gameObject);
-            Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.playerDespawn);
+            Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.clientPlayerDespawn);
             message.AddUShort(e.Id);
             Server.SendToAll(message);
         }

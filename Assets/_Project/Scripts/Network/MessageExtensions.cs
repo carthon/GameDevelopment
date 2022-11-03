@@ -1,5 +1,4 @@
-﻿using System;
-using RiptideNetworking;
+﻿using RiptideNetworking;
 using UnityEngine;
 
 namespace _Project.Scripts.Network {
@@ -30,7 +29,7 @@ namespace _Project.Scripts.Network {
         /// <inheritdoc cref="AddVector3(Message, Vector3)"/>
         /// <remarks>This method is simply an alternative way of calling <see cref="AddVector3(Message, Vector3)"/>.</remarks>
         public static Message Add(this Message message, Vector3 value) => AddVector3(message, value);
-
+        
         /// <summary>Adds a <see cref="Vector3"/> to the message.</summary>
         /// <param name="value">The <see cref="Vector3"/> to add.</param>
         /// <returns>The message that the <see cref="Vector3"/> was added to.</returns>

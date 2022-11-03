@@ -96,7 +96,7 @@ public class ItemSlotUI : MonoBehaviour {
     public void OnRemoveButton() {
         UIHandler.Instance.UpdateVisuals = true;
         if (!_itemStack.IsEmpty()) {
-            Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ClientToServerId.itemDrop);
+            Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ClientToServerId.serverItemDrop);
             message.AddInts(new[] {
                 _itemStack.GetInventory().Id,
                 _itemStack.GetSlotID()

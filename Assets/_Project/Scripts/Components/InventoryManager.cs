@@ -47,14 +47,14 @@ public class InventoryManager : MonoBehaviour {
 	#region Server Messages
 	public void InventoryOnSlotChange(int slot, ItemStack itemStack) {
 		if (NetworkManager.Singleton.IsServer && !_player.IsLocal) {
-			Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.inventoryChange);
+			Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.clientInventoryChange);
 			message.AddUShort(_player.Id);
 			message.AddInt(itemStack.GetInventory().Id);
 			message.AddItemStack(itemStack);
 			NetworkManager.Singleton.Server.Send(message, _player.Id);
 		}
 	}
-	[MessageHandler((ushort)NetworkManager.ServerToClientId.inventoryChange)]
+	[MessageHandler((ushort)NetworkManager.ServerToClientId.clientInventoryChange)]
 	private static void ReceiveSlotChangeServer(Message message) {
 		if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
 			ushort playerId = message.GetUShort();
@@ -65,7 +65,7 @@ public class InventoryManager : MonoBehaviour {
 			}
 		}
 	}
-	[MessageHandler((ushort) NetworkManager.ClientToServerId.itemDrop)]
+	[MessageHandler((ushort) NetworkManager.ClientToServerId.serverItemDrop)]
 	private static void DropItemOnSlotServer(ushort clientId, Message message) {
 		if (PlayerNetworkManager.list.TryGetValue(clientId, out PlayerNetworkManager player)) {
 			int[] data = message.GetInts();
@@ -82,7 +82,7 @@ public class InventoryManager : MonoBehaviour {
 				slot,
 				otherSlot
 			};
-			Message message = Message.Create(MessageSendMode.reliable, (ushort)NetworkManager.ClientToServerId.itemSwap);
+			Message message = Message.Create(MessageSendMode.reliable, (ushort)NetworkManager.ClientToServerId.serverItemSwap);
 			message.AddInts(data);
 			NetworkManager.Singleton.Client.Send(message);
 		}

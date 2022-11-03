@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Project.Scripts.Network;
+using _Project.Scripts.Network.MessageDataStructures;
 using RiptideNetworking;
 using TMPro;
 using UnityEngine;
@@ -22,9 +23,9 @@ namespace _Project.Scripts.Components {
                 //Mantener esta línea si está en desarrollo
                 UpdateID();
                 if (NetworkManager.Singleton.IsServer) {
-                    Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.itemSpawn);
-                    AddItemSpawnData(message);
-                    NetworkManager.Singleton.Server.SendToAll(message);
+                    GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(Id, itemData.id, transform.position, transform.rotation);
+                    NetworkMessage message = new NetworkMessage(MessageSendMode.reliable, (ushort) NetworkManager.ServerToClientId.clientItemSpawn, grabbableData);
+                    message.Send(false);
                 }
         }
         private void UpdateID() {
@@ -39,22 +40,14 @@ namespace _Project.Scripts.Components {
         public void OnDestroy() {
             GodEntity.grabbableItems.Remove(this.Id);
             if (NetworkManager.Singleton.IsServer) {
-                Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.itemDespawn);
+                Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.clientItemDespawn);
                 message.AddUShort(Id);
                 NetworkManager.Singleton.Server.SendToAll(message);
             }
-                
-        }
-        public void AddItemSpawnData(Message message) {
-            //Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.itemSpawn);
-            message.AddUShort(Id);
-            message.AddString(itemData.id);
-            message.AddVector3(transform.position);
-            message.AddQuaternion(transform.rotation);
         }
 
         #region ClientMessages
-        [MessageHandler((ushort)NetworkManager.ServerToClientId.itemDespawn)]
+        [MessageHandler((ushort)NetworkManager.ServerToClientId.clientItemDespawn)]
         private static void DestroyItem(Message message) {
             if(!NetworkManager.Singleton.IsServer)
                 if (GodEntity.grabbableItems.TryGetValue(message.GetUShort(), out Grabbable grabbable)) {
@@ -64,23 +57,23 @@ namespace _Project.Scripts.Components {
         #endregion
 
         #region ServerMessages
-        [MessageHandler((ushort)NetworkManager.ServerToClientId.itemSpawn)]
+        [MessageHandler((ushort)NetworkManager.ServerToClientId.clientItemSpawn)]
         private static void SpawnItemClient(Message message) {
             if (!NetworkManager.Singleton.IsServer) {
-                ushort id = message.GetUShort();
-                string modelId = message.GetString();
-                Item prefabData = NetworkManager.Singleton.itemsDictionary[modelId];
-                Grabbable grabbable;
-                if (!GodEntity.grabbableItems.TryGetValue(id, out grabbable)) {
-                    grabbable = Instantiate(prefabData.modelPrefab, message.GetVector3(), 
-                        message.GetQuaternion()).GetComponent<Grabbable>();
+                GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(message);
+                Debug.Log($"Trying to get value : {grabbableData.itemId}");
+                if (NetworkManager.Singleton.itemsDictionary.TryGetValue(grabbableData.itemId, out Item prefabData)){
+                    Grabbable grabbable;
+                    if (!GodEntity.grabbableItems.TryGetValue(grabbableData.grabbableId, out grabbable)) {
+                        grabbable = Instantiate(prefabData.modelPrefab, grabbableData.position,
+                            grabbableData.rotation).GetComponent<Grabbable>();
+                    }
+                    else {
+                        grabbable.transform.position = grabbableData.position;
+                        grabbable.transform.rotation = grabbableData.rotation;
+                    }
+                    grabbable.Initialize(grabbableData.grabbableId, prefabData);
                 }
-                else {
-                    grabbable.transform.position = message.GetVector3();
-                    grabbable.transform.rotation = message.GetQuaternion();
-                }
-                grabbable.Initialize(id, prefabData);
-                Debug.Log("Updating Grabbables");
             }
         }
         #endregion
