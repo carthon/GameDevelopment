@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 namespace _Project.Scripts.Handlers {
     public class InputHandler : MonoBehaviour {
 
+        private static InputHandler _singleton;
         [Header("Basic Inputs")]
         private bool _b_Input;
         private Vector2 _cameraInput;
@@ -28,6 +29,18 @@ namespace _Project.Scripts.Handlers {
         public bool SwapView { get; private set; }
 
         public bool FirstPerson { get; private set; }
+        public static InputHandler Singleton
+        {
+            get => _singleton;
+            private set {
+                if (_singleton == null)
+                    _singleton = value;
+                else if(_singleton != null) {
+                    Debug.Log($"{nameof(InputHandler)} instance already exists, destroying duplicate!");
+                    Destroy(value);
+                }
+            }
+        }
 
         [field: Header("Movement Input")]
         public Vector2 MovementInput { get => _movementInput; }
@@ -59,6 +72,9 @@ namespace _Project.Scripts.Handlers {
             IsPicking = false;
             EquipInput = false;
         }
+        public void Awake() {
+            _singleton = this;
+        }
         public void OnEnable() {
             if (_inputActions == null) {
                 _inputActions = new PlayerControlls();
@@ -70,6 +86,7 @@ namespace _Project.Scripts.Handlers {
         }
 
         private void OnDisable() {
+            _singleton = null;
             _inputActions.Disable();
         }
 

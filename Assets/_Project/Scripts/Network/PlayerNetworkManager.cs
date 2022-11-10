@@ -28,12 +28,40 @@ public class PlayerNetworkManager : MonoBehaviour {
     public bool IsLocal { get; private set; }
     public string Username { get; private set; }
     public InventoryManager InventoryManager => _inventoryManager;
+    public Locomotion Locomotion => _locomotion;
     public EquipmentHandler EquipmentHandler => _equipmentHandler;
 
     [SerializeField] private float grabDistance = 5f;
     
+    private void OnDestroy() {
+        enabled = false;
+        list.Remove(Id);
+    }
+    private void Update() {
+        float delta = Time.deltaTime;
+        if (IsLocal) {
+            HandleUI();
+            _cameraHandler.Tick(delta);
+            SendInput();
+            _inputHandler.ClearInputs();
+        }
+    }
+    private void FixedUpdate() {
+        float fixedDelta = Time.fixedDeltaTime;
+        HandleRotation();
+        _animator.UpdateAnimatorValues(_locomotion.RelativeDirection.z, _locomotion.RelativeDirection.x, _locomotion.IsSprinting);
+        if (IsLocal) {
+            Vector3 mouseInput = (_cameraHandler.GetDirectionFromMouse(_inputHandler.MouseX, _inputHandler.MouseY));
+            if (!_inputHandler.IsUIEnabled)
+                _cameraHandler.FixedTick();
+        }
+        if (NetworkManager.Singleton.IsServer) {
+            _locomotion.FixedTick(fixedDelta);
+            SendMovement();
+        }
+    }
+    
     public void InitializeComponents() {
-        _inputHandler = GetComponent<InputHandler>();
         _locomotion = GetComponent<Locomotion>();
         _animator = GetComponent<AnimatorHandler>();
         _cameraHandler = GetComponent<CameraHandler>();
@@ -61,6 +89,7 @@ public class PlayerNetworkManager : MonoBehaviour {
     }
     private void OnSpawn() {
         InitializeComponents();
+        _inputHandler = InputHandler.Singleton;
         _inputHandler.enabled = IsLocal;
         _cameraHandler.enabled = IsLocal;
         _usernameDisplay.text = Username;
@@ -72,61 +101,11 @@ public class PlayerNetworkManager : MonoBehaviour {
             SyncWorldData();
         }
     }
-    private void Update() {
-        float delta = Time.deltaTime;
-        if (IsLocal) {
-            HandleUI();
-            _cameraHandler.Tick(delta);
-            SendInput();
-            _inputHandler.ClearInputs();
-        }
-    }
-    private void FixedUpdate() {
-        float fixedDelta = Time.fixedDeltaTime;
-        HandleRotation();
-        _animator.UpdateAnimatorValues(_locomotion.RelativeDirection.z, _locomotion.RelativeDirection.x, _locomotion.IsSprinting);
-        if (IsLocal) {
-            Vector3 mouseInput = (_cameraHandler.GetDirectionFromMouse(_inputHandler.MouseX, _inputHandler.MouseY));
-            if (!_inputHandler.IsUIEnabled)
-                _cameraHandler.FixedTick();
-        }
-        if (NetworkManager.Singleton.IsServer) {
-            _locomotion.FixedTick(fixedDelta);
-            SendMovement();
-        }
-    }
     private void HandleRotation() {
         Quaternion newRotation = Quaternion.Euler(0.0f, _cameraHandler.CameraPivot.rotation.eulerAngles.y, 0.0f);
         model.rotation = Quaternion.Lerp(model.rotation, newRotation, _cameraHandler.CameraData.playerLookInputLerpSpeed * Time.fixedDeltaTime);
         //transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, _cameraHandler.CameraData.rotationMultiplier * Time.fixedDeltaTime);
         //transform.rotation = newRotation;
-    }
-
-    private void OnDestroy() {
-        enabled = false;
-        list.Remove(Id);
-    }
-    private static void Spawn(ushort id, string username, Vector3 position) {
-        NetworkManager net = NetworkManager.Singleton;
-        PlayerNetworkManager playerNetwork = Instantiate(GodEntity.Singleton.PlayerPrefab, position, Quaternion.identity).GetComponent<PlayerNetworkManager>();
-        
-        if (net.IsClient) {
-            playerNetwork.IsLocal = id == net.Client.Id;
-            if(playerNetwork.IsLocal)
-                GodEntity.Singleton.PlayerInstance = playerNetwork;
-        }
-        if(net.IsServer) {
-            foreach (PlayerNetworkManager otherPlayer in list.Values) {
-                otherPlayer.NotifySpawn(id);
-            }
-        }
-        playerNetwork.name = $"Player {id} {(string.IsNullOrEmpty(username) ? "Guest" : username)}";
-        playerNetwork.Id = id;
-        playerNetwork.Username = string.IsNullOrEmpty(username) ? $"Guest {id}" : username;
-        playerNetwork.OnSpawn();
-
-        playerNetwork.NotifySpawn();
-        list.Add(id, playerNetwork);
     }
     private void UpdateEquipment(ItemStack itemStack, BodyPart equipmentSlot, bool activeState){
         if (activeState) {
@@ -134,12 +113,6 @@ public class PlayerNetworkManager : MonoBehaviour {
         }
         else
             _equipmentHandler.UnloadItemModel(equipmentSlot);
-    }
-    private void SetPositionAndRotation(Vector3 position, Vector3 rbVelocity,Quaternion rotation) {
-        transform.position = position;
-        _locomotion.Rb.velocity = rbVelocity;
-        if(!IsLocal)
-            _locomotion.Rb.rotation = rotation;
     }
     private void HandleLocomotion(Vector3 moveInput) {
         Transform cameraPivot = _cameraHandler.CameraPivot.transform;
@@ -201,7 +174,36 @@ public class PlayerNetworkManager : MonoBehaviour {
     private Vector3 GetLookDirection() {
         return _cameraHandler.CameraPivot.rotation.eulerAngles;
     }
+    private void SetPositionAndRotation(Vector3 position, Vector3 rbVelocity,Quaternion rotation) {
+        transform.position = position;
+        _locomotion.Rb.velocity = rbVelocity;
+        if(!IsLocal)
+            _locomotion.Rb.rotation = rotation;
+    }
     #region Messages
+    private static void Spawn(ushort id, string username, Vector3 position) {
+        NetworkManager net = NetworkManager.Singleton;
+        PlayerNetworkManager playerNetwork = Instantiate(GodEntity.Singleton.PlayerPrefab, position, Quaternion.identity).GetComponent<PlayerNetworkManager>();
+        
+        if (net.IsClient) {
+            playerNetwork.IsLocal = id == net.Client.Id;
+            if(playerNetwork.IsLocal)
+                GodEntity.Singleton.PlayerInstance = playerNetwork;
+        }
+        if(net.IsServer) {
+            foreach (PlayerNetworkManager otherPlayer in list.Values) {
+                otherPlayer.NotifySpawn(id);
+            }
+        }
+        playerNetwork.name = $"Player {id} {(string.IsNullOrEmpty(username) ? "Guest" : username)}";
+        playerNetwork.Id = id;
+        playerNetwork.Username = string.IsNullOrEmpty(username) ? $"Guest {id}" : username;
+        playerNetwork.OnSpawn();
+
+        playerNetwork.NotifySpawn();
+        list.Add(id, playerNetwork);
+    }
+    
     #region Client Messages
     [MessageHandler((ushort)NetworkManager.ServerToClientId.clientPlayerSpawned)]
     private static void SpawnPlayerClient(Message message) {
@@ -210,6 +212,7 @@ public class PlayerNetworkManager : MonoBehaviour {
             Spawn(spawnData.id, spawnData.username, spawnData.position);
         }
     }
+    
     [MessageHandler((ushort)NetworkManager.ServerToClientId.clientPlayerDespawn)]
     private static void DeSpawnPlayer(Message message) {
         if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
@@ -217,6 +220,7 @@ public class PlayerNetworkManager : MonoBehaviour {
                 Destroy(player.gameObject);
         }
     }
+    
     [MessageHandler((ushort) NetworkManager.ServerToClientId.clientPlayerMovement)]
     private static void ReceiveMovement(Message message) {
         MovementMessageStruct movementMessageStruct = new MovementMessageStruct(message);
@@ -231,6 +235,7 @@ public class PlayerNetworkManager : MonoBehaviour {
             }
         }
     }
+    
     [MessageHandler((ushort) NetworkManager.ServerToClientId.clientReceiveEquipment)]
     private static void ReceiveEquipment(Message message) {
         if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
@@ -245,6 +250,7 @@ public class PlayerNetworkManager : MonoBehaviour {
             }
         }
     }
+    
     private void SendInput() {
         Vector3 moveInput = new Vector3(_inputHandler.Horizontal, 0, _inputHandler.Vertical);
         bool[] actions = new[] {
@@ -284,6 +290,7 @@ public class PlayerNetworkManager : MonoBehaviour {
         NetworkMessage networkMessage = new NetworkMessage(MessageSendMode.reliable, (ushort) NetworkManager.ServerToClientId.clientPlayerMovement, movementStruct);
         networkMessage.Send(false);
     }
+    
     [MessageHandler((ushort)NetworkManager.ClientToServerId.serverItemSwap)]
     private static void SlotSwapServer(ushort fromClientId, Message message) {
         if (!NetworkManager.Singleton.IsServer) return;
@@ -297,6 +304,7 @@ public class PlayerNetworkManager : MonoBehaviour {
             player._inventoryManager.Inventories[inventoryId].SwapItemsInInventory(otherInventory, slot, otherSlot);
         }
     }
+    
     [MessageHandler((ushort)NetworkManager.ClientToServerId.serverInput)]
     private static void ReceiveInput(ushort fromClientId, Message message) {
         if (list.TryGetValue(fromClientId, out PlayerNetworkManager player)) {
@@ -315,6 +323,7 @@ public class PlayerNetworkManager : MonoBehaviour {
                 player.HandlePicking();
         }
     }
+    
     [MessageHandler((ushort) NetworkManager.ClientToServerId.serverUsername)]
     private static void SpawnPlayerServer(ushort fromClientId, Message message) {
         if (NetworkManager.Singleton.IsServer) {
@@ -322,6 +331,7 @@ public class PlayerNetworkManager : MonoBehaviour {
                 Vector3.right * Random.value * 4);
         }
     }
+    
     [MessageHandler((ushort) NetworkManager.ClientToServerId.serverItemEquip)]
     private static void SpawnItemOnPlayer(ushort clientId, Message message) {
         if (NetworkManager.Singleton.IsServer) {
@@ -337,11 +347,13 @@ public class PlayerNetworkManager : MonoBehaviour {
             }
         }
     }
+    
     [MessageHandler((ushort) NetworkManager.ClientToServerId.serverUpdateClient)]
     private static void SyncClientWorldData(ushort clientId, Message message) {
         NetworkManager.GrabbableToClient(clientId);
         NetworkManager.PlayersDataToClient(clientId);
     }
+    
     private void NotifyEquipment(ItemStack itemStack, BodyPart equipmentSlot, bool activeState, ushort ofClientId = 0) {
         if(NetworkManager.Singleton.IsServer && IsLocal)
             return;
@@ -350,6 +362,7 @@ public class PlayerNetworkManager : MonoBehaviour {
         NetworkMessage message = new NetworkMessage(MessageSendMode.reliable, messageId, equipmentData);
         message.Send(NetworkManager.Singleton.IsClient);
     }
+    
     private void NotifySpawn(ushort toClientId = 0) {
         NetworkManager net = NetworkManager.Singleton;
         if (net.IsServer) {

@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 
 public class CameraHandler : MonoBehaviour {
+    private static CameraHandler _singleton;
     [SerializeField]
     private int layerFirstPerson = 11;
 
@@ -25,8 +26,6 @@ public class CameraHandler : MonoBehaviour {
     private float _cameraYaw;
     private CinemachineVirtualCamera _firstPersonCamera;
 
-    private InputHandler _inputHandler;
-
     private CinemachineVirtualCamera _orbitalCamera;
     private CinemachineInputProvider _orbitalCameraInput;
     private Vector3 _playerLookInput = Vector3.zero;
@@ -39,9 +38,20 @@ public class CameraHandler : MonoBehaviour {
     public bool UsingOrbitalCamera { get; set; }
     public Camera MainCamera { get; private set; }
     public CameraData CameraData => _cameraData;
+    public static CameraHandler Singleton
+    {
+        get => _singleton;
+        private set {
+            if (_singleton == null)
+                _singleton = value;
+            else if(_singleton != null) {
+                Debug.Log($"{nameof(CameraHandler)} instance already exists, destroying duplicate!");
+                Destroy(value);
+            }
+        }
+    }
 
     public void InitializeCamera() {
-        _inputHandler = GetComponent<InputHandler>();
         MainCamera = Camera.main;
         SetOrbitalCamera(GameObject.Find("OrbitalCamera").GetComponent<CinemachineVirtualCamera>());
         SetFirstPersonCamera(GameObject.Find("1stPersonCamera").GetComponent<CinemachineVirtualCamera>());
@@ -57,7 +67,7 @@ public class CameraHandler : MonoBehaviour {
         ChangeCamera();
     }
     public void Tick(float delta) {
-        if (_inputHandler.SwapView || _inputHandler.FirstPerson)
+        if (InputHandler.Singleton.SwapView || InputHandler.Singleton.FirstPerson)
             ChangeCamera();
     }
     public void FixedTick() {
@@ -71,7 +81,7 @@ public class CameraHandler : MonoBehaviour {
     private void ChangeCamera() {
         UsingOrbitalCamera = false;
         //var main = MainCamera.GetComponent<CinemachineBrain>();
-        if (_inputHandler.SwapView) {
+        if (InputHandler.Singleton.SwapView) {
             SetCameraPriorities(_orbitalCamera);
             UsingOrbitalCamera = true;
             UsingFirstPersonCamera = false;
