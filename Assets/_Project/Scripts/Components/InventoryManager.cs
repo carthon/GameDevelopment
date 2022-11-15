@@ -27,7 +27,7 @@ public class InventoryManager : MonoBehaviour {
 		Inventories[inventoryId].DropItemInSlot(slotId, _player.transform.position, _player.transform.rotation);
 		InventoryOnSlotChange(slotId, droppedItemStack);
 	}
-	private void SetItemStackInInventory(ItemStack itemStack, int inventoryId) {
+	public void SetItemStackInInventory(ItemStack itemStack, int inventoryId) {
 		if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
 			_inventories[inventoryId].GetInventorySlots()[itemStack.GetSlotID()].SetStack(itemStack);
 			UIHandler.Instance.UpdateInventorySlot(inventoryId, itemStack.GetSlotID());
@@ -44,8 +44,7 @@ public class InventoryManager : MonoBehaviour {
 		inventory.OnSlotSwap -= SendSlotSwapToServer;
 		_inventories.Remove(inventory);
 	}
-	#region Server Messages
-	public void InventoryOnSlotChange(int slot, ItemStack itemStack) {
+	private void InventoryOnSlotChange(int slot, ItemStack itemStack) {
 		if (NetworkManager.Singleton.IsServer && !_player.IsLocal) {
 			Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.clientInventoryChange);
 			message.AddUShort(_player.Id);
@@ -54,26 +53,6 @@ public class InventoryManager : MonoBehaviour {
 			NetworkManager.Singleton.Server.Send(message, _player.Id);
 		}
 	}
-	[MessageHandler((ushort)NetworkManager.ServerToClientId.clientInventoryChange)]
-	private static void ReceiveSlotChangeServer(Message message) {
-		if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
-			ushort playerId = message.GetUShort();
-			int inventoryId = message.GetInt();
-			ItemStack itemStack = message.GetItemStack();
-			if (PlayerNetworkManager.list.TryGetValue(playerId, out PlayerNetworkManager player)) {
-				player.InventoryManager.SetItemStackInInventory(itemStack, inventoryId);
-			}
-		}
-	}
-	[MessageHandler((ushort) NetworkManager.ClientToServerId.serverItemDrop)]
-	private static void DropItemOnSlotServer(ushort clientId, Message message) {
-		if (PlayerNetworkManager.list.TryGetValue(clientId, out PlayerNetworkManager player)) {
-			int[] data = message.GetInts();
-			player.InventoryManager.DropItemStack(data[0], data[1]);
-		}
-	}
-	#endregion
-	#region Client Messages
 	private void SendSlotSwapToServer(int inventory, int otherInventory, int slot, int otherSlot) {
 		if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer){
 			int[] data = new[] {
@@ -87,5 +66,4 @@ public class InventoryManager : MonoBehaviour {
 			NetworkManager.Singleton.Client.Send(message);
 		}
 	}
-	#endregion
 }

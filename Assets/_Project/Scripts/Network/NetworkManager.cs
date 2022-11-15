@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using _Project.Scripts;
 using _Project.Scripts.Components;
+using _Project.Scripts.Network.Client;
 using _Project.Scripts.Network.MessageDataStructures;
+using _Project.Scripts.Network.Server;
 using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
@@ -95,7 +97,7 @@ public class NetworkManager : MonoBehaviour {
     }
     public static void PlayersDataToClient(ushort id = 0) {
         if (Singleton.IsServer) {
-            foreach (PlayerNetworkManager player in PlayerNetworkManager.list.Values) {
+            foreach (PlayerNetworkManager player in ServerManager.playersList.Values) {
                 List<EquipmentMessageStruct> equipments = new List<EquipmentMessageStruct>();
                 foreach (EquipmentDisplayer equipmentDisplayer in player.EquipmentHandler.EquipmentDisplayers) {
                     equipments.Add(new EquipmentMessageStruct(equipmentDisplayer.CurrentEquipedItem, 
@@ -108,12 +110,12 @@ public class NetworkManager : MonoBehaviour {
         }
     }
     #endregion
-    public Server Server { get; private set; }
-    public Client Client { get; private set; }  
+    public ServerManager Server { get; private set; }
+    public ClientManager Client { get; private set; }  
     public void Start() {
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
     }
-    private void FixedUpdate() {
+    private void Update() {
         if (IsClient) {
             Client.Tick();
             ClientTick++;
@@ -126,13 +128,13 @@ public class NetworkManager : MonoBehaviour {
     }
     public void InitializeServer() {
         IsServer = true;
-        Server = new Server();
+        Server = new ServerManager();
         Server.Start(port, maxClientCount);
         Server.ClientDisconnected += PlayerLeft;
     }
     public void InitializeClient() {
         IsClient = true;
-        Client = new Client();
+        Client = new ClientManager();
         Client.Connected += DidConnect;
         Client.Disconnected += DidDisconnect;
         Client.ConnectionFailed += FailedToConnect;
@@ -159,7 +161,7 @@ public class NetworkManager : MonoBehaviour {
     private void FailedToConnect (object sender, EventArgs args){  }
     private void DidDisconnect(object sender, EventArgs args) {  }
     private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) {
-        if (PlayerNetworkManager.list.TryGetValue(e.Id, out PlayerNetworkManager player)) {
+        if (ServerManager.playersList.TryGetValue(e.Id, out PlayerNetworkManager player)) {
             Destroy(player.gameObject);
             Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.clientPlayerDespawn);
             message.AddUShort(e.Id);

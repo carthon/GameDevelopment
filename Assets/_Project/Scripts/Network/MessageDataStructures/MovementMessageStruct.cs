@@ -8,16 +8,16 @@ namespace _Project.Scripts.Network.MessageDataStructures {
         public Vector3 velocity;
         public Vector3 relativeDirection;
         public Quaternion rotation;
-        public Quaternion cameraPivotRotation;
+        public Quaternion headPivotRotation;
         public bool[] actions;
         public MovementMessageStruct(ushort id, Vector3 position, Vector3 velocity, Vector3 relativeDirection, Quaternion rotation, 
-            Quaternion cameraPivotRotation, bool[] actions) {
+            Quaternion headPivotRotation, bool[] actions) {
             this.id = id;
             this.position = position;
             this.velocity = velocity;
             this.relativeDirection = relativeDirection;
             this.rotation = rotation;
-            this.cameraPivotRotation = cameraPivotRotation;
+            this.headPivotRotation = headPivotRotation;
             this.actions = actions;
         }
         
@@ -27,7 +27,7 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             this.velocity = message.GetVector3();
             this.relativeDirection = message.GetVector3();
             this.rotation = message.GetQuaternion();
-            this.cameraPivotRotation = message.GetQuaternion();
+            this.headPivotRotation = message.GetQuaternion();
             this.actions = message.GetBools();
         }
     }

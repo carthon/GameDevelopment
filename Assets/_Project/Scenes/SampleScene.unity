@@ -2396,8 +2396,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1383513668}
   - component: {fileID: 1383513667}
+  - component: {fileID: 1383513669}
+  - component: {fileID: 1383513670}
   m_Layer: 0
-  m_Name: NetworkManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2441,6 +2443,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1383513669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383513666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9669d6ef794642a684c257d40e0e80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1383513670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383513666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d5a6272a0f213419fed18e0edca08f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerFirstPerson: 11
+  _cameraData: {fileID: 11400000, guid: 17ed788bb317ca4458fca01381181068, type: 2}
+  _cameraPivot: {fileID: 0}
+  _cameraFollow: {fileID: 0}
+  _followSmoothness: 1
 --- !u!1 &1456289154
 GameObject:
   m_ObjectHideFlags: 0
@@ -3167,6 +3198,7 @@ MonoBehaviour:
   _startClient: {fileID: 1942744555}
   _startClientText: {fileID: 0}
   _startServer: {fileID: 1623979795}
+  syncPlayerData: {fileID: 0}
   _startServerText: {fileID: 0}
   usernameField: {fileID: 1233347177}
   serverIp: {fileID: 867233660}

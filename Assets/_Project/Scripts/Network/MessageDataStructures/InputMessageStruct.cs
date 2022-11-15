@@ -6,18 +6,18 @@ namespace _Project.Scripts.Network.MessageDataStructures {
         public Vector3 moveInput;
         public bool[] actions;
         public int clientTick;
-        public Quaternion cameraPivotRotation;
-        public InputMessageStruct(Vector3 moveInput, bool[] actions, Quaternion cameraPivotRotation,int clientTick) {
+        public Quaternion headPivotRotation;
+        public InputMessageStruct(Vector3 moveInput, bool[] actions, Quaternion headPivotRotation,int clientTick) {
             this.moveInput = moveInput;
             this.actions = actions;
             this.clientTick = clientTick;
-            this.cameraPivotRotation = cameraPivotRotation;
+            this.headPivotRotation = headPivotRotation;
         }
         public InputMessageStruct(Message message) {
             this.moveInput = message.GetVector3();
             this.actions = message.GetBools();
             this.clientTick = message.GetInt();
-            this.cameraPivotRotation = message.GetQuaternion();
+            this.headPivotRotation = message.GetQuaternion();
         }
     }
 }

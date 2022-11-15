@@ -47,7 +47,7 @@ namespace _Project.Scripts.Components {
 
         }
         private void HandleMovement(float delta) {
-            var moveDirection = new Vector3(TargetPosition.x, 0, TargetPosition.z);
+            var moveDirection = new Vector3(TargetPosition.x, 0, TargetPosition.z) * delta;
             var strafeMult = RelativeDirection == Vector3.right || RelativeDirection == Vector3.left ? _stats.strafeMultSpeed : 1;
             var backwardsMult = RelativeDirection == Vector3.back ? _stats.backwardsMultSpeed : 1;
             AppliedMovement = moveDirection * (CurrentMovementSpeed * strafeMult * backwardsMult);
