@@ -8,9 +8,7 @@ using _Project.Scripts.Network.Server;
 using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class NetworkManager : MonoBehaviour {
     private static NetworkManager _singleton;
@@ -97,7 +95,7 @@ public class NetworkManager : MonoBehaviour {
     }
     public static void PlayersDataToClient(ushort id = 0) {
         if (Singleton.IsServer) {
-            foreach (PlayerNetworkManager player in ServerManager.playersList.Values) {
+            foreach (PlayerNetworkManager player in PlayerNetworkManager.playersList.Values) {
                 List<EquipmentMessageStruct> equipments = new List<EquipmentMessageStruct>();
                 foreach (EquipmentDisplayer equipmentDisplayer in player.EquipmentHandler.EquipmentDisplayers) {
                     equipments.Add(new EquipmentMessageStruct(equipmentDisplayer.CurrentEquipedItem, 
@@ -161,8 +159,9 @@ public class NetworkManager : MonoBehaviour {
     private void FailedToConnect (object sender, EventArgs args){  }
     private void DidDisconnect(object sender, EventArgs args) {  }
     private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) {
-        if (ServerManager.playersList.TryGetValue(e.Id, out PlayerNetworkManager player)) {
+        if (PlayerNetworkManager.playersList.TryGetValue(e.Id, out PlayerNetworkManager player)) {
             Destroy(player.gameObject);
+            PlayerNetworkManager.playersList.Remove(e.Id);
             Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.clientPlayerDespawn);
             message.AddUShort(e.Id);
             Server.SendToAll(message);

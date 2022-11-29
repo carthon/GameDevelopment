@@ -36,7 +36,7 @@ public class JumpState : AbstractBaseState {
     public void HandleGravity() {
         var stats = locomotion.Stats;
         var appliedVelocity = locomotion.TargetPosition.normalized * stats.inAirSpeed;
-        locomotion.Rb.AddForce(-Vector3.up * stats.fallingSpeed);
+        locomotion.Rb.AddForce(-Vector3.up * stats.fallingSpeed * Time.fixedDeltaTime);
         //if (locomotion.Rb.velocity.y > 0) {
         appliedVelocity += lastDirection;
         if (appliedVelocity.magnitude < lastDirection.magnitude)

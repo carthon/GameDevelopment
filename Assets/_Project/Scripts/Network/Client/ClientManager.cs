@@ -9,7 +9,16 @@ using UnityEngine;
 namespace _Project.Scripts.Network.Client {
     public class ClientManager : RiptideNetworking.Client {
         private PlayerNetworkManager _player;
-        public override void Tick() {
+        public PlayerNetworkManager Player
+        {
+            get
+            {
+                if (_player != null)
+                    return _player;
+                return null;
+            }
+        }
+    public override void Tick() {
             if (_player != null) {
                 float fixedDelta = Time.fixedDeltaTime;
                 float delta = Time.deltaTime;
@@ -83,16 +92,16 @@ namespace _Project.Scripts.Network.Client {
         private static void DeSpawnPlayer(Message message) {
             if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
                 ushort playerId = message.GetUShort();
-                if (ServerManager.playersList.TryGetValue(playerId, out PlayerNetworkManager player)) {
+                if (PlayerNetworkManager.playersList.TryGetValue(playerId, out PlayerNetworkManager player)) {
                     GameObject.Destroy(player.gameObject);
-                    ServerManager.playersList.Remove(playerId);
+                    PlayerNetworkManager.playersList.Remove(playerId);
                 }
             }
         }
         [MessageHandler((ushort) NetworkManager.ServerToClientId.clientPlayerMovement)]
         private static void ReceiveMovement(Message message) {
             MovementMessageStruct movementMessageStruct = new MovementMessageStruct(message);
-            if (ServerManager.playersList.TryGetValue(movementMessageStruct.id, out PlayerNetworkManager player)) {
+            if (PlayerNetworkManager.playersList.TryGetValue(movementMessageStruct.id, out PlayerNetworkManager player)) {
                 bool[] actions = movementMessageStruct.actions;
                 player.SetPositionAndRotation(movementMessageStruct.position, movementMessageStruct.velocity, movementMessageStruct.rotation);
                 player.Locomotion.IsGrounded = actions[3];
@@ -107,7 +116,7 @@ namespace _Project.Scripts.Network.Client {
         private static void ReceiveEquipment(Message message) {
             if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
                 EquipmentMessageStruct equipmentData = new EquipmentMessageStruct(message);
-                if (ServerManager.playersList.TryGetValue(equipmentData.clientId, out PlayerNetworkManager player)) {
+                if (PlayerNetworkManager.playersList.TryGetValue(equipmentData.clientId, out PlayerNetworkManager player)) {
                     if (!player.IsLocal) {
                         ItemStack itemStack = equipmentData.itemStack;
                         BodyPart equipmentSlot = (BodyPart) equipmentData.equipmentSlot;

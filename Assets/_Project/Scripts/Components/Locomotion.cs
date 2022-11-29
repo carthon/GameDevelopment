@@ -40,17 +40,17 @@ namespace _Project.Scripts.Components {
         public void FixedTick(float delta) {
             HandleMovement(delta);
             CurrentState.UpdateStates();
-            IsGrounded = Physics.Raycast(transform.position, -Vector3.up, Stats.height, Stats.groundLayer);
+            IsGrounded = Physics.Raycast(transform.position,-Vector3.up, Stats.height, Stats.groundLayer);
         }
 
         public void HandleRotation() {
 
         }
         private void HandleMovement(float delta) {
-            var moveDirection = new Vector3(TargetPosition.x, 0, TargetPosition.z) * delta;
+            var moveDirection = new Vector3(TargetPosition.x, 0, TargetPosition.z);
             var strafeMult = RelativeDirection == Vector3.right || RelativeDirection == Vector3.left ? _stats.strafeMultSpeed : 1;
             var backwardsMult = RelativeDirection == Vector3.back ? _stats.backwardsMultSpeed : 1;
-            AppliedMovement = moveDirection * (CurrentMovementSpeed * strafeMult * backwardsMult);
+            AppliedMovement = moveDirection * (CurrentMovementSpeed * strafeMult * backwardsMult);// * delta;
             AppliedMovement = new Vector3(AppliedMovement.x, 0, AppliedMovement.z);
         }
     }

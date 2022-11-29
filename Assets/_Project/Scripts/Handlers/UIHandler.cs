@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using _Project.Scripts;
+using _Project.Scripts.Network.Client;
 using _Project.Scripts.UI;
 using RiptideNetworking;
 using TMPro;
@@ -90,8 +91,10 @@ public class UIHandler : MonoBehaviour {
         GUILayout.BeginVertical("box");
         GUILayout.TextField($"IsClient: {NetworkManager.Singleton.IsClient.ToString()}");
         GUILayout.TextField($"IsServer: {NetworkManager.Singleton.IsServer.ToString()}");
-        GUILayout.TextField($"IsLocal: {(GodEntity.Singleton.PlayerInstance != null).ToString()}");
-        GUILayout.TextField($"ClientId: {GodEntity.Singleton.PlayerInstance?.Id.ToString()}");
+        if (isClient && NetworkManager.Singleton.Client.Player) {
+            GUILayout.TextField($"IsLocal: {NetworkManager.Singleton.Client.Player.IsLocal.ToString()}");
+            GUILayout.TextField($"ClientId: {NetworkManager.Singleton.Client.Player.Id.ToString()}");
+        }
         GUILayout.BeginVertical();
         GUILayout.EndArea();
     }

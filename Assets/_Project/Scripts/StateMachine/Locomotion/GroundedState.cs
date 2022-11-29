@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Scripts.StateMachine.Locomotion {
@@ -47,8 +48,9 @@ namespace Scripts.StateMachine.Locomotion {
                 var groundPoint = locomotion.transform.position;
                 groundPoint.y = hit.point.y;
                 locomotion.transform.position = groundPoint + Vector3.up * stats.height;
-                if (locomotion.transform.parent != hit.transform && hit.collider.CompareTag("Grid"))
+                if (locomotion.transform.parent != hit.transform && hit.collider.CompareTag("Grid")) {
                     locomotion.transform.SetParent(hit.transform);
+                }
             }
             else {
                 _lastHitPosition = Vector3.zero;

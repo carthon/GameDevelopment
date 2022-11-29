@@ -14,7 +14,8 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class PlayerNetworkManager : MonoBehaviour {
-    private InputHandler _inputHandler;
+    public static Dictionary<ushort, PlayerNetworkManager> playersList = new Dictionary<ushort, PlayerNetworkManager>();
+    
     private Locomotion _locomotion;
     private AnimatorHandler _animator;
     private CameraHandler _cameraHandler;
@@ -46,7 +47,7 @@ public class PlayerNetworkManager : MonoBehaviour {
         float delta = Time.deltaTime;
     }
     private void FixedUpdate() {
-        float fixedDelta = Time.fixedDeltaTime;
+        float fixedDelta = Time.deltaTime;
         HandleRotation();
         _animator.UpdateAnimatorValues(_locomotion.RelativeDirection.z, _locomotion.RelativeDirection.x, _locomotion.IsSprinting);
         _locomotion.FixedTick(fixedDelta);
@@ -81,8 +82,6 @@ public class PlayerNetworkManager : MonoBehaviour {
     }
     private void OnSpawn() {
         InitializeComponents();
-        _inputHandler = InputHandler.Singleton;
-        _inputHandler.enabled = IsLocal;
         _usernameDisplay.text = Username;
         if (IsLocal) {
             Cursor.lockState = CursorLockMode.Locked;
@@ -152,7 +151,7 @@ public class PlayerNetworkManager : MonoBehaviour {
                 NetworkManager.Singleton.Client.SetPlayer(playerNetwork);
         }
         if(net.IsServer) {
-            foreach (PlayerNetworkManager otherPlayer in ServerManager.playersList.Values) {
+            foreach (PlayerNetworkManager otherPlayer in playersList.Values) {
                 otherPlayer.NotifySpawn(id);
             }
         }
@@ -162,7 +161,7 @@ public class PlayerNetworkManager : MonoBehaviour {
         playerNetwork.OnSpawn();
 
         playerNetwork.NotifySpawn();
-        ServerManager.playersList.Add(id, playerNetwork);
+        playersList.Add(id, playerNetwork);
     }
     private void NotifySpawn(ushort toClientId = 0) {
         NetworkManager net = NetworkManager.Singleton;

@@ -6,11 +6,9 @@ using UnityEngine;
 
 namespace _Project.Scripts.Network.Server {
     public class ServerManager : RiptideNetworking.Server {
-        public static Dictionary<ushort, PlayerNetworkManager> playersList = new Dictionary<ushort, PlayerNetworkManager>();
         public override void Tick() {
-            float fixedDelta = Time.fixedDeltaTime;
-            float delta = Time.deltaTime;
-            foreach (PlayerNetworkManager player in playersList.Values) {
+            float fixedDelta = Time.deltaTime;
+            foreach (PlayerNetworkManager player in PlayerNetworkManager.playersList.Values) {
                 //Revisar porque no se eliminan al no estar un jugador
                 if (!player.IsLocal) {
                     player.Locomotion.FixedTick(fixedDelta);
@@ -36,7 +34,7 @@ namespace _Project.Scripts.Network.Server {
         
         [MessageHandler((ushort)NetworkManager.ClientToServerId.serverInput)]
         private static void ReceiveInput(ushort fromClientId, Message message) {
-            if (playersList.TryGetValue(fromClientId, out PlayerNetworkManager player)) {
+            if (PlayerNetworkManager.playersList.TryGetValue(fromClientId, out PlayerNetworkManager player)) {
                 InputMessageStruct messageData = new InputMessageStruct(message);
             
                 Vector3 moveInput = messageData.moveInput;
@@ -57,7 +55,7 @@ namespace _Project.Scripts.Network.Server {
             int otherInventoryId = data[1];
             int slot = data[2];
             int otherSlot = data[3];
-            if (playersList.TryGetValue(fromClientId, out PlayerNetworkManager player)) {
+            if (PlayerNetworkManager.playersList.TryGetValue(fromClientId, out PlayerNetworkManager player)) {
                 Inventory otherInventory = player.InventoryManager.Inventories[otherInventoryId];
                 player.InventoryManager.Inventories[inventoryId].SwapItemsInInventory(otherInventory, slot, otherSlot);
             }
@@ -65,7 +63,7 @@ namespace _Project.Scripts.Network.Server {
         
         [MessageHandler((ushort) NetworkManager.ClientToServerId.serverItemDrop)]
         private static void DropItemOnSlotServer(ushort clientId, Message message) {
-            if (playersList.TryGetValue(clientId, out PlayerNetworkManager player)) {
+            if (PlayerNetworkManager.playersList.TryGetValue(clientId, out PlayerNetworkManager player)) {
                 int[] data = message.GetInts();
                 player.InventoryManager.DropItemStack(data[0], data[1]);
             }
@@ -84,7 +82,7 @@ namespace _Project.Scripts.Network.Server {
                 ItemStack itemStack = equipmentData.itemStack;
                 BodyPart equipmentSlot = (BodyPart) equipmentData.equipmentSlot;
                 bool activeState = equipmentData.activeState;
-                if (playersList.TryGetValue(clientId, out PlayerNetworkManager player) && !player.IsLocal) {
+                if (PlayerNetworkManager.playersList.TryGetValue(clientId, out PlayerNetworkManager player) && !player.IsLocal) {
                     //Actualizo el equipamiento en el servidor
                     player.UpdateEquipment(itemStack, equipmentSlot, activeState);
                     //Notifico al resto de jugadores

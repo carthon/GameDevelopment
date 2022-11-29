@@ -6,17 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="aea2bea4-eef4-46ed-83e6-81c0978d1e91" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Development/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Development/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Data/CameraData/CameraData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Data/CameraData/CameraData.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Data/LocomotionStats/PlayerStats.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Data/LocomotionStats/PlayerStats.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/InventoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/InventoryManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Locomotion.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Locomotion.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/CameraHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/CameraHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Entities/GodEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Entities/GodEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/UIHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/UIHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Client/ClientManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Client/ClientManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/InputMessageStruct.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/InputMessageStruct.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/MovementMessageStruct.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/MovementMessageStruct.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/NetworkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/NetworkManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/PlayerNetworkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/PlayerNetworkManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Server/ServerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Server/ServerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/Locomotion/GroundedState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/Locomotion/GroundedState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/Locomotion/JumpState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/Locomotion/JumpState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -284,7 +285,12 @@
       <workItem from="1668075083877" duration="6770000" />
       <workItem from="1668159351053" duration="8619000" />
       <workItem from="1668410269075" duration="595000" />
-      <workItem from="1668506692672" duration="3004000" />
+      <workItem from="1668506692672" duration="3646000" />
+      <workItem from="1668576480000" duration="6637000" />
+      <workItem from="1669189950693" duration="2956000" />
+      <workItem from="1669572839485" duration="2430000" />
+      <workItem from="1669629070651" duration="4341000" />
+      <workItem from="1669720389689" duration="1190000" />
     </task>
     <task id="LOCAL-00001" summary="Added inventory System">
       <created>1652876249440</created>
@@ -391,7 +397,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668094488249</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Network refactor : Client and Server separation">
+      <created>1668529016088</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1668529016088</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -411,7 +424,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main" />
+                        <option value="origin/CustomNetworkBranch" />
                       </list>
                     </value>
                   </entry>
@@ -439,7 +452,8 @@
     <MESSAGE value="EquipmentHandler syncronizes over the net. Need to solve network messages spam while no object is in the hotbarslot" />
     <MESSAGE value="NetworkMessage structs for cleaner and scalable networking messages. Network messages ID renaming" />
     <MESSAGE value="Network Refractoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Network Refractoring" />
+    <MESSAGE value="Network refactor : Client and Server separation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Network refactor : Client and Server separation" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

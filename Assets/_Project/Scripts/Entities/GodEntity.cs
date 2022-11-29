@@ -11,7 +11,6 @@ namespace _Project.Scripts {
         [Header("WorldData")]
         public static Dictionary<ushort, Grabbable> grabbableItems = new Dictionary<ushort, Grabbable>();
         public GameObject PlayerPrefab { get; private set; }
-        public PlayerNetworkManager PlayerInstance { get; set; }
         private static GodEntity _singleton;
         public static GodEntity Singleton
         {
