@@ -1,5 +1,6 @@
 using System;
 using _Project.Scripts;
+using _Project.Scripts.Network;
 using RiptideNetworking;
 using TMPro;
 using UnityEngine;

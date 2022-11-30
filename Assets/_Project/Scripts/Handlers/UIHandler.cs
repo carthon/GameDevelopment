@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using _Project.Scripts;
+using _Project.Scripts.Network;
 using _Project.Scripts.Network.Client;
 using _Project.Scripts.UI;
 using RiptideNetworking;

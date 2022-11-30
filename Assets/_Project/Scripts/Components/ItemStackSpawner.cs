@@ -1,3 +1,4 @@
+using _Project.Scripts.Network;
 using UnityEngine;
 
 namespace _Project.Scripts.Components {
