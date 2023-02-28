@@ -1,39 +1,47 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using _Project.Scripts;
+using _Project.Scripts.Components;
+using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
-using _Project.Scripts.Network.Client;
+using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.UI;
 using RiptideNetworking;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Client = _Project.Scripts.Network.Client.Client;
 
 public class UIHandler : MonoBehaviour {
     public static UIHandler Instance;
     public GameObject inventoryUI;
     public Transform inventorySpawner;
-    public ItemPickerUI ItemPickerUI;
     [SerializeField] private List<InventoryUI> _inventories;
     public DragItemHandlerUI dragItemHandlerUI;
     public HotbarUI _hotbarUi;
-    public bool ShowingInventory { get; private set; }
+    public float cameraDepth;
     
     [SerializeField] private Button _startClient;
     [SerializeField] private Text _startClientText;
     [SerializeField] private Button _startServer;
-    [SerializeField] public Button syncPlayerData;
     [SerializeField] private Text _startServerText;
     [SerializeField] private InputField usernameField;
     [SerializeField] private InputField serverIp;
     [SerializeField] private InputField port;
+    private Grabbable _outlinedGrabbable;
+    private Outline _hitMouseOutline;
+
+    private Dictionary<String,String> _watchedVariables;
+    
+    public Transform consoleContentTransform;
+    public Queue<TextMeshProUGUI> consoleMessages = new Queue<TextMeshProUGUI>();
     public bool UpdateVisuals { get; set; }
 
     public void Awake() {
         _inventories = new List<InventoryUI>();
         _hotbarUi = GetComponentInChildren<HotbarUI>();
+        _watchedVariables = new Dictionary<string, string>();
         Instance = this;
     }
     private void Start() {
@@ -90,14 +98,26 @@ public class UIHandler : MonoBehaviour {
         _startClientText.text = isClient ? "Stop Client" : "Start Client";
         GUILayout.BeginArea(new Rect(Vector2.right * (Screen.width - 200), new Vector2(200,500)));
         GUILayout.BeginVertical("box");
-        GUILayout.TextField($"IsClient: {NetworkManager.Singleton.IsClient.ToString()}");
-        GUILayout.TextField($"IsServer: {NetworkManager.Singleton.IsServer.ToString()}");
+        GUILayout.Label($"IsClient: {NetworkManager.Singleton.IsClient.ToString()}");
+        GUILayout.Label($"IsServer: {NetworkManager.Singleton.IsServer.ToString()}");
         if (isClient && NetworkManager.Singleton.Client.Player) {
-            GUILayout.TextField($"IsLocal: {NetworkManager.Singleton.Client.Player.IsLocal.ToString()}");
-            GUILayout.TextField($"ClientId: {NetworkManager.Singleton.Client.Player.Id.ToString()}");
+            GUILayout.Label($"IsLocal: {NetworkManager.Singleton.Client.Player.IsLocal.ToString()}");
+            GUILayout.Label($"ClientId: {NetworkManager.Singleton.Client.Player.Id.ToString()}");
         }
-        GUILayout.BeginVertical();
+        GUILayout.Label($"CurrentTick: {NetworkManager.Singleton.Tick.ToString()}");
+        NetworkManager.Singleton.debugServerPosition = GUILayout.Toggle(NetworkManager.Singleton.debugServerPosition,"Enable server preview");
+        foreach (string watchedVariable in _watchedVariables.Values) {
+            GUILayout.Label(watchedVariable);
+        }
+        GUILayout.EndVertical();
         GUILayout.EndArea();
+    }
+    public void UpdateWatchedVariables(string key, string value) {
+        if (_watchedVariables.ContainsKey(key))
+            _watchedVariables[key] = value;
+        else {
+            _watchedVariables.Add(key, value);
+        }
     }
     public void StartStopServer() {
         NetworkManager networkManager = NetworkManager.Singleton;
@@ -108,7 +128,7 @@ public class UIHandler : MonoBehaviour {
     public void SendName() {
         NetworkManager networkManager = NetworkManager.Singleton;
         if (networkManager.IsClient) {
-            Message message = Message.Create(MessageSendMode.reliable, (ushort) NetworkManager.ClientToServerId.serverUsername);
+            Message message = Message.Create(MessageSendMode.reliable, (ushort) Client.PacketHandler.serverUsername);
             message.AddString(usernameField.text);
             networkManager.Client.Send(message);
         }
@@ -116,6 +136,35 @@ public class UIHandler : MonoBehaviour {
 
     public void Tick(float delta) {
         _hotbarUi.Tick(delta);
+    }
+    public void HandleMouseSelection() {
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        Camera cam = CameraHandler.Singleton.MainCamera;
+        UpdateWatchedVariables("Mouse", $"{mousePos.ToString()}");
+        Ray ray = cam.ScreenPointToRay(mousePos);
+        if (Physics.Raycast(ray, out RaycastHit hit)) {
+            if (hit.transform.TryGetComponent(out Outline outline)) {
+                if (_hitMouseOutline != null && !outline.transform.Equals(_hitMouseOutline.transform)) {
+                    _hitMouseOutline.enabled = false;
+                }
+                _hitMouseOutline = outline;
+                _hitMouseOutline.enabled = true;
+                if (outline.transform.Equals(_hitMouseOutline.transform)) {
+                    UIHandler.Instance.TriggerInventory(0, InputHandler.Singleton.Clicked);
+                }
+            } else {
+                if (_hitMouseOutline != null) {
+                    _hitMouseOutline.enabled = false;
+                    _hitMouseOutline = null;
+                }
+            }
+        }
+        else {
+            if (_hitMouseOutline != null) {
+                _hitMouseOutline.enabled = false;
+                _hitMouseOutline = null;
+            }
+        }
     }
     public void AddInventory(Inventory inventory, InventoryManager inventoryManager) {
         var index = _inventories.FindIndex(inventoryUi => inventoryUi.IsConfigured);
@@ -129,7 +178,9 @@ public class UIHandler : MonoBehaviour {
     }
     public void TriggerInventory(int slot) {
         _inventories[slot].gameObject.SetActive(!_inventories[slot].gameObject.activeSelf);
-        ShowingInventory = _inventories[slot].gameObject.activeSelf;
+    }
+    public void TriggerInventory(int slot, bool state) {
+        _inventories[slot].gameObject.SetActive(state);
     }
     public void UpdateInventorySlot(int inventory, int slot) {
         _inventories[inventory].UpdateSlot(slot, null);

@@ -1,40 +1,22 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using _Project.Scripts.Components;
 using _Project.Scripts.Network.Client;
 using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Network.MessageUtils;
 using _Project.Scripts.Network.Server;
+using _Project.Scripts.Utils;
 using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Logger = _Project.Scripts.Utils.Logger;
 
 namespace _Project.Scripts.Network {
     public class NetworkManager : MonoBehaviour {
         private static NetworkManager _singleton;
-        private static int _clientTick;
-        private static int _serverTick;
         public DictionaryOfStringAndItems itemsDictionary;
-        public static int ServerTick
-        {
-            get => _serverTick;
-            private set
-            {
-                if (value == int.MaxValue)
-                    value = 0;
-                _serverTick = value;
-            }
-        }
-        public static int ClientTick
-        {
-            get => _clientTick;
-            private set
-            {
-                if (value == int.MaxValue)
-                    value = 0;
-                _clientTick = value;
-            }
-        }
         public static NetworkManager Singleton
         {
             get => _singleton;
@@ -53,25 +35,18 @@ namespace _Project.Scripts.Network {
         [SerializeField] public ushort port;
         [SerializeField] public string hostAddress;
         [SerializeField] private ushort maxClientCount;
+        
+        [SerializeField] public bool debugServerPosition = true;
+        [SerializeField] public GameObject serverDummyPlayerPrefab;
+        private GameObject _serverDummyPlayer;
+        public GameObject ServerDummy { get => _serverDummyPlayer; set => _serverDummyPlayer = value; }
 
-        public enum ClientToServerId : ushort {
-            serverUsername = 1,
-            serverInput,
-            serverItemSwap,
-            serverItemDrop,
-            serverItemEquip,
-            serverUpdateClient
-        }
-        public enum ServerToClientId : ushort {
-            clientPlayerSpawned = 1,
-            clientPlayerMovement,
-            clientPlayerDespawn,
-            clientItemDespawn,
-            clientItemSpawn,
-            clientInventoryChange,
-            clientReceiveEquipment,
-            clientReceivePlayerData
-        }
+        private float _timer;
+        private int _currentTick;
+        public float minTimeBetweenTicks;
+        public const int BufferSize = 1024;
+        
+        public int Tick { get => _currentTick; set => _currentTick = value; }
 
         void Awake() {
             _singleton = this;
@@ -86,51 +61,55 @@ namespace _Project.Scripts.Network {
         }
 
         #region Static Functions
-        public static void GrabbableToClient(ushort toClientId = 0){
-            foreach (Grabbable grabbable in GodEntity.grabbableItems.Values) {
-                GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(grabbable.Id, grabbable.itemData.id, grabbable.transform.position, grabbable.transform.rotation);
-                NetworkMessage message = new NetworkMessage(MessageSendMode.reliable, (ushort) ServerToClientId.clientItemSpawn, grabbableData);
-                message.Send(false, toClientId);
-            }
-        }
-        public static void PlayersDataToClient(ushort id = 0) {
+        public static void ReceivePlayersData(ushort id = 0) {
             if (Singleton.IsServer) {
-                foreach (PlayerNetworkManager player in PlayerNetworkManager.playersList.Values) {
+                foreach (Player player in playersList.Values) {
                     PlayerDataMessageStruct playerData = PlayerDataMessage.getPlayerData(player);
-                    NetworkMessage message = new NetworkMessage(MessageSendMode.reliable, (ushort) ServerToClientId.clientReceivePlayerData, playerData);
-                    message.Send(false, id);
+                    NetworkMessageBuilder messageBuilder = new NetworkMessageBuilder(MessageSendMode.reliable, (ushort) Network.Server.Server.PacketHandler.clientReceivePlayerData, playerData);
+                    messageBuilder.Send(id);
                 }
             }
         }
         #endregion
-        public ServerManager Server { get; private set; }
-        public ClientManager Client { get; private set; }  
+        public Server.Server Server { get; private set; }
+        public Client.Client Client { get; private set; }  
         public void Start() {
             RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
+            Logger.Initialize();
+            minTimeBetweenTicks = Time.fixedDeltaTime;
         }
         private void Update() {
-            if (IsClient) {
-                Client.Tick();
-                ClientTick++;
+            _timer += Time.deltaTime;
+            while(_timer >= minTimeBetweenTicks) {
+                _timer -= minTimeBetweenTicks;
+                if (IsServer) {
+                    Server.Tick(_currentTick);
+                }
+                if (IsClient) {
+                    Client.Tick(_currentTick);
+                }
+                UIHandler.Instance.UpdateWatchedVariables("PacketsSent", $"Packets Sent per tick: {NetworkMessageBuilder.MessagesSent}");
+                NetworkMessageBuilder.MessagesSent = 0;
+                UIHandler.Instance.UpdateWatchedVariables("PacketsReceived", $"Packets Received per tick: {NetworkMessageBuilder.MessagesReceived}");
+                NetworkMessageBuilder.MessagesReceived = 0;
+                Physics.Simulate(Singleton.minTimeBetweenTicks);
+                _currentTick++;
             }
-            if (IsServer) {
-                Server.Tick();
-                ServerTick++;
-            }
-            Physics.Simulate(Time.fixedDeltaTime);
         }
         public void InitializeServer() {
             IsServer = true;
-            Server = new ServerManager();
+            Server = new Server.Server();
             Server.Start(port, maxClientCount);
+            Server.MessageReceived += MessageReceived;
             Server.ClientDisconnected += PlayerLeft;
         }
         public void InitializeClient() {
             IsClient = true;
-            Client = new ClientManager();
+            Client = new Client.Client { IsServerOwner = IsServer };
             Client.Connected += DidConnect;
             Client.Disconnected += DidDisconnect;
             Client.ConnectionFailed += FailedToConnect;
+            //if (Client.IsServerOwner) Client.MessageReceived += MessageReceived;
             Client.Connect($"{hostAddress}:{port}");
         }
         public void StopClient() {
@@ -140,7 +119,7 @@ namespace _Project.Scripts.Network {
                 Client.Disconnected -= DidDisconnect;
                 Client.ConnectionFailed -= FailedToConnect;
                 Client.Disconnect();
-                if(!IsServer) SceneManager.LoadScene(0, LoadSceneMode.Single);
+                //if(!IsServer) SceneManager.LoadScene(0, LoadSceneMode.Single);
             }
         }
         public void StopServer() {
@@ -148,16 +127,18 @@ namespace _Project.Scripts.Network {
                 Server.Stop();
                 IsServer = false;
                 Server.ClientDisconnected -= PlayerLeft;
+                Server.MessageReceived -= MessageReceived;
             }
         }
         private void DidConnect(object sender, EventArgs args) {  }
         private void FailedToConnect (object sender, EventArgs args){  }
         private void DidDisconnect(object sender, EventArgs args) {  }
+        private void MessageReceived(object sender, EventArgs args) { NetworkMessageBuilder.MessagesReceived++; }
         private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) {
-            if (PlayerNetworkManager.playersList.TryGetValue(e.Id, out PlayerNetworkManager player)) {
+            if (playersList.TryGetValue(e.Id, out Player player)) {
                 Destroy(player.gameObject);
-                PlayerNetworkManager.playersList.Remove(e.Id);
-                Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ServerToClientId.clientPlayerDespawn);
+                playersList.Remove(e.Id);
+                Message message = Message.Create(MessageSendMode.reliable, Network.Server.Server.PacketHandler.clientPlayerDespawn);
                 message.AddUShort(e.Id);
                 Server.SendToAll(message);
             }
@@ -166,5 +147,14 @@ namespace _Project.Scripts.Network {
             StopServer();
             StopClient();
         }
+        public void SendMovementWithDelay(MovementMessageStruct movementMessageStruct, float delay) {
+            StartCoroutine(SendMessage(movementMessageStruct, delay));
+        }
+        private IEnumerator SendMessage(MovementMessageStruct movementMessageStruct, float delay) {
+            yield return new WaitForSeconds(delay);
+            NetworkMessageBuilder networkMessageBuilder = new NetworkMessageBuilder(MessageSendMode.reliable, (ushort) Network.Server.Server.PacketHandler.movementMessage, movementMessageStruct);
+            networkMessageBuilder.Send();
+        }
+        public static Dictionary<ushort, Player> playersList = new Dictionary<ushort, Player>();
     }
 }

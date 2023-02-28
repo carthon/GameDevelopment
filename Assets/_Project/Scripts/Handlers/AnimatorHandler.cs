@@ -12,18 +12,18 @@ namespace _Project.Scripts.Handlers {
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
         private static readonly int Jumped = Animator.StringToHash("Jumped");
         private Animator _animator;
-        private Locomotion _locomotion;
+        //private Locomotion _locomotion;
 
         private void OnAnimatorMove() {
             if (_animator.GetBool(IsInteracting) == false)
                 return;
 
             var delta = Time.deltaTime;
-            _locomotion.Rb.drag = 0;
+            //_locomotion.Rb.drag = 0;
             var deltaPosition = _animator.deltaPosition;
             deltaPosition.y = 0;
             var velocity = deltaPosition / delta;
-            _locomotion.Rb.velocity = velocity;
+            //_locomotion.Rb.velocity = velocity;
         }
 
         public void Initialize() {

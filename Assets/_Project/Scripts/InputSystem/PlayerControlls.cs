@@ -284,6 +284,24 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""af8aafac-e0c6-4f61-9ba0-8285be8791da"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""dc4a4325-c9e0-4a0f-9ff2-2865a3a29b37"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -429,6 +447,28 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
                     ""action"": ""DropItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41918107-b096-4d5e-801a-7759df66bd10"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""596c7152-1fee-4c52-8203-52b628c5501a"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -500,6 +540,8 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
         m_UIActions_HotbarInput = m_UIActions.FindAction("HotbarInput", throwIfNotFound: true);
         m_UIActions_EquipLeftHand = m_UIActions.FindAction("EquipLeftHand", throwIfNotFound: true);
         m_UIActions_DropItem = m_UIActions.FindAction("DropItem", throwIfNotFound: true);
+        m_UIActions_Menu = m_UIActions.FindAction("Menu", throwIfNotFound: true);
+        m_UIActions_Click = m_UIActions.FindAction("Click", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_OrbitalView = m_Camera.FindAction("OrbitalView", throwIfNotFound: true);
@@ -673,6 +715,8 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
     private readonly InputAction m_UIActions_HotbarInput;
     private readonly InputAction m_UIActions_EquipLeftHand;
     private readonly InputAction m_UIActions_DropItem;
+    private readonly InputAction m_UIActions_Menu;
+    private readonly InputAction m_UIActions_Click;
     public struct UIActionsActions
     {
         private @PlayerControlls m_Wrapper;
@@ -681,6 +725,8 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
         public InputAction @HotbarInput => m_Wrapper.m_UIActions_HotbarInput;
         public InputAction @EquipLeftHand => m_Wrapper.m_UIActions_EquipLeftHand;
         public InputAction @DropItem => m_Wrapper.m_UIActions_DropItem;
+        public InputAction @Menu => m_Wrapper.m_UIActions_Menu;
+        public InputAction @Click => m_Wrapper.m_UIActions_Click;
         public InputActionMap Get() { return m_Wrapper.m_UIActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -702,6 +748,12 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
                 @DropItem.started -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnDropItem;
                 @DropItem.performed -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnDropItem;
                 @DropItem.canceled -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnDropItem;
+                @Menu.started -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnMenu;
+                @Click.started -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnClick;
+                @Click.performed -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnClick;
+                @Click.canceled -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnClick;
             }
             m_Wrapper.m_UIActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -718,6 +770,12 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
                 @DropItem.started += instance.OnDropItem;
                 @DropItem.performed += instance.OnDropItem;
                 @DropItem.canceled += instance.OnDropItem;
+                @Menu.started += instance.OnMenu;
+                @Menu.performed += instance.OnMenu;
+                @Menu.canceled += instance.OnMenu;
+                @Click.started += instance.OnClick;
+                @Click.performed += instance.OnClick;
+                @Click.canceled += instance.OnClick;
             }
         }
     }
@@ -782,6 +840,8 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
         void OnHotbarInput(InputAction.CallbackContext context);
         void OnEquipLeftHand(InputAction.CallbackContext context);
         void OnDropItem(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
+        void OnClick(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {

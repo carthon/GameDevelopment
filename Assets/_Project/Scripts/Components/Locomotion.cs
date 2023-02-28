@@ -1,9 +1,13 @@
 using System;
+using _Project.Scripts.Network;
+using _Project.Scripts.Network.MessageDataStructures;
+using _Project.Scripts.StateMachine.LocomotionStates;
 using Scripts.DataClasses;
 using UnityEngine;
 
 namespace _Project.Scripts.Components {
     public class Locomotion : MonoBehaviour {
+        public static int LocomotionCalls = 0;
         [SerializeField]
         private LocomotionStats _stats;
 
@@ -11,7 +15,7 @@ namespace _Project.Scripts.Components {
 
         public AbstractBaseState CurrentState { get; set; }
 
-        public Vector3 TargetPosition { get; set; }
+        public Vector3 WorldDirection { get; set; }
 
         public Vector3 AppliedMovement { get; set; }
 
@@ -37,21 +41,29 @@ namespace _Project.Scripts.Components {
             CurrentState.EnterState();
         }
 
-        public void FixedTick(float delta) {
-            HandleMovement(delta);
+        private void FixedTick() {
             CurrentState.UpdateStates();
             IsGrounded = Physics.Raycast(transform.position,-Vector3.up, Stats.height, Stats.groundLayer);
+            LocomotionCalls++;
+            UIHandler.Instance.UpdateWatchedVariables("LocomotionCalls", $"[{(NetworkManager.Singleton.IsServer ? "SERVER" : "CLIENT")}] LocomotionCalls {LocomotionCalls}");
         }
 
-        public void HandleRotation() {
-
+        public void HandleMovement(float delta, Vector3 relativeDirection, Transform relativeTransform) {
+            var calculatedDirection = relativeDirection.z * relativeTransform.forward +
+                relativeDirection.x * relativeTransform.right;
+            calculatedDirection.y = 0;
+            RelativeDirection = relativeDirection;
+            WorldDirection = calculatedDirection.normalized;
+            HandleMovement(delta);
         }
+        
         private void HandleMovement(float delta) {
-            var moveDirection = new Vector3(TargetPosition.x, 0, TargetPosition.z);
+            var moveDirection = new Vector3(WorldDirection.x, 0, WorldDirection.z);
             var strafeMult = RelativeDirection == Vector3.right || RelativeDirection == Vector3.left ? _stats.strafeMultSpeed : 1;
             var backwardsMult = RelativeDirection == Vector3.back ? _stats.backwardsMultSpeed : 1;
-            AppliedMovement = moveDirection * (CurrentMovementSpeed * strafeMult * backwardsMult);// * delta;
+            AppliedMovement = moveDirection * (CurrentMovementSpeed * strafeMult * backwardsMult) * delta;
             AppliedMovement = new Vector3(AppliedMovement.x, 0, AppliedMovement.z);
+            FixedTick();
         }
     }
 }

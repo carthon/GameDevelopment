@@ -1,4 +1,5 @@
 ﻿using System;
+using _Project.Scripts.Network.MessageDataStructures;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,7 @@ namespace _Project.Scripts.Handlers {
         private bool _b_Input;
         private Vector2 _cameraInput;
         private bool _dropItem;
+        private bool _menu;
 
         private PlayerControlls _inputActions;
         private bool _j_Input;
@@ -28,7 +30,8 @@ namespace _Project.Scripts.Handlers {
 
         public bool SwapView { get; private set; }
 
-        public bool FirstPerson { get; private set; }
+        public bool SwapPerson { get; private set; }
+        public bool Clicked { get; private set; }
         public static InputHandler Singleton
         {
             get => _singleton;
@@ -42,7 +45,6 @@ namespace _Project.Scripts.Handlers {
             }
         }
 
-        [field: Header("Movement Input")]
         public Vector2 MovementInput { get => _movementInput; }
         public float Horizontal { get; private set; }
 
@@ -58,6 +60,8 @@ namespace _Project.Scripts.Handlers {
         public bool IsPicking { get; private set; }
 
         public bool IsUIEnabled { get; private set; }
+        public bool IsInMenu { get; private set; }
+        public bool IsInInventory { get; private set; }
 
         [field: Header("UI")]
         public int HotbarSlot { get; private set; }
@@ -65,9 +69,8 @@ namespace _Project.Scripts.Handlers {
         public bool EquipInput { get; private set; }
         public void ClearInputs() {
             SwapView = false;
-            FirstPerson = false;
+            SwapPerson = false;
             IsRolling = false;
-            //IsSprinting = false;
             IsJumping = false;
             IsPicking = false;
             EquipInput = false;
@@ -80,6 +83,21 @@ namespace _Project.Scripts.Handlers {
                 _inputActions = new PlayerControlls();
                 _inputActions.PlayerSpaceMovement.Movement.performed += i => _movementInput = i.ReadValue<Vector2>();
                 _inputActions.PlayerSpaceMovement.Camera.performed += i => _cameraInput = i.ReadValue<Vector2>();
+                
+                _inputActions.Camera.OrbitalView.performed += i => SwapView = true;
+                _inputActions.Camera.SwapPersonCamera.performed += i => SwapPerson = true;
+                
+                _inputActions.UIActions.Menu.performed += i => IsInMenu = !IsInMenu;
+                _inputActions.UIActions.PlayerOverview.performed += i => IsInInventory = !IsInInventory;
+                _inputActions.UIActions.Click.performed += i => Clicked = !Clicked;
+                _inputActions.UIActions.HotbarInput.performed += i => {
+                    HotbarSlot = (int) i.ReadValue<float>();
+                    EquipInput = true;
+                };
+                _inputActions.UIActions.EquipLeftHand.performed += i => {
+                    HotbarSlot = -1;
+                    EquipInput = true;
+                };
             }
 
             _inputActions.Enable();
@@ -97,27 +115,19 @@ namespace _Project.Scripts.Handlers {
             HandleRollAndSprintInput(delta);
             HandleJumpInput(delta);
             HandleAttackInput(delta);
-            HandleUIInput(delta);
+            HandleUIInput();
         }
         private void HandleCameraInput(float delta) {
+            if (CameraHandler.Singleton == null)
+                return;
             MouseX = _cameraInput.x;
             MouseY = _cameraInput.y;
-            _inputActions.Camera.OrbitalView.performed += i => SwapView = true;
-            _inputActions.Camera.SwapPersonCamera.performed += i => FirstPerson = true;
         }
 
-        private void HandleUIInput(float delta) {
-            IsUIEnabled = _inputActions.UIActions.PlayerOverview.phase == InputActionPhase.Performed;
+        private void HandleUIInput() {
+            IsUIEnabled = IsInMenu || IsInInventory;
             _dropItem = _inputActions.UIActions.DropItem.phase == InputActionPhase.Started;
             IsPicking = _inputActions.PlayerActions.PickItem.phase == InputActionPhase.Performed;
-            _inputActions.UIActions.HotbarInput.performed += i => {
-                HotbarSlot = (int) i.ReadValue<float>();
-                EquipInput = true;
-            };
-            _inputActions.UIActions.EquipLeftHand.performed += i => {
-                HotbarSlot = -1;
-                EquipInput = true;
-            };
         }
 
         private void MoveInput(float delta) {

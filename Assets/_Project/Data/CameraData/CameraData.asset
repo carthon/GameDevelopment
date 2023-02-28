@@ -16,5 +16,5 @@ MonoBehaviour:
   rotationMultiplier: 10
   pitchLimitTopLimit: 89.9
   pitchLimitBottomLimit: 89
-  sensitivityX: 20
-  sensitivityY: 20
+  sensitivityX: 200
+  sensitivityY: 200

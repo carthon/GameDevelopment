@@ -34,7 +34,7 @@ public class Grabler : MonoBehaviour {
         RaycastHit hitInfo;
         Grabbable pickable = null;
         if (Physics.Raycast(rayOrigin, out hitInfo, pickUpDistance, itemMask)) {
-            Debug.DrawRay(rayOrigin.origin, rayOrigin.direction * pickUpDistance, Color.yellow, 30f);
+            Debug.DrawRay(rayOrigin.origin, rayOrigin.direction * pickUpDistance, Color.yellow, 3f);
             pickable = hitInfo.collider.GetComponent<Grabbable>();
         }
         return pickable;

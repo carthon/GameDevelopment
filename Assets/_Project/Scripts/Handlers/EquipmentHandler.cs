@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using _Project.Scripts.Components;
 using _Project.Scripts.Network;
 using RiptideNetworking;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class EquipmentHandler : MonoBehaviour {
     [SerializeField]
     private List<EquipmentDisplayer> _equipmentSlots;
     public List<EquipmentDisplayer> EquipmentDisplayers => _equipmentSlots;
-    public PlayerNetworkManager Player { get; set; }
+    public Player Player { get; set; }
 
     private void Awake() {
         _equipmentSlots = GetComponentsInChildren<EquipmentDisplayer>().ToList();

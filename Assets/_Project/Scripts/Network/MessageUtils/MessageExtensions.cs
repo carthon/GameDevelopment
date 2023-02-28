@@ -1,4 +1,7 @@
-﻿using RiptideNetworking;
+﻿using System.Collections.Generic;
+using _Project.Scripts.Constants;
+using _Project.Scripts.DataClasses;
+using RiptideNetworking;
 using UnityEngine;
 
 namespace _Project.Scripts.Network {
@@ -88,6 +91,38 @@ namespace _Project.Scripts.Network {
                 return new ItemStack(NetworkManager.Singleton.itemsDictionary[prefabId], 
                 message.GetInt(), message.GetInt());
             return new ItemStack(null, message.GetInt(), message.GetInt());
+        }
+        #endregion
+        
+        #region Actions
+        /// <inheritdoc cref="AddAction(Message, ItemStack)"/>
+        /// <remarks>This method is simply an alternative way of calling <see cref="AddVector3(Message, Vector3)"/>.</remarks>
+        public static Message Add(this Message message, Dictionary<ActionsEnum, Action> value) => AddActions(message, value);
+
+        /// <summary>Adds a <see cref="Dictionary<ActionsEnum, Action>"/> to the message.</summary>
+        /// <param name="value">The <see cref="Dictionary<ActionsEnum, Action>"/> to add.</param>
+        /// <returns>The message that the <see cref="Dictionary<ActionsEnum, Action>"/> was added to.</returns>
+        public static Message AddActions(this Message message, Dictionary<ActionsEnum, Action> value) {
+            message.AddInt(value.Count);
+            foreach (ActionsEnum key in value.Keys) {
+                message.AddInt((int) key);
+                message.AddBools(new[] {value[key].actionValue, value[key].isImportant});
+            }
+            return message;
+        }
+
+        /// <summary>Retrieves a <see cref="Dictionary<ActionsEnum, Action>"/> from the message.</summary>
+        /// <returns>The <see cref="Dictionary<ActionsEnum, Action>"/> that was retrieved.</returns>
+        public static Dictionary<ActionsEnum, Action> GetActions(this Message message) {
+            int count = message.GetInt();
+            Dictionary<ActionsEnum, Action> actions = new Dictionary<ActionsEnum, Action>();
+            for (int i = 0; i < count; i++) {
+                ActionsEnum key = (ActionsEnum) message.GetInt();
+                bool[] actionComponent = message.GetBools();
+                Action value = new Action(actionComponent[0], actionComponent[1]);
+                actions.Add(key, value);
+            }
+            return actions;
         }
         #endregion
     }

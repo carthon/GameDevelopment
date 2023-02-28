@@ -1,11 +1,14 @@
 using System;
 using _Project.Scripts;
 using _Project.Scripts.Network;
+using _Project.Scripts.Network.Client;
+using _Project.Scripts.Network.Server;
 using RiptideNetworking;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Client = _Project.Scripts.Network.Client.Client;
 
 public class ItemSlotUI : MonoBehaviour {
     [SerializeField]
@@ -97,7 +100,7 @@ public class ItemSlotUI : MonoBehaviour {
     public void OnRemoveButton() {
         UIHandler.Instance.UpdateVisuals = true;
         if (!_itemStack.IsEmpty()) {
-            Message message = Message.Create(MessageSendMode.reliable, NetworkManager.ClientToServerId.serverItemDrop);
+            Message message = Message.Create(MessageSendMode.reliable, Client.PacketHandler.serverItemDrop);
             message.AddInts(new[] {
                 _itemStack.GetInventory().Id,
                 _itemStack.GetSlotID()

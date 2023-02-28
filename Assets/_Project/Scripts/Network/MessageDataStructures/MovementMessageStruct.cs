@@ -9,15 +9,16 @@ namespace _Project.Scripts.Network.MessageDataStructures {
         public Vector3 relativeDirection;
         public Quaternion rotation;
         public Quaternion headPivotRotation;
+        public int tick;
         public bool[] actions;
-        public MovementMessageStruct(ushort id, Vector3 position, Vector3 velocity, Vector3 relativeDirection, Quaternion rotation, 
-            Quaternion headPivotRotation, bool[] actions) {
+        public MovementMessageStruct(ushort id, Vector3 position, Vector3 velocity, Vector3 relativeDirection, Quaternion rotation, Quaternion headPivotRotation, int tick, bool[] actions) {
             this.id = id;
             this.position = position;
             this.velocity = velocity;
             this.relativeDirection = relativeDirection;
             this.rotation = rotation;
             this.headPivotRotation = headPivotRotation;
+            this.tick = tick;
             this.actions = actions;
         }
         
@@ -28,7 +29,13 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             this.relativeDirection = message.GetVector3();
             this.rotation = message.GetQuaternion();
             this.headPivotRotation = message.GetQuaternion();
+            this.tick = message.GetInt();
             this.actions = message.GetBools();
+        }
+        public override string ToString() {
+            return $"{id}, " +
+                $"{position.ToString()}, " +
+                $"{tick}";
         }
     }
 }

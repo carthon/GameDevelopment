@@ -1,23 +1,27 @@
+using System.Linq;
 using RiptideNetworking;
 using UnityEngine;
 
 namespace _Project.Scripts.Network.MessageDataStructures {
     public struct InputMessageStruct : IGenericMessageStruct {
         public Vector3 moveInput;
-        public bool[] actions;
-        public int clientTick;
         public Quaternion headPivotRotation;
-        public InputMessageStruct(Vector3 moveInput, bool[] actions, Quaternion headPivotRotation,int clientTick) {
+        public bool[] actions;
+        public int tick;
+        public InputMessageStruct(Vector3 moveInput, Quaternion headPivotRotation, int tick, bool[] actions) {
             this.moveInput = moveInput;
-            this.actions = actions;
-            this.clientTick = clientTick;
             this.headPivotRotation = headPivotRotation;
+            this.actions = actions;
+            this.tick = tick;
         }
         public InputMessageStruct(Message message) {
             this.moveInput = message.GetVector3();
-            this.actions = message.GetBools();
-            this.clientTick = message.GetInt();
             this.headPivotRotation = message.GetQuaternion();
+            this.actions = message.GetBools();
+            this.tick = message.GetInt();
+        }
+        public override string ToString() {
+            return $"{moveInput.ToString()} | tick {tick} | actions {actions.ToList()}";
         }
     }
 }

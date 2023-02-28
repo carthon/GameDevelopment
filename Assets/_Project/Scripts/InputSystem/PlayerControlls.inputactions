@@ -11,7 +11,8 @@
                     "id": "1bf06d92-fa6e-4bd1-ba32-42ac9dd39b4c",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Camera",
@@ -19,7 +20,8 @@
                     "id": "e01be9a7-43da-41d8-a438-ebbaa72f180b",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -112,7 +114,8 @@
                     "id": "9fbf0acb-7c41-4717-9a37-1569303e5689",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "RB",
@@ -120,7 +123,8 @@
                     "id": "43317496-5c0c-4fb6-b377-04df473b1239",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "RT",
@@ -128,7 +132,8 @@
                     "id": "12efddb3-fc81-471f-b625-f526e6780aa5",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "PickItem",
@@ -136,7 +141,8 @@
                     "id": "f7cb1430-a33a-41bb-aa55-fd7f77248b4a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Jump",
@@ -144,7 +150,8 @@
                     "id": "be516336-9ad7-4b5a-a2a9-a5f585f3e086",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -226,7 +233,8 @@
                     "id": "d2864df3-9bc6-4baf-9831-feb1aa6560e7",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "HotbarInput",
@@ -234,7 +242,8 @@
                     "id": "2977c2ec-6acd-422c-8f9f-daab8847678e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "EquipLeftHand",
@@ -242,7 +251,8 @@
                     "id": "65087058-4e50-4458-b3b5-34b33ad9a911",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "DropItem",
@@ -250,7 +260,26 @@
                     "id": "f7c77032-09d8-4c17-9945-9024536af275",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "af8aafac-e0c6-4f61-9ba0-8285be8791da",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "dc4a4325-c9e0-4a0f-9ff2-2865a3a29b37",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -396,6 +425,28 @@
                     "action": "DropItem",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "41918107-b096-4d5e-801a-7759df66bd10",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "596c7152-1fee-4c52-8203-52b628c5501a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -409,7 +460,8 @@
                     "id": "135948c7-612d-4d20-83f8-e9b49bc7633d",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "SwapPersonCamera",
@@ -417,7 +469,8 @@
                     "id": "7487ad45-73c0-4327-8ed2-e2c61f383e90",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
