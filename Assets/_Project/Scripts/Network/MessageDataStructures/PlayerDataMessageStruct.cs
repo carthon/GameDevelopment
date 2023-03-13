@@ -7,10 +7,12 @@ namespace _Project.Scripts.Network.MessageDataStructures {
         public ushort clientId;
         public int equipmentDataCount;
         public List<EquipmentMessageStruct> equipmentData;
-        public PlayerDataMessageStruct(List<EquipmentMessageStruct> equipmentData, ushort clientId = 0 ) {
+        public int tick;
+        public PlayerDataMessageStruct(List<EquipmentMessageStruct> equipmentData, int tick,ushort clientId = 0 ) {
             this.clientId = clientId;
             this.equipmentDataCount = equipmentData.Count;
             this.equipmentData = equipmentData;
+            this.tick = tick;
         }
         public PlayerDataMessageStruct(Message message) {
             clientId = message.GetUShort();
@@ -19,6 +21,7 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             for (int i = 0; i < equipmentDataCount; i++) {
                 equipmentData.Add(new EquipmentMessageStruct(message));
             }
+            tick = message.GetInt();
         }
     }
 }

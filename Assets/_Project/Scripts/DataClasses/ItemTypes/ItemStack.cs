@@ -91,4 +91,7 @@ public class ItemStack {
     public void SetInventory(Inventory inventory) {
         parent = inventory;
     }
+    public override string ToString() {
+        return $"Item:{Item.ToString()} Count:{count} SlotID:{slotID}";
+    }
 }

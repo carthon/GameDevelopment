@@ -4,8 +4,6 @@ using System.Text.RegularExpressions;
 using _Project.Scripts.Components;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
-using _Project.Scripts.Network.MessageDataStructures;
-using _Project.Scripts.UI;
 using RiptideNetworking;
 using TMPro;
 using UnityEngine;
@@ -13,13 +11,10 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Client = _Project.Scripts.Network.Client.Client;
 
+#if !UNITY_SERVER
 public class UIHandler : MonoBehaviour {
     public static UIHandler Instance;
-    public GameObject inventoryUI;
-    public Transform inventorySpawner;
-    [SerializeField] private List<InventoryUI> _inventories;
-    public DragItemHandlerUI dragItemHandlerUI;
-    public HotbarUI _hotbarUi;
+    private InventoryManager _playerInventory;
     public float cameraDepth;
     
     [SerializeField] private Button _startClient;
@@ -33,14 +28,8 @@ public class UIHandler : MonoBehaviour {
     private Outline _hitMouseOutline;
 
     private Dictionary<String,String> _watchedVariables;
-    
-    public Transform consoleContentTransform;
-    public Queue<TextMeshProUGUI> consoleMessages = new Queue<TextMeshProUGUI>();
-    public bool UpdateVisuals { get; set; }
 
     public void Awake() {
-        _inventories = new List<InventoryUI>();
-        _hotbarUi = GetComponentInChildren<HotbarUI>();
         _watchedVariables = new Dictionary<string, string>();
         Instance = this;
     }
@@ -69,7 +58,7 @@ public class UIHandler : MonoBehaviour {
         if (networkManager.Client == null || !networkManager.Client.IsConnected) {
             if (!ValidateConnectionValues()) return;
             networkManager.InitializeClient();
-            SendName();
+            SendConnectionMessage();
         }
         else networkManager.StopClient();
     }
@@ -125,7 +114,7 @@ public class UIHandler : MonoBehaviour {
         if (networkManager.Server != null) networkManager.StopServer();
         else networkManager.InitializeServer();
     }
-    public void SendName() {
+    public void SendConnectionMessage() {
         NetworkManager networkManager = NetworkManager.Singleton;
         if (networkManager.IsClient) {
             Message message = Message.Create(MessageSendMode.reliable, (ushort) Client.PacketHandler.serverUsername);
@@ -133,9 +122,11 @@ public class UIHandler : MonoBehaviour {
             networkManager.Client.Send(message);
         }
     }
-
-    public void Tick(float delta) {
-        _hotbarUi.Tick(delta);
+    public void ResetMouseSelection() {
+        if (_hitMouseOutline != null) {
+            _hitMouseOutline.enabled = false;
+            _hitMouseOutline = null;
+        }
     }
     public void HandleMouseSelection() {
         Vector3 mousePos = Mouse.current.position.ReadValue();
@@ -149,45 +140,16 @@ public class UIHandler : MonoBehaviour {
                 }
                 _hitMouseOutline = outline;
                 _hitMouseOutline.enabled = true;
-                if (outline.transform.Equals(_hitMouseOutline.transform)) {
-                    UIHandler.Instance.TriggerInventory(0, InputHandler.Singleton.Clicked);
+                if (InputHandler.Singleton.Clicked && outline.transform.Equals(_hitMouseOutline.transform)) {
+                    InputHandler.Singleton.Clicked = false;
                 }
             } else {
-                if (_hitMouseOutline != null) {
-                    _hitMouseOutline.enabled = false;
-                    _hitMouseOutline = null;
-                }
+                ResetMouseSelection();
             }
         }
         else {
-            if (_hitMouseOutline != null) {
-                _hitMouseOutline.enabled = false;
-                _hitMouseOutline = null;
-            }
+            ResetMouseSelection();
         }
-    }
-    public void AddInventory(Inventory inventory, InventoryManager inventoryManager) {
-        var index = _inventories.FindIndex(inventoryUi => inventoryUi.IsConfigured);
-        InventoryUI inventoryUi = null;
-        if (index == -1 || _inventories.Count < 1) {
-            inventoryUi = Instantiate(inventoryUI, inventorySpawner).GetComponent<InventoryUI>();
-            _inventories.Add(inventoryUi);
-            index = _inventories.Count - 1;
-        }
-        _inventories[index].SetUpInventory(inventory);
-    }
-    public void TriggerInventory(int slot) {
-        _inventories[slot].gameObject.SetActive(!_inventories[slot].gameObject.activeSelf);
-    }
-    public void TriggerInventory(int slot, bool state) {
-        _inventories[slot].gameObject.SetActive(state);
-    }
-    public void UpdateInventorySlot(int inventory, int slot) {
-        _inventories[inventory].UpdateSlot(slot, null);
-    }
-
-    public void SwapSlots(int inventory1, int inventory2, int slot, int slot2) {
-        UpdateInventorySlot(inventory1, slot);
-        UpdateInventorySlot(inventory2, slot2);
     }
 }
+#endif

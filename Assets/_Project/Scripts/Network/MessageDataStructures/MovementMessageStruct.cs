@@ -33,9 +33,9 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             this.actions = message.GetBools();
         }
         public override string ToString() {
-            return $"{id}, " +
-                $"{position.ToString()}, " +
-                $"{tick}";
+            return $"ClientId:{id}, " +
+                $"Position:{position.ToString()}, " +
+                $"Tick:{tick}";
         }
     }
 }

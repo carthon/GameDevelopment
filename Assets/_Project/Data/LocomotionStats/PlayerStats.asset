@@ -18,7 +18,7 @@ MonoBehaviour:
   backwardsMultSpeed: 1
   strafeMultSpeed: 1
   sprintSpeed: 250
-  inAirSpeed: 0.5
+  inAirSpeed: 200
   jumpStrength: 500
   groundLayer:
     serializedVersion: 2

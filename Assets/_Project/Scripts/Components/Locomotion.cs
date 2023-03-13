@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace _Project.Scripts.Components {
     public class Locomotion : MonoBehaviour {
-        public static int LocomotionCalls = 0;
         [SerializeField]
         private LocomotionStats _stats;
 
@@ -34,6 +33,8 @@ namespace _Project.Scripts.Components {
 
         public bool IsSprinting { get; set; }
 
+        public string state;
+
         public void SetUp() {
             Rb = GetComponent<Rigidbody>();
             _states = new LocomotionStateFactory(this);
@@ -41,11 +42,10 @@ namespace _Project.Scripts.Components {
             CurrentState.EnterState();
         }
 
-        private void FixedTick() {
+        public void FixedTick() {
             CurrentState.UpdateStates();
+            state = CurrentState.StateName;
             IsGrounded = Physics.Raycast(transform.position,-Vector3.up, Stats.height, Stats.groundLayer);
-            LocomotionCalls++;
-            UIHandler.Instance.UpdateWatchedVariables("LocomotionCalls", $"[{(NetworkManager.Singleton.IsServer ? "SERVER" : "CLIENT")}] LocomotionCalls {LocomotionCalls}");
         }
 
         public void HandleMovement(float delta, Vector3 relativeDirection, Transform relativeTransform) {
@@ -63,7 +63,6 @@ namespace _Project.Scripts.Components {
             var backwardsMult = RelativeDirection == Vector3.back ? _stats.backwardsMultSpeed : 1;
             AppliedMovement = moveDirection * (CurrentMovementSpeed * strafeMult * backwardsMult) * delta;
             AppliedMovement = new Vector3(AppliedMovement.x, 0, AppliedMovement.z);
-            FixedTick();
         }
     }
 }

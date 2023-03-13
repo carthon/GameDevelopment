@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using _Project.Scripts;
 using UnityEngine;
 
@@ -10,7 +11,9 @@ public class Inventory {
     public int Id { get; set; }
     public event Action<int, ItemStack> OnSlotChange;
     public event Action<int, int, int, int> OnSlotSwap;
-    
+    public string Name { get; set; }
+    public int Size { get; }
+
     public Inventory(string name, int size) {
         Name = name;
         Size = size;
@@ -21,8 +24,6 @@ public class Inventory {
         Size = size;
         Init();
     }
-    public string Name { get; set; }
-    public int Size { get; }
 
 
     private void Init() {
@@ -134,12 +135,6 @@ public class Inventory {
         var itemStack = TakeStackFromSlot(slot);
         if (!itemStack.IsEmpty())
             GodEntity.SpawnItem(itemStack, worldPos, rotation);
-        //lootTable.AddToLootTable(itemStack);
-        //GetParent().SetData(itemStack.GetInventory().GetItem(itemStack.GetSlotID()));
-        //var worldItem = Object.Instantiate(itemStack.Item.modelPrefab, worldPos, Quaternion.identity);
-        //var pickableItem = worldItem.AddComponent<Grabbable>();
-        //pickableItem.SetLootTable(lootTable);
-        //worldItem.AddComponent<Rigidbody>();
     }
     public int FindItemStackSlot(ItemStack itemStack) {
         return _items.FindIndex(item => !(item.Item is null) && item.Item.Equals(itemStack.Item) && !item.IsFull());
@@ -161,9 +156,7 @@ public class Inventory {
         var otherItemStack = otherInventory.GetItemStack(otherItemStackSlot);
         if (itemStackSlot != -1)
             _items[itemStackSlot].SetStack(otherItemStack);
-            //AddItemStackToSlot(otherItemStack, otherItemStackSlot);
         otherInventory._items[otherItemStackSlot].SetStack(thisItemStack);
-        //otherInventory.AddItemStackToSlot(thisItemStack, itemStackSlot);
         OnSlotSwap?.Invoke(this.Id, otherInventory.Id, itemStackSlot, otherItemStackSlot);
         return true;
     }
@@ -175,5 +168,13 @@ public class Inventory {
     }
     public bool IsEmpty() {
         return _freeSpace == Size;
+    }
+    public override string ToString() {
+        StringBuilder str = new StringBuilder();
+        str.Append($"Name:{Name} FreeSpace:{_freeSpace}");
+        foreach (ItemStack itemStack in _items) {
+            str.Append(itemStack.ToString() + "\n");
+        }
+        return str.ToString();
     }
 }

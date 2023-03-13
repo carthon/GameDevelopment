@@ -7,7 +7,6 @@ using Logger = _Project.Scripts.Utils.Logger;
 
 namespace _Project.Scripts {
     public class GodEntity : MonoBehaviour {
-        public UIHandler uiHandler;
         public Transform spawnPoint;
         [Header("Prefabs")]
         [SerializeField] private GameObject _playerPrefab;
@@ -37,6 +36,7 @@ namespace _Project.Scripts {
             bool success = false;
             GameObject itemRendered = Instantiate(item.modelPrefab, position, rotation);
             var pickable = itemRendered.GetComponent<Grabbable>();
+            if (pickable == null) pickable = itemRendered.AddComponent<Grabbable>();
             if (pickable) {
                 var lootTable = new LootTable();
                 lootTable.AddToLootTable(item, count);
@@ -51,28 +51,25 @@ namespace _Project.Scripts {
         public static bool SpawnItem(Item item, int count, Transform transform) => SpawnItem(item, count, transform.position, transform.rotation);
         public static Player Spawn(ushort id, string username, Vector3 position, int currentTick) {
             NetworkManager net = NetworkManager.Singleton;
-            //Gestionar para host
             Player playerNetwork = Instantiate(Singleton._playerPrefab, position, Quaternion.identity).GetComponent<Player>();
-            Logger.Singleton.Log($"[{(NetworkManager.Singleton.IsClient ? "CLIENT" : "SERVER")}] Spawned player at tick : {currentTick}");
         
-            if (net.IsClient) {
-                playerNetwork.IsLocal = id == net.Client.Id;
-                if(playerNetwork.IsLocal) {
-                    Client.Singleton.SetUpClient(playerNetwork);
-                }
-            }
             playerNetwork.name = $"Player {id} {(string.IsNullOrEmpty(username) ? "Guest" : username)}";
             playerNetwork.Id = id;
             playerNetwork.Username = string.IsNullOrEmpty(username) ? $"Guest {id}" : username;
+            Logger.Singleton.Log($"[{(NetworkManager.Singleton.IsClient ? "CLIENT" : "SERVER")}] Spawned player {playerNetwork.Id} at tick : {currentTick}");
+            if (net.IsClient) {
+                playerNetwork.IsLocal = id == net.Client.Id;
+            }
             if(net.IsServer) {
                 foreach (Player otherPlayer in NetworkManager.playersList.Values) {
                     Network.Server.Server.NotifySpawn(otherPlayer, currentTick, id);
                 }
-                if (net.Client == null || !net.Client.IsServerOwner && net.Client.Player != playerNetwork) {
-                    Network.Server.Server.NotifySpawn(playerNetwork, currentTick);
-                }
+                Network.Server.Server.NotifySpawn(playerNetwork, currentTick);
             }
             playerNetwork.OnSpawn();
+            if(playerNetwork.IsLocal) {
+                Client.Singleton.SetUpClient(playerNetwork);
+            }
             NetworkManager.playersList.Add(id, playerNetwork);
             return playerNetwork;
         }

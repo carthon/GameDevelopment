@@ -21,7 +21,7 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             this.tick = message.GetInt();
         }
         public override string ToString() {
-            return $"{moveInput.ToString()} | tick {tick} | actions {actions.ToList()}";
+            return $"{moveInput.ToString()} | tick {tick}";
         }
     }
 }

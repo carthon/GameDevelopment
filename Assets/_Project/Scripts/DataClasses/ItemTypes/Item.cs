@@ -10,6 +10,8 @@ public enum ItemSize {
 public class Item : ScriptableObject, IEquatable<Item> {
     [Header("Item Information")]
     public Sprite itemIcon;
+    public Mesh item3dIcon;
+    public Material iconMaterial;
     public string name;
     public GameObject modelPrefab;
     public ItemSize Size;
@@ -55,5 +57,8 @@ public class Item : ScriptableObject, IEquatable<Item> {
             hashCode = (hashCode * 397) ^ maxStackSize;
             return hashCode;
         }
+    }
+    public override string ToString() {
+        return $"Id:{id} Name:{name} Size:{Size} Description:{description}";
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Project.Scripts.Network;
 using RiptideNetworking;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using Client = _Project.Scripts.Network.Client.Client;
 using Server = _Project.Scripts.Network.Server.Server;
 
@@ -35,7 +36,6 @@ namespace _Project.Scripts.Components {
 		public void SetItemStackInInventory(ItemStack itemStack, int inventoryId) {
 			if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
 				_inventories[inventoryId].GetInventorySlots()[itemStack.GetSlotID()].SetStack(itemStack);
-				UIHandler.Instance.UpdateInventorySlot(inventoryId, itemStack.GetSlotID());
 			}
 		}
 		public void Add(Inventory inventory) {

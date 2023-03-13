@@ -85,6 +85,7 @@ namespace _Project.Scripts.Handlers {
         }
         public void SetBool(string targetBool, bool value) => _animator.SetBool(targetBool, value);
         public void SetTrigger(string targetTrigger) => _animator.SetTrigger(targetTrigger);
+        public void SetFloat(string targetTrigger, float value) => _animator.SetFloat(targetTrigger, value);
         public void SetMoving(bool locomotionIsMoving) {
             _animator.SetBool(IsMoving, locomotionIsMoving);
         }

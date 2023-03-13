@@ -34,7 +34,7 @@ namespace _Project.Scripts.Components {
                 if (NetworkManager.Singleton.IsServer) {
                     GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(Id, itemData.id, transform.position, transform.rotation);
                     NetworkMessageBuilder messageBuilder = new NetworkMessageBuilder(MessageSendMode.reliable, (ushort) Server.PacketHandler.clientItemSpawn, grabbableData);
-                    messageBuilder.Send();
+                    messageBuilder.Send(asServer:true);
                 }
         }
         public void SetLootTable(LootTable lootTable) {
@@ -67,7 +67,6 @@ namespace _Project.Scripts.Components {
         [MessageHandler((ushort)Server.PacketHandler.clientItemSpawn)]
         private static void SpawnItemClient(Message message) {
             if (!NetworkManager.Singleton.IsServer) {
-                GUIUtils.createConsoleLogMessage("[CLIENT] Receiving grabbables...");
                 GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(message);
                 Debug.Log($"Trying to get value : {grabbableData.itemId}");
                 if (NetworkManager.Singleton.itemsDictionary.TryGetValue(grabbableData.itemId, out Item prefabData)){

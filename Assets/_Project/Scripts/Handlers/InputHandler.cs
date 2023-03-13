@@ -31,7 +31,7 @@ namespace _Project.Scripts.Handlers {
         public bool SwapView { get; private set; }
 
         public bool SwapPerson { get; private set; }
-        public bool Clicked { get; private set; }
+        public bool Clicked { get; set; }
         public static InputHandler Singleton
         {
             get => _singleton;
@@ -89,7 +89,7 @@ namespace _Project.Scripts.Handlers {
                 
                 _inputActions.UIActions.Menu.performed += i => IsInMenu = !IsInMenu;
                 _inputActions.UIActions.PlayerOverview.performed += i => IsInInventory = !IsInInventory;
-                _inputActions.UIActions.Click.performed += i => Clicked = !Clicked;
+                _inputActions.UIActions.Click.performed += i => Clicked = true;
                 _inputActions.UIActions.HotbarInput.performed += i => {
                     HotbarSlot = (int) i.ReadValue<float>();
                     EquipInput = true;

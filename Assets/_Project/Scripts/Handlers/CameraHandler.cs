@@ -1,3 +1,5 @@
+using _Project.Scripts.Components;
+using _Project.Scripts.DiegeticUI;
 using _Project.Scripts.StateMachine.Camera;
 using Cinemachine;
 using Scripts.DataClasses;
@@ -15,6 +17,8 @@ namespace _Project.Scripts.Handlers {
         private Transform _cameraPivot;
         [SerializeField]
         private Transform _cameraFollow;
+        [SerializeField] 
+        private Transform _headFollow;
         [SerializeField]
         private float _followSmoothness = 1f;
         private CinemachineVirtualCamera _activeCamera;
@@ -53,24 +57,28 @@ namespace _Project.Scripts.Handlers {
             }
         }
 
-        public void InitializeCamera(Transform cameraFollow, Transform cameraPivot) {
+        public void InitializeCamera(Transform cameraFollow, Transform headFollow, Transform cameraPivot) {
             MainCamera = Camera.main;
             orbitalCamera = GameObject.Find("OrbitalCamera").GetComponent<CinemachineVirtualCamera>();
             firstPersonCamera = GameObject.Find("1stPersonCamera").GetComponent<CinemachineVirtualCamera>();
             thirdPersonCamera = GameObject.Find("3rdPersonCamera").GetComponent<CinemachineVirtualCamera>();
             inventoryCamera = GameObject.Find("InventoryCamera").GetComponent<CinemachineVirtualCamera>();
             _cameraFollow = cameraFollow;
+            _headFollow = headFollow;
             _cameraPivot = cameraPivot;
             orbitalCamera.Follow = _cameraFollow;
-            inventoryCamera.Follow = _cameraFollow;
-            firstPersonCamera.Follow = _cameraFollow;
+            inventoryCamera.LookAt = ContainerRenderer.Singleton.SpawnPoint;
+            inventoryCamera.Follow = _headFollow;
+            firstPersonCamera.Follow = _headFollow;
             thirdPersonCamera.Follow = _cameraFollow;
             orbitalCamera.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = _cameraData.sensitivityX;
             orbitalCamera.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = _cameraData.sensitivityY;
             _orbitalCameraInput = orbitalCamera.GetComponent<CinemachineInputProvider>();
-            var main = MainCamera.GetComponent<CinemachineBrain>();
-            main.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
-            ChangeState(new ThirdPersonCameraState(this));
+            if (MainCamera != null) {
+                var mainBrain = MainCamera.GetComponent<CinemachineBrain>();
+                mainBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
+            }
+            ChangeState(new FirstPersonCameraState(this));
         }
         public void Awake() {
             _singleton = this;
@@ -81,7 +89,7 @@ namespace _Project.Scripts.Handlers {
             UpdateLookInput(InputHandler.Singleton.MouseX, InputHandler.Singleton.MouseY);
         }
         public void FixedTick(float fixedTick) {
-            if (cameraCurrentState != null && cameraCurrentState.GetType() != typeof(OrbitalCameraState)) {
+            if (cameraCurrentState != null && EnableCameraRotation) {
                 CameraPitch(fixedTick);
                 CameraYaw(fixedTick);
                 CameraSnapRotation();
@@ -94,10 +102,8 @@ namespace _Project.Scripts.Handlers {
             cameraCurrentState.EnterState();
         }
         private void UpdateLookInput(float mouseX, float mouseY) {
-            if(EnableCameraRotation) {
-                _previousLookInput = _playerLookInput;
-                _playerLookInput = new Vector3(mouseX * _cameraData.sensitivityX, mouseY * _cameraData.sensitivityY, 0) * Time.fixedDeltaTime;
-            }
+            _previousLookInput = _playerLookInput;
+            _playerLookInput = new Vector3(mouseX * _cameraData.sensitivityX, mouseY * _cameraData.sensitivityY, 0) * Time.fixedDeltaTime;
             //return Vector3.Lerp(_previousLookInput, _playerLookInput, _cameraData.playerLookInputLerpSpeed);
         }
         public Vector3 GetLookDirection() {
