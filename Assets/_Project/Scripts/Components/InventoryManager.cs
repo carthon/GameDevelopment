@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using _Project.Scripts.Network;
 using RiptideNetworking;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using Client = _Project.Scripts.Network.Client.Client;
+using Logger = _Project.Scripts.Utils.Logger;
 using Server = _Project.Scripts.Network.Server.Server;
 
 namespace _Project.Scripts.Components {
@@ -33,9 +32,12 @@ namespace _Project.Scripts.Components {
 			Inventories[inventoryId].DropItemInSlot(slotId, playerTransform.position, playerTransform.rotation);
 			InventoryOnSlotChange(slotId, droppedItemStack);
 		}
-		public void SetItemStackInInventory(ItemStack itemStack, int inventoryId) {
+		public void AddItemStackInInventory(ItemStack itemStack, int inventoryId) {
 			if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
-				_inventories[inventoryId].GetInventorySlots()[itemStack.GetSlotID()].SetStack(itemStack);
+				if (_inventories.Count > inventoryId)
+					_inventories[inventoryId].AddItemStackToSlot(itemStack, itemStack.GetSlotID());
+				else
+					Logger.Singleton.Log("Inventory received from server doesnt exists", Logger.Type.ERROR);
 			}
 		}
 		public void Add(Inventory inventory) {

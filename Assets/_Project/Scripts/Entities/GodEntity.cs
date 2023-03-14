@@ -56,7 +56,7 @@ namespace _Project.Scripts {
             playerNetwork.name = $"Player {id} {(string.IsNullOrEmpty(username) ? "Guest" : username)}";
             playerNetwork.Id = id;
             playerNetwork.Username = string.IsNullOrEmpty(username) ? $"Guest {id}" : username;
-            Logger.Singleton.Log($"[{(NetworkManager.Singleton.IsClient ? "CLIENT" : "SERVER")}] Spawned player {playerNetwork.Id} at tick : {currentTick}");
+            Logger.Singleton.Log($"Spawned player {playerNetwork.Id} at tick : {currentTick}", Logger.Type.DEBUG);
             if (net.IsClient) {
                 playerNetwork.IsLocal = id == net.Client.Id;
             }

@@ -12,7 +12,7 @@ public class Item : ScriptableObject, IEquatable<Item> {
     public Sprite itemIcon;
     public Mesh item3dIcon;
     public Material iconMaterial;
-    public string name;
+    public string itemName;
     public GameObject modelPrefab;
     public ItemSize Size;
     [ScriptableObjectId]
@@ -28,7 +28,7 @@ public class Item : ScriptableObject, IEquatable<Item> {
 
         return base.Equals(other) &&
             Equals(itemIcon, other.itemIcon) &&
-            name == other.name &&
+            itemName == other.itemName &&
             Equals(modelPrefab, other.modelPrefab) &&
             Size == other.Size && description == other.description && maxStackSize == other.maxStackSize;
     }
@@ -50,7 +50,7 @@ public class Item : ScriptableObject, IEquatable<Item> {
         unchecked {
             var hashCode = base.GetHashCode();
             hashCode = (hashCode * 397) ^ (itemIcon != null ? itemIcon.GetHashCode() : 0);
-            hashCode = (hashCode * 397) ^ (name != null ? name.GetHashCode() : 0);
+            hashCode = (hashCode * 397) ^ (itemName != null ? itemName.GetHashCode() : 0);
             hashCode = (hashCode * 397) ^ (modelPrefab != null ? modelPrefab.GetHashCode() : 0);
             hashCode = (hashCode * 397) ^ (int) Size;
             hashCode = (hashCode * 397) ^ (description != null ? description.GetHashCode() : 0);
@@ -59,6 +59,6 @@ public class Item : ScriptableObject, IEquatable<Item> {
         }
     }
     public override string ToString() {
-        return $"Id:{id} Name:{name} Size:{Size} Description:{description}";
+        return $"Id:{id} Name:{itemName} Size:{Size} Description:{description}";
     }
 }

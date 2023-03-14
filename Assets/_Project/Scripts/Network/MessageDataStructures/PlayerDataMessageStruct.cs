@@ -8,7 +8,7 @@ namespace _Project.Scripts.Network.MessageDataStructures {
         public int equipmentDataCount;
         public List<EquipmentMessageStruct> equipmentData;
         public int tick;
-        public PlayerDataMessageStruct(List<EquipmentMessageStruct> equipmentData, int tick,ushort clientId = 0 ) {
+        public PlayerDataMessageStruct(List<EquipmentMessageStruct> equipmentData, int tick, ushort clientId = 0 ) {
             this.clientId = clientId;
             this.equipmentDataCount = equipmentData.Count;
             this.equipmentData = equipmentData;

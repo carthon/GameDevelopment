@@ -70,14 +70,14 @@ namespace _Project.Scripts.Components {
                 GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(message);
                 Debug.Log($"Trying to get value : {grabbableData.itemId}");
                 if (NetworkManager.Singleton.itemsDictionary.TryGetValue(grabbableData.itemId, out Item prefabData)){
-                    Grabbable grabbable;
-                    if (!GodEntity.grabbableItems.TryGetValue(grabbableData.grabbableId, out grabbable)) {
+                    if (!GodEntity.grabbableItems.TryGetValue(grabbableData.grabbableId, out Grabbable grabbable)) {
                         grabbable = Instantiate(prefabData.modelPrefab, grabbableData.position,
-                            grabbableData.rotation).GetComponent<Grabbable>();
+                            grabbableData.rotation).AddComponent<Grabbable>();
                     }
                     else {
-                        grabbable.transform.position = grabbableData.position;
-                        grabbable.transform.rotation = grabbableData.rotation;
+                        Transform transform = grabbable.transform;
+                        transform.position = grabbableData.position;
+                        transform.rotation = grabbableData.rotation;
                     }
                     grabbable.Initialize(grabbableData.grabbableId, prefabData);
                 }

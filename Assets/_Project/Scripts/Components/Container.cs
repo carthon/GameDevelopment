@@ -18,7 +18,7 @@ namespace _Project.Scripts.Components {
             ItemStack leftOver = itemStack;
             if(itemStack.Item.Size == _itemSize)
                 leftOver = _inventory.AddItemStack(itemStack);
-            Logger.Singleton.Log(_inventory.ToString());
+            Logger.Singleton.Log(_inventory.ToString(), Logger.Type.DEBUG);
 
             return leftOver;
         }

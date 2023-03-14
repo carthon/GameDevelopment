@@ -58,6 +58,7 @@ namespace _Project.Scripts.Handlers {
         public bool IsJumping { get; private set; }
 
         public bool IsPicking { get; private set; }
+        public bool IsCrouching { get; private set; }
 
         public bool IsUIEnabled { get; private set; }
         public bool IsInMenu { get; private set; }
@@ -67,6 +68,7 @@ namespace _Project.Scripts.Handlers {
         public int HotbarSlot { get; private set; }
 
         public bool EquipInput { get; private set; }
+
         public void ClearInputs() {
             SwapView = false;
             SwapPerson = false;
@@ -83,6 +85,8 @@ namespace _Project.Scripts.Handlers {
                 _inputActions = new PlayerControlls();
                 _inputActions.PlayerSpaceMovement.Movement.performed += i => _movementInput = i.ReadValue<Vector2>();
                 _inputActions.PlayerSpaceMovement.Camera.performed += i => _cameraInput = i.ReadValue<Vector2>();
+                _inputActions.PlayerActions.Crouch.started += i => IsCrouching = true;
+                _inputActions.PlayerActions.Crouch.canceled += i => IsCrouching = false;
                 
                 _inputActions.Camera.OrbitalView.performed += i => SwapView = true;
                 _inputActions.Camera.SwapPersonCamera.performed += i => SwapPerson = true;

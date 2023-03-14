@@ -1,4 +1,5 @@
 ﻿using _Project.Scripts.Components;
+using _Project.Scripts.Constants;
 using UnityEngine;
 
 namespace _Project.Scripts.Handlers {
@@ -7,6 +8,7 @@ namespace _Project.Scripts.Handlers {
         private static readonly int IsInteracting = Animator.StringToHash("isInteracting");
         private static readonly int IsSprinting = Animator.StringToHash("isSprinting");
         private static readonly int IsFalling = Animator.StringToHash("isFalling");
+        private static readonly int IsCrouching = Animator.StringToHash("isCrouching");
         private static readonly int Vertical = Animator.StringToHash("Vertical");
         private static readonly int Horizontal = Animator.StringToHash("Horizontal");
         private static readonly int IsMoving = Animator.StringToHash("isMoving");
@@ -32,7 +34,7 @@ namespace _Project.Scripts.Handlers {
                 _animator = GetComponentInChildren<Animator>();
         }
 
-        public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, bool isSprinting) {
+        public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, bool[] actions) {
 
             #region Vertical
 
@@ -68,7 +70,8 @@ namespace _Project.Scripts.Handlers {
 
             #endregion
 
-            _animator.SetBool(IsSprinting, isSprinting);
+            _animator.SetBool(IsSprinting, actions[(int)ActionsEnum.SPRINTING]);
+            _animator.SetBool(IsCrouching, actions[(int)ActionsEnum.CROUCHING]);
             _animator.SetFloat(Vertical, v, 0.1f, Time.deltaTime);
             _animator.SetFloat(Horizontal, h, 0.1f, Time.deltaTime);
         }

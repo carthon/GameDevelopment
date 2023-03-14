@@ -17,7 +17,7 @@ namespace _Project.Scripts.Network.MessageUtils {
                 equipments.Add(new EquipmentMessageStruct(equipmentDisplayer.CurrentEquipedItem, 
                     (int) equipmentDisplayer.GetBodyPart(), equipmentDisplayer.IsActive));
             }
-            return new PlayerDataMessageStruct(equipments, player.Id);
+            return new PlayerDataMessageStruct(equipments, NetworkManager.Singleton.Tick, player.Id);
         }
     }
 }
