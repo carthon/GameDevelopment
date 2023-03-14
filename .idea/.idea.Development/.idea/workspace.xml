@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aea2bea4-eef4-46ed-83e6-81c0978d1e91" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Development/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Development/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="aea2bea4-eef4-46ed-83e6-81c0978d1e91" name="Changes" comment="Update master to last version" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -553,7 +551,8 @@
     <MESSAGE value="Diegetic inventory dev&#10;Network System&#10;Localhost needs test" />
     <MESSAGE value="Bugfix networking connection not syncing.&#10;Diegetic inventory v1.0" />
     <MESSAGE value="Workspace Update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Workspace Update" />
+    <MESSAGE value="Update master to last version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update master to last version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
