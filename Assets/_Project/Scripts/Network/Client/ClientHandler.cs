@@ -1,0 +1,81 @@
+using _Project.Scripts.Components;
+using _Project.Scripts.Network.MessageDataStructures;
+using RiptideNetworking;
+using UnityEngine;
+using static UnityEngine.GameObject;
+
+namespace _Project.Scripts.Network.Client {
+    public partial class Client {
+        
+        [MessageHandler((ushort)Server.Server.PacketHandler.clientInventoryChange)]
+        private static void ReceiveSlotChangeServer(Message message) {
+            if (Singleton is {IsServerOwner: true})
+                return;
+            ushort playerId = message.GetUShort();
+            int inventoryId = message.GetInt();
+            ItemStack itemStack = message.GetItemStack();
+            Singleton.Player.InventoryManager.AddItemStackInInventory(itemStack, inventoryId);
+        }
+        
+        [MessageHandler((ushort)Server.Server.PacketHandler.spawnMessage)]
+        private static void ReceiveSpawnPlayer(Message message) {
+            if (Singleton is {IsServerOwner: true})
+                return;
+            SpawnMessageStruct spawnData = new SpawnMessageStruct(message);
+            NetworkManager.Singleton.Tick = spawnData.tick + TicksAheadOfServer;
+            GodEntity.Spawn(spawnData.id, spawnData.entityId, spawnData.position, spawnData.tick);
+            Message updateClient = Message.Create(MessageSendMode.reliable, PacketHandler.serverUpdateClient);
+            NetworkManager.Singleton.Client.Send(updateClient);
+        }
+        
+        [MessageHandler((ushort)Server.Server.PacketHandler.clientPlayerDespawn)]
+        private static void ReceiveDeSpawnPlayer(Message message) {
+            if (Singleton is {IsServerOwner: true})
+                return;
+            ushort playerId = message.GetUShort();
+            if (NetworkManager.playersList.TryGetValue(playerId, out Player player)) {
+                Object.Destroy(player.gameObject);
+                NetworkManager.playersList.Remove(playerId);
+            }
+        }
+        
+        [MessageHandler((ushort) Server.Server.PacketHandler.movementMessage)]
+        private static void ReceiveMovement(Message message) {
+            if (Singleton is {IsServerOwner: true})
+                return;
+            MovementMessageStruct movementMessageStruct = new MovementMessageStruct(message);
+            if (NetworkManager.playersList.TryGetValue(movementMessageStruct.id, out Player player)) {
+                if(player.IsLocal) {
+                    Singleton._latestServerMovement = movementMessageStruct;
+                    if (NetworkManager.Singleton.debugServerPosition) {
+                        NetworkManager.Singleton.Client._serverDummy.UpdateServerDummy(movementMessageStruct);
+                    }
+                } else {
+                    player.UpdatePlayerMovementState(movementMessageStruct, false, Time.deltaTime * movementMessageStruct.velocity.sqrMagnitude);
+                }
+            }
+        }
+        
+        [MessageHandler((ushort) Server.Server.PacketHandler.clientReceiveEquipment)]
+        private static void ReceiveEquipment(Message message) {
+            if (Singleton is {IsServerOwner: true})
+                return;
+            EquipmentMessageStruct equipmentData = new EquipmentMessageStruct(message);
+            if (NetworkManager.playersList.TryGetValue(equipmentData.clientId, out Player player)) {
+                if (!player.IsLocal) {
+                    ItemStack itemStack = equipmentData.itemStack;
+                    BodyPart equipmentSlot = (BodyPart) equipmentData.equipmentSlot;
+                    bool activeStatus = equipmentData.activeState;
+                    player.UpdateEquipment(itemStack, equipmentSlot, activeStatus);
+                }
+            }
+        }
+        [MessageHandler((ushort) Server.Server.PacketHandler.clientReceivePlayerData)]
+        private static void ReceivePlayerData(Message message) {
+            if (Singleton is {IsServerOwner: true})
+                return;
+            PlayerDataMessageStruct playerData = new PlayerDataMessageStruct(message);
+            NetworkManager.Singleton.Tick = playerData.tick + TicksAheadOfServer;
+        }
+    }
+}
