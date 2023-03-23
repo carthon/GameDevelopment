@@ -1,3 +1,5 @@
+using _Project.Scripts.DataClasses.ItemTypes;
+using _Project.Scripts.Network.MessageUtils;
 using RiptideNetworking;
 
 namespace _Project.Scripts.Network.MessageDataStructures {

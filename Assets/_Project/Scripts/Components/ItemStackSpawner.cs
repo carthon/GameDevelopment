@@ -1,3 +1,5 @@
+using _Project.Scripts.DataClasses.ItemTypes;
+using _Project.Scripts.Entities;
 using _Project.Scripts.Network;
 using UnityEngine;
 

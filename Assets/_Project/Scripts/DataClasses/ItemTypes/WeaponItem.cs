@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Project.Scripts.Components.Items {
+namespace _Project.Scripts.DataClasses.ItemTypes {
     [CreateAssetMenu(menuName = "Items/Weapon Item")]
     public class WeaponItem : Item {
         public bool isUnarmed;

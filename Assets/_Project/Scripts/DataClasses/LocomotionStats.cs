@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Scripts.DataClasses {
+namespace _Project.Scripts.DataClasses {
     [CreateAssetMenu(fileName = "LocomotionStat", menuName = "Data/Locomotion Stats")]
     [Serializable]
     public class LocomotionStats : ScriptableObject {

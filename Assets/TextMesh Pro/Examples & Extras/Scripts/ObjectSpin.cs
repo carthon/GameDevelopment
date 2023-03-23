@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TMPro.Examples {
+namespace TextMesh_Pro.Examples___Extras.Scripts {
 
     public class ObjectSpin : MonoBehaviour {
 #pragma warning disable 0414

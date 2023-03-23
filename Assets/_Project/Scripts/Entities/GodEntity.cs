@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using _Project.Scripts.Components;
+using _Project.Scripts.DataClasses;
+using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Network;
 using _Project.Scripts.Network.Client;
 using UnityEngine;
 using Logger = _Project.Scripts.Utils.Logger;
 
-namespace _Project.Scripts {
+namespace _Project.Scripts.Entities {
     public class GodEntity : MonoBehaviour {
         public Transform spawnPoint;
         [Header("Prefabs")]

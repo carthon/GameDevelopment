@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using _Project.Scripts.Components;
+using _Project.Scripts.DataClasses.ItemTypes;
+using _Project.Scripts.Handlers;
 using _Project.Scripts.Utils;
 using QuickOutline.Scripts;
 using UnityEngine;

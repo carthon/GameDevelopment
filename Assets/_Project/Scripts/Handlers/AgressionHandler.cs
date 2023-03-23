@@ -1,4 +1,4 @@
-﻿using _Project.Scripts.Components.Items;
+﻿using _Project.Scripts.DataClasses.ItemTypes;
 using UnityEngine;
 
 namespace _Project.Scripts.Handlers {

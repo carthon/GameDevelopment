@@ -1,5 +1,7 @@
 using System.Collections.Concurrent;
 using _Project.Scripts.Constants;
+using _Project.Scripts.DataClasses;
+using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
 using _Project.Scripts.Network.MessageDataStructures;

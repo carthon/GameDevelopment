@@ -1,8 +1,8 @@
 using _Project.Scripts.Components;
+using _Project.Scripts.DataClasses;
 using _Project.Scripts.DiegeticUI;
-using _Project.Scripts.StateMachine.Camera;
+using _Project.Scripts.StateMachine.CameraStates;
 using Cinemachine;
-using Scripts.DataClasses;
 using UnityEngine;
 
 namespace _Project.Scripts.Handlers {

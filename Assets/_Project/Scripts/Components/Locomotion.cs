@@ -1,8 +1,8 @@
 using System;
+using _Project.Scripts.DataClasses;
 using _Project.Scripts.Network;
 using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.StateMachine.LocomotionStates;
-using Scripts.DataClasses;
 using UnityEngine;
 
 namespace _Project.Scripts.Components {

@@ -1,5 +1,9 @@
 using _Project.Scripts.Components;
+using _Project.Scripts.DataClasses;
+using _Project.Scripts.DataClasses.ItemTypes;
+using _Project.Scripts.Entities;
 using _Project.Scripts.Network.MessageDataStructures;
+using _Project.Scripts.Network.MessageUtils;
 using RiptideNetworking;
 using UnityEngine;
 using static UnityEngine.GameObject;

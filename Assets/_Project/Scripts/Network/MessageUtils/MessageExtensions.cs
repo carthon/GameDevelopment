@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using _Project.Scripts.Constants;
 using _Project.Scripts.DataClasses;
+using _Project.Scripts.DataClasses.ItemTypes;
 using RiptideNetworking;
 using UnityEngine;
 
-namespace _Project.Scripts.Network {
+namespace _Project.Scripts.Network.MessageUtils {
     public static class MessageExtensions
     {
         #region Vector2

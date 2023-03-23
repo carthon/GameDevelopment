@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-namespace TMPro.Examples {
+namespace TextMesh_Pro.Examples___Extras.Scripts {
 
     public class VertexZoom : MonoBehaviour {
         public float AngleMultiplier = 1.0f;

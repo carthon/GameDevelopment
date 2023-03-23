@@ -1,9 +1,10 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace TMPro {
+namespace TextMesh_Pro.Examples___Extras.Scripts {
 
     public class TMP_TextEventHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
         [SerializeField]

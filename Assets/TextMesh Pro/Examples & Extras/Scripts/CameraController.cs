@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TMPro.Examples {
+namespace TextMesh_Pro.Examples___Extras.Scripts {
 
     public class CameraController : MonoBehaviour {
         public enum CameraModes {

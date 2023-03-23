@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scripts.DataClasses {
+namespace _Project.Scripts.DataClasses {
     [CreateAssetMenu(menuName = "Data/CameraData", fileName = "Camera Data")]
     public class CameraData : ScriptableObject {
         public float playerLookInputLerpSpeed = 0.35f;
