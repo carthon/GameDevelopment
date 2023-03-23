@@ -5,14 +5,16 @@ using UnityEngine;
 namespace _Project.Scripts.Handlers {
     public class AnimatorHandler : MonoBehaviour {
 
-        private static readonly int IsInteracting = Animator.StringToHash("isInteracting");
-        private static readonly int IsSprinting = Animator.StringToHash("isSprinting");
-        private static readonly int IsFalling = Animator.StringToHash("isFalling");
-        private static readonly int IsCrouching = Animator.StringToHash("isCrouching");
-        private static readonly int Vertical = Animator.StringToHash("Vertical");
-        private static readonly int Horizontal = Animator.StringToHash("Horizontal");
-        private static readonly int IsMoving = Animator.StringToHash("isMoving");
-        private static readonly int Jumped = Animator.StringToHash("Jumped");
+        public static readonly int Jumped = Animator.StringToHash("Jumped");
+        public static readonly int IsInteracting = Animator.StringToHash("isInteracting");
+        public static readonly int IsSprinting = Animator.StringToHash("isSprinting");
+        public static readonly int IsFalling = Animator.StringToHash("isFalling");
+        public static readonly int IsCrouching = Animator.StringToHash("isCrouching");
+        public static readonly int Vertical = Animator.StringToHash("Vertical");
+        public static readonly int Horizontal = Animator.StringToHash("Horizontal");
+        public static readonly int IsMoving = Animator.StringToHash("isMoving");
+        public static readonly int IsPicking = Animator.StringToHash("isPicking");
+        public static readonly int IsSearching = Animator.StringToHash("isSearching");
         private Animator _animator;
         //private Locomotion _locomotion;
 
@@ -34,7 +36,7 @@ namespace _Project.Scripts.Handlers {
                 _animator = GetComponentInChildren<Animator>();
         }
 
-        public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, bool[] actions) {
+        public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement) {
 
             #region Vertical
 
@@ -69,9 +71,6 @@ namespace _Project.Scripts.Handlers {
                 h = 0;
 
             #endregion
-
-            _animator.SetBool(IsSprinting, actions[(int)ActionsEnum.SPRINTING]);
-            _animator.SetBool(IsCrouching, actions[(int)ActionsEnum.CROUCHING]);
             _animator.SetFloat(Vertical, v, 0.1f, Time.deltaTime);
             _animator.SetFloat(Horizontal, h, 0.1f, Time.deltaTime);
         }
@@ -87,13 +86,8 @@ namespace _Project.Scripts.Handlers {
             _animator.CrossFade(targetAnim, .2f);
         }
         public void SetBool(string targetBool, bool value) => _animator.SetBool(targetBool, value);
+        public void SetBool(int targetBool, bool value) => _animator.SetBool(targetBool, value);
         public void SetTrigger(string targetTrigger) => _animator.SetTrigger(targetTrigger);
         public void SetFloat(string targetTrigger, float value) => _animator.SetFloat(targetTrigger, value);
-        public void SetMoving(bool locomotionIsMoving) {
-            _animator.SetBool(IsMoving, locomotionIsMoving);
-        }
-        public void SetSprinting(bool isSprinting) {
-            _animator.SetBool(IsSprinting, isSprinting);
-        }
     }
 }

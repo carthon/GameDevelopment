@@ -322,6 +322,15 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""438a32ce-21ca-497f-b655-9e5516c17fbe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -489,6 +498,17 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
                     ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1af6f973-26b3-40a6-ae1b-be83533e5176"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -563,6 +583,7 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
         m_UIActions_DropItem = m_UIActions.FindAction("DropItem", throwIfNotFound: true);
         m_UIActions_Menu = m_UIActions.FindAction("Menu", throwIfNotFound: true);
         m_UIActions_Click = m_UIActions.FindAction("Click", throwIfNotFound: true);
+        m_UIActions_RClick = m_UIActions.FindAction("RClick", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_OrbitalView = m_Camera.FindAction("OrbitalView", throwIfNotFound: true);
@@ -746,6 +767,7 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
     private readonly InputAction m_UIActions_DropItem;
     private readonly InputAction m_UIActions_Menu;
     private readonly InputAction m_UIActions_Click;
+    private readonly InputAction m_UIActions_RClick;
     public struct UIActionsActions
     {
         private @PlayerControlls m_Wrapper;
@@ -756,6 +778,7 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
         public InputAction @DropItem => m_Wrapper.m_UIActions_DropItem;
         public InputAction @Menu => m_Wrapper.m_UIActions_Menu;
         public InputAction @Click => m_Wrapper.m_UIActions_Click;
+        public InputAction @RClick => m_Wrapper.m_UIActions_RClick;
         public InputActionMap Get() { return m_Wrapper.m_UIActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -783,6 +806,9 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
                 @Click.started -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnClick;
                 @Click.performed -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnClick;
                 @Click.canceled -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnClick;
+                @RClick.started -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnRClick;
+                @RClick.performed -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnRClick;
+                @RClick.canceled -= m_Wrapper.m_UIActionsActionsCallbackInterface.OnRClick;
             }
             m_Wrapper.m_UIActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -805,6 +831,9 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
                 @Click.started += instance.OnClick;
                 @Click.performed += instance.OnClick;
                 @Click.canceled += instance.OnClick;
+                @RClick.started += instance.OnRClick;
+                @RClick.performed += instance.OnRClick;
+                @RClick.canceled += instance.OnRClick;
             }
         }
     }
@@ -872,6 +901,7 @@ public partial class @PlayerControlls : IInputActionCollection2, IDisposable
         void OnDropItem(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
+        void OnRClick(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {

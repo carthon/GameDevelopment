@@ -8,7 +8,7 @@ namespace _Project.Scripts.Components {
         public void Update() {
             if (NetworkManager.Singleton.IsServer) {
                 GodEntity.SpawnItem(item, count, transform);
-                Destroy(this);
+                Destroy(this.gameObject);
             } else if (NetworkManager.Singleton.IsClient)
                 Destroy(this.gameObject);
         }

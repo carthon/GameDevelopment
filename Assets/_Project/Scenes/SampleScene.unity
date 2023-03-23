@@ -3948,7 +3948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 3f1ca64c31b5ad44fa23598278bdc374, type: 2}
-  count: 10
+  count: 64
 --- !u!1 &2100406154520468890
 GameObject:
   m_ObjectHideFlags: 0
@@ -4102,7 +4102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 095be6d8dba38ce438c5c2a214af8e51, type: 2}
-  count: 1
+  count: 4
 --- !u!1 &9044240235684047336
 GameObject:
   m_ObjectHideFlags: 0

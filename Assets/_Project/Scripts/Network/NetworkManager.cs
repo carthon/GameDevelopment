@@ -76,6 +76,7 @@ namespace _Project.Scripts.Network {
                     foreach (var player in playersList.Values) {
                         stringBuilder.Append($"Player{player.Id}:{player.GetMovementState(Tick).ToString()}");
                     }
+                    UIHandler.Instance.UpdateWatchedVariables("PlayersInfo", stringBuilder.ToString());
                 }
                 if (IsClient) {
                     Client.Tick(_currentTick);
@@ -118,9 +119,9 @@ namespace _Project.Scripts.Network {
                 Server.ClientDisconnected -= PlayerLeft;
             }
         }
-        private void DidConnect(object sender, EventArgs args) {  }
-        private void FailedToConnect (object sender, EventArgs args){  }
-        private void DidDisconnect(object sender, EventArgs args) {  }
+        private void DidConnect(object sender, EventArgs args) { Logger.Singleton.Log("Connected succesfully!", Logger.Type.INFO); }
+        private void FailedToConnect (object sender, EventArgs args){ Logger.Singleton.Log("Error trying to connect...!", Logger.Type.INFO); }
+        private void DidDisconnect(object sender, EventArgs args) { Logger.Singleton.Log("Disconnected succesfully!", Logger.Type.INFO); }
         private void MessageReceived(object sender, EventArgs args) { NetworkMessageBuilder.MessagesReceived++; }
         private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) {
             if (playersList.TryGetValue(e.Id, out Player player)) {
@@ -129,6 +130,7 @@ namespace _Project.Scripts.Network {
                 Message message = Message.Create(MessageSendMode.reliable, Network.Server.Server.PacketHandler.clientPlayerDespawn);
                 message.AddUShort(e.Id);
                 Server.SendToAll(message);
+                Logger.Singleton.Log($"Player {e.Id} disconnected", Logger.Type.INFO);
             }
         }
         private void OnApplicationQuit() {

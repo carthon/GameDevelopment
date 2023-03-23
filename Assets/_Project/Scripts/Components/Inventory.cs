@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using _Project.Scripts;
 using UnityEngine;
+using Logger = _Project.Scripts.Utils.Logger;
 
 public class Inventory {
 
@@ -54,8 +55,13 @@ public class Inventory {
                         itemStack.GetCount() <= _items[slot].Item.GetMaxStackSize()) {
                         itemLeftOver.SetCount(AddToStack(slot, itemStack.GetCount()));
                     }
-                    else {
+                    else if(itemStack.GetCount() <= itemStack.Item.GetMaxStackSize()) {
                         _freeSpace -= 1;
+                        _items[slot].SetStack(itemStack);
+                    }
+                    else {
+                        itemLeftOver.SetCount(itemStack.GetCount() - itemStack.Item.GetMaxStackSize());
+                        itemStack.SetCount(itemStack.Item.GetMaxStackSize());
                         _items[slot].SetStack(itemStack);
                     }
                 }
@@ -76,9 +82,10 @@ public class Inventory {
             if (slot == -1 || _items[slot].IsFull())
                 slot = _items.FindIndex(item => item.IsEmpty());
             difference = AddItemStackToSlot(itemStack, slot);
+            Logger.Singleton.Log($"Added {itemStack} to slot {slot} | difference {difference}", Logger.Type.DEBUG);
         }
         else {
-            Debug.Log("No free space!");
+            Logger.Singleton.Log("No free space!", Logger.Type.DEBUG);
         }
         return difference;
     }
@@ -163,7 +170,7 @@ public class Inventory {
     public List<ItemStack> GetItemStacksByType(Item item) {
         return _items.FindAll(itemStack => itemStack.Item != null && itemStack.Item.Equals(item));
     }
-    public bool IsValidSlot(int slot) {
+    private bool IsValidSlot(int slot) {
         return slot >= 0 && slot < Size;
     }
     public bool IsEmpty() {

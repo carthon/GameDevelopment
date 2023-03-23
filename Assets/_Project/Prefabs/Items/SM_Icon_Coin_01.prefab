@@ -14,10 +14,9 @@ GameObject:
   - component: {fileID: 5784173653936088048}
   - component: {fileID: 949435054839256252}
   - component: {fileID: 6409778730053076881}
-  - component: {fileID: 1545745337207916732}
   m_Layer: 9
   m_Name: SM_Icon_Coin_01
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7010931887659289211}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -1.0040574, y: 0.35801926, z: 4.507103}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &7006208064484673535
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -127,21 +126,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.35
   m_Center: {x: -0.000000014901161, y: 0, z: 0}
---- !u!114 &1545745337207916732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7010931887659289211}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 4.97
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []

@@ -41,11 +41,13 @@ namespace _Project.Scripts.Components {
             CurrentState = _states.Grounded();
             CurrentState.EnterState();
         }
+        private void FixedUpdate() {
+            IsGrounded = Physics.Raycast(transform.position,-Vector3.up, Stats.height, Stats.groundLayer);
+        }
 
         public void FixedTick() {
             CurrentState.UpdateStates();
             state = CurrentState.StateName;
-            IsGrounded = Physics.Raycast(transform.position,-Vector3.up, Stats.height, Stats.groundLayer);
         }
 
         public void HandleMovement(float delta, Vector3 relativeDirection, Transform relativeTransform) {

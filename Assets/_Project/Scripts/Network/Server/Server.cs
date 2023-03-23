@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using System.Text;
 using _Project.Scripts.Components;
 using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Network.MessageUtils;
-using _Project.Scripts.Utils;
 using RiptideNetworking;
 using UnityEngine;
 
@@ -34,14 +34,19 @@ namespace _Project.Scripts.Network.Server {
         }
 
         public void Tick(int currentTick) {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"UnprocessedKeys ListCount:{_unprocessedInputQueue.Keys.Count}");
             foreach (ushort clientId in _unprocessedInputQueue.Keys) {
+                sb.Append($"ForClient:{clientId}");
                 if(NetworkManager.playersList.TryGetValue(clientId, out Player player)) {
-                    if (_unprocessedInputQueue[clientId].Count > 0
-                        && _unprocessedInputQueue[clientId].Peek().tick == currentTick) {
+                    sb.Append($"TotalInput:{_unprocessedInputQueue[clientId].Count}");
+                    while(_unprocessedInputQueue[clientId].Count > 0 && _unprocessedInputQueue[clientId].Peek().tick <= currentTick) {
+                        sb.Append($"tick at peek: {_unprocessedInputQueue[clientId].Peek().tick} and current: {currentTick}");
                         InputMessageStruct inputMessage = _unprocessedInputQueue[clientId].Dequeue();
                         bool[] actions = inputMessage.actions;
                         Quaternion playerHeadRotation = inputMessage.headPivotRotation;
                         player.HeadPivot.rotation = playerHeadRotation;
+                        player.SetActions(actions);
                         player.HandleAnimations(actions);
                         player.HandleLocomotion(NetworkManager.Singleton.minTimeBetweenTicks, inputMessage.moveInput);
                     }
@@ -50,6 +55,7 @@ namespace _Project.Scripts.Network.Server {
                     SendMovement(movementMessage);
                 }
             }
+            UIHandler.Instance.UpdateWatchedVariables("InputData", sb.ToString());
             base.Tick();
         }
         private void AddPlayerInput(ushort playerId, InputMessageStruct inputMessageStruct) {

@@ -1,21 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using _Project.Scripts.Components;
+using _Project.Scripts.DiegeticUI;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
 using RiptideNetworking;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Client = _Project.Scripts.Network.Client.Client;
+using Logger = _Project.Scripts.Utils.Logger;
+using Outline = QuickOutline.Scripts.Outline;
 
 #if !UNITY_SERVER
 public class UIHandler : MonoBehaviour {
     public static UIHandler Instance;
     private InventoryManager _playerInventory;
     public float cameraDepth;
+    public event Action<Outline> OnSelectedItem;
     
     [SerializeField] private Button _startClient;
     [SerializeField] private Text _startClientText;
@@ -26,11 +30,14 @@ public class UIHandler : MonoBehaviour {
     [SerializeField] private InputField port;
     private Grabbable _outlinedGrabbable;
     private Outline _hitMouseOutline;
+    public List<Transform> GrabbedItems { get; set; }
+    public List<Vector3> LastGrabbedItemsLocalPosition { get; set; }
 
     private Dictionary<String,String> _watchedVariables;
 
     public void Awake() {
         _watchedVariables = new Dictionary<string, string>();
+        GrabbedItems = new List<Transform>();
         Instance = this;
     }
     private void Start() {
@@ -128,20 +135,45 @@ public class UIHandler : MonoBehaviour {
             _hitMouseOutline = null;
         }
     }
+    public static Outline AddOutlineToObject(GameObject gameObject, Color color = default, bool enabled = false) {
+        if(!gameObject.TryGetComponent(out Outline outline))
+            outline = gameObject.AddComponent<Outline>();
+        outline.OutlineColor = color;
+        outline.OutlineWidth = 5f;
+        outline.OutlineMode = Outline.Mode.OutlineVisible;
+        outline.enabled = enabled;
+        return outline;
+    }
     public void HandleMouseSelection() {
         Vector3 mousePos = Mouse.current.position.ReadValue();
         Camera cam = CameraHandler.Singleton.MainCamera;
-        UpdateWatchedVariables("Mouse", $"{mousePos.ToString()}");
         Ray ray = cam.ScreenPointToRay(mousePos);
-        if (Physics.Raycast(ray, out RaycastHit hit)) {
-            if (hit.transform.TryGetComponent(out Outline outline)) {
+        if (InputHandler.Singleton.RClicked) {
+            if (GrabbedItems.Count > 0) {
+                for (int i = 0; i < GrabbedItems.Count; i++) {
+                    GrabbedItems[i].transform.position = GrabbedItems[i].transform.parent.position + LastGrabbedItemsLocalPosition[i];
+                }
+            }
+            GrabbedItems.Clear();
+        }
+        LayerMask layerMask = (GrabbedItems.Count > 0) ? ~LayerMask.GetMask("Item") : LayerMask.GetMask("Item");
+        if (Physics.Raycast(ray, out RaycastHit hit, Single.PositiveInfinity, layerMask)) {
+            UpdateWatchedVariables("grabbedItems", $"GrabbedItemsCount:{GrabbedItems.Count}");
+            if (GrabbedItems.Count > 0) {
+                for (int i = 0; i < GrabbedItems.Count; i++) {
+                    GrabbedItems[i].transform.position = LastGrabbedItemsLocalPosition[i] + hit.point + Vector3.up * 0.2f;
+                }
+            }
+            Outline outlineParent = hit.transform.GetComponentInParent<Outline>();
+            if (hit.transform.TryGetComponent(out Outline outline) || outlineParent != null) {
+                outline = outlineParent;
                 if (_hitMouseOutline != null && !outline.transform.Equals(_hitMouseOutline.transform)) {
                     _hitMouseOutline.enabled = false;
                 }
                 _hitMouseOutline = outline;
                 _hitMouseOutline.enabled = true;
                 if (InputHandler.Singleton.Clicked && outline.transform.Equals(_hitMouseOutline.transform)) {
-                    InputHandler.Singleton.Clicked = false;
+                    OnSelectedItem?.Invoke(outline);
                 }
             } else {
                 ResetMouseSelection();

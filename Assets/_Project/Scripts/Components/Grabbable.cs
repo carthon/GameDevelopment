@@ -1,13 +1,13 @@
 using _Project.Scripts.Network;
 using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Utils;
+using QuickOutline.Scripts;
 using RiptideNetworking;
 using TMPro;
 using UnityEngine;
 using Server = _Project.Scripts.Network.Server.Server;
 
 namespace _Project.Scripts.Components {
-    [RequireComponent(typeof(Outline))]
     public class Grabbable : MonoBehaviour {
         public Item itemData;
         public static ushort nextId = 1;
@@ -20,11 +20,7 @@ namespace _Project.Scripts.Components {
         public void Initialize(ushort id, Item prefab) {
                 Id = id;
                 itemData = prefab;
-                _outline = GetComponent<Outline>();
-                _outline.OutlineColor = Color.green;
-                _outline.OutlineWidth = 5f;
-                _outline.OutlineMode = Outline.Mode.OutlineVisible;
-                _outline.enabled = false;
+                _outline = UIHandler.AddOutlineToObject(gameObject, Color.green);
                 if (!GodEntity.grabbableItems.TryGetValue(Id, out Grabbable grabbable))
                     GodEntity.grabbableItems.Add(Id, this);
 #if UNITY_EDITOR

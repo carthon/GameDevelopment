@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Project.Scripts.Network;
+using QuickOutline.Scripts;
 using RiptideNetworking;
 using UnityEngine;
 using Client = _Project.Scripts.Network.Client.Client;

@@ -105,13 +105,13 @@ namespace _Project.Scripts.Network.Client {
                 Quaternion lookRotation = Quaternion.LookRotation(_player.inventorySpawnTransform.position - _player.HeadPivot.position);
                 _player.HeadPivot.rotation = lookRotation;
             }
-            _player.CanRotate = !InputHandler.Singleton.IsInInventory;
         }
         private void HandlePlayer(int currentTick) {
             int bufferIndex = currentTick % NetworkManager.BufferSize;
             Vector3 moveInput = new Vector3(InputHandler.Singleton.Horizontal, 0, InputHandler.Singleton.Vertical);
             
-            bool[] actions = _player.GetActions();
+            bool[] actions = InputHandler.Singleton.GetActions();
+            _player.SetActions(actions);
             _inputBuffer[bufferIndex] = SendInputs(moveInput, actions, currentTick);
             _player.HandleAnimations(actions);
             _player.HandleLocomotion(NetworkManager.Singleton.minTimeBetweenTicks, moveInput);
@@ -129,7 +129,7 @@ namespace _Project.Scripts.Network.Client {
             }
         }
         private InputMessageStruct SendInputs(Vector3 moveInput, bool[] actions, int currentTick) {
-            InputMessageStruct inputData = new InputMessageStruct(moveInput, _player.CanRotate ? CameraHandler.Singleton.CameraPivot.rotation : _player.transform.rotation, currentTick, actions);
+            InputMessageStruct inputData = new InputMessageStruct(moveInput, _player.HeadPivot.rotation, currentTick, actions);
             NetworkMessageBuilder networkMessageBuilder = new NetworkMessageBuilder(MessageSendMode.reliable, (ushort) PacketHandler.serverInput, inputData);
             //TODO: Send relevant input feature
             networkMessageBuilder.Send(asClient:true);
@@ -188,8 +188,7 @@ namespace _Project.Scripts.Network.Client {
                 _transform.position = movementMessage.position;
                 _rb.rotation = movementMessage.rotation;
                 _rb.velocity = movementMessage.velocity;
-                _animator.UpdateAnimatorValues(movementMessage.relativeDirection.z, movementMessage.relativeDirection.x, 
-                        movementMessage.actions);
+                _animator.UpdateAnimatorValues(movementMessage.relativeDirection.z, movementMessage.relativeDirection.x);
             }
         }
     }

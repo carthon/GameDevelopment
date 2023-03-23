@@ -8,6 +8,7 @@ namespace _Project.Scripts.Utils {
     public class Logger {
         public enum Type {
             DEBUG = 0,
+            INFO,
             WARNING,
             ERROR
         }
@@ -40,6 +41,7 @@ namespace _Project.Scripts.Utils {
                 Directory.CreateDirectory(filePath);
             }
             StringBuilder sb = new StringBuilder();
+            sb.Append($"{DateTime.Now:hh:mm:ss}");
             if (isClient) sb.Append("[CLIENT]");
             if (isServer) sb.Append("[SERVER]");
             sb.Append($" {type.ToString()}: ");

@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using _Project.Scripts.Constants;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
@@ -16,6 +17,7 @@ namespace _Project.Scripts.Components {
         private InventoryManager _inventoryManager;
         private EquipmentHandler _equipmentHandler;
         private Grabler _grabler;
+        private bool[] _actions;
         [SerializeField] private Transform model;
         [SerializeField] private Transform _headPivot;
         [SerializeField] private Transform _head;
@@ -36,6 +38,7 @@ namespace _Project.Scripts.Components {
         public AnimatorHandler AnimatorHandler => _animator;
 
         public bool CanRotate { get; set; }
+        public bool CanMove { get; set; }
         
         public Grabbable GetNearGrabbable() =>
             _grabler.GetPickableInRange(new Ray(_headPivot.position, _headPivot.forward), grabDistance);
@@ -43,15 +46,8 @@ namespace _Project.Scripts.Components {
         
         public MovementMessageStruct GetMovementState(int currentTick) => new MovementMessageStruct(Id, 
             Locomotion.Rb.position, Locomotion.Rb.velocity, Locomotion.RelativeDirection, Locomotion.Rb.rotation,
-            HeadRotation, currentTick, GetActions());
-        public bool[] GetActions() => new[] {
-            InputHandler.Singleton.IsMoving,
-            InputHandler.Singleton.IsJumping,
-            InputHandler.Singleton.IsSprinting,
-            InputHandler.Singleton.IsPicking,
-            InputHandler.Singleton.IsCrouching,
-            Locomotion.IsGrounded,
-        };
+            HeadRotation, currentTick, _actions);
+        public void SetActions(bool[] actions) => _actions = actions;
 
         [SerializeField] private float grabDistance = 5f;
     
@@ -59,7 +55,7 @@ namespace _Project.Scripts.Components {
             enabled = false;
         }
         private void Update() {
-            _animator.UpdateAnimatorValues(_locomotion.RelativeDirection.z, _locomotion.RelativeDirection.x, GetActions());
+            _animator.UpdateAnimatorValues(_locomotion.RelativeDirection.z, _locomotion.RelativeDirection.x);
         }
     
         public void InitializeComponents() {
@@ -74,9 +70,11 @@ namespace _Project.Scripts.Components {
             _inventoryManager.Add(new Inventory("PlayerInventory", 9));
             _grabler.CanPickUp = true;
             CanRotate = true;
+            CanMove = true;
             _usernameDisplay = GetComponentInChildren<TextMeshProUGUI>();
             _animator.Initialize();
             _locomotion.SetUp();
+            _actions = new bool[typeof(ActionsEnum).GetFields().Length];
         }
         public void OnSpawn() {
             InitializeComponents();
@@ -96,7 +94,7 @@ namespace _Project.Scripts.Components {
      */
         public void HandleLocomotion( float delta, Vector3 moveInput) {
             Transform cameraPivot = _headPivot.transform;
-            _locomotion.HandleMovement(delta, moveInput, CanRotate ? cameraPivot : transform);
+            if(CanMove) _locomotion.HandleMovement(delta, moveInput, CanRotate ? cameraPivot : transform);
         }
         /**<summary>
      *  <param name="actions">Lista de bools</param>
@@ -107,8 +105,13 @@ namespace _Project.Scripts.Components {
             _locomotion.IsMoving = actions[(int)ActionsEnum.MOVING];
             _locomotion.IsJumping = actions[(int)ActionsEnum.JUMPING];
             _locomotion.IsSprinting = actions[(int)ActionsEnum.SPRINTING];
-            _animator.SetBool("isPicking", actions[(int)ActionsEnum.PICKING]);
-            _animator.SetBool("isFalling", !_locomotion.IsGrounded);
+            _animator.SetBool(AnimatorHandler.IsSprinting, actions[(int)ActionsEnum.SPRINTING]);
+            _animator.SetBool(AnimatorHandler.IsCrouching, actions[(int)ActionsEnum.CROUCHING]);
+            _animator.SetBool(AnimatorHandler.IsPicking, actions[(int)ActionsEnum.PICKING]);
+            _animator.SetBool(AnimatorHandler.IsSearching, actions[(int)ActionsEnum.SEARCHING]);
+            _animator.SetBool(AnimatorHandler.IsFalling, !_locomotion.IsGrounded);
+            CanRotate = !actions[(int)ActionsEnum.SEARCHING];
+            CanMove = !actions[(int)ActionsEnum.SEARCHING];
             if (CanRotate) {
                 Quaternion newRotation = Quaternion.Euler(0.0f, _headPivot.rotation.eulerAngles.y, 0.0f);
                 float rotationSpeed = !_locomotion.IsMoving ? CameraHandler.Singleton.CameraData.playerLookInputLerpSpeed * Time.deltaTime : 1f;
@@ -141,7 +144,6 @@ namespace _Project.Scripts.Components {
             if(!IsLocal) {
                 _locomotion.Rb.rotation = movementMessage.rotation;
                 Locomotion.RelativeDirection = movementMessage.relativeDirection;
-                Locomotion.IsGrounded = movementMessage.actions[(int) ActionsEnum.GROUNDED];
                 HandleAnimations(movementMessage.actions);
                 HeadPivot.rotation = movementMessage.headPivotRotation;
             }
@@ -162,6 +164,9 @@ namespace _Project.Scripts.Components {
                 : (ushort) Client.PacketHandler.serverItemEquip;
             NetworkMessageBuilder messageBuilder = new NetworkMessageBuilder(MessageSendMode.reliable, messageId, equipmentData);
             messageBuilder.Send(asServer:NetworkManager.Singleton.IsServer);
+        }
+        public override string ToString() {
+            return $"World Position:{transform.position} | Id:{Id}";
         }
     }
 }

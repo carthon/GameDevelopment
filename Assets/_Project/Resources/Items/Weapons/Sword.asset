@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 21300000, guid: d8b4cf5079106924197ebaf5ac7be29e, type: 3}
-  name: Sword
+  item3dIcon: {fileID: 0}
+  iconMaterial: {fileID: 0}
+  itemName: 
   modelPrefab: {fileID: 1432621100788536090, guid: 6b8e05e148eb76c4cb30643d4bfd5bc4, type: 3}
-  Size: 1
+  Size: 2
   id: 2c5f0afbb2f64a7fa3c43002f8fb7969
   description: Pues eso, una espada
   maxStackSize: 1

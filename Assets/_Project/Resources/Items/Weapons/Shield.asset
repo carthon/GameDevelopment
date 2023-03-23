@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Shield
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 21300000, guid: 47c96e5414c2b4449920b448538df93a, type: 3}
-  name: Shield
-  modelPrefab: {fileID: 4603201868837947085, guid: d0ed278fd8680e342a6ef4206353bfdd, type: 3}
-  Size: 1
+  item3dIcon: {fileID: 0}
+  iconMaterial: {fileID: 0}
+  itemName: Dagger
+  modelPrefab: {fileID: 5038865392721445398, guid: b1d6ee689b1463c4e8a7939b79c8ba0e, type: 3}
+  Size: 2
   id: 62a8f086d64c42f4b8b02bf1cf519887
-  description: Pues eso, un escudo
+  description: Pues eso, una daga
   maxStackSize: 1
   isUnarmed: 0
   OH_Light_Attack_1: 

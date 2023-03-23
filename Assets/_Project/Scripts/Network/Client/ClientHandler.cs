@@ -51,7 +51,7 @@ namespace _Project.Scripts.Network.Client {
                         NetworkManager.Singleton.Client._serverDummy.UpdateServerDummy(movementMessageStruct);
                     }
                 } else {
-                    player.UpdatePlayerMovementState(movementMessageStruct, false, Time.deltaTime * movementMessageStruct.velocity.sqrMagnitude);
+                    player.UpdatePlayerMovementState(movementMessageStruct, true, Time.deltaTime * movementMessageStruct.velocity.sqrMagnitude);
                 }
             }
         }

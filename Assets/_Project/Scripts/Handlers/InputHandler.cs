@@ -32,6 +32,7 @@ namespace _Project.Scripts.Handlers {
 
         public bool SwapPerson { get; private set; }
         public bool Clicked { get; set; }
+        public bool RClicked { get; set; }
         public static InputHandler Singleton
         {
             get => _singleton;
@@ -63,6 +64,14 @@ namespace _Project.Scripts.Handlers {
         public bool IsUIEnabled { get; private set; }
         public bool IsInMenu { get; private set; }
         public bool IsInInventory { get; private set; }
+        public bool[] GetActions() => new[] {
+            IsMoving,
+            IsJumping,
+            IsSprinting,
+            IsPicking,
+            IsCrouching,
+            IsInInventory
+        };
 
         [field: Header("UI")]
         public int HotbarSlot { get; private set; }
@@ -93,7 +102,10 @@ namespace _Project.Scripts.Handlers {
                 
                 _inputActions.UIActions.Menu.performed += i => IsInMenu = !IsInMenu;
                 _inputActions.UIActions.PlayerOverview.performed += i => IsInInventory = !IsInInventory;
-                _inputActions.UIActions.Click.performed += i => Clicked = true;
+                _inputActions.UIActions.Click.started += i => Clicked = true;
+                _inputActions.UIActions.Click.canceled += i => Clicked = false;
+                _inputActions.UIActions.RClick.started += i => RClicked = true;
+                _inputActions.UIActions.RClick.canceled += i => RClicked = false;
                 _inputActions.UIActions.HotbarInput.performed += i => {
                     HotbarSlot = (int) i.ReadValue<float>();
                     EquipInput = true;
