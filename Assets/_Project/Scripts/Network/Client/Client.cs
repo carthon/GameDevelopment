@@ -1,3 +1,4 @@
+using System;
 using _Project.Scripts.Components;
 using _Project.Scripts.Constants;
 using _Project.Scripts.DiegeticUI;
@@ -5,12 +6,14 @@ using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.MessageDataStructures;
 using RiptideNetworking;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 #if !UNITY_SERVER
 namespace _Project.Scripts.Network.Client {
     public partial class Client : RiptideNetworking.Client {
         private const float ServerPositionError = 0.01f;
         private static int TicksAheadOfServer = 10;
+        public event Action OnClientReady;
 
         #region ReconciliationVariables
         private MovementMessageStruct[] _movementBuffer = new MovementMessageStruct[NetworkManager.BufferSize];
@@ -50,17 +53,16 @@ namespace _Project.Scripts.Network.Client {
             if (NetworkManager.Singleton.debugServerPosition)
                 _serverDummy = new ServerDummy(NetworkManager.Singleton.serverDummyPlayerPrefab);
             _player = player;
-            Cursor.lockState = CursorLockMode.Locked;
             if(NetworkManager.Singleton.TryGetComponent(out ContainerRenderer renderer)) {
                 renderer.InitializeRenderer(_player.InventoryManager.Inventories[0], _player.inventorySpawnTransform);
             }
             CameraHandler.Singleton.InitializeCamera(_player.Head, player.HeadFollow, player.HeadPivot);
+            OnClientReady?.Invoke();
         }
 
         public void Tick(int currentTick) {
             if (_player != null && _player.IsLocal) {
                 HandleCamera();
-                HandleUI();
                 HandlePlayer(currentTick);
             }
             base.Tick();
@@ -71,40 +73,6 @@ namespace _Project.Scripts.Network.Client {
             if (!InputHandler.Singleton.IsInMenu)
                 CameraHandler.Singleton.FixedTick(fixedDelta);
             CameraHandler.Singleton.Tick(delta);
-        }
-        private void HandleUI(){
-            HandleInventoryUI();
-            Grabbable currentGrabbable = _player.GetNearGrabbable();
-            if(currentGrabbable != null) {
-                if (!currentGrabbable.Equals(_player.LastGrabbable)) {
-                    _player.LastGrabbable = currentGrabbable;
-                    currentGrabbable.SetOutline(true);
-                }
-            }
-            else if(_player.LastGrabbable != null) {
-                _player.LastGrabbable.SetOutline(false);
-                _player.LastGrabbable = null;
-            }
-        }
-        private void HandleInventoryUI() {
-            if (InputHandler.Singleton.IsUIEnabled) {
-                if (Cursor.lockState != CursorLockMode.None) {
-                    Cursor.lockState = CursorLockMode.None;
-                    UIHandler.Instance.ResetMouseSelection();
-                }
-            }
-            else if (Cursor.lockState == CursorLockMode.None && !InputHandler.Singleton.IsUIEnabled) {
-                if (Cursor.lockState != CursorLockMode.Locked) {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    ContainerRenderer.Singleton.ToggleRender(false);
-                }
-            }
-            if (InputHandler.Singleton.IsInInventory) {
-                UIHandler.Instance.HandleMouseSelection();
-                ContainerRenderer.Singleton.ToggleRender(true);
-                Quaternion lookRotation = Quaternion.LookRotation(_player.inventorySpawnTransform.position - _player.HeadPivot.position);
-                _player.HeadPivot.rotation = lookRotation;
-            }
         }
         private void HandlePlayer(int currentTick) {
             int bufferIndex = currentTick % NetworkManager.BufferSize;

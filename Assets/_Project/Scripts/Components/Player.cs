@@ -44,7 +44,6 @@ namespace _Project.Scripts.Components {
         
         public Grabbable GetNearGrabbable() =>
             _grabler.GetPickableInRange(new Ray(_headPivot.position, _headPivot.forward), grabDistance);
-        public Grabbable LastGrabbable { get; set; }
         
         public MovementMessageStruct GetMovementState(int currentTick) => new MovementMessageStruct(Id, 
             Locomotion.Rb.position, Locomotion.Rb.velocity, Locomotion.RelativeDirection, Locomotion.Rb.rotation,

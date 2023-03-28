@@ -7,6 +7,7 @@ namespace _Project.Scripts.StateMachine.CameraStates {
         public FirstPersonCameraState(CameraHandler cameraHandler) : base(cameraHandler) { }
         public override void EnterState() {
             _camera = cameraHandler.firstPersonCamera;
+            cameraHandler.EnableCameraRotation = true;
             cameraHandler.MainCamera.cullingMask |= 1 << cameraHandler.layerFirstPerson;
             _camera.Priority += cameraHandler.ActiveCameraPriorityModifier;
         }

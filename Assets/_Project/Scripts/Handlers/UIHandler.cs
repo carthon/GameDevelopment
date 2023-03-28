@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using _Project.Scripts.Components;
+using _Project.Scripts.DiegeticUI.InterfaceControllers;
 using _Project.Scripts.Network;
 using RiptideNetworking;
 using UnityEngine;
@@ -16,7 +17,6 @@ namespace _Project.Scripts.Handlers {
         public static UIHandler Instance;
         private InventoryManager _playerInventory;
         public float cameraDepth;
-        public event Action<Outline> OnSelectedItem;
     
         [SerializeField] private Button _startClient;
         [SerializeField] private Text _startClientText;
@@ -25,16 +25,16 @@ namespace _Project.Scripts.Handlers {
         [SerializeField] private InputField usernameField;
         [SerializeField] private InputField serverIp;
         [SerializeField] private InputField port;
-        private Grabbable _outlinedGrabbable;
-        private Outline _hitMouseOutline;
-        public List<Transform> GrabbedItems { get; set; }
-        public List<Vector3> LastGrabbedItemsLocalPosition { get; set; }
+        
+        public InterfaceAbstractBaseState CurrentState;
+        public InterfaceAbstractBaseState LastState;
+        private InterfaceStateFactory _stateFactory;
+        
+        public string StateToString;
 
         private Dictionary<String,String> _watchedVariables;
 
         public void Awake() {
-            _watchedVariables = new Dictionary<string, string>();
-            GrabbedItems = new List<Transform>();
             Instance = this;
         }
         private void Start() {
@@ -42,6 +42,8 @@ namespace _Project.Scripts.Handlers {
             port.text = NetworkManager.Singleton.port.ToString();
             _startClientText = _startClient.GetComponentInChildren<Text>();
             _startServerText = _startServer.GetComponentInChildren<Text>();
+            _watchedVariables = new Dictionary<string, string>();
+            _stateFactory = new InterfaceStateFactory(this);
         }
         private void Update() {
             NetworkManager networkManager = NetworkManager.Singleton;
@@ -54,17 +56,23 @@ namespace _Project.Scripts.Handlers {
                 port.enabled = !isClient;
                 serverIp.enabled = !isClient;
             }
+            CurrentState?.UpdateStates();
+            StateToString = $"{CurrentState?.StateName()} + {LastState?.StateName()}";
         }
 
-        public void StartStopClient() {
+        public void ToggleClient() {
             NetworkManager networkManager = NetworkManager.Singleton;
 
             if (networkManager.Client == null || !networkManager.Client.IsConnected) {
                 if (!ValidateConnectionValues()) return;
                 networkManager.InitializeClient();
                 SendConnectionMessage();
+                networkManager.Client.OnClientReady += OnClientReady;
             }
             else networkManager.StopClient();
+        }
+        private void OnClientReady() {
+            CurrentState = _stateFactory.DefaultState();
         }
         private bool ValidateConnectionValues() {
             NetworkManager networkManager = NetworkManager.Singleton;
@@ -112,7 +120,7 @@ namespace _Project.Scripts.Handlers {
                 _watchedVariables.Add(key, value);
             }
         }
-        public void StartStopServer() {
+        public void ToggleServer() {
             NetworkManager networkManager = NetworkManager.Singleton;
         
             if (networkManager.Server != null) networkManager.StopServer();
@@ -126,12 +134,6 @@ namespace _Project.Scripts.Handlers {
                 networkManager.Client.Send(message);
             }
         }
-        public void ResetMouseSelection() {
-            if (_hitMouseOutline != null) {
-                _hitMouseOutline.enabled = false;
-                _hitMouseOutline = null;
-            }
-        }
         public static Outline AddOutlineToObject(GameObject gameObject, Color color = default, bool enabled = false) {
             if(!gameObject.TryGetComponent(out Outline outline))
                 outline = gameObject.AddComponent<Outline>();
@@ -140,45 +142,6 @@ namespace _Project.Scripts.Handlers {
             outline.OutlineMode = Outline.Mode.OutlineVisible;
             outline.enabled = enabled;
             return outline;
-        }
-        public void HandleMouseSelection() {
-            Vector3 mousePos = Mouse.current.position.ReadValue();
-            Camera cam = CameraHandler.Singleton.MainCamera;
-            Ray ray = cam.ScreenPointToRay(mousePos);
-            if (InputHandler.Singleton.RClicked) {
-                if (GrabbedItems.Count > 0) {
-                    for (int i = 0; i < GrabbedItems.Count; i++) {
-                        GrabbedItems[i].transform.position = GrabbedItems[i].transform.parent.position + LastGrabbedItemsLocalPosition[i];
-                    }
-                }
-                GrabbedItems.Clear();
-            }
-            LayerMask layerMask = (GrabbedItems.Count > 0) ? ~LayerMask.GetMask("Item") : LayerMask.GetMask("Item");
-            if (Physics.Raycast(ray, out RaycastHit hit, Single.PositiveInfinity, layerMask)) {
-                UpdateWatchedVariables("grabbedItems", $"GrabbedItemsCount:{GrabbedItems.Count}");
-                if (GrabbedItems.Count > 0) {
-                    for (int i = 0; i < GrabbedItems.Count; i++) {
-                        GrabbedItems[i].transform.position = LastGrabbedItemsLocalPosition[i] + hit.point + Vector3.up * 0.2f;
-                    }
-                }
-                Outline outlineParent = hit.transform.GetComponentInParent<Outline>();
-                if (hit.transform.TryGetComponent(out Outline outline) || outlineParent != null) {
-                    outline = outlineParent;
-                    if (_hitMouseOutline != null && !outline.transform.Equals(_hitMouseOutline.transform)) {
-                        _hitMouseOutline.enabled = false;
-                    }
-                    _hitMouseOutline = outline;
-                    _hitMouseOutline.enabled = true;
-                    if (InputHandler.Singleton.Clicked && outline.transform.Equals(_hitMouseOutline.transform)) {
-                        OnSelectedItem?.Invoke(outline);
-                    }
-                } else {
-                    ResetMouseSelection();
-                }
-            }
-            else {
-                ResetMouseSelection();
-            }
         }
     }
 }

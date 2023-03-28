@@ -2377,7 +2377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b50824d3036465bb67b4caa36bcc560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotSize: 0.37
+  slotSize: 0.3
 --- !u!1 &1456289154
 GameObject:
   m_ObjectHideFlags: 0
@@ -2572,7 +2572,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1890719370}
         m_TargetAssemblyTypeName: UIHandler, Assembly-CSharp
-        m_MethodName: StartStopServer
+        m_MethodName: ToggleServer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2770,6 +2770,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1680145119
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1680145121}
+  - component: {fileID: 1680145120}
+  m_Layer: 0
+  m_Name: ItemSpawner (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1680145120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680145119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d814ac78b404c14b674d195a9a4ab4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 3f1ca64c31b5ad44fa23598278bdc374, type: 2}
+  count: 20
+--- !u!4 &1680145121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680145119}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.376, y: 0.598, z: -6.069}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1768471812
 GameObject:
   m_ObjectHideFlags: 0
@@ -3097,6 +3142,7 @@ MonoBehaviour:
   usernameField: {fileID: 1233347177}
   serverIp: {fileID: 867233660}
   port: {fileID: 1776660830}
+  StateToString: 
 --- !u!1 &1897353805
 GameObject:
   m_ObjectHideFlags: 0
@@ -3217,7 +3263,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1890719370}
         m_TargetAssemblyTypeName: UIHandler, Assembly-CSharp
-        m_MethodName: StartStopClient
+        m_MethodName: ToggleClient
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

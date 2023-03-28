@@ -20,7 +20,7 @@ MonoBehaviour:
   Size: 2
   id: 2c5f0afbb2f64a7fa3c43002f8fb7969
   description: Pues eso, una espada
-  maxStackSize: 1
+  maxStackSize: 3
   isUnarmed: 0
   OH_Light_Attack_1: 
   OH_Heavy_Attack_1: 

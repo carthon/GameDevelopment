@@ -8,6 +8,7 @@ TagManager:
   - LookCollider
   - Feet
   - Grid
+  - Item
   layers:
   - Default
   - TransparentFX

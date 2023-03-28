@@ -19,7 +19,7 @@ namespace _Project.Scripts.StateMachine.LocomotionStates {
                 SwitchState(factory.Fall());
             else if (locomotion.IsJumping) SwitchState(factory.Jump());
         }
-        public override void InitializeSubState() {
+        public sealed override void InitializeSubState() {
             if (!locomotion.IsMoving && !locomotion.IsSprinting)
                 SetSubState(factory.Idle());
             else if (locomotion.IsMoving && !locomotion.IsSprinting)
