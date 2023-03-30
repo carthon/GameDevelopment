@@ -3,8 +3,10 @@ using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Network;
-using _Project.Scripts.Network.Client;
+using _Project.Scripts.Network.MessageDataStructures;
+using RiptideNetworking;
 using UnityEngine;
+using Client = _Project.Scripts.Network.Client.Client;
 using Logger = _Project.Scripts.Utils.Logger;
 
 namespace _Project.Scripts.Entities {

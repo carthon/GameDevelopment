@@ -29,6 +29,7 @@ namespace _Project.Scripts.Handlers {
         public InterfaceAbstractBaseState CurrentState;
         public InterfaceAbstractBaseState LastState;
         private InterfaceStateFactory _stateFactory;
+        public GameObject slotSelectionVisualizer;
         
         public string StateToString;
 

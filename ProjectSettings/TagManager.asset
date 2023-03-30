@@ -9,6 +9,7 @@ TagManager:
   - Feet
   - Grid
   - Item
+  - UISlot
   layers:
   - Default
   - TransparentFX

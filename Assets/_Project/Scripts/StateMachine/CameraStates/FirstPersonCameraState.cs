@@ -1,5 +1,6 @@
 using _Project.Scripts.Handlers;
 using Cinemachine;
+using static Cinemachine.CinemachineBlendDefinition;
 
 namespace _Project.Scripts.StateMachine.CameraStates {
     public class FirstPersonCameraState : CameraAbstractBaseState {
@@ -18,6 +19,7 @@ namespace _Project.Scripts.StateMachine.CameraStates {
         }
         public override void ExitState() {
             _camera.Priority -= cameraHandler.ActiveCameraPriorityModifier;
+            cameraHandler.mainCameraBrain.m_DefaultBlend.m_Style = Style.EaseInOut;
         }
         public override string StateName() => "First Person Camera";
         protected override CinemachineVirtualCamera Camera() => _camera;

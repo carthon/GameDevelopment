@@ -95,7 +95,8 @@ namespace _Project.Scripts.Components {
      */
         public void HandleLocomotion( float delta, Vector3 moveInput) {
             Transform cameraPivot = _headPivot.transform;
-            if(CanMove) _locomotion.HandleMovement(delta, moveInput, CanRotate ? cameraPivot : transform);
+            if (!CanMove) moveInput = Vector3.zero;
+            _locomotion.HandleMovement(delta, moveInput, CanRotate ? cameraPivot : transform);
         }
         /**<summary>
      *  <param name="actions">Lista de bools</param>

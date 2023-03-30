@@ -18,7 +18,7 @@ namespace _Project.Scripts.Network.Client {
             ushort playerId = message.GetUShort();
             int inventoryId = message.GetInt();
             ItemStack itemStack = message.GetItemStack();
-            Singleton.Player.InventoryManager.AddItemStackInInventory(itemStack, inventoryId);
+            Singleton.Player.InventoryManager.SetItemStack(itemStack, inventoryId);
         }
         
         [MessageHandler((ushort)Server.Server.PacketHandler.spawnMessage)]
@@ -80,6 +80,15 @@ namespace _Project.Scripts.Network.Client {
                 return;
             PlayerDataMessageStruct playerData = new PlayerDataMessageStruct(message);
             NetworkManager.Singleton.Tick = playerData.tick + TicksAheadOfServer;
+        }
+        public static void DropItemStack(ItemStack itemStack, Vector3 position, Quaternion rotation) {
+            if (NetworkManager.Singleton.IsClient) {
+                Message message = Message.Create(MessageSendMode.reliable, PacketHandler.serverItemDrop);
+                message.AddInts(new[] {itemStack.GetInventory().Id, itemStack.GetSlotID()});
+                message.AddVector3(position);
+                message.AddQuaternion(rotation);
+                NetworkManager.Singleton.Client.Send(message);
+            }
         }
     }
 }

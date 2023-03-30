@@ -4,27 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aea2bea4-eef4-46ed-83e6-81c0978d1e91" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/DefaultInterfaceState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InterfaceAbstractBaseState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InterfaceStateFactory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryGrabItemInterfaceState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryInterfaceState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventorySelectItemInterfaceState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/LocomotionStates/LocomotionAbstractBaseState.cs" afterDir="false" />
+    <list default="true" id="aea2bea4-eef4-46ed-83e6-81c0978d1e91" name="Changes" comment="Working Inventory with slotSwap and ItemDrop">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Development/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Development/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Characters/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Characters/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items/SM_Icon_Coin_01.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items/SM_Icon_Coin_01.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Weapons/Sword.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Weapons/Sword.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/QuickOutline/Scripts/Outline.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/QuickOutline/Scripts/Outline.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Inventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Inventory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/InventoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/InventoryManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Player.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/ContainerRenderer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/ContainerRenderer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InventoryUI.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryGrabItemInterfaceState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryGrabItemInterfaceState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryInterfaceState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryInterfaceState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventorySelectItemInterfaceState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventorySelectItemInterfaceState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Entities/GodEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Entities/GodEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/CameraHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/CameraHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/UIHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/UIHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Client/Client.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Client/Client.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Client/ClientHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Client/ClientHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Server/ServerHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Server/ServerHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/CameraStates/FirstPersonCameraState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/CameraStates/FirstPersonCameraState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/LocomotionStates/AbstractBaseState.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/LocomotionStates/GroundedState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/LocomotionStates/GroundedState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/CameraStates/InventoryCameraState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/CameraStates/InventoryCameraState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/CameraStates/ThirdPersonCameraState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine/CameraStates/ThirdPersonCameraState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +53,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/53/67c981d1/Quaternion.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/70/b85a4b83/Action`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/ed/223cf87c/SpriteRenderer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/Handlers/CameraHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Network/Server/ServerHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/205a6c4887a04d59abb3434ed0f7c98913a00/82/e803da4a/MessageSendMode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/b1/d88594ba/Transform.cs" root0="SKIP_HIGHLIGHTING" />
@@ -104,6 +102,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/11/aba64bb6/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/93/5f1b658d/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/HorizontalOrVerticalLayoutGroup.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4fde398772134227852dc037ed8ddb3b18200/25/e6d5267e/QueryTriggerInteraction.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/208f92fc783546f9abbe643bfc23920c762000/26/ca02cfaa/HostView.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/208f92fc783546f9abbe643bfc23920c762000/89/eec42118/Perlin.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Entities/GodEntity.cs" root0="FORCE_HIGHLIGHTING" />
@@ -164,10 +163,10 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="17760">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="17760" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -387,7 +386,10 @@
       <workItem from="1679756612003" duration="29016000" />
       <workItem from="1679840691820" duration="13768000" />
       <workItem from="1679933766297" duration="9905000" />
-      <workItem from="1679988266510" duration="13225000" />
+      <workItem from="1679988266510" duration="13674000" />
+      <workItem from="1680032379317" duration="4858000" />
+      <workItem from="1680082013202" duration="10575000" />
+      <workItem from="1680168196824" duration="13822000" />
     </task>
     <task id="LOCAL-00001" summary="Added inventory System">
       <created>1652876249440</created>
@@ -571,7 +573,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679588656431</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Diegetic Inventory Management:&#10;Slot swap and slot creation.&#10;Need to fix slot swap with dest empty slot">
+      <created>1680016519874</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1680016519874</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -606,8 +615,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="UpdatedMeta" />
-    <MESSAGE value="Added inventory System" />
     <MESSAGE value="Inventory System with hotbar working correctly.&#10;Needs to equip on Input and create and EquipmentTypeSlot for the handler to process correctly where to equip." />
     <MESSAGE value="Left and Right Equipment mechanic" />
     <MESSAGE value="Inventory System Update" />
@@ -630,7 +637,10 @@
     <MESSAGE value="Diegetic inventory with pickable items" />
     <MESSAGE value="Adjusted namespaces" />
     <MESSAGE value="Adding omitted files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding omitted files" />
+    <MESSAGE value="Diegetic Inventory Management:&#10;Slot swap and slot creation.&#10;Need to fix slot swap with dest empty slot" />
+    <MESSAGE value="Working Inventory with slotSwap" />
+    <MESSAGE value="Working Inventory with slotSwap and ItemDrop" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working Inventory with slotSwap and ItemDrop" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -657,7 +667,7 @@
     </pin-to-top-manager>
     <watches-manager>
       <configuration name="UNITY_DEBUG_RUN_CONFIGURATION">
-        <watch expression="gameObject.transform.GetChild(0).GetComponentsInChildren&lt;Renderer&gt;()" language="C#" />
+        <watch expression="gameObject" language="C#" />
       </configuration>
     </watches-manager>
   </component>

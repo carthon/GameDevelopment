@@ -38,15 +38,24 @@ namespace _Project.Scripts.Components {
             }
         }
 
-        public ItemStack GetItemStack(int slot) {
+        public ItemStack GetItemStack(int slot, int count = -1) {
             var item = new ItemStack(this, slot);
-            if (IsValidSlot(slot))
+            if (IsValidSlot(slot)) {
                 item = _items[slot].GetCopy();
+                if (count > -1) item.SetCount(count);
+            }
             else
                 item.SetSlot(-1);
             return item;
         }
 
+        public void SetItemStack(ItemStack itemStack, int slot) {
+            if(IsValidSlot(slot)) {
+                _items[slot].SetStack(itemStack);
+                OnSlotChange?.Invoke(slot, _items[slot]);
+            }
+        }
+        
         public ItemStack AddItemStackToSlot(ItemStack itemStack, int slot) {
             var itemLeftOver = new ItemStack(itemStack);
             itemLeftOver.SetCount(0);
@@ -140,8 +149,9 @@ namespace _Project.Scripts.Components {
             if (slot >= 0 && slot < Size && !_items[slot].IsEmpty()) itemStackCopy = TakeItemsFromSlot(slot, _items[slot].Item.GetMaxStackSize());
             return itemStackCopy;
         }
-        public void DropItemInSlot(int slot, Vector3 worldPos, Quaternion rotation) {
-            var itemStack = TakeStackFromSlot(slot);
+        public void DropItemInSlot(int slot, Vector3 worldPos, Quaternion rotation) { DropItemInSlot(slot, _items[slot].GetCount(), worldPos, rotation); }
+        public void DropItemInSlot(int slot, int count, Vector3 worldPos, Quaternion rotation) {
+            var itemStack = TakeItemsFromSlot(slot, count);
             if (!itemStack.IsEmpty())
                 GodEntity.SpawnItem(itemStack, worldPos, rotation);
         }

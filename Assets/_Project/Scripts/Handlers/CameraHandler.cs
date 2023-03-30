@@ -19,6 +19,7 @@ namespace _Project.Scripts.Handlers {
         private Transform _cameraFollow;
         [SerializeField] 
         private Transform _headFollow;
+        public Transform lookAtTransform;
         [SerializeField]
         private float _followSmoothness = 1f;
         private CinemachineVirtualCamera _activeCamera;
@@ -33,6 +34,7 @@ namespace _Project.Scripts.Handlers {
         public CinemachineVirtualCamera orbitalCamera;
 
         private CinemachineInputProvider _orbitalCameraInput;
+        public CinemachineBrain mainCameraBrain;
         private Vector3 _playerLookInput = Vector3.zero;
 
         public CameraAbstractBaseState cameraCurrentState;
@@ -67,7 +69,7 @@ namespace _Project.Scripts.Handlers {
             _headFollow = headFollow;
             _cameraPivot = cameraPivot;
             orbitalCamera.Follow = _cameraFollow;
-            inventoryCamera.LookAt = ContainerRenderer.Singleton.SpawnPoint;
+            inventoryCamera.LookAt = lookAtTransform;
             inventoryCamera.Follow = _headFollow;
             firstPersonCamera.Follow = _headFollow;
             thirdPersonCamera.Follow = _cameraFollow;
@@ -75,8 +77,8 @@ namespace _Project.Scripts.Handlers {
             orbitalCamera.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = _cameraData.sensitivityY;
             _orbitalCameraInput = orbitalCamera.GetComponent<CinemachineInputProvider>();
             if (MainCamera != null) {
-                var mainBrain = MainCamera.GetComponent<CinemachineBrain>();
-                mainBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
+                mainCameraBrain = MainCamera.GetComponent<CinemachineBrain>();
+                mainCameraBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
             }
             ChangeState(new FirstPersonCameraState(this));
         }

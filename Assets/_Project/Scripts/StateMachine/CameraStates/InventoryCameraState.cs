@@ -1,5 +1,6 @@
 using _Project.Scripts.Handlers;
 using Cinemachine;
+using static Cinemachine.CinemachineBlendDefinition;
 
 namespace _Project.Scripts.StateMachine.CameraStates {
     public class InventoryCameraState : CameraAbstractBaseState {
@@ -11,6 +12,7 @@ namespace _Project.Scripts.StateMachine.CameraStates {
             cameraHandler.MainCamera.cullingMask |= 1 << cameraHandler.layerFirstPerson;
             _camera.Priority += cameraHandler.ActiveCameraPriorityModifier;
             cameraHandler.EnableCameraRotation = false;
+            cameraHandler.mainCameraBrain.m_DefaultBlend.m_Style = Style.Cut;
         }
         public override void ExitState() {
             _camera.Priority -= cameraHandler.ActiveCameraPriorityModifier;

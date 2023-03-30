@@ -3,6 +3,7 @@ using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Entities;
 using _Project.Scripts.Network.MessageDataStructures;
+using _Project.Scripts.Network.MessageUtils;
 using _Project.Scripts.Utils;
 using RiptideNetworking;
 using UnityEngine;
@@ -35,7 +36,9 @@ namespace _Project.Scripts.Network.Server {
         private static void DropItemOnSlotServer(ushort clientId, Message message) {
             if (NetworkManager.playersList.TryGetValue(clientId, out Player player)) {
                 int[] data = message.GetInts();
-                player.InventoryManager.DropItemStack(data[0], data[1]);
+                Vector3 position = message.GetVector3();
+                Quaternion rotation = message.GetQuaternion();
+                player.InventoryManager.DropItemStack(data[0], data[1], position, rotation);
             }
         }
         [MessageHandler((ushort) Client.Client.PacketHandler.serverUsername)]

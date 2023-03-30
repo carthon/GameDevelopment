@@ -33,7 +33,11 @@ namespace _Project.Scripts.Components {
 			droppedItemStack.SetCount(0);
 			Transform playerTransform = _player.transform;
 			Inventories[inventoryId].DropItemInSlot(slotId, playerTransform.position, playerTransform.rotation);
-			InventoryOnSlotChange(slotId, droppedItemStack);
+		}
+		public void DropItemStack(int inventoryId, int slotId, Vector3 position, Quaternion rotation) {
+			ItemStack droppedItemStack = Inventories[inventoryId].GetItemStack(slotId);
+			droppedItemStack.SetCount(0);
+			Inventories[inventoryId].DropItemInSlot(slotId, position, rotation);
 		}
 		public void AddItemStackInInventory(ItemStack itemStack, int inventoryId) {
 			if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer) {
@@ -53,6 +57,9 @@ namespace _Project.Scripts.Components {
 			inventory.OnSlotChange -= InventoryOnSlotChange;
 			inventory.OnSlotSwap -= SendSlotSwapToServer;
 			_inventories.Remove(inventory);
+		}
+		public void SetItemStack(ItemStack itemStack, int inventoryId) {
+			_inventories[inventoryId].SetItemStack(itemStack, itemStack.GetSlotID());
 		}
 		private void InventoryOnSlotChange(int slot, ItemStack itemStack) {
 			if (NetworkManager.Singleton.IsServer && !_player.IsLocal) {

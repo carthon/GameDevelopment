@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using _Project.Scripts.Components;
-using _Project.Scripts.DataClasses.ItemTypes;
-using _Project.Scripts.Entities;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.Client;
 using QuickOutline.Scripts;
@@ -13,6 +11,8 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
     public class InventoryInterfaceState : InterfaceAbstractBaseState {
         
         private Grabbable _outlinedGrabbable;
+        private Vector3 _lookAtPosition;
+        private float headRotationSpeed = 0.5f;
         private Player _player;
         public List<Transform> GrabbedItems { get; set; }
         public List<Vector3> LastGrabbedItemsLocalPosition { get; set; }
@@ -26,16 +26,25 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
             Vector3 mousePos = Mouse.current.position.ReadValue();
             Camera cam = CameraHandler.Singleton.MainCamera;
             Ray ray = cam.ScreenPointToRay(mousePos);
-            if (Physics.Raycast(ray, out RaycastHit hit, Single.PositiveInfinity, LayerMask.GetMask("Default"), QueryTriggerInteraction.Collide)) {
+            
+            CameraHandler.Singleton.lookAtTransform.position = (Vector3.Distance(CameraHandler.Singleton.lookAtTransform.position, _lookAtPosition) > 2f) ? _lookAtPosition :
+                Vector3.Lerp(CameraHandler.Singleton.lookAtTransform.position, _lookAtPosition, Time.deltaTime * headRotationSpeed);
+            Quaternion lookRotation = Quaternion.LookRotation(_lookAtPosition - _player.HeadPivot.position);
+            _player.HeadPivot.rotation = Quaternion.Lerp(_player.HeadPivot.rotation, lookRotation, Time.deltaTime * headRotationSpeed);
+            
+            if (Physics.Raycast(ray, out RaycastHit hit, Single.PositiveInfinity, (1 << LayerMask.NameToLayer("Default")), QueryTriggerInteraction.Collide)) {
                 HitPoint = hit;
+                Context.UpdateWatchedVariables("SelectedItem", $"SelectedItem:{hit.collider.name}");
                 Outline outlineParent = hit.collider.GetComponentInParent<Outline>();
                 if (hit.collider.TryGetComponent(out Outline outline) || outlineParent != null) {
+                    _lookAtPosition = hit.collider.transform.position;
                     outline = outlineParent;
                     if (HitMouseOutline != null && !outline.transform.Equals(HitMouseOutline.transform)) {
                         HitMouseOutline.enabled = false;
                     }
                     HitMouseOutline = outline;
-                    HitMouseOutline.enabled = true;
+                    if (CurrentSubState.GetType() != typeof(InventoryGrabItemInterfaceState)) HitMouseOutline.enabled = true;
+                    
                 } else {
                     ResetMouseSelection();
                 }
@@ -55,10 +64,9 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
         }
         protected sealed override void EnterState() {
             _player = Client.Singleton.Player;
+            _lookAtPosition = ContainerRenderer.Singleton.SpawnPoint.position;
             Cursor.lockState = CursorLockMode.None;
             ContainerRenderer.Singleton.ToggleRender(true);
-            Quaternion lookRotation = Quaternion.LookRotation(_player.inventorySpawnTransform.position - _player.HeadPivot.position);
-            _player.HeadPivot.rotation = lookRotation;
             GrabbedItems = new List<Transform>();
         }
         protected override void ExitState() {
