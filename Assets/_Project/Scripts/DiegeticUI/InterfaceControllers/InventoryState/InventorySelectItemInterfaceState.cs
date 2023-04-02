@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Project.Scripts.Components;
 using _Project.Scripts.Handlers;
 using QuickOutline.Scripts;
 using UnityEngine;
@@ -14,7 +15,9 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
         }
         private bool TrySelectItem(Outline obj, int count = -1) {
             int slot = Int32.Parse(obj.transform.name);
-            itemSelected = count > -1 ? ContainerRenderer.Singleton.Inventory.GetItemStack(slot, count) : ContainerRenderer.Singleton.Inventory.GetItemStack(slot);
+            int inventoryId = Int32.Parse(obj.transform.parent.name);
+            Inventory inventory = ContainerRenderer.Singleton.Inventory.Inventories[inventoryId];
+            itemSelected = count > -1 ? inventory.GetItemStack(slot, count) : inventory.GetItemStack(slot);
             if (!itemSelected.IsEmpty()) {
                 _inventoryInterfaceState.GrabbedItems = new List<Transform>();
                 _inventoryInterfaceState.LastGrabbedItemsLocalPosition = new List<Vector3>();

@@ -9,6 +9,7 @@ using QuickOutline.Scripts;
 using RiptideNetworking;
 using TMPro;
 using UnityEngine;
+using Logger = _Project.Scripts.Utils.Logger;
 using Server = _Project.Scripts.Network.Server.Server;
 
 namespace _Project.Scripts.Components {
@@ -25,8 +26,11 @@ namespace _Project.Scripts.Components {
                 Id = id;
                 itemData = prefab;
                 _outline = UIHandler.AddOutlineToObject(gameObject, Color.green);
-                if (!GodEntity.grabbableItems.TryGetValue(Id, out Grabbable grabbable))
+                if (!GodEntity.grabbableItems.ContainsKey(Id))
                     GodEntity.grabbableItems.Add(Id, this);
+                else {
+                    Logger.Singleton.Log($"Error initializing grabbable {itemData.name} with ID {Id}", Logger.Type.ERROR);
+                }
 #if UNITY_EDITOR
             GameObject childCanvas = GUIUtils.createDebugTextWithWorldCanvas(gameObject,new Vector2(0.4f,0.4f),-0.08f);
             childCanvas.GetComponent<TextMeshProUGUI>().text = Id.ToString();

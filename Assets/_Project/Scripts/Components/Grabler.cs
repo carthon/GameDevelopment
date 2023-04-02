@@ -31,10 +31,10 @@ namespace _Project.Scripts.Components {
             return itemTable;
         }
 
-        public Grabbable GetPickableInRange(Ray rayOrigin, float pickUpDistance) {
+        public Grabbable GetPickableInRange(Ray rayOrigin, float pickUpRadius, float pickUpDistance) {
             RaycastHit hitInfo;
             Grabbable pickable = null;
-            if (Physics.Raycast(rayOrigin, out hitInfo, pickUpDistance, itemMask)) {
+            if (Physics.SphereCast(rayOrigin, pickUpRadius, out hitInfo, pickUpDistance, itemMask)) {
                 Debug.DrawRay(rayOrigin.origin, rayOrigin.direction * pickUpDistance, Color.yellow, 3f);
                 pickable = hitInfo.collider.GetComponent<Grabbable>();
             }

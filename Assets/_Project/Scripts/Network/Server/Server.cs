@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Network.Server {
     public partial class Server : RiptideNetworking.Server {
-        private const int ServerPositionSnapshotRate = 1;
+        private const int ServerPositionSnapshotRate = 30;
 
         #region ReconciliationVariables
         private Dictionary<ushort, Queue<InputMessageStruct>> _unprocessedInputQueue = new Dictionary<ushort, Queue<InputMessageStruct>>();
@@ -55,6 +55,13 @@ namespace _Project.Scripts.Network.Server {
                     player.Locomotion.FixedTick();
                     MovementMessageStruct movementMessage = player.GetMovementState(currentTick);
                     SendMovement(movementMessage);
+                }
+            }
+            if(currentTick % ServerPositionSnapshotRate == 0) {
+                foreach (Grabbable grabbable in GodEntity.grabbableItems.Values) {
+                    GrabbableMessageStruct grabbableStruct = new GrabbableMessageStruct(grabbable);
+                    NetworkMessageBuilder message = new NetworkMessageBuilder(MessageSendMode.reliable, (int) PacketHandler.grabbablesPosition, grabbableStruct);
+                    message.Send(asServer: true);
                 }
             }
             UIHandler.Instance.UpdateWatchedVariables("InputData", sb.ToString());

@@ -6,7 +6,6 @@ using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Network.MessageUtils;
 using RiptideNetworking;
 using UnityEngine;
-using static UnityEngine.GameObject;
 
 namespace _Project.Scripts.Network.Client {
     public partial class Client {
@@ -42,7 +41,19 @@ namespace _Project.Scripts.Network.Client {
                 NetworkManager.playersList.Remove(playerId);
             }
         }
-        
+
+        [MessageHandler((ushort) Server.Server.PacketHandler.grabbablesPosition)]
+        private static void ReceiveGrabbableStatus(Message message) {
+            if (Singleton is {IsServerOwner: true})
+                return;
+
+            GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(message);
+            if (GodEntity.grabbableItems.TryGetValue(grabbableData.grabbableId, out Grabbable grabbable)) {
+                var transform = grabbable.transform;
+                transform.position = grabbableData.position;
+                transform.rotation = grabbableData.rotation;
+            }
+        }
         [MessageHandler((ushort) Server.Server.PacketHandler.movementMessage)]
         private static void ReceiveMovement(Message message) {
             if (Singleton is {IsServerOwner: true})

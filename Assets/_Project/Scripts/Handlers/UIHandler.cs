@@ -15,7 +15,6 @@ using Outline = QuickOutline.Scripts.Outline;
 namespace _Project.Scripts.Handlers {
     public class UIHandler : MonoBehaviour {
         public static UIHandler Instance;
-        private InventoryManager _playerInventory;
         public float cameraDepth;
     
         [SerializeField] private Button _startClient;

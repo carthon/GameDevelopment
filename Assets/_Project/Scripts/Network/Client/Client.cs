@@ -54,7 +54,7 @@ namespace _Project.Scripts.Network.Client {
                 _serverDummy = new ServerDummy(NetworkManager.Singleton.serverDummyPlayerPrefab);
             _player = player;
             if(NetworkManager.Singleton.TryGetComponent(out ContainerRenderer renderer)) {
-                renderer.InitializeRenderer(_player.InventoryManager.Inventories[0], _player.inventorySpawnTransform);
+                renderer.InitializeRenderer(_player.InventoryManager, _player.inventorySpawnTransform);
             }
             CameraHandler.Singleton.InitializeCamera(_player.Head, player.HeadFollow, player.HeadPivot);
             OnClientReady?.Invoke();

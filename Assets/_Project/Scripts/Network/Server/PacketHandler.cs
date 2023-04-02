@@ -13,7 +13,8 @@ namespace _Project.Scripts.Network.Server {
             clientItemSpawn,
             clientInventoryChange,
             clientReceiveEquipment,
-            clientReceivePlayerData
+            clientReceivePlayerData,
+            grabbablesPosition,
         }
     }
 }

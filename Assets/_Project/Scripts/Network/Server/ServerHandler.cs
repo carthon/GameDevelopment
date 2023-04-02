@@ -4,7 +4,6 @@ using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Entities;
 using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Network.MessageUtils;
-using _Project.Scripts.Utils;
 using RiptideNetworking;
 using UnityEngine;
 

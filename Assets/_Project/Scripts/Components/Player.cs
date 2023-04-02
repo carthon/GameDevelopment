@@ -42,15 +42,16 @@ namespace _Project.Scripts.Components {
         public bool CanRotate { get; set; }
         public bool CanMove { get; set; }
         
+        private float grabDistance = 4f;
+        private float grabRadius = 0.1f;
         public Grabbable GetNearGrabbable() =>
-            _grabler.GetPickableInRange(new Ray(_headPivot.position, _headPivot.forward), grabDistance);
+            _grabler.GetPickableInRange(new Ray(_headPivot.position, _headPivot.forward), grabRadius, grabDistance);
         
         public MovementMessageStruct GetMovementState(int currentTick) => new MovementMessageStruct(Id, 
             Locomotion.Rb.position, Locomotion.Rb.velocity, Locomotion.RelativeDirection, Locomotion.Rb.rotation,
             HeadRotation, currentTick, _actions);
         public void SetActions(bool[] actions) => _actions = actions;
 
-        [SerializeField] private float grabDistance = 5f;
     
         private void OnDestroy() {
             enabled = false;

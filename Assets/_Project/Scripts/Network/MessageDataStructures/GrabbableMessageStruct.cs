@@ -1,3 +1,4 @@
+using _Project.Scripts.Components;
 using _Project.Scripts.Network.MessageUtils;
 using RiptideNetworking;
 using UnityEngine;
@@ -14,6 +15,13 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             this.itemId = itemId;
             this.position = position;
             this.rotation = rotation;
+        }
+        public GrabbableMessageStruct(Grabbable grabbable) {
+            this.grabbableId = grabbable.Id;
+            this.itemId = grabbable.itemData.id;
+            Transform transform = grabbable.transform;
+            this.position = transform.position;
+            this.rotation = transform.rotation;
         }
         public GrabbableMessageStruct(Message message) {
             grabbableId = message.GetUShort();
