@@ -27,12 +27,12 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
             Camera cam = CameraHandler.Singleton.MainCamera;
             Ray ray = cam.ScreenPointToRay(mousePos);
             
-            CameraHandler.Singleton.lookAtTransform.position = (Vector3.Distance(CameraHandler.Singleton.lookAtTransform.position, _lookAtPosition) > 2f) ? _lookAtPosition :
-                Vector3.Lerp(CameraHandler.Singleton.lookAtTransform.position, _lookAtPosition, Time.deltaTime * headRotationSpeed);
+            CameraHandler.Singleton.staticLookAtTransform.position = (Vector3.Distance(CameraHandler.Singleton.staticLookAtTransform.position, _lookAtPosition) > 2f) ? _lookAtPosition :
+                Vector3.Lerp(CameraHandler.Singleton.staticLookAtTransform.position, _lookAtPosition, Time.deltaTime * headRotationSpeed);
             Quaternion lookRotation = Quaternion.LookRotation(_lookAtPosition - _player.HeadPivot.position);
             _player.HeadPivot.rotation = Quaternion.Lerp(_player.HeadPivot.rotation, lookRotation, Time.deltaTime * headRotationSpeed);
             
-            if (Physics.Raycast(ray, out RaycastHit hit, Single.PositiveInfinity, (1 << LayerMask.NameToLayer("Default")), QueryTriggerInteraction.Collide)) {
+            if (Physics.Raycast(ray, out RaycastHit hit, Single.PositiveInfinity, LayerMask.GetMask("Default", "Ground"), QueryTriggerInteraction.Collide)) {
                 HitPoint = hit;
                 Context.UpdateWatchedVariables("SelectedItem", $"SelectedItem:{hit.collider.name}");
                 Outline outlineParent = hit.collider.GetComponentInParent<Outline>();

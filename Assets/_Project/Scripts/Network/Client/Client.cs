@@ -6,6 +6,7 @@ using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.MessageDataStructures;
 using RiptideNetworking;
 using UnityEngine;
+using Logger = _Project.Scripts.Utils.Logger;
 using Object = UnityEngine.Object;
 
 #if !UNITY_SERVER
@@ -51,7 +52,12 @@ namespace _Project.Scripts.Network.Client {
         }
         public void SetUpClient(Player player) {
             if (NetworkManager.Singleton.debugServerPosition)
-                _serverDummy = new ServerDummy(NetworkManager.Singleton.serverDummyPlayerPrefab);
+                try {
+                    _serverDummy = new ServerDummy(NetworkManager.Singleton.serverDummyPlayerPrefab);
+                }
+                catch (Exception e) {
+                    Logger.Singleton.Log("Server dummy prefab not set!", Logger.Type.WARNING);
+                }
             _player = player;
             if(NetworkManager.Singleton.TryGetComponent(out ContainerRenderer renderer)) {
                 renderer.InitializeRenderer(_player.InventoryManager, _player.inventorySpawnTransform);

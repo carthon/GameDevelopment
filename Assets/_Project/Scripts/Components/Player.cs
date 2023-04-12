@@ -117,7 +117,7 @@ namespace _Project.Scripts.Components {
             CanMove = !actions[(int)ActionsEnum.SEARCHING];
             if (CanRotate) {
                 Quaternion newRotation = Quaternion.Euler(0.0f, _headPivot.rotation.eulerAngles.y, 0.0f);
-                float rotationSpeed = !_locomotion.IsMoving ? CameraHandler.Singleton.CameraData.playerLookInputLerpSpeed * Time.deltaTime : 1f;
+                float rotationSpeed = !_locomotion.IsMoving && !InputHandler.Singleton.IsInInventory ? CameraHandler.Singleton.CameraData.playerLookInputLerpSpeed * Time.deltaTime : 1f;
                 var modelRotation = model.rotation;
                 //float rotationAngle = Quaternion.Angle(modelRotation, newRotation);
                 modelRotation = Quaternion.Lerp(modelRotation, newRotation, rotationSpeed);

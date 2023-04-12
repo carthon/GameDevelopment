@@ -46,7 +46,7 @@ namespace _Project.Scripts.Network {
         public const int BufferSize = 1024;
         
         public Server.Server Server { get; private set; }
-        public Client.Client Client { get; private set; }  
+        public Client.Client Client { get; set; }  
         
         public int Tick { get => _currentTick; set => _currentTick = value; }
 
@@ -99,7 +99,7 @@ namespace _Project.Scripts.Network {
 #if !UNITY_SERVER
         public void InitializeClient() {
             IsClient = true;
-            Client = new Client.Client { IsServerOwner = IsServer };
+            Client.IsServerOwner = IsServer;
             Client.Connected += DidConnect;
             Client.Disconnected += DidDisconnect;
             Client.ConnectionFailed += FailedToConnect;

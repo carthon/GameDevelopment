@@ -13,6 +13,8 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers {
             EnterState();
         }
         protected override void UpdateState() {
+            Ray ray = new Ray(_player.HeadPivot.position, _player.HeadPivot.forward);
+            Debug.DrawRay(ray.origin, ray.direction);
             Grabbable currentGrabbable = _player.GetNearGrabbable();
             if(currentGrabbable != null) {
                 if (!currentGrabbable.Equals(LastGrabbable)) {

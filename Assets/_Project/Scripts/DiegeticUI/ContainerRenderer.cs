@@ -18,6 +18,8 @@ namespace _Project.Scripts.DiegeticUI {
         private List<Dictionary<int, Outline>> slotIDOutlinesDict;
         private List<Dictionary<int, Bounds>> slotIDItemBounds;
         private static ContainerRenderer _singleton;
+        private Vector3 originalParentPosition;
+        private Vector3 inventoryDownRaycastDirection = Vector3.down;
         private bool toggled;
         private bool needsUpdate;
 
@@ -68,6 +70,7 @@ namespace _Project.Scripts.DiegeticUI {
                 }
             }
             _parent = parent;
+            originalParentPosition = _parent.localPosition;
         }
         private void OnSlotSwap(int inventoryId, int otherInventoryId, int slot, int otherSlot) {
             if (slotIDItemsDict[inventoryId].TryGetValue(slot, out List<GameObject> originObjsInSlot) && originObjsInSlot.Count > 0 &&
@@ -92,8 +95,8 @@ namespace _Project.Scripts.DiegeticUI {
                     (slotIDItemBounds[inventoryId][slot], slotIDItemBounds[otherInventoryId][otherSlot]) = (slotIDItemBounds[otherInventoryId][otherSlot], slotIDItemBounds[inventoryId][slot]);
                     (slotIDItemsDict[inventoryId][slot], slotIDItemsDict[otherInventoryId][otherSlot]) = (slotIDItemsDict[otherInventoryId][otherSlot], slotIDItemsDict[inventoryId][slot]);
             } else {
-                UpdateInventorySlot(otherSlot, Inventory.Inventories[otherInventoryId].GetItemStack(otherSlot));
-                UpdateInventorySlot(slot, Inventory.Inventories[inventoryId].GetItemStack(slot));
+                UpdateInventorySlot(otherSlot, otherInventoryId);
+                UpdateInventorySlot(slot, inventoryId);
             }
         }
         private Bounds GetItemBounds(ItemStack itemStack) {
@@ -163,9 +166,9 @@ namespace _Project.Scripts.DiegeticUI {
             Vector3 cellPosition = new Vector3(cellIndex % cellPerRow, 0, (cellIndex / cellPerRow) % cellPerRow) * cellSize;
             return centerOfGrid + cellPosition;
         }
-        private void UpdateInventorySlot(int slotId, ItemStack itemStack) {
-            ItemStack stackInSlot = Inventory.Inventories[itemStack.GetInventory().Id].GetItemStack(slotId);
-            int inventoryId = itemStack.GetInventory().Id;
+        private void UpdateInventorySlot(int slotId, ItemStack itemStack) => UpdateInventorySlot(slotId, itemStack.GetInventory().Id);
+        public void UpdateInventorySlot(int slotId, int inventoryId) {
+            ItemStack stackInSlot = Inventory.Inventories[inventoryId].GetItemStack(slotId);
             if (slotIDItemsDict[inventoryId].TryGetValue(slotId, out List<GameObject> objectsList)) {
                 //Actualizar el slot dependiendo de los items que haya
                 if (objectsList?.Count > 0) {
@@ -198,6 +201,13 @@ namespace _Project.Scripts.DiegeticUI {
         public void ToggleRender(bool render, int inventoryId = 0) {
             if (toggled == render)
                 return;
+
+            if (!render) _parent.localPosition = originalParentPosition;
+            else if (Physics.Raycast(_parent.position + Vector3.up * 5f, inventoryDownRaycastDirection, out RaycastHit hit, 6f, 1 << LayerMask.NameToLayer("Ground"))){
+                _parent.transform.position = hit.point;
+                Quaternion rotatedParent = Quaternion.FromToRotation(Vector3.up, hit.normal);
+                _parent.transform.rotation = rotatedParent;
+            }
             foreach (KeyValuePair<int, List<GameObject>> keyValuePair in slotIDItemsDict[inventoryId]) {
                 keyValuePair.Value.ForEach(obj => obj.SetActive(render));
                 if (render && needsUpdate) {

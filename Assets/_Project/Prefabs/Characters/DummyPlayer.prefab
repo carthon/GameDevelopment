@@ -4555,7 +4555,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8107401900454667679}
-  - component: {fileID: 4131587954652690171}
   m_Layer: 0
   m_Name: Hand_L_Override
   m_TagString: Untagged
@@ -4577,20 +4576,6 @@ Transform:
   m_Father: {fileID: 3918716167601615377}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4131587954652690171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7545474829093358098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393ee2c3c763431fa6c6d44d6511a8bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _overrideTransform: {fileID: 0}
-  bodyPart: 3
 --- !u!1 &7811763672857730376
 GameObject:
   m_ObjectHideFlags: 0
@@ -4600,7 +4585,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4261083763117492493}
-  - component: {fileID: 8434499903440303583}
   m_Layer: 0
   m_Name: Hand_R_Override
   m_TagString: Untagged
@@ -4622,20 +4606,6 @@ Transform:
   m_Father: {fileID: 3926510870024372537}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -15.159, y: -455.07, z: 447.762}
---- !u!114 &8434499903440303583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7811763672857730376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393ee2c3c763431fa6c6d44d6511a8bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _overrideTransform: {fileID: 0}
-  bodyPart: 5
 --- !u!1 &7858788246018487251
 GameObject:
   m_ObjectHideFlags: 0
@@ -4783,7 +4753,7 @@ GameObject:
   - component: {fileID: 8434159319086046883}
   - component: {fileID: 8434159319086046895}
   - component: {fileID: 8434159319086046894}
-  - component: {fileID: 8434159319086046891}
+  - component: {fileID: 7888609591025780459}
   m_Layer: 8
   m_Name: DummyPlayer
   m_TagString: Untagged
@@ -4840,7 +4810,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8434159319086046891
+--- !u!114 &7888609591025780459
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4849,6 +4819,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8434159319086046882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3915f8c6ccb84c9cae1e8cf0864801c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 37b4fc064fbf4864583d3a581f9fc205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

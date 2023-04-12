@@ -39,6 +39,7 @@ namespace _Project.Scripts.Entities {
         public static bool SpawnItem(Item item, int count, Vector3 position, Quaternion rotation) {
             bool success = false;
             GameObject itemRendered = Instantiate(item.modelPrefab, position, rotation);
+            itemRendered.layer = LayerMask.NameToLayer("Item");
             var pickable = itemRendered.GetComponent<Grabbable>();
             if (pickable == null) pickable = itemRendered.AddComponent<Grabbable>();
             if (pickable) {

@@ -19,9 +19,7 @@ namespace _Project.Scripts.Handlers {
         private Transform _cameraFollow;
         [SerializeField] 
         private Transform _headFollow;
-        public Transform lookAtTransform;
-        [SerializeField]
-        private float _followSmoothness = 1f;
+        public Transform staticLookAtTransform;
         private CinemachineVirtualCamera _activeCamera;
 
         public readonly int ActiveCameraPriorityModifier = 31337;
@@ -69,7 +67,7 @@ namespace _Project.Scripts.Handlers {
             _headFollow = headFollow;
             _cameraPivot = cameraPivot;
             orbitalCamera.Follow = _cameraFollow;
-            inventoryCamera.LookAt = lookAtTransform;
+            inventoryCamera.LookAt = staticLookAtTransform;
             inventoryCamera.Follow = _headFollow;
             firstPersonCamera.Follow = _headFollow;
             thirdPersonCamera.Follow = _cameraFollow;

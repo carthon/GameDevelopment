@@ -104,8 +104,6 @@ namespace QuickOutline.Scripts {
     public void ReloadRenderers() {
       // Cache renderers
       renderers = transform.GetComponentsInChildren<Renderer>();
-      Logger.Singleton.Log($"Reloading Renderers for outline {gameObject.name} {renderers.Length} {String.Join("|",renderers.Select(render => render.name))}", 
-        Logger.Type.DEBUG);
     }
     public void ResetRenderers() {
       renderers = Array.Empty<Renderer>();

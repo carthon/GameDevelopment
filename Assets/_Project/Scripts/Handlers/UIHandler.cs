@@ -15,20 +15,16 @@ using Outline = QuickOutline.Scripts.Outline;
 namespace _Project.Scripts.Handlers {
     public class UIHandler : MonoBehaviour {
         public static UIHandler Instance;
-        public float cameraDepth;
     
-        [SerializeField] private Button _startClient;
-        [SerializeField] private Text _startClientText;
-        [SerializeField] private Button _startServer;
-        [SerializeField] private Text _startServerText;
-        [SerializeField] private InputField usernameField;
-        [SerializeField] private InputField serverIp;
-        [SerializeField] private InputField port;
+        [SerializeField] private string usernameField;
+        [SerializeField] private string serverIp;
+        [SerializeField] private string port;
         
         public InterfaceAbstractBaseState CurrentState;
         public InterfaceAbstractBaseState LastState;
         private InterfaceStateFactory _stateFactory;
         public GameObject slotSelectionVisualizer;
+        public Transform itemGrabberTransform;
         
         public string StateToString;
 
@@ -38,66 +34,53 @@ namespace _Project.Scripts.Handlers {
             Instance = this;
         }
         private void Start() {
-            serverIp.text = NetworkManager.Singleton.hostAddress;
-            port.text = NetworkManager.Singleton.port.ToString();
-            _startClientText = _startClient.GetComponentInChildren<Text>();
-            _startServerText = _startServer.GetComponentInChildren<Text>();
+            serverIp = NetworkManager.Singleton.hostAddress;
+            port = NetworkManager.Singleton.port.ToString();
+            NetworkManager.Singleton.Client = new Client();
             _watchedVariables = new Dictionary<string, string>();
             _stateFactory = new InterfaceStateFactory(this);
         }
         private void Update() {
-            NetworkManager networkManager = NetworkManager.Singleton;
-            bool isServer = networkManager.Server != null && networkManager.IsServer;
-            bool isClient = networkManager.Client != null && networkManager.IsClient;
-            _startServerText.text = isServer ? "Stop Server" : "Start Server";
-            _startClientText.text = isClient ? "Stop Client" : "Start Client";
-            if (usernameField.enabled == isClient) {
-                usernameField.enabled = !isClient;
-                port.enabled = !isClient;
-                serverIp.enabled = !isClient;
-            }
             CurrentState?.UpdateStates();
             StateToString = $"{CurrentState?.StateName()} + {LastState?.StateName()}";
         }
 
-        public void ToggleClient() {
-            NetworkManager networkManager = NetworkManager.Singleton;
-
-            if (networkManager.Client == null || !networkManager.Client.IsConnected) {
-                if (!ValidateConnectionValues()) return;
-                networkManager.InitializeClient();
-                SendConnectionMessage();
-                networkManager.Client.OnClientReady += OnClientReady;
-            }
-            else networkManager.StopClient();
-        }
         private void OnClientReady() {
             CurrentState = _stateFactory.DefaultState();
         }
         private bool ValidateConnectionValues() {
             NetworkManager networkManager = NetworkManager.Singleton;
             bool valid = true;
-            if (Regex.Match(serverIp.text, "^((25[0-5]|(2[0-4]|1[0-9]|[1-9]|)[0-9])(\\.(?!$)|$)){4}$").Success)
-                networkManager.hostAddress = serverIp.text;
+            if (Regex.Match(serverIp, "^((25[0-5]|(2[0-4]|1[0-9]|[1-9]|)[0-9])(\\.(?!$)|$)){4}$").Success)
+                networkManager.hostAddress = serverIp;
             else {
-                serverIp.text = "Ip no válida";
+                serverIp = "Ip no válida";
                 valid = false;
             }
-            if (Regex.Match(serverIp.text, "\\d+").Success)
-                networkManager.port = ushort.Parse(port.text);
+            if (Regex.Match(serverIp, "\\d+").Success)
+                networkManager.port = ushort.Parse(port);
             else {
-                port.text = "Puerto no válido";
+                port = "Puerto no válido";
                 valid = false;
             }
             return valid;
         }
         public void OnGUI() {
             NetworkManager networkManager = NetworkManager.Singleton;
-            bool isServer = networkManager.Server != null || networkManager.IsServer;
-            bool isClient = networkManager.Client != null || networkManager.IsClient;
-            _startServerText.text = isServer ? "Stop Server" : "Start Server";
-            _startClientText.text = isClient ? "Stop Client" : "Start Client";
+            bool isServer = networkManager.Server != null && networkManager.IsServer;
+            bool isClient = networkManager.Client != null && networkManager.IsClient;
+            string serverText = isServer ? "Stop Server" : "Start Server";
+            string clientText = isClient ? "Stop Client" : "Start Client";
+            
             GUILayout.BeginArea(new Rect(Vector2.right * (Screen.width - 200), new Vector2(200,500)));
+            if (GUILayout.Button(serverText)) {
+                ToggleServer();
+            }
+            if (GUILayout.Button(clientText)) {
+                ToggleClient();
+            }
+            if(!isClient) serverIp = GUILayout.TextField(serverIp);
+            if(!isClient) port = GUILayout.TextField(port);
             GUILayout.BeginVertical("box");
             GUILayout.Label($"IsClient: {NetworkManager.Singleton.IsClient.ToString()}");
             GUILayout.Label($"IsServer: {NetworkManager.Singleton.IsServer.ToString()}");
@@ -120,6 +103,17 @@ namespace _Project.Scripts.Handlers {
                 _watchedVariables.Add(key, value);
             }
         }
+        public void ToggleClient() {
+            NetworkManager networkManager = NetworkManager.Singleton;
+            if(!networkManager.Client.IsConnected) {
+                if (!ValidateConnectionValues()) return;
+
+                networkManager.InitializeClient();
+                SendConnectionMessage();
+                networkManager.Client.OnClientReady += OnClientReady;
+            } else
+                networkManager.StopClient();
+        }
         public void ToggleServer() {
             NetworkManager networkManager = NetworkManager.Singleton;
         
@@ -130,7 +124,7 @@ namespace _Project.Scripts.Handlers {
             NetworkManager networkManager = NetworkManager.Singleton;
             if (networkManager.IsClient) {
                 Message message = Message.Create(MessageSendMode.reliable, (ushort) Client.PacketHandler.serverUsername);
-                message.AddString(usernameField.text);
+                message.AddString(usernameField);
                 networkManager.Client.Send(message);
             }
         }

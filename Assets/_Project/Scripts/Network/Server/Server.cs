@@ -99,7 +99,7 @@ namespace _Project.Scripts.Network.Server {
             Transform transform = player.transform;
             SpawnMessageStruct spawnData = new SpawnMessageStruct(player.Id, player.Username, transform.position, transform.rotation, currentTick);
             NetworkMessageBuilder networkMessageBuilder = new NetworkMessageBuilder(MessageSendMode.reliable, (ushort) PacketHandler.spawnMessage, spawnData);
-            networkMessageBuilder.Send(toClientId);
+            networkMessageBuilder.Send(toClientId, asServer:true);
             SendGrabbables(toClientId);
         }
         public static void SendPlayerDataToClient(ushort id = 0) {

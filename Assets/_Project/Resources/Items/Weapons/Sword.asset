@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9896ce0445be463999af18705a916300, type: 3}
+  m_Script: {fileID: 11500000, guid: d1b4305146d36dd47add43256157eccf, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 21300000, guid: d8b4cf5079106924197ebaf5ac7be29e, type: 3}
+  itemIcon: {fileID: 0}
   item3dIcon: {fileID: 0}
   iconMaterial: {fileID: 0}
-  itemName: 
-  modelPrefab: {fileID: 1432621100788536090, guid: 6b8e05e148eb76c4cb30643d4bfd5bc4, type: 3}
+  itemName: Sword
+  modelPrefab: {fileID: 181008, guid: 9e311f4d0c272f44ea83aed3c3b15c40, type: 3}
   Size: 2
-  id: 2c5f0afbb2f64a7fa3c43002f8fb7969
-  description: Pues eso, una espada
-  maxStackSize: 3
+  id: 795afad8218a4decbe0611833b0ba32c
+  description: Just a sword
+  maxStackSize: 1
   isUnarmed: 0
   OH_Light_Attack_1: 
   OH_Heavy_Attack_1: 
