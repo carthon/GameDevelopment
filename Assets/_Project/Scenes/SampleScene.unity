@@ -1200,7 +1200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: e36fffb1204412441943c9814d7e58d1, type: 2}
-  count: 40
+  count: 64
 --- !u!4 &923185399
 Transform:
   m_ObjectHideFlags: 0
@@ -1812,7 +1812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dc1876d50e1ab84f818f3b2ece56c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotSize: 0.1
+  slotSize: 0.4
   Inventory: {fileID: 0}
 --- !u!114 &1383513670
 MonoBehaviour:
@@ -1866,6 +1866,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03568eaefa5953f49b5684047bec400f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1428630717
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1428630719}
+  - component: {fileID: 1428630718}
+  m_Layer: 0
+  m_Name: ItemSpawner (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1428630718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428630717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2690abd5d5a867f48981d7d24fd5a19d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: e36fffb1204412441943c9814d7e58d1, type: 2}
+  count: 20
+--- !u!4 &1428630719
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428630717}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.969, y: 0.598, z: -2.745}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1560851118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1896,7 +1941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 188b56e8b9f5a564892c9d16b86ad5f1, type: 2}
-  count: 1
+  count: 20
 --- !u!4 &1560851120
 Transform:
   m_ObjectHideFlags: 0
@@ -2121,7 +2166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: bbfc5ebb04330774abc202521a667721, type: 2}
-  count: 1
+  count: 20
 --- !u!4 &1680145121
 Transform:
   m_ObjectHideFlags: 0

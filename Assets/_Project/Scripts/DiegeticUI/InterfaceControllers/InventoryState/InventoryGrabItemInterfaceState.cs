@@ -28,38 +28,28 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
                     Context.slotSelectionVisualizer.transform.rotation = hitPointCollider.rotation;
                 }
                 Context.itemGrabberTransform.transform.position = _inventoryInterfaceState.HitPoint.point + Vector3.up * 0.2f;
-                // for (int i = 0; i < _inventoryInterfaceState.GrabbedItems.Count; i++) {
-                //     _inventoryInterfaceState.GrabbedItems[i].transform.position = _inventoryInterfaceState.HitPoint.point + _inventoryInterfaceState.LastGrabbedItemsLocalPosition[i]
-                //         + Vector3.up * 0.2f;
-                //     _inventoryInterfaceState.GrabbedItems[i].transform.rotation = hitPointCollider.rotation;
-                // }
             }
             CheckSwitchStates();
         }
         protected sealed override void EnterState() {
             _inventoryInterfaceState = (InventoryInterfaceState) CurrentSuperState;
             Context.slotSelectionVisualizer.SetActive(true);
-            Context.slotSelectionVisualizer.transform.localScale = Vector3.one * ContainerRenderer.Singleton.slotSize;
+            Context.slotSelectionVisualizer.transform.localScale = _inventoryInterfaceState?.GrabbedItems?.Count > 0 ? _inventoryInterfaceState.GrabbedItems[0].GetComponentInChildren<Renderer>().bounds.extents * 2
+                    : Vector3.one *  ContainerRenderer.Singleton.slotSize;
             originalParent = _inventoryInterfaceState?.GrabbedItems?.Count > 0 ? _inventoryInterfaceState.GrabbedItems[0].parent : Context.itemGrabberTransform;
             for (int i = 0; i < _inventoryInterfaceState?.GrabbedItems?.Count; i++) {
                 _inventoryInterfaceState.GrabbedItems[i].SetParent(Context.itemGrabberTransform);
                 _inventoryInterfaceState.GrabbedItems[i].localPosition = Vector3.zero + _inventoryInterfaceState.LastGrabbedItemsLocalPosition[i];
-                _inventoryInterfaceState.GrabbedItems[i].localRotation = Quaternion.identity;
             }
         }
         protected override void ExitState() {
             if (_inventoryInterfaceState.GrabbedItems.Count > 0) {
-                // for (int i = 0; i < _inventoryInterfaceState.GrabbedItems.Count; i++) {
-                //     _inventoryInterfaceState.GrabbedItems[i].transform.position = _inventoryInterfaceState.GrabbedItems[i].transform.parent.position + 
-                //         _inventoryInterfaceState.LastGrabbedItemsLocalPosition[i];
-                // }
                 for (int i = 0; i < _inventoryInterfaceState?.GrabbedItems?.Count; i++) {
                     if (InputHandler.Singleton.Clicked)
                         GameObject.Destroy(Context.itemGrabberTransform.GetChild(i).gameObject);
                     else {
                         _inventoryInterfaceState.GrabbedItems[i].SetParent(originalParent);
                         _inventoryInterfaceState.GrabbedItems[i].localPosition = _inventoryInterfaceState.LastGrabbedItemsLocalPosition[i];
-                        _inventoryInterfaceState.GrabbedItems[i].localRotation = Quaternion.identity;
                     }
                 }
             }
@@ -68,12 +58,12 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
             InputHandler.Singleton.Clicked = false;
         }
         public override void CheckSwitchStates() {
-            if (InputHandler.Singleton.RClicked) {
-                Logger.Singleton.Log($"{itemSelected.Item.name}: Inventory:{itemSelected.GetInventory().Name} Slot:{itemSelected.GetSlotID()}", Logger.Type.DEBUG);
-                SwitchState(Factory.InventorySelectItemState());
-            }
             if (InputHandler.Singleton.Clicked) {
                 SwapOrDropItemInSlot();
+            }
+            if (InputHandler.Singleton.RClicked || InputHandler.Singleton.Clicked) {
+                Logger.Singleton.Log($"{itemSelected.Item.name}: Inventory:{itemSelected.GetInventory().Name} Slot:{itemSelected.GetSlotID()}", Logger.Type.DEBUG);
+                SwitchState(Factory.InventorySelectItemState());
             }
         }
         public override void InitializeSubState() {
@@ -81,10 +71,13 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
         private void SwapOrDropItemInSlot() {
             Inventory selectedInventory = itemSelected.GetInventory();
             if (Int32.TryParse(_inventoryInterfaceState.HitPoint.collider.transform.name, out int clickedSlot)) {
+                if (itemSelected.GetSlotID() == clickedSlot)
+                    return;
                 selectedInventory.SwapItemsInInventory(selectedInventory, itemSelected.GetSlotID(), clickedSlot);
             }
             else {
-                Client.DropItemStack(itemSelected,_inventoryInterfaceState.HitPoint.point, Quaternion.identity);
+                Vector3 itemExtents = itemSelected.Item.modelPrefab.GetComponentInChildren<Renderer>().bounds.extents * 1.1f;
+                Client.DropItemStack(itemSelected,_inventoryInterfaceState.HitPoint.point + Vector3.up * itemExtents.z, Quaternion.identity);
             }
             SwitchState(Factory.InventorySelectItemState());
         }
