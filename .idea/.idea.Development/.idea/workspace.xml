@@ -5,252 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aea2bea4-eef4-46ed-83e6-81c0978d1e91" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Editor/GenTestHelperEditor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Helper/Compute Helper/Channel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Helper/Compute Helper/ComputeHelper.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Helper/Compute Helper/Processing/GaussianBlur.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Helper/Compute Helper/Resources/ClearTexture.compute" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Helper/Compute Helper/Resources/Copy3D.compute" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Helper/Compute Helper/Resources/GaussianBlur.compute" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Helper/Compute Helper/Resources/NormalizeTexture.compute" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Helper/Compute Helper/Resources/Swizzle.compute" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Marching Cubes/Scripts/Chunk.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Marching Cubes/Scripts/Compute/Blur.compute" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Marching Cubes/Scripts/Compute/EditTexture.compute" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Marching Cubes/Scripts/Compute/MarchingCubes.compute" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Marching Cubes/Scripts/Compute/PlanetMap.compute" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Marching Cubes/Scripts/GenTest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Marching Cubes/Scripts/MeshBaker.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Marching Cubes/Scripts/TextureViewer/New Material.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Marching Cubes/Scripts/TextureViewer/TextureViewer3D.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Marching Cubes/Scripts/TextureViewer/TextureViewer3D.shader" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Marching Cubes/Scripts/VertexData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/MathUtility.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Development/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Development/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/ConditionalHidePropertyDrawer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/ConditionalHidePropertyDrawer.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/QuickOutline/Scripts/Outline.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/QuickOutline/Scripts/Outline.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Animators.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Animators.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Animators/Humanoid.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Animators/Humanoid.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Animators/Humanoid.controller.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Animators/Humanoid.controller.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Avatars.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Avatars.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Avatars/PlayerHandsMask.mask.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Avatars/PlayerHandsMask.mask.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/Mixamo.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/Mixamo.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/cover to stand (2).fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/cover to stand (2).fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/cover to stand.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/cover to stand.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/crouched sneaking left.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/crouched sneaking left.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/crouched sneaking right.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/crouched sneaking right.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/falling idle.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/falling idle.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/falling to roll.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/falling to roll.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/hard landing.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/hard landing.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/idle (2).fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/idle (2).fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/idle (3).fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/idle (3).fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/idle (4).fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/idle (4).fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/idle (5).fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/idle (5).fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/idle.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/idle.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/jumping up.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/jumping up.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/left cover sneak.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/left cover sneak.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/left turn.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/left turn.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/right cover sneak.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/right cover sneak.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/right turn.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/right turn.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/rolling.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/rolling.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/run to stop.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/run to stop.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/running.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/running.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/sprint.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/sprint.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/stand to cover (2).fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/stand to cover (2).fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/stand to cover.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/stand to cover.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/walk n land.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/walk n land.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/walking.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Locomotion/walking.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/crouch idle.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/crouch idle.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/crouch to standing idle.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/crouch to standing idle.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing block idle.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing block idle.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing block react large.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing block react large.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing disarm over shoulder.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing disarm over shoulder.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing disarm underarm.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing disarm underarm.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing idle looking ver. 1.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing idle looking ver. 1.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing idle looking ver. 2.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing idle looking ver. 2.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing idle.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing idle.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing jump.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing jump.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack 360 high.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack 360 high.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack 360 low.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack 360 low.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack backhand.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack backhand.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack downward.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack downward.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack horizontal.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack horizontal.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack kick ver. 1.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack kick ver. 1.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack kick ver. 2.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee attack kick ver. 2.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee combo attack ver. 1.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee combo attack ver. 1.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee combo attack ver. 2.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee combo attack ver. 2.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee combo attack ver. 3.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee combo attack ver. 3.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee run jump attack.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing melee run jump attack.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing react large from left.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing react large from left.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing react large from right.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing react large from right.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing react large gut.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing react large gut.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing run back.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing run back.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing run forward.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing run forward.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing taunt battlecry.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing taunt battlecry.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing taunt chest thump.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing taunt chest thump.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing turn left 90.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing turn left 90.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing turn right 90.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing turn right 90.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing walk back.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing walk back.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing walk forward.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing walk forward.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing walk left.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing walk left.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing walk right.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/standing walk right.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed equip over shoulder.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed equip over shoulder.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed equip underarm.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed equip underarm.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed idle looking ver. 1.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed idle looking ver. 1.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed idle looking ver. 2.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed idle looking ver. 2.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed idle.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed idle.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed jump running.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed jump running.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed jump.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed jump.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed run back.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed run back.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed run forward.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed run forward.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed turn left 90.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed turn left 90.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed turn right 90.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed turn right 90.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed walk back.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed walk back.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed walk forward.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Animations/Pro Melee Axe Pack/unarmed walk forward.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Textures.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Textures.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Textures/Crosshairs.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Textures/Crosshairs.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Textures/Sprites.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Textures/Sprites.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Textures/Sprites/Icons.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Textures/Sprites/Icons.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Textures/Sprites/Icons/CoinTexture.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Textures/Sprites/Icons/CoinTexture.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Textures/cross-shaped-target.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Textures/cross-shaped-target.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Materials.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Materials/MapMaterial.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Materials/MapMaterial.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Materials/Prop.psd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Materials/Prop.psd.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Materials/Sliding.physicMaterial" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Materials/Sliding.physicMaterial.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Characters.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Characters.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Characters/DummyPlayer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Characters/DummyPlayer.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Characters/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Characters/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/ItemSpawner.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/ItemSpawner.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External Assets/PolygonStarter/Models/SM_PolygonPrototype_Prop_Sword_01.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/External Assets/PolygonStarter/Models/SM_PolygonPrototype_Prop_Sword_01.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PolygonFantasyCharacters/Models/SM_Prop_SwordOrnate_01.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PolygonFantasyCharacters/Models/SM_Prop_SwordOrnate_01.fbx.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items/SM_Icon_Coin_01.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items/SM_Icon_Coin_01.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items/SM_Icon_Coin_01.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items/SM_Icon_Coin_01.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/UI.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/UI.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resources.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resources.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resources/CameraData/CameraData.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resources/Items.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resources/Items.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Stackable Item.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Stackable Item.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Stackable Item.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Stackable Item.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Weapons.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Weapons.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Weapons/Shield.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Weapons/Shield.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Weapons/Sword.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Weapons/Sword.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Weapons/Sword.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resources/Items/Weapons/Sword.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resources/LocomotionStats/PlayerStats.asset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Brains.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Brains.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/EquipmentDisplayer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/EquipmentDisplayer.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Grabbable.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Grabbable.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Grabler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Grabler.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Inventory.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Inventory.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/InventoryManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/InventoryManager.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/ItemStackSpawner.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/ItemStackSpawner.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Locomotion.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Locomotion.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/BodyPart.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/BodyPart.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/CameraData.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/CameraData.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/ItemTypes.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/ItemTypes.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/ItemTypes/Item.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/ItemTypes/Item.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/ItemTypes/ItemLinks.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/ItemTypes/ItemLinks.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/ItemTypes/ItemStack.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/ItemTypes/ItemStack.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/ItemTypes/WeaponItem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/ItemTypes/WeaponItem.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/LocomotionStats.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/LocomotionStats.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/LootTable.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/LootTable.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/LootTableData.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DataClasses/LootTableData.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Inventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Inventory.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/ContainerRenderer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/ContainerRenderer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/DefaultInterfaceState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/DefaultInterfaceState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryGrabItemInterfaceState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryGrabItemInterfaceState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryInterfaceState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryInterfaceState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Entities.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Entities.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Entities/GodEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Entities/GodEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Entities/GodEntity.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Entities/GodEntity.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/AgressionHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/AgressionHandler.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/AnimatorHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/AnimatorHandler.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/CameraHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/CameraHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/CameraHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/CameraHandler.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/EquipmentHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/EquipmentHandler.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/InputHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/InputHandler.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/UIHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/UIHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/UIHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/UIHandler.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/InputSystem.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/InputSystem.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/InputSystem/PlayerControlls.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/InputSystem/PlayerControlls.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/InputSystem/PlayerControlls.inputactions.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/InputSystem/PlayerControlls.inputactions.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Client.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Client.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Client/Client.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Client/Client.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/EquipmentMessageStruct.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/EquipmentMessageStruct.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/GrabbableMessageStruct.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/GrabbableMessageStruct.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/IGenericMessageStruct.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/IGenericMessageStruct.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/InputMessageStruct.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/InputMessageStruct.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/MovementMessageStruct.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/MovementMessageStruct.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/PlayerDataMessageStruct.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/PlayerDataMessageStruct.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/SpawnMessageStruct.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageDataStructures/SpawnMessageStruct.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageUtils.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageUtils.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageUtils/MessageExtensions.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageUtils/MessageExtensions.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageUtils/PlayerDataMessage.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageUtils/PlayerDataMessage.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/NetworkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/NetworkManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/NetworkManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/NetworkManager.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/RiptideNetworking.dll.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/RiptideNetworking.dll.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/RiptideNetworking.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/RiptideNetworking.xml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Server.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Server.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Server/Server.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Network/Server/Server.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/StateMachine.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/TestScripts.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/TestScripts.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/TestScripts/PlatformMovement.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/TestScripts/PlatformMovement.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/IconMaker.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/IconMaker.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/IconMaker/IconMaker.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/IconMaker/IconMaker.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/IconMaker/IconRenderTexture.renderTexture.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/IconMaker/IconRenderTexture.renderTexture.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/SerializableDictionary.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/SerializableDictionary.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Chunk.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Chunk.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute/Includes.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute/Includes/Density.compute" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute/Includes/Density.compute.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute/Includes/MarchTables.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Marching Cubes/Scripts/Compute/Includes/MarchTables.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute/Includes/MarchTables.compute.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute/Includes/Noise.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Marching Cubes/Scripts/Compute/Includes/Noise.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute/Includes/Noise.compute.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute/MarchingCubes.compute" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute/MarchingCubes.compute.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute/NoiseDensity.compute" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute/NoiseDensity.compute.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute/SphereDensity.compute" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Compute/SphereDensity.compute.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Density.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Density/DensityGenerator.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Density/DensityGenerator.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Density/NoiseDensity.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Density/NoiseDensity.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Density/SphereDensity.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Density/SphereDensity.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Helper.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Helper/ConditionalHideAttribute.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Helper/ConditionalHideAttribute.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/MeshGenerator.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/MeshGenerator.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Shaders.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Shaders/SeaWorld.shader" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Shaders/SeaWorld.shader.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Shaders/Terrain.shader" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/WorldGen/Shaders/Terrain.shader.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -260,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="CustomNetworkBranch" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
   </component>
@@ -279,7 +43,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/377d90b6a60246c8b0fcf7d6e7b8f936568ba0/60/dd618c7e/Void.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/53/67c981d1/Quaternion.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/70/b85a4b83/Action`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/Network/Server/Server.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/ed/223cf87c/SpriteRenderer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/205a6c4887a04d59abb3434ed0f7c98913a00/82/e803da4a/MessageSendMode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Utils/GUIUtils.cs" root0="SKIP_HIGHLIGHTING" />
@@ -301,6 +64,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Network/NetworkMessageBuilder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ad0a7939819048a0a161f66558c9886726800/90/7e1818b1/Animator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d95181a5c71a4ad88c81e8fccee6b47113ce00/51/a4e5ba43/RenderTexture.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/DiegeticUI/ContainerRenderer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/93a8f82184b4439ca5abff025375fe32564da0/6b/23cc4b77/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Network/Server/ServerHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/7c/4e2dbbf9/_ThreadPoolWaitCallback.cs" root0="SKIP_HIGHLIGHTING" />
@@ -319,7 +83,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/c0/fbfef955/Debug.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Entities/GodEntity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/Network/NetworkManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/208f92fc783546f9abbe643bfc23920c762000/01/e03ca7b3/BodyPart.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Canvas/CanvasScalerWithChildTextObjectDoesNotCrash.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/CameraHandler.cs" root0="FORCE_HIGHLIGHTING" />
@@ -338,7 +101,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/11/aba64bb6/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/93/5f1b658d/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/HorizontalOrVerticalLayoutGroup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/Network/Client/Client.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryGrabItemInterfaceState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4fde398772134227852dc037ed8ddb3b18200/25/e6d5267e/QueryTriggerInteraction.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Components/InventoryManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/208f92fc783546f9abbe643bfc23920c762000/26/ca02cfaa/HostView.cs" root0="SKIP_HIGHLIGHTING" />
@@ -350,10 +113,10 @@
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Utils/MathUtility.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/ExecuteEvents.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventTrigger.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/Entities/GodEntity.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/ContainerRenderer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8d3a4cbacdae45b384e0e80b376938e13600/7d/dae30339/NativeInputSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/205a6c4887a04d59abb3434ed0f7c98913a00/b3/04e9081c/RudpServer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryGrabItemInterfaceState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/c5/d03ebd5b/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/205a6c4887a04d59abb3434ed0f7c98913a00/9c/1212e4bc/Client.cs" root0="SKIP_HIGHLIGHTING" />
@@ -363,7 +126,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1252422ad6ee4f149239229359459ff13a00/a1/8eeaddae/IJobParallelForDefer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d95181a5c71a4ad88c81e8fccee6b47113ce00/f5/a52e1220/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/12/3e0f7e08/Void.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryInterfaceState.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -403,10 +165,10 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="18900">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="18900" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -633,7 +395,8 @@
       <workItem from="1680261762866" duration="2924000" />
       <workItem from="1680440577189" duration="6981000" />
       <workItem from="1681148956981" duration="8698000" />
-      <workItem from="1681204386068" duration="22433000" />
+      <workItem from="1681204386068" duration="22582000" />
+      <workItem from="1681287874987" duration="15309000" />
     </task>
     <task id="LOCAL-00001" summary="Added inventory System">
       <created>1652876249440</created>
@@ -838,7 +601,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680444064923</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Recovering MetaFiles, and inventory render based on surface is on">
+      <created>1681259875124</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1681259875124</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -873,7 +643,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Left and Right Equipment mechanic" />
     <MESSAGE value="Inventory System Update" />
     <MESSAGE value="Updated Inventory System. EquipmentSlotHandler tiene ahora un inventario por cada item que esta cargando" />
     <MESSAGE value="Swap Mechanic Update" />
@@ -898,7 +667,8 @@
     <MESSAGE value="Working Inventory with slotSwap" />
     <MESSAGE value="Working Inventory with slotSwap and ItemDrop" />
     <MESSAGE value="Adapted ContainerRenderer.cs to render an inventoryManager, this can include now some crafting grid or any extra inventory. Now the player Model is correctly isolated in the player Prefab to not throw rigging errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adapted ContainerRenderer.cs to render an inventoryManager, this can include now some crafting grid or any extra inventory. Now the player Model is correctly isolated in the player Prefab to not throw rigging errors" />
+    <MESSAGE value="Recovering MetaFiles, and inventory render based on surface is on" />
+    <option name="LAST_COMMIT_MESSAGE" value="Recovering MetaFiles, and inventory render based on surface is on" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

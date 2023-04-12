@@ -58,8 +58,7 @@ namespace _Project.Scripts.Components {
         
         public ItemStack AddItemStackToSlot(ItemStack itemStack, int slot) {
             var itemLeftOver = new ItemStack(itemStack);
-            itemLeftOver.SetCount(0);
-            if (_freeSpace >= 1) {
+            if (_freeSpace > 0) {
                 if (IsValidSlot(slot)) {
                     if (!itemStack.Item.Equals(null)) {
                         if (itemStack.Item.Equals(_items[slot].Item) &&
@@ -77,26 +76,34 @@ namespace _Project.Scripts.Components {
                         }
                     }
                     if (itemLeftOver.GetCount() > 0) itemLeftOver = AddItemStack(itemLeftOver);
+                    Logger.Singleton.Log($"Added {itemStack} to slot {slot} | difference {itemLeftOver}", Logger.Type.DEBUG);
                     OnSlotChange?.Invoke(slot, _items[slot]);
+                }
+                else {
+                    slot = _items.FindIndex(item => item.IsEmpty());
+                    if (IsValidSlot(slot)) {
+                        Logger.Singleton.Log($"Found new empty slot {slot}", Logger.Type.DEBUG);
+                        AddItemStackToSlot(itemStack, slot);
+                    }
                 }
             }
             else {
-                Debug.Log("NO FREE SPACE!");
+                Logger.Singleton.Log("NO FREE SPACE!", Logger.Type.WARNING);
+                itemLeftOver.SetCount(itemStack.GetCount());
             }
             return itemLeftOver;
         }
         public ItemStack AddItemStack(ItemStack itemStack) {
             var slot = FindItemStackSlot(itemStack);
             var difference = new ItemStack(itemStack);
-            difference.SetCount(0);
-            if (_freeSpace >= 1) {
+            if (_freeSpace > 0) {
                 if (slot == -1 || _items[slot].IsFull())
                     slot = _items.FindIndex(item => item.IsEmpty());
                 difference = AddItemStackToSlot(itemStack, slot);
-                Logger.Singleton.Log($"Added {itemStack} to slot {slot} | difference {difference}", Logger.Type.DEBUG);
             }
             else {
                 Logger.Singleton.Log("No free space!", Logger.Type.DEBUG);
+                difference.SetCount(itemStack.GetCount());
             }
             return difference;
         }

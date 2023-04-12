@@ -24,6 +24,7 @@ namespace _Project.Scripts.DiegeticUI {
         private bool needsUpdate;
 
         private int itemsPerRow = 0;
+        private int itemsPerColumn = 0;
         private int itemPileHeight = 0;
         public Transform SpawnPoint { get => _parent; }
         public static ContainerRenderer Singleton
@@ -139,7 +140,7 @@ namespace _Project.Scripts.DiegeticUI {
             return listOfRenders;
         }
         private GameObject SetRenderPositionInSlot(int slot, GameObject renderedItem, Vector3 itemExtents) {
-            Bounds cellBounds = new Bounds(Vector3.zero, Vector3.one * slotSize);
+            Bounds cellBounds = new Bounds(Vector3.zero, Vector3.one * slotSize / 2);
             Bounds itemBounds = new Bounds(Vector3.zero, itemExtents * slotSize);
             renderedItem.transform.localPosition = ModelPositionFromBounds(slot, Vector3.zero, itemBounds, cellBounds);
             return renderedItem;
@@ -152,9 +153,15 @@ namespace _Project.Scripts.DiegeticUI {
             if (modelBounds.Intersects(cellBounds)) {
                 return modelBounds.center;
             }
-            if (itemsPerRow == 0) itemsPerRow = cellIndex;
+            if (itemsPerRow == 0) {
+                itemsPerRow = cellIndex;
+            }
             modelBounds.center = leftBottomItemCenter + new Vector3(modelExtents.x, 0 , 0) * (cellIndex % itemsPerRow)
                 + new Vector3(0, 0, modelExtents.z) * (cellIndex / itemsPerRow % itemsPerRow);
+            if (!modelBounds.Intersects(cellBounds) && itemsPerColumn == 0) itemsPerColumn = cellIndex - 1;
+            if (itemsPerColumn != 0)
+                modelBounds.center = leftBottomItemCenter + new Vector3(modelExtents.x, 0 , 0) * (cellIndex % itemsPerRow)
+                    + new Vector3(0, 0, modelExtents.z) * (cellIndex / itemsPerColumn % itemsPerColumn);
             if(cellIndex % (itemsPerRow * itemsPerRow) == 0 && cellIndex != 0)
                 itemPileHeight++;
             modelBounds.center += new Vector3(0, modelExtents.y, 0) * itemPileHeight;
@@ -205,8 +212,6 @@ namespace _Project.Scripts.DiegeticUI {
             if (!render) _parent.localPosition = originalParentPosition;
             else if (Physics.Raycast(_parent.position + Vector3.up * 5f, inventoryDownRaycastDirection, out RaycastHit hit, 6f, 1 << LayerMask.NameToLayer("Ground"))){
                 _parent.transform.position = hit.point;
-                Quaternion rotatedParent = Quaternion.FromToRotation(Vector3.up, hit.normal);
-                _parent.transform.rotation = rotatedParent;
             }
             foreach (KeyValuePair<int, List<GameObject>> keyValuePair in slotIDItemsDict[inventoryId]) {
                 keyValuePair.Value.ForEach(obj => obj.SetActive(render));
@@ -226,7 +231,7 @@ namespace _Project.Scripts.DiegeticUI {
             slotParent.rotation = _parent.rotation;
             slotParent.tag = "UISlot";
             BoxCollider boxCollider = slotParent.gameObject.AddComponent<BoxCollider>();
-            boxCollider.size = Vector3.one * slotSize;
+            boxCollider.size = new Vector3(1, 0.2f, 1) * slotSize;
             boxCollider.isTrigger = true;
             if(!slotIDOutlinesDict[inventoryId].ContainsKey(slotId)) {
                 slotIDOutlinesDict[inventoryId].Add(slotId, UIHandler.AddOutlineToObject(slotParent.gameObject, Color.white));
@@ -235,6 +240,11 @@ namespace _Project.Scripts.DiegeticUI {
         private GameObject CreateItemModel(ItemStack itemStack, Transform slotParent) {
             GameObject renderedItem = Instantiate(itemStack.Item.modelPrefab, slotParent);
             if (renderedItem.TryGetComponent(out Rigidbody rb)) rb.isKinematic = true;
+            Collider[] colliders = renderedItem.GetComponentsInChildren<Collider>();
+            if (colliders.Length > 0)
+                foreach (var itemCollider in colliders) {
+                    itemCollider.enabled = false;
+                }
             renderedItem.SetActive(toggled);
             return renderedItem;
         }

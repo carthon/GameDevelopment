@@ -27,7 +27,7 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
             Camera cam = CameraHandler.Singleton.MainCamera;
             Ray ray = cam.ScreenPointToRay(mousePos);
             
-            CameraHandler.Singleton.staticLookAtTransform.position = (Vector3.Distance(CameraHandler.Singleton.staticLookAtTransform.position, _lookAtPosition) > 2f) ? _lookAtPosition :
+            CameraHandler.Singleton.staticLookAtTransform.position = (Vector3.Distance(CameraHandler.Singleton.staticLookAtTransform.position, _lookAtPosition) > 1f) ? _lookAtPosition :
                 Vector3.Lerp(CameraHandler.Singleton.staticLookAtTransform.position, _lookAtPosition, Time.deltaTime * headRotationSpeed);
             Quaternion lookRotation = Quaternion.LookRotation(_lookAtPosition - _player.HeadPivot.position);
             _player.HeadPivot.rotation = Quaternion.Lerp(_player.HeadPivot.rotation, lookRotation, Time.deltaTime * headRotationSpeed);
@@ -65,6 +65,7 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
         protected sealed override void EnterState() {
             _player = Client.Singleton.Player;
             _lookAtPosition = ContainerRenderer.Singleton.SpawnPoint.position;
+            CameraHandler.Singleton.staticLookAtTransform.position = _lookAtPosition;
             Cursor.lockState = CursorLockMode.None;
             ContainerRenderer.Singleton.ToggleRender(true);
             GrabbedItems = new List<Transform>();
