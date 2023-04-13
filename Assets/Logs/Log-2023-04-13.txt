@@ -1,0 +1,394 @@
+Logged in D:/Daniel/Documents/Unity Projects/Development/Assets\Logs\Log-2023-04-13.txt
+12:46:19[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 79
+12:46:19[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+12:46:19[CLIENT][SERVER] INFO: Connected succesfully!
+12:46:22[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:20 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+12:46:22[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:20 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+12:46:23[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 8 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:12 SlotID:-1
+12:46:23[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 7 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:12 SlotID:-1
+12:46:23[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 6 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:12 SlotID:-1
+12:46:23[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 5 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:12 SlotID:-1
+12:46:23[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 4 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:12 SlotID:-1
+12:46:23[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 3 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:12 SlotID:-1
+12:46:23[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 2 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:12 SlotID:-1
+12:46:23[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:12 SlotID:-1
+12:46:26[CLIENT][SERVER] DEBUG: Swapped 0 for 1
+12:46:28[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+12:46:35[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:0
+12:46:38[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:4
+12:46:39[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+12:47:14[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:3
+12:47:42[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:4
+12:28:00[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 121
+12:28:00[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+12:28:00[CLIENT][SERVER] INFO: Connected succesfully!
+12:28:03[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+12:28:05[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+12:28:14[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:0
+12:28:43[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 105
+12:28:43[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+12:28:43[CLIENT][SERVER] INFO: Connected succesfully!
+12:28:46[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+12:28:52[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:0
+12:28:56[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:0
+12:40:02[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 54
+12:40:02[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+12:40:02[CLIENT][SERVER] INFO: Connected succesfully!
+12:40:04[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+12:40:13[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+12:43:05[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 145
+12:43:05[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+12:43:05[CLIENT][SERVER] INFO: Connected succesfully!
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:08[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+12:43:11[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:0
+12:43:13[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+12:43:15[CLIENT][SERVER] DEBUG: Swapped 1 for 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:15[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: Swapped 1 for 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:17[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+12:43:20[CLIENT][SERVER] DEBUG: Added Item:Id:b12364e9c4524266b522a75a9a2afd8e Name:Pickaxe Size:MEDIUM Description:A pickaxe Count:1 SlotID:-1 to slot 2 | difference Item:Id:b12364e9c4524266b522a75a9a2afd8e Name:Pickaxe Size:MEDIUM Description:A pickaxe Count:0 SlotID:-1
+01:02:49[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 87
+01:02:49[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+01:02:49[CLIENT][SERVER] INFO: Connected succesfully!
+01:03:37[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 70
+01:03:37[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+01:03:37[CLIENT][SERVER] INFO: Connected succesfully!
+01:08:15[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 90
+01:08:15[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+01:08:15[CLIENT][SERVER] INFO: Connected succesfully!
+01:24:00[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 124
+01:24:00[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+01:24:00[CLIENT][SERVER] INFO: Connected succesfully!
+01:24:48[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 85
+01:24:48[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+01:24:48[CLIENT][SERVER] INFO: Connected succesfully!
+01:27:05[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 81
+01:27:05[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+01:27:05[CLIENT][SERVER] INFO: Connected succesfully!
+01:33:57[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 93
+01:33:57[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+01:33:57[CLIENT][SERVER] INFO: Connected succesfully!
+01:34:32[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 68
+01:34:32[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+01:34:32[CLIENT][SERVER] INFO: Connected succesfully!
+01:39:58[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 78
+01:39:58[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+01:39:58[CLIENT][SERVER] INFO: Connected succesfully!
+01:43:34[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 78
+01:43:34[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+01:43:34[CLIENT][SERVER] INFO: Connected succesfully!
+01:51:52[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 66
+01:51:52[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+01:51:52[CLIENT][SERVER] INFO: Connected succesfully!
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:55[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+01:51:57[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+01:51:59[CLIENT][SERVER] DEBUG: Swapped 1 for 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:51:59[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: Swapped 1 for 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:01[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: Swapped 1 for 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:07[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: Swapped 1 for 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:09[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+01:52:11[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+01:52:11[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+01:52:14[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:2
+01:52:20[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:0
