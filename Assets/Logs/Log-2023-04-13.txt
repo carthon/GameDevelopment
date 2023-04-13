@@ -392,3 +392,76 @@ Logged in D:/Daniel/Documents/Unity Projects/Development/Assets\Logs\Log-2023-04
 01:52:11[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
 01:52:14[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:2
 01:52:20[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:0
+02:02:29[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 130
+02:02:29[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+02:02:29[CLIENT][SERVER] INFO: Connected succesfully!
+02:14:41[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 87
+02:14:41[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+02:14:41[CLIENT][SERVER] INFO: Connected succesfully!
+02:21:11[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 131
+02:21:11[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+02:21:11[CLIENT][SERVER] INFO: Connected succesfully!
+02:22:51[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 96
+02:22:51[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+02:22:51[CLIENT][SERVER] INFO: Connected succesfully!
+02:24:36[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 141
+02:24:36[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+02:24:36[CLIENT][SERVER] INFO: Connected succesfully!
+02:26:36[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 65
+02:26:36[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+02:26:36[CLIENT][SERVER] INFO: Connected succesfully!
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+02:28:43[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+02:28:45[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+02:28:48[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:0
+02:28:49[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+02:28:50[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+02:28:51[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+02:30:32[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 68
+02:30:32[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+02:30:32[CLIENT][SERVER] INFO: Connected succesfully!
+02:30:36[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 0 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+02:30:38[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:0
+02:30:39[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:0
+02:30:49[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+02:33:19[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 60
+02:33:19[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+02:33:19[CLIENT][SERVER] INFO: Connected succesfully!
+02:33:28[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 0 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1

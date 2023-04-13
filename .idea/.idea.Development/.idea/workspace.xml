@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aea2bea4-eef4-46ed-83e6-81c0978d1e91" name="Changes" comment="[TS-9] Inventory and player models adjustments" />
+    <list default="true" id="aea2bea4-eef4-46ed-83e6-81c0978d1e91" name="Changes" comment="[TS-9] Project Clean up and folder management" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -601,7 +601,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681386776729</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="[TS-9] Organizing project assets and folders">
+      <created>1681386930159</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1681386930159</updated>
+    </task>
+    <task id="LOCAL-00032" summary="[TS-9] Project Clean up and folder management">
+      <created>1681387185349</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1681387185349</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -636,8 +650,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Inventory System Update" />
-    <MESSAGE value="Updated Inventory System. EquipmentSlotHandler tiene ahora un inventario por cada item que esta cargando" />
     <MESSAGE value="Swap Mechanic Update" />
     <MESSAGE value="Finished Hotbar Equip System" />
     <MESSAGE value="Multiplayer implementation" />
@@ -661,7 +673,9 @@
     <MESSAGE value="Working Inventory with slotSwap and ItemDrop" />
     <MESSAGE value="Adapted ContainerRenderer.cs to render an inventoryManager, this can include now some crafting grid or any extra inventory. Now the player Model is correctly isolated in the player Prefab to not throw rigging errors" />
     <MESSAGE value="[TS-9] Inventory and player models adjustments" />
-    <option name="LAST_COMMIT_MESSAGE" value="[TS-9] Inventory and player models adjustments" />
+    <MESSAGE value="[TS-9] Organizing project assets and folders" />
+    <MESSAGE value="[TS-9] Project Clean up and folder management" />
+    <option name="LAST_COMMIT_MESSAGE" value="[TS-9] Project Clean up and folder management" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
