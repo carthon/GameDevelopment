@@ -54,12 +54,13 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
                 //         _inventoryInterfaceState.LastGrabbedItemsLocalPosition[i];
                 // }
                 for (int i = 0; i < _inventoryInterfaceState?.GrabbedItems?.Count; i++) {
-                    if (InputHandler.Singleton.Clicked)
-                        GameObject.Destroy(Context.itemGrabberTransform.GetChild(i).gameObject);
-                    else {
+                    if (!InputHandler.Singleton.Clicked){
                         _inventoryInterfaceState.GrabbedItems[i].SetParent(originalParent);
                         _inventoryInterfaceState.GrabbedItems[i].localPosition = _inventoryInterfaceState.LastGrabbedItemsLocalPosition[i];
                         _inventoryInterfaceState.GrabbedItems[i].localRotation = Quaternion.identity;
+                    }
+                    else if(Context.itemGrabberTransform.childCount > 0 && Context.itemGrabberTransform.GetChild(i)?.gameObject){
+                        GameObject.Destroy(Context.itemGrabberTransform.GetChild(i).gameObject);
                     }
                 }
             }
