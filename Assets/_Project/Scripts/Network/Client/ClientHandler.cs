@@ -62,7 +62,7 @@ namespace _Project.Scripts.Network.Client {
             if (NetworkManager.playersList.TryGetValue(movementMessageStruct.id, out Player player)) {
                 if(player.IsLocal) {
                     Singleton._latestServerMovement = movementMessageStruct;
-                    if (NetworkManager.Singleton.debugServerPosition) {
+                    if (NetworkManager.Singleton.debugServerPosition && NetworkManager.Singleton.Client._serverDummy != null) {
                         NetworkManager.Singleton.Client._serverDummy.UpdateServerDummy(movementMessageStruct);
                     }
                 } else {
