@@ -3,7 +3,7 @@ using _Project.Helper.Compute_Helper;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace _Project.Marching_Cubes.Scripts {
+namespace _Project.Libraries.Marching_Cubes.Scripts {
 	public class Chunk
 	{
 

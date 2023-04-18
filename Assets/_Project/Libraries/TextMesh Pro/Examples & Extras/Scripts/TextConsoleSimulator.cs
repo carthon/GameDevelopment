@@ -2,7 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-namespace TextMesh_Pro.Examples___Extras.Scripts {
+namespace _Project.Libraries.TextMesh_Pro.Examples___Extras.Scripts {
     public class TextConsoleSimulator : MonoBehaviour {
         private bool hasTextChanged;
         private TMP_Text m_TextComponent;

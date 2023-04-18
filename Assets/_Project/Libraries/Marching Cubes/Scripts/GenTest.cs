@@ -1,7 +1,8 @@
 ﻿using _Project.Helper.Compute_Helper;
+using _Project.Scripts.Utils;
 using UnityEngine;
 
-namespace _Project.Marching_Cubes.Scripts {
+namespace _Project.Libraries.Marching_Cubes.Scripts {
 	public class GenTest : MonoBehaviour
 	{
 
@@ -235,6 +236,7 @@ namespace _Project.Marching_Cubes.Scripts {
 		{
 			chunks = new Chunk[numChunks * numChunks * numChunks];
 			float chunkSize = (boundsSize) / numChunks;
+			Vector3 meshGeneratorPosition = transform.position;
 			int i = 0;
 
 			for (int y = 0; y < numChunks; y++)

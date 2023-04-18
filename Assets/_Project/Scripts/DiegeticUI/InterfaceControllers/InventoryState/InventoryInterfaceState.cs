@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using _Project.Libraries.QuickOutline.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.Client;
-using QuickOutline.Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

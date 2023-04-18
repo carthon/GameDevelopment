@@ -1,5 +1,5 @@
 ﻿#pragma kernel ProcessCube
-#include "/Includes/MarchTables.compute"
+#include "Includes/MarchTables.compute"
 
 struct Vertex {
 	float3 position;
@@ -116,10 +116,10 @@ void ProcessCube (int3 id : SV_DispatchThreadID)
 	}
 	
 	// Get array of the edges of the cube that the surface passes through.
-	int edgeIndices[] = triangulation[cubeConfiguration];
+	const int edgeIndices[16] = triangulation[cubeConfiguration];
 
 	// Create triangles for the current cube configuration
-	for (i = 0; i < 16; i += 3) {
+	for (int i = 0; i < 16; i += 3) {
 		// If edge index is -1, then no further vertices exist in this configuration
 		if (edgeIndices[i] == -1) { break; }
 

@@ -1,5 +1,5 @@
 ﻿#pragma kernel CSMain
-#include "/Includes/Noise.compute"
+#include "Includes/Noise.compute"
 
 RWTexture3D<float> DensityTexture;
 int textureSize;

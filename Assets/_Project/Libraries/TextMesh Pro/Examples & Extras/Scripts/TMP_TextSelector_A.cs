@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace TextMesh_Pro.Examples___Extras.Scripts {
+namespace _Project.Libraries.TextMesh_Pro.Examples___Extras.Scripts {
 
     public class TMP_TextSelector_A : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 

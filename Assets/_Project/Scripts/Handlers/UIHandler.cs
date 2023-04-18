@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Client = _Project.Scripts.Network.Client.Client;
-using Outline = QuickOutline.Scripts.Outline;
+using Outline = _Project.Libraries.QuickOutline.Scripts.Outline;
 
 #if !UNITY_SERVER
 namespace _Project.Scripts.Handlers {

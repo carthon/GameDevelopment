@@ -1,7 +1,7 @@
 using Unity.Jobs;
 using UnityEngine;
 
-namespace _Project.Marching_Cubes.Scripts {
+namespace _Project.Libraries.Marching_Cubes.Scripts {
 	public struct MeshBaker : IJob
 	{
 		int meshID;

@@ -1,7 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace _Project.Marching_Cubes.Scripts {
+namespace _Project.Libraries.Marching_Cubes.Scripts {
 	public struct VertexData
 	{
 		public Vector3 position;

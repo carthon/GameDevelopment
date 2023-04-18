@@ -10,9 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Logger = _Project.Scripts.Utils.Logger;
 
-namespace QuickOutline.Scripts {
+namespace _Project.Libraries.QuickOutline.Scripts {
   [DisallowMultipleComponent]
 
   public class Outline : MonoBehaviour {

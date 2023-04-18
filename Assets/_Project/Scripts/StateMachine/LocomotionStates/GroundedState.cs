@@ -46,15 +46,8 @@ namespace _Project.Scripts.StateMachine.LocomotionStates {
             if (Physics.Raycast(origin, -Vector3.up, out hit, stats.height, locomotion.Stats.groundLayer)) {
                 //Vector3 groundPoint = CalculateMovableGround(hit);
                 var groundPoint = locomotion.transform.position;
-                groundPoint.y = hit.point.y;
+                groundPoint.y = hit.point.y * 1.000001f;
                 locomotion.transform.position = groundPoint + Vector3.up * stats.height;
-                if (locomotion.transform.parent != hit.transform && hit.collider.CompareTag("Grid")) {
-                    locomotion.transform.SetParent(hit.transform);
-                }
-            }
-            else {
-                _lastHitPosition = Vector3.zero;
-                locomotion.transform.SetParent(null);
             }
             locomotion.Rb.velocity = locomotion.AppliedMovement;
         }

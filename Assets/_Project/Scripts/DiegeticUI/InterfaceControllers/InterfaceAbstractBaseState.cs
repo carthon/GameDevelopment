@@ -1,7 +1,7 @@
+using _Project.Libraries.QuickOutline.Scripts;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Utils;
-using QuickOutline.Scripts;
 
 namespace _Project.Scripts.DiegeticUI.InterfaceControllers {
     public abstract class InterfaceAbstractBaseState {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Project.Marching_Cubes.Scripts.TextureViewer {
+namespace _Project.Libraries.Marching_Cubes.Scripts.TextureViewer {
 	public class TextureViewer3D : MonoBehaviour
 	{
 

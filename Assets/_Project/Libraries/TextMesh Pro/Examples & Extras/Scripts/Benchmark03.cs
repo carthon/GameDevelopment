@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.TextCore.LowLevel;
 
-namespace TextMesh_Pro.Examples___Extras.Scripts {
+namespace _Project.Libraries.TextMesh_Pro.Examples___Extras.Scripts {
 
     public class Benchmark03 : MonoBehaviour {
         public enum BenchmarkType {

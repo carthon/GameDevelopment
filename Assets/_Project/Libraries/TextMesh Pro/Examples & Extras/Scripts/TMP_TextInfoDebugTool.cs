@@ -3,7 +3,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-namespace TextMesh_Pro.Examples___Extras.Scripts {
+namespace _Project.Libraries.TextMesh_Pro.Examples___Extras.Scripts {
 
     public class TMP_TextInfoDebugTool : MonoBehaviour {
         // Since this script is used for debugging, we exclude it from builds.
