@@ -11,8 +11,6 @@ using Object = UnityEngine.Object;
 namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
     public class InventoryGrabItemInterfaceState : InterfaceAbstractBaseState {
         private InventoryInterfaceState _inventoryInterfaceState;
-        private Transform originalParent;
-        private int _clickedSlot = -1;
         public InventoryGrabItemInterfaceState(ItemStack grabbedItem, InterfaceStateFactory factory, UIHandler context) : base(factory, context) {
             itemSelected = grabbedItem;
         }
@@ -38,14 +36,11 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
             
             Context.slotSelectionVisualizer.transform.localScale = Vector3.one * ContainerRenderer.Singleton.slotSize;
             Context.itemGrabberTransform.transform.rotation = _inventoryInterfaceState?.GrabbedItems?.Count > 0 ? _inventoryInterfaceState.GrabbedItems[0].rotation : Quaternion.identity;
-            originalParent = _inventoryInterfaceState?.GrabbedItems?.Count > 0 ? _inventoryInterfaceState.GrabbedItems[0].parent : Context.itemGrabberTransform;
         }
         protected override void ExitState() {
             if (_inventoryInterfaceState.GrabbedItems.Count > 0) {
                 for (int i = 0; i < _inventoryInterfaceState?.GrabbedItems?.Count; i++) {
-                    if (!InputHandler.Singleton.Clicked){
-                        _inventoryInterfaceState.GrabbedItems[i].localPosition = _inventoryInterfaceState.LastGrabbedItemsLocalPosition[i];
-                    }
+                    _inventoryInterfaceState.GrabbedItems[i].localPosition = _inventoryInterfaceState.LastGrabbedItemsLocalPosition[i];
                 }
             }
             Context.slotSelectionVisualizer.SetActive(false);

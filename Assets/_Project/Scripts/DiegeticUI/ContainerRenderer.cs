@@ -21,8 +21,7 @@ namespace _Project.Scripts.DiegeticUI {
         private Vector3 originalParentPosition;
         private Vector3 inventoryDownRaycastDirection = Vector3.down;
         private bool toggled;
-        private bool needsUpdate;
-
+        
         private int itemsPerRow = 0;
         private int itemsPerColumn = 0;
         private int itemPileHeight = 0;
@@ -59,7 +58,6 @@ namespace _Project.Scripts.DiegeticUI {
                 inventory.OnSlotSwap += OnSlotSwap;
                 float slotsPerRow = (float) Math.Sqrt(inventory.Size);
                 toggled = false;
-                needsUpdate = true;
                 for (int i = 0; i < inventory.Size; i++) {
                     Transform slot = CreateSlot(inventory.Id, i, slotsPerRow);
                     List<(Renderer, MeshFilter)> list = new List<(Renderer, MeshFilter)>();
@@ -112,8 +110,6 @@ namespace _Project.Scripts.DiegeticUI {
             slotIDItemBounds[inventoryId][slot] = itemBounds;
             Vector3 itemExtents = itemBounds.extents * slotSize;
             Logger.Singleton.Log($"Update mesh:{mesh} render: {itemRenderer}, Bounds:{itemBounds.extents}", Logger.Type.DEBUG);
-            UIHandler.Instance.slotSelectionVisualizer.transform.localScale = itemExtents;
-            UIHandler.Instance.slotSelectionVisualizer.SetActive(true);
             
             for (int i = 0; i < itemStack.GetCount(); i++) {
                 slotIDItemsRendererDict[inventoryId][slot][i].Item2.sharedMesh = mesh.sharedMesh;
@@ -135,8 +131,8 @@ namespace _Project.Scripts.DiegeticUI {
             renderedItem.position += ModelPositionFromBounds(slot, Vector3.zero, itemBounds, cellBounds);
         }
         private Vector3 ModelPositionFromBounds(int cellIndex, Vector3 centerOfGrid, Bounds modelBounds, Bounds cellBounds) {
-            Vector3 leftBottomCorner = centerOfGrid - cellBounds.extents;
-            Vector3 leftBottomItemCenter = leftBottomCorner + modelBounds.extents;
+            Vector3 leftBottomCellCorner = centerOfGrid - cellBounds.extents;
+            Vector3 leftBottomItemCenter = leftBottomCellCorner + modelBounds.extents;
             Vector3 modelExtents = modelBounds.extents * 2;
             modelBounds.center = leftBottomItemCenter + new Vector3(modelExtents.x, 0 , 0) * cellIndex;
             if (modelBounds.Intersects(cellBounds)) {
@@ -166,7 +162,6 @@ namespace _Project.Scripts.DiegeticUI {
         public void UpdateInventorySlot(int slotId, int inventoryId) {
             ItemStack stackInSlot = inventory.Inventories[inventoryId].GetItemStack(slotId);
             UpdateRender(stackInSlot, toggled);
-            needsUpdate = true;
         }
         public void ToggleRender(bool render, int inventoryId = 0) {
             if (toggled == render)
@@ -181,7 +176,6 @@ namespace _Project.Scripts.DiegeticUI {
                     slotIDItemsRendererDict[inventoryId][i][j].Item1.gameObject.SetActive(render);
                 }
             }
-            if(toggled) needsUpdate = false;
             toggled = render;
         }
         private Transform CreateSlot(int inventoryId, int slotId, float slotsPerRow) {
