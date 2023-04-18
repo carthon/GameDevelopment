@@ -465,3 +465,1224 @@ Logged in D:/Daniel/Documents/Unity Projects/Development/Assets\Logs\Log-2023-04
 02:33:19[CLIENT][SERVER] WARNING: Server dummy prefab not set!
 02:33:19[CLIENT][SERVER] INFO: Connected succesfully!
 02:33:28[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 0 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:19:19[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 88
+03:19:19[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:19:19[CLIENT][SERVER] INFO: Connected succesfully!
+03:19:27[CLIENT][SERVER] DEBUG: Added Item:Id:b12364e9c4524266b522a75a9a2afd8e Name:Pickaxe Size:MEDIUM Description:A pickaxe Count:1 SlotID:-1 to slot 0 | difference Item:Id:b12364e9c4524266b522a75a9a2afd8e Name:Pickaxe Size:MEDIUM Description:A pickaxe Count:0 SlotID:-1
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:30[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:19:31[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 1 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:22:57[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 77
+03:22:57[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:22:57[CLIENT][SERVER] INFO: Connected succesfully!
+03:23:01[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 0 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:23:03[CLIENT][SERVER] DEBUG: Added Item:Id:b12364e9c4524266b522a75a9a2afd8e Name:Pickaxe Size:MEDIUM Description:A pickaxe Count:1 SlotID:-1 to slot 1 | difference Item:Id:b12364e9c4524266b522a75a9a2afd8e Name:Pickaxe Size:MEDIUM Description:A pickaxe Count:0 SlotID:-1
+03:23:05[CLIENT][SERVER] DEBUG: Pickaxe: Inventory:PlayerInventory Slot:1
+03:23:06[CLIENT][SERVER] DEBUG: Pickaxe: Inventory:PlayerInventory Slot:1
+03:23:08[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:0
+03:23:11[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:0
+03:23:14[CLIENT][SERVER] DEBUG: Pickaxe: Inventory:PlayerInventory Slot:1
+03:23:15[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:0
+03:26:20[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 324
+03:26:20[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:26:20[CLIENT][SERVER] INFO: Connected succesfully!
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:26:23[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:26:25[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:26:28[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+03:26:29[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:0
+03:26:30[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:0
+03:26:31[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:0
+03:26:32[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:0
+03:26:33[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:0
+03:26:34[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+03:26:35[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+03:26:41[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+03:26:43[CLIENT][SERVER] DEBUG: Added Item:Id:b12364e9c4524266b522a75a9a2afd8e Name:Pickaxe Size:MEDIUM Description:A pickaxe Count:1 SlotID:-1 to slot 2 | difference Item:Id:b12364e9c4524266b522a75a9a2afd8e Name:Pickaxe Size:MEDIUM Description:A pickaxe Count:0 SlotID:-1
+03:27:39[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 73
+03:27:39[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:27:39[CLIENT][SERVER] INFO: Connected succesfully!
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:42[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:27:44[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:27:46[CLIENT][SERVER] DEBUG: Swapped 1 for 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:27:46[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:32[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 653
+03:30:36[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:30:36[CLIENT][SERVER] INFO: Connected succesfully!
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:40[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:30:45[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:30:45[CLIENT][SERVER] INFO: Disconnected succesfully!
+03:30:45[CLIENT][SERVER] INFO: Player 1 disconnected
+03:31:05[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 139
+03:31:05[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:31:05[CLIENT][SERVER] INFO: Connected succesfully!
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:08[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:10[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:31:15[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:31:19[CLIENT][SERVER] DEBUG: Swapped 1 for 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:19[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: Swapped 0 for 1
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:20[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:21[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:21[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:21[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:21[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:21[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: Swapped 1 for 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:22[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: Swapped 1 for 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:31:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:25[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 94
+03:32:25[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:32:25[CLIENT][SERVER] INFO: Connected succesfully!
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:28[CLIENT][SERVER] DEBUG: Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:0
+03:32:28[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:32:30[CLIENT][SERVER] DEBUG: Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:1
+03:32:30[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:32:37[CLIENT][SERVER] DEBUG: Swapped 1 for 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:32:37[CLIENT][SERVER] DEBUG: ItemsPerColumn 0
+03:37:11[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 65
+03:37:11[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:37:11[CLIENT][SERVER] INFO: Connected succesfully!
+03:37:13[CLIENT][SERVER] DEBUG: Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:0
+03:37:13[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:37:15[CLIENT][SERVER] DEBUG: Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:1
+03:37:15[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:37:17[CLIENT][SERVER] DEBUG: Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:0
+03:37:17[CLIENT][SERVER] DEBUG: Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:1
+03:37:26[CLIENT][SERVER] DEBUG: Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:0
+03:37:26[CLIENT][SERVER] DEBUG: Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:1
+03:37:53[CLIENT][SERVER] DEBUG: Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:1
+03:37:53[CLIENT][SERVER] DEBUG: Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:1
+03:38:02[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 110
+03:38:02[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:38:02[CLIENT][SERVER] INFO: Connected succesfully!
+03:38:05[CLIENT][SERVER] DEBUG: Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:0
+03:38:05[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:38:06[CLIENT][SERVER] DEBUG: Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:1
+03:38:06[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:38:10[CLIENT][SERVER] DEBUG: Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:0
+03:38:10[CLIENT][SERVER] DEBUG: Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:1
+03:40:32[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 111
+03:40:32[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:40:32[CLIENT][SERVER] INFO: Connected succesfully!
+03:40:39[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:40:40[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:41:31[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 116
+03:41:31[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:41:31[CLIENT][SERVER] INFO: Connected succesfully!
+03:41:34[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:41:35[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:45:53[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 1461
+03:45:53[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:45:53[CLIENT][SERVER] INFO: Connected succesfully!
+03:45:55[CLIENT][SERVER] DEBUG: Updated 0 & 0
+03:45:55[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:45:58[CLIENT][SERVER] DEBUG: Updated 0 & 1
+03:45:58[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:46:04[CLIENT][SERVER] DEBUG: Updated 0 & 0
+03:46:04[CLIENT][SERVER] DEBUG: Updated 0 & 1
+03:51:51[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 97
+03:51:51[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:51:51[CLIENT][SERVER] INFO: Connected succesfully!
+03:51:53[CLIENT][SERVER] DEBUG: Updated 0 & 0
+03:51:53[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:51:55[CLIENT][SERVER] DEBUG: Updated 0 & 1
+03:51:55[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:52:00[CLIENT][SERVER] DEBUG: nombre1: SM_Icon_Coin_01(Clone) nombre 2: SM_Prop_Sword
+03:52:00[CLIENT][SERVER] DEBUG: Updated 0 & 0
+03:52:00[CLIENT][SERVER] DEBUG: nombre1: SM_Prop_Sword(Clone) nombre 2: SM_Icon_Coin_01
+03:52:00[CLIENT][SERVER] DEBUG: Updated 0 & 1
+03:55:27[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 271
+03:55:27[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:55:28[CLIENT][SERVER] INFO: Connected succesfully!
+03:55:33[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+03:55:33[CLIENT][SERVER] DEBUG: Updated 0 & 0
+03:55:33[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:55:33[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+03:55:33[CLIENT][SERVER] DEBUG: Updated 0 & 1
+03:55:33[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:55:35[CLIENT][SERVER] DEBUG: Updated 0 & 0
+03:55:35[CLIENT][SERVER] DEBUG: Updated 0 & 1
+03:58:00[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 234
+03:58:00[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:58:00[CLIENT][SERVER] INFO: Connected succesfully!
+03:58:02[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+03:58:02[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+03:58:02[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:58:04[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+03:58:04[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+03:58:04[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:58:07[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+03:58:07[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+03:59:33[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 110
+03:59:33[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+03:59:33[CLIENT][SERVER] INFO: Connected succesfully!
+03:59:36[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+03:59:36[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+03:59:36[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+03:59:37[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+03:59:37[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+03:59:37[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+03:59:41[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+03:59:41[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+03:59:49[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs41
+03:59:49[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+03:59:55[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+03:59:55[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs1
+04:02:20[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 85
+04:02:20[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:02:20[CLIENT][SERVER] INFO: Connected succesfully!
+04:02:23[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:02:23[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:02:23[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:02:23[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:02:25[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:02:25[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:02:25[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+04:02:25[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:02:28[CLIENT][SERVER] DEBUG: Child of outline 0 40
+04:02:28[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+04:02:28[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:02:28[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+04:03:20[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 89
+04:03:20[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:03:21[CLIENT][SERVER] INFO: Connected succesfully!
+04:03:24[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:03:24[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:03:24[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:03:24[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:03:25[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:03:25[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:03:25[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+04:03:25[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:03:31[CLIENT][SERVER] DEBUG: Child of outline 0 40
+04:03:31[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+04:03:31[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:03:31[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+04:04:05[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 50
+04:04:05[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:04:05[CLIENT][SERVER] INFO: Connected succesfully!
+04:04:09[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:04:09[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:04:09[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs1
+04:04:09[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 0 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:04:10[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:04:10[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:04:10[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+04:04:10[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 1 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:04:42[CLIENT][SERVER] DEBUG: Child of outline 1 40
+04:04:42[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs41
+04:04:42[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:04:42[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:06:16[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 112
+04:06:16[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:06:16[CLIENT][SERVER] INFO: Connected succesfully!
+04:06:20[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:06:20[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:06:20[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:06:20[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:06:21[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:06:21[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:06:21[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+04:06:21[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:06:26[CLIENT][SERVER] DEBUG: Child of outline 0 40
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Destroying items SM_Icon_Coin_01(Clone)
+04:06:26[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+04:06:26[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:06:26[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+04:13:52[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 114
+04:13:52[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:13:52[CLIENT][SERVER] INFO: Connected succesfully!
+04:13:54[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:13:54[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:13:54[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:13:54[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:13:55[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:13:55[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:13:55[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+04:13:55[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:13:57[CLIENT][SERVER] DEBUG: Child of outline 0 40
+04:13:57[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+04:13:57[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:13:57[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+04:14:32[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 698
+04:14:32[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:14:32[CLIENT][SERVER] INFO: Connected succesfully!
+04:14:35[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:14:36[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:14:36[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:14:36[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:14:36[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:14:36[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:14:36[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+04:14:36[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:14:38[CLIENT][SERVER] DEBUG: Child of outline 0 40
+04:15:10[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+04:15:12[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:15:12[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+04:15:12[CLIENT][SERVER] INFO: Player 1 disconnected
+04:15:12[CLIENT][SERVER] INFO: Disconnected succesfully!
+04:15:20[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 60
+04:15:20[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:15:20[CLIENT][SERVER] INFO: Connected succesfully!
+04:15:22[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:15:22[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:15:22[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:15:22[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:15:23[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:15:23[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:15:23[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+04:15:23[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:15:25[CLIENT][SERVER] DEBUG: Child of outline 0 40
+04:15:27[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+04:15:27[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:15:45[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+04:15:45[CLIENT][SERVER] INFO: Player 1 disconnected
+04:15:45[CLIENT][SERVER] INFO: Disconnected succesfully!
+04:17:36[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 97
+04:17:36[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:17:36[CLIENT][SERVER] INFO: Connected succesfully!
+04:17:50[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:17:50[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:17:50[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:17:50[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:17:51[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:17:52[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:17:52[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+04:17:52[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:17:54[CLIENT][SERVER] DEBUG: Child of outline 0 40
+04:17:57[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+04:17:57[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:17:57[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+04:20:38[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 62
+04:20:38[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:20:38[CLIENT][SERVER] INFO: Connected succesfully!
+04:20:41[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:20:41[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:20:41[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:20:41[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:20:42[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:20:42[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:20:42[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+04:20:42[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:20:44[CLIENT][SERVER] DEBUG: Child of outline 0 40
+04:20:44[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+04:20:44[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:20:44[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+04:23:35[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 90
+04:23:35[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:23:35[CLIENT][SERVER] INFO: Connected succesfully!
+04:23:37[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:23:37[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:23:37[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:23:37[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:23:39[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:23:39[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:23:39[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+04:23:39[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:23:43[CLIENT][SERVER] DEBUG: Child of outline 1 1
+04:23:43[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+04:24:06[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 93
+04:24:06[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:24:06[CLIENT][SERVER] INFO: Connected succesfully!
+04:24:09[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:24:09[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:24:09[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:24:09[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:24:10[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:24:10[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:24:10[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+04:24:10[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:24:11[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:24:11[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+04:24:21[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:0
+04:24:22[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:1
+04:24:26[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:1
+04:24:28[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:0
+04:26:35[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 150
+04:26:35[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:26:35[CLIENT][SERVER] INFO: Connected succesfully!
+04:26:37[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:26:37[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:26:37[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:26:37[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:26:38[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:26:38[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:26:38[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+04:26:38[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:26:40[CLIENT][SERVER] DEBUG: Child of outline 0 40
+04:26:40[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+04:26:40[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:26:40[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+04:28:21[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 94
+04:28:21[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:28:21[CLIENT][SERVER] INFO: Connected succesfully!
+04:28:27[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:28:27[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:28:27[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:28:27[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:28:28[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:28:28[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:28:28[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+04:28:28[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:28:29[CLIENT][SERVER] DEBUG: Child of outline 0 40
+04:28:29[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+04:28:29[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:28:29[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs0
+04:55:36[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 158
+04:55:36[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+04:55:36[CLIENT][SERVER] INFO: Connected succesfully!
+04:55:39[CLIENT][SERVER] DEBUG: Child of outline 0 0
+04:55:39[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+04:55:39[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+04:55:39[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+04:55:40[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:55:40[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+04:55:40[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+04:55:40[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+04:55:44[CLIENT][SERVER] DEBUG: Child of outline 0 40
+04:55:44[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+04:55:44[CLIENT][SERVER] DEBUG: Child of outline 1 0
+04:55:44[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+05:03:36[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 2459
+05:03:36[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:03:36[CLIENT][SERVER] INFO: Connected succesfully!
+05:03:39[CLIENT][SERVER] DEBUG: Child of outline 0 0
+05:03:39[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:03:39[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:03:39[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+05:03:40[CLIENT][SERVER] DEBUG: Child of outline 1 0
+05:03:40[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:03:40[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:03:40[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:03:42[CLIENT][SERVER] DEBUG: Child of outline 0 40
+05:03:42[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:03:42[CLIENT][SERVER] DEBUG: Child of outline 1 0
+05:03:42[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+05:08:05[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 67
+05:08:05[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:08:05[CLIENT][SERVER] INFO: Connected succesfully!
+05:08:08[CLIENT][SERVER] DEBUG: Child of outline 0 0
+05:08:08[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:08:08[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs1
+05:08:08[CLIENT][SERVER] DEBUG: Added Item:Id:b12364e9c4524266b522a75a9a2afd8e Name:Pickaxe Size:MEDIUM Description:A pickaxe Count:1 SlotID:-1 to slot 0 | difference Item:Id:b12364e9c4524266b522a75a9a2afd8e Name:Pickaxe Size:MEDIUM Description:A pickaxe Count:0 SlotID:-1
+05:08:08[CLIENT][SERVER] DEBUG: Child of outline 1 0
+05:08:08[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:08:08[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:08:08[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:08:15[CLIENT][SERVER] DEBUG: Child of outline 0 1
+05:08:15[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs1
+05:08:15[CLIENT][SERVER] DEBUG: Child of outline 1 0
+05:08:15[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:09:39[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 367
+05:09:39[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:09:39[CLIENT][SERVER] INFO: Connected succesfully!
+05:09:42[CLIENT][SERVER] DEBUG: Child of outline 0 0
+05:09:42[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs0
+05:09:42[CLIENT][SERVER] DEBUG: Added Item:Id:b12364e9c4524266b522a75a9a2afd8e Name:Pickaxe Size:MEDIUM Description:A pickaxe Count:1 SlotID:-1 to slot 0 | difference Item:Id:b12364e9c4524266b522a75a9a2afd8e Name:Pickaxe Size:MEDIUM Description:A pickaxe Count:0 SlotID:-1
+05:09:42[CLIENT][SERVER] DEBUG: Child of outline 1 0
+05:09:42[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs0
+05:09:42[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:10:07[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 148
+05:10:07[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:10:07[CLIENT][SERVER] INFO: Connected succesfully!
+05:10:10[CLIENT][SERVER] DEBUG: Child of outline 0 0
+05:10:10[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:10:10[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:10:10[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+05:10:11[CLIENT][SERVER] DEBUG: Child of outline 1 0
+05:10:11[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:10:11[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:10:11[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:10:12[CLIENT][SERVER] DEBUG: Child of outline 0 40
+05:10:12[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:10:12[CLIENT][SERVER] DEBUG: Child of outline 1 0
+05:10:12[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+05:28:19[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 116
+05:28:19[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:28:19[CLIENT][SERVER] INFO: Connected succesfully!
+05:28:21[CLIENT][SERVER] DEBUG: Child of outline 0 0
+05:28:21[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:28:21[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:28:21[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+05:28:23[CLIENT][SERVER] DEBUG: Child of outline 1 0
+05:28:23[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:28:23[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:28:23[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:28:25[CLIENT][SERVER] DEBUG: Child of outline 0 40
+05:28:25[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:28:25[CLIENT][SERVER] DEBUG: Child of outline 1 0
+05:28:25[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+05:29:39[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 185
+05:29:39[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:29:39[CLIENT][SERVER] INFO: Connected succesfully!
+05:29:45[CLIENT][SERVER] DEBUG: No free space!
+05:30:20[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 134
+05:30:20[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:30:20[CLIENT][SERVER] INFO: Connected succesfully!
+05:30:24[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:30:24[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:30:24[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+05:30:25[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:30:25[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:30:25[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:30:26[CLIENT][SERVER] DEBUG: Child of outline 0 40
+40
+05:30:26[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:30:26[CLIENT][SERVER] DEBUG: Child of outline 1 0
+1
+05:30:26[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+05:31:02[CLIENT][SERVER] DEBUG: Child of outline 0 1
+1
+05:31:03[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:31:03[CLIENT][SERVER] DEBUG: Child of outline 1 0
+40
+05:31:03[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:31:12[CLIENT][SERVER] DEBUG: Child of outline 0 39
+40
+05:31:12[CLIENT][SERVER] DEBUG: Child of outline 0 0
+40
+05:31:12[CLIENT][SERVER] DEBUG: Child of outline 0 0
+40
+05:31:12[CLIENT][SERVER] DEBUG: Child of outline 0 0
+40
+05:31:12[CLIENT][SERVER] DEBUG: Child of outline 0 0
+40
+05:31:12[CLIENT][SERVER] DEBUG: Child of outline 0 0
+40
+05:31:12[CLIENT][SERVER] DEBUG: Child of outline 0 0
+40
+05:31:12[CLIENT][SERVER] DEBUG: Child of outline 0 0
+40
+05:31:12[CLIENT][SERVER] DEBUG: Child of outline 0 0
+40
+05:31:13[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+05:31:25[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 102
+05:31:25[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:31:25[CLIENT][SERVER] INFO: Connected succesfully!
+05:31:27[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:31:27[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:31:27[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+05:31:28[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:31:28[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:31:28[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:31:31[CLIENT][SERVER] DEBUG: Child of outline 0 40
+40
+05:31:31[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:31:31[CLIENT][SERVER] DEBUG: Child of outline 1 0
+1
+05:31:31[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+05:34:06[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 229
+05:34:06[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:34:06[CLIENT][SERVER] INFO: Connected succesfully!
+05:34:09[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:34:09[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:34:09[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+05:34:09[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:34:09[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:34:09[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:34:18[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+05:34:24[CLIENT][SERVER] DEBUG: Child of outline 0 40
+40
+05:34:24[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:34:24[CLIENT][SERVER] DEBUG: Child of outline 1 0
+1
+05:34:24[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+05:35:20[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 193
+05:35:20[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:35:20[CLIENT][SERVER] INFO: Connected succesfully!
+05:35:23[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:35:23[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:35:23[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+05:35:24[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:35:24[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:35:24[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:35:28[CLIENT][SERVER] DEBUG: Child of outline 0 40
+40
+05:35:28[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:35:28[CLIENT][SERVER] DEBUG: Child of outline 1 0
+1
+05:35:28[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+05:36:43[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 201
+05:36:43[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:36:43[CLIENT][SERVER] INFO: Connected succesfully!
+05:36:46[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:36:46[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:36:46[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+05:36:47[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:36:47[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:36:47[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:36:49[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+05:36:52[CLIENT][SERVER] DEBUG: Child of outline 0 40
+DictCount:40 ItemsInSlot:1
+05:36:52[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:36:52[CLIENT][SERVER] DEBUG: Child of outline 1 0
+DictCount:1 ItemsInSlot:40
+05:36:52[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+05:39:47[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 69
+05:39:47[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:39:47[CLIENT][SERVER] INFO: Connected succesfully!
+05:39:50[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:39:50[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:39:50[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+05:39:51[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:39:51[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:39:51[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:39:53[CLIENT][SERVER] DEBUG: Child of outline 0 40
+DictCount:40 ItemsInSlot:1
+05:39:53[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:39:53[CLIENT][SERVER] DEBUG: Child of outline 1 0
+DictCount:1 ItemsInSlot:40
+05:39:53[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+05:41:12[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 107
+05:41:12[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:41:12[CLIENT][SERVER] INFO: Connected succesfully!
+05:41:15[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:41:15[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:41:15[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+05:41:16[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:41:16[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:41:16[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:41:18[CLIENT][SERVER] DEBUG: Child of outline 0 40
+DictCount:40 ItemsInSlot:1
+05:41:18[CLIENT][SERVER] DEBUG: Child of outline2 0 41
+DictCount:1 ItemsInSlot:1
+05:41:18[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:41:18[CLIENT][SERVER] DEBUG: Child of outline 1 0
+DictCount:1 ItemsInSlot:40
+05:41:18[CLIENT][SERVER] DEBUG: Child of outline2 1 40
+DictCount:40 ItemsInSlot:40
+05:41:18[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+05:43:32[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 306
+05:43:32[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:43:32[CLIENT][SERVER] INFO: Connected succesfully!
+05:43:35[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:43:35[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:43:35[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+05:43:37[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:43:37[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:43:37[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:43:38[CLIENT][SERVER] DEBUG: Child of outline 0 40
+DictCount:40 ItemsInSlot:1
+05:43:38[CLIENT][SERVER] DEBUG: Child of outline2 0 41
+DictCount:1 ItemsInSlot:1
+05:43:38[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:43:38[CLIENT][SERVER] DEBUG: Child of outline 1 0
+DictCount:1 ItemsInSlot:40
+05:43:38[CLIENT][SERVER] DEBUG: Child of outline2 1 40
+DictCount:40 ItemsInSlot:40
+05:43:38[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+05:49:19[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 1068
+05:49:19[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:49:19[CLIENT][SERVER] INFO: Connected succesfully!
+05:49:21[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:49:21[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:49:21[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+05:49:22[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:49:22[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:49:22[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:49:27[CLIENT][SERVER] DEBUG: Child of outline 0 40
+DictCount:40 ItemsInSlot:1
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:27[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:49:28[CLIENT][SERVER] DEBUG: Child of outline2 0 41
+DictCount:1 ItemsInSlot:1
+05:49:28[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:49:28[CLIENT][SERVER] DEBUG: Child of outline 1 0
+DictCount:1 ItemsInSlot:40
+05:49:28[CLIENT][SERVER] DEBUG: Child of outline2 1 40
+DictCount:40 ItemsInSlot:40
+05:49:28[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40
+05:50:00[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:1
+05:50:02[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:1
+05:50:03[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:1
+05:50:13[CLIENT][SERVER] DEBUG: Stackable Item: Inventory:PlayerInventory Slot:1
+05:50:16[CLIENT][SERVER] DEBUG: Child of outline 0 1
+DictCount:1 ItemsInSlot:40
+05:50:16[CLIENT][SERVER] DEBUG: DestroyingSM_Prop_Sword(Clone)
+05:50:16[CLIENT][SERVER] DEBUG: Child of outline2 0 41
+DictCount:40 ItemsInSlot:40
+05:50:16[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:50:16[CLIENT][SERVER] DEBUG: Child of outline 1 0
+DictCount:40 ItemsInSlot:1
+05:50:16[CLIENT][SERVER] DEBUG: Child of outline2 1 1
+DictCount:1 ItemsInSlot:1
+05:50:16[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:52:48[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 91
+05:52:48[CLIENT][SERVER] WARNING: Server dummy prefab not set!
+05:52:48[CLIENT][SERVER] INFO: Connected succesfully!
+05:52:50[CLIENT][SERVER] DEBUG: Instancing new items 0 & 0
+05:52:50[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs40
+05:52:50[CLIENT][SERVER] DEBUG: Added Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:40 SlotID:-1 to slot 0 | difference Item:Id:6c10016d4e344e99b24ffd0cea1ec391 Name:Coin Size:SMALL Description:Just a coin Count:0 SlotID:-1
+05:52:51[CLIENT][SERVER] DEBUG: Instancing new items 0 & 1
+05:52:51[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs1
+05:52:51[CLIENT][SERVER] DEBUG: Added Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:1 SlotID:-1 to slot 1 | difference Item:Id:795afad8218a4decbe0611833b0ba32c Name:Sword Size:MEDIUM Description:Just a sword Count:0 SlotID:-1
+05:52:54[CLIENT][SERVER] DEBUG: Sword: Inventory:PlayerInventory Slot:1
+05:52:57[CLIENT][SERVER] DEBUG: Child of outline 0 40
+DictCount:40 ItemsInSlot:1
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: DestroyingSM_Icon_Coin_01(Clone)
+05:52:57[CLIENT][SERVER] DEBUG: Child of outline2 0 41
+DictCount:1 ItemsInSlot:1
+05:52:57[CLIENT][SERVER] DEBUG: Updated 0 & 0 for childs41
+05:52:57[CLIENT][SERVER] DEBUG: Child of outline 1 0
+DictCount:1 ItemsInSlot:40
+05:52:57[CLIENT][SERVER] DEBUG: Child of outline2 1 40
+DictCount:40 ItemsInSlot:40
+05:52:57[CLIENT][SERVER] DEBUG: Updated 0 & 1 for childs40

@@ -103,10 +103,7 @@ namespace QuickOutline.Scripts {
 
     public void ReloadRenderers() {
       // Cache renderers
-      renderers = transform.GetComponentsInChildren<Renderer>();
-    }
-    public void ResetRenderers() {
-      renderers = Array.Empty<Renderer>();
+      renderers = transform.GetComponentsInChildren<Renderer>(true);
     }
 
     void OnEnable() {

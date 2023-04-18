@@ -8,6 +8,7 @@ using Logger = _Project.Scripts.Utils.Logger;
 
 namespace _Project.Scripts.Components {
     public class Inventory {
+        public const int MaxStackSize = 64;
 
         private int _freeSpace;
         private List<ItemStack> _items;

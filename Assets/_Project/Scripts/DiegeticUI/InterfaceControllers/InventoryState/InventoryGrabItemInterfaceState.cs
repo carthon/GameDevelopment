@@ -15,10 +15,8 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
         private int _clickedSlot = -1;
         public InventoryGrabItemInterfaceState(ItemStack grabbedItem, InterfaceStateFactory factory, UIHandler context) : base(factory, context) {
             itemSelected = grabbedItem;
-            EnterState();
         }
         protected override void UpdateState() {
-            Context.UpdateWatchedVariables("grabbedItems", $"GrabbedItemsCount:{_inventoryInterfaceState.GrabbedItems.Count}");
             if (_inventoryInterfaceState.GrabbedItems.Count > 0) {
                 bool lookingAtSlot = _inventoryInterfaceState.HitPoint.collider.CompareTag("UISlot");
                 Context.slotSelectionVisualizer.SetActive(lookingAtSlot);
@@ -27,40 +25,26 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
                     Context.slotSelectionVisualizer.transform.position = hitPointCollider.position;
                     Context.slotSelectionVisualizer.transform.rotation = hitPointCollider.rotation;
                 }
-                Context.itemGrabberTransform.transform.position = _inventoryInterfaceState.HitPoint.point + Vector3.up * 0.2f;
-                // for (int i = 0; i < _inventoryInterfaceState.GrabbedItems.Count; i++) {
-                //     _inventoryInterfaceState.GrabbedItems[i].transform.position = _inventoryInterfaceState.HitPoint.point + _inventoryInterfaceState.LastGrabbedItemsLocalPosition[i]
-                //         + Vector3.up * 0.2f;
-                //     _inventoryInterfaceState.GrabbedItems[i].transform.rotation = hitPointCollider.rotation;
-                // }
+                for (int i = 0; i < _inventoryInterfaceState?.GrabbedItems?.Count; i++) {
+                    _inventoryInterfaceState.GrabbedItems[i].position = _inventoryInterfaceState.HitPoint.point + _inventoryInterfaceState.LastGrabbedItemsLocalPosition[i] 
+                        + Vector3.up * 0.2f;
+                }
             }
             CheckSwitchStates();
         }
         protected sealed override void EnterState() {
             _inventoryInterfaceState = (InventoryInterfaceState) CurrentSuperState;
             Context.slotSelectionVisualizer.SetActive(true);
+            
             Context.slotSelectionVisualizer.transform.localScale = Vector3.one * ContainerRenderer.Singleton.slotSize;
+            Context.itemGrabberTransform.transform.rotation = _inventoryInterfaceState?.GrabbedItems?.Count > 0 ? _inventoryInterfaceState.GrabbedItems[0].rotation : Quaternion.identity;
             originalParent = _inventoryInterfaceState?.GrabbedItems?.Count > 0 ? _inventoryInterfaceState.GrabbedItems[0].parent : Context.itemGrabberTransform;
-            for (int i = 0; i < _inventoryInterfaceState?.GrabbedItems?.Count; i++) {
-                _inventoryInterfaceState.GrabbedItems[i].SetParent(Context.itemGrabberTransform);
-                _inventoryInterfaceState.GrabbedItems[i].localPosition = Vector3.zero + _inventoryInterfaceState.LastGrabbedItemsLocalPosition[i];
-                _inventoryInterfaceState.GrabbedItems[i].localRotation = Quaternion.identity;
-            }
         }
         protected override void ExitState() {
             if (_inventoryInterfaceState.GrabbedItems.Count > 0) {
-                // for (int i = 0; i < _inventoryInterfaceState.GrabbedItems.Count; i++) {
-                //     _inventoryInterfaceState.GrabbedItems[i].transform.position = _inventoryInterfaceState.GrabbedItems[i].transform.parent.position + 
-                //         _inventoryInterfaceState.LastGrabbedItemsLocalPosition[i];
-                // }
                 for (int i = 0; i < _inventoryInterfaceState?.GrabbedItems?.Count; i++) {
                     if (!InputHandler.Singleton.Clicked){
-                        _inventoryInterfaceState.GrabbedItems[i].SetParent(originalParent);
                         _inventoryInterfaceState.GrabbedItems[i].localPosition = _inventoryInterfaceState.LastGrabbedItemsLocalPosition[i];
-                        _inventoryInterfaceState.GrabbedItems[i].localRotation = Quaternion.identity;
-                    }
-                    else if(Context.itemGrabberTransform.childCount > 0 && Context.itemGrabberTransform.GetChild(i)?.gameObject){
-                        GameObject.Destroy(Context.itemGrabberTransform.GetChild(i).gameObject);
                     }
                 }
             }
@@ -70,7 +54,6 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
         }
         public override void CheckSwitchStates() {
             if (InputHandler.Singleton.RClicked) {
-                Logger.Singleton.Log($"{itemSelected.Item.name}: Inventory:{itemSelected.GetInventory().Name} Slot:{itemSelected.GetSlotID()}", Logger.Type.DEBUG);
                 SwitchState(Factory.InventorySelectItemState());
             }
             if (InputHandler.Singleton.Clicked) {
@@ -81,13 +64,17 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
         }
         private void SwapOrDropItemInSlot() {
             Inventory selectedInventory = itemSelected.GetInventory();
+            bool switchState = true;
             if (Int32.TryParse(_inventoryInterfaceState.HitPoint.collider.transform.name, out int clickedSlot)) {
-                selectedInventory.SwapItemsInInventory(selectedInventory, itemSelected.GetSlotID(), clickedSlot);
+                if (itemSelected.GetSlotID() != clickedSlot) {
+                    switchState = selectedInventory.SwapItemsInInventory(selectedInventory, itemSelected.GetSlotID(), clickedSlot);
+                    InputHandler.Singleton.Clicked = false;
+                }
             }
             else {
                 Client.DropItemStack(itemSelected,_inventoryInterfaceState.HitPoint.point, Quaternion.identity);
             }
-            SwitchState(Factory.InventorySelectItemState());
+            if(switchState) SwitchState(Factory.InventorySelectItemState());
         }
         public override string StateName() => "GrabItemState";
     }

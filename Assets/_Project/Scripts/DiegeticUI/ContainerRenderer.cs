@@ -12,9 +12,9 @@ namespace _Project.Scripts.DiegeticUI {
     public class ContainerRenderer : MonoBehaviour {
         [SerializeField]
         public float slotSize = 0.1f;
-        public InventoryManager Inventory;
+        public InventoryManager inventory;
         private Transform _parent;
-        private List<Dictionary<int, List<GameObject>>> slotIDItemsDict;
+        private List<Dictionary<int, List<(Renderer, MeshFilter)>>> slotIDItemsRendererDict;
         private List<Dictionary<int, Outline>> slotIDOutlinesDict;
         private List<Dictionary<int, Bounds>> slotIDItemBounds;
         private static ContainerRenderer _singleton;
@@ -44,61 +44,40 @@ namespace _Project.Scripts.DiegeticUI {
         }
         
         public void InitializeRenderer(InventoryManager inventoryManager, Transform parent) {
-            Inventory = inventoryManager;
-            slotIDItemsDict = new List<Dictionary<int, List<GameObject>>>();
+            inventory = inventoryManager;
+            slotIDItemsRendererDict = new List<Dictionary<int, List<(Renderer, MeshFilter)>>>();
             slotIDOutlinesDict = new List<Dictionary<int, Outline>>();
             slotIDItemBounds = new List<Dictionary<int, Bounds>>();
-            foreach (Inventory inventory in Inventory.Inventories) {
+            foreach (Inventory inventory in inventory.Inventories) {
                 _parent = new GameObject(inventory.Id.ToString()).transform;
                 _parent.SetParent(parent);
                 _parent.localPosition = Vector3.zero;
                 slotIDItemBounds.Add(new Dictionary<int, Bounds>());
-                slotIDItemsDict.Add(new Dictionary<int, List<GameObject>>());
+                slotIDItemsRendererDict.Add(new Dictionary<int, List<(Renderer, MeshFilter)>>());
                 slotIDOutlinesDict.Add(new Dictionary<int, Outline>());
                 inventory.OnSlotChange += UpdateInventorySlot;
                 inventory.OnSlotSwap += OnSlotSwap;
                 float slotsPerRow = (float) Math.Sqrt(inventory.Size);
                 toggled = false;
                 needsUpdate = true;
-                List<ItemStack> items = inventory.GetInventorySlots();
-                for (int i = 0; i < inventory.Size; i++)
-                    CreateSlot(inventory.Id, i, slotsPerRow);
-                foreach (ItemStack item in items) {
-                    if (!item.IsEmpty()) {
-                        slotIDItemBounds[inventory.Id].Add(item.GetSlotID(), GetItemBounds(item));
-                        slotIDItemsDict[inventory.Id].Add(item.GetSlotID(), RenderItemStack(item));
+                for (int i = 0; i < inventory.Size; i++) {
+                    Transform slot = CreateSlot(inventory.Id, i, slotsPerRow);
+                    List<(Renderer, MeshFilter)> list = new List<(Renderer, MeshFilter)>();
+                    for (int j = 0; j < Inventory.MaxStackSize; j++) {
+                        (Renderer, MeshFilter) tuple = CreateItemModel(j.ToString(), slot);
+                        list.Add(tuple);
                     }
+                    slotIDItemsRendererDict[inventory.Id].Add(i, list);
+                    slotIDItemBounds[inventory.Id].Add(i, new Bounds());
+                    slotIDOutlinesDict[inventory.Id][i].ReloadRenderers();
                 }
             }
             _parent = parent;
             originalParentPosition = _parent.localPosition;
         }
         private void OnSlotSwap(int inventoryId, int otherInventoryId, int slot, int otherSlot) {
-            if (slotIDItemsDict[inventoryId].TryGetValue(slot, out List<GameObject> originObjsInSlot) && originObjsInSlot.Count > 0 &&
-                slotIDItemsDict[otherInventoryId].TryGetValue(otherSlot, out List<GameObject> destObjsInSlot) && destObjsInSlot.Count > 0) {
-                Logger.Singleton.Log($"Swapped {slot} for {otherSlot}", Logger.Type.DEBUG);
-                Transform originParent = slotIDOutlinesDict[inventoryId][slot].transform;
-                Transform destParent = slotIDOutlinesDict[otherInventoryId][otherSlot].transform;
-                Vector3 otherItemBounds = slotIDItemBounds[inventoryId][slot].extents * 2;
-                for (int i= 0; i < originObjsInSlot.Count; i++) {
-                    originObjsInSlot[i].transform.SetParent(destParent);
-                    originObjsInSlot[i] = SetRenderPositionInSlot(i, originObjsInSlot[i], otherItemBounds);
-                }
-                itemsPerRow = 0;
-                itemPileHeight = 0;
-                    Vector3 itemBounds = slotIDItemBounds[otherInventoryId][otherSlot].extents * 2;
-                    for (int i= 0; i < destObjsInSlot.Count; i++) {
-                        destObjsInSlot[i].transform.SetParent(originParent);
-                        destObjsInSlot[i] = SetRenderPositionInSlot(i, destObjsInSlot[i], itemBounds);
-                    }
-                    itemsPerRow = 0;
-                    itemPileHeight = 0;
-                    (slotIDItemBounds[inventoryId][slot], slotIDItemBounds[otherInventoryId][otherSlot]) = (slotIDItemBounds[otherInventoryId][otherSlot], slotIDItemBounds[inventoryId][slot]);
-                    (slotIDItemsDict[inventoryId][slot], slotIDItemsDict[otherInventoryId][otherSlot]) = (slotIDItemsDict[otherInventoryId][otherSlot], slotIDItemsDict[inventoryId][slot]);
-            } else {
-                UpdateInventorySlot(otherSlot, otherInventoryId);
-                UpdateInventorySlot(slot, inventoryId);
-            }
+            UpdateInventorySlot(otherSlot, otherInventoryId);
+            UpdateInventorySlot(slot, inventoryId);
         }
         private Bounds GetItemBounds(ItemStack itemStack) {
             Bounds bounds = new Bounds();
@@ -112,38 +91,48 @@ namespace _Project.Scripts.DiegeticUI {
             }
             return bounds;
         }
-
-        private List<GameObject> RenderItemStack(ItemStack itemStack) {
-            List<GameObject> listOfRenders = new List<GameObject>();
-            int slotId = itemStack.GetSlotID();
+        private void UpdateRender(ItemStack itemStack, bool render = true) {
+            int slot = itemStack.GetSlotID();
             int inventoryId = itemStack.GetInventory().Id;
-
-            //float itemsPerSlotRow = itemStack.Item.IsStackable() ? (float)Math.Sqrt(itemStack.Item.GetMaxStackSize()) : 1;
-            Vector3 itemExtents = slotIDItemBounds[inventoryId][slotId].extents * 2;
-            float itemSize = slotSize;
-            int startListSize = 0;
-
-            if (slotIDOutlinesDict[inventoryId].TryGetValue(slotId, out Outline outline) && slotIDItemsDict[inventoryId].ContainsKey(slotId)) {
-                List<GameObject> objList = outline.transform.GetComponentsInChildren<Rigidbody>().Select(obj=> obj.gameObject).ToList();
-                if(objList.Count > 0 && objList.Count <= itemStack.GetCount()) {
-                    startListSize = objList.Count;
-                    listOfRenders = objList;
+            if (itemStack.IsEmpty()) {
+                slotIDItemBounds[inventoryId][slot] = new Bounds();
+                foreach ((Renderer, MeshFilter) obj in slotIDItemsRendererDict[inventoryId][slot]) {
+                    obj.Item2.sharedMesh = null;
+                    obj.Item2.gameObject.SetActive(false);
                 }
+                return;
             }
-            for (int i = startListSize; i < itemStack.GetCount(); i++) {
-                GameObject renderedItem = CreateItemModel(itemStack, slotIDOutlinesDict[inventoryId][slotId].transform);
-                renderedItem.transform.localScale *= itemSize;
-                listOfRenders.Add(SetRenderPositionInSlot(i, renderedItem, itemExtents));
+            Renderer itemRenderer = itemStack.Item.modelPrefab.GetComponentInChildren<Renderer>();
+            MeshFilter mesh = itemStack.Item.modelPrefab.GetComponentInChildren<MeshFilter>();
+            Transform meshTransform = mesh.transform;
+            Quaternion childRotation = meshTransform.localRotation;
+            Vector3 childScale = meshTransform.localScale;
+            float itemSize = slotSize;
+            Bounds itemBounds = GetItemBounds(itemStack);
+            slotIDItemBounds[inventoryId][slot] = itemBounds;
+            Vector3 itemExtents = itemBounds.extents * slotSize;
+            Logger.Singleton.Log($"Update mesh:{mesh} render: {itemRenderer}, Bounds:{itemBounds.extents}", Logger.Type.DEBUG);
+            UIHandler.Instance.slotSelectionVisualizer.transform.localScale = itemExtents;
+            UIHandler.Instance.slotSelectionVisualizer.SetActive(true);
+            
+            for (int i = 0; i < itemStack.GetCount(); i++) {
+                slotIDItemsRendererDict[inventoryId][slot][i].Item2.sharedMesh = mesh.sharedMesh;
+                slotIDItemsRendererDict[inventoryId][slot][i].Item1.sharedMaterial = itemRenderer.sharedMaterial;
+                slotIDItemsRendererDict[inventoryId][slot][i].Item1.gameObject.SetActive(render);
+                Transform child = slotIDItemsRendererDict[inventoryId][slot][i].Item1.transform;
+                child.localRotation = childRotation;
+                child.localScale = childScale * itemSize;
+                SetRenderPositionInSlot(i, child, itemExtents);
             }
-            itemPileHeight = 0;
+            itemsPerColumn = 0;
             itemsPerRow = 0;
-            return listOfRenders;
+            itemPileHeight = 0;
         }
-        private GameObject SetRenderPositionInSlot(int slot, GameObject renderedItem, Vector3 itemExtents) {
+        private void SetRenderPositionInSlot(int slot, Transform renderedItem, Vector3 itemExtents) {
             Bounds cellBounds = new Bounds(Vector3.zero, Vector3.one * slotSize / 2);
-            Bounds itemBounds = new Bounds(Vector3.zero, itemExtents * slotSize);
-            renderedItem.transform.localPosition = ModelPositionFromBounds(slot, Vector3.zero, itemBounds, cellBounds);
-            return renderedItem;
+            Bounds itemBounds = new Bounds(Vector3.zero, itemExtents * 2);
+            renderedItem.localPosition = Vector3.zero;
+            renderedItem.position += ModelPositionFromBounds(slot, Vector3.zero, itemBounds, cellBounds);
         }
         private Vector3 ModelPositionFromBounds(int cellIndex, Vector3 centerOfGrid, Bounds modelBounds, Bounds cellBounds) {
             Vector3 leftBottomCorner = centerOfGrid - cellBounds.extents;
@@ -159,7 +148,6 @@ namespace _Project.Scripts.DiegeticUI {
             modelBounds.center = leftBottomItemCenter + new Vector3(modelExtents.x, 0 , 0) * (cellIndex % itemsPerRow)
                 + new Vector3(0, 0, modelExtents.z) * (cellIndex / itemsPerRow % itemsPerRow);
             if (!modelBounds.Intersects(cellBounds) && itemsPerColumn == 0) itemsPerColumn = cellIndex - 1;
-            Logger.Singleton.Log($"ItemsPerColumn {itemsPerColumn}", Logger.Type.DEBUG);
             if (itemsPerColumn != 0)
                 modelBounds.center = leftBottomItemCenter + new Vector3(modelExtents.x, 0 , 0) * (cellIndex % itemsPerRow)
                     + new Vector3(0, 0, modelExtents.z) * (cellIndex / itemsPerColumn % itemsPerColumn);
@@ -176,54 +164,27 @@ namespace _Project.Scripts.DiegeticUI {
         }
         private void UpdateInventorySlot(int slotId, ItemStack itemStack) => UpdateInventorySlot(slotId, itemStack.GetInventory().Id);
         public void UpdateInventorySlot(int slotId, int inventoryId) {
-            ItemStack stackInSlot = Inventory.Inventories[inventoryId].GetItemStack(slotId);
-            if (slotIDItemsDict[inventoryId].TryGetValue(slotId, out List<GameObject> objectsList)) {
-                //Actualizar el slot dependiendo de los items que haya
-                if (objectsList?.Count > 0) {
-                    //Si no hay items en el stack, se destruyen los objetos que hubiera antes
-                    if (stackInSlot.IsEmpty()) {
-                        DestroyGameObjectsInChildren(slotIDOutlinesDict[inventoryId][slotId].transform);
-                        slotIDItemsDict[inventoryId].Remove(slotId);
-                        slotIDItemBounds[inventoryId].Remove(slotId);
-                        slotIDOutlinesDict[inventoryId][slotId].ResetRenderers();
-                    } else if (!objectsList[0].name.Equals(stackInSlot.Item.modelPrefab.name)) {
-                        DestroyGameObjectsInChildren(slotIDOutlinesDict[inventoryId][slotId].transform);
-                        slotIDItemBounds[inventoryId][slotId] = GetItemBounds(stackInSlot);
-                        slotIDItemsDict[inventoryId][slotId] = RenderItemStack(stackInSlot);
-                    }
-                }
-            }
-            //Si los objetos que hay no son iguales al prefab entonces hay que instanciar unos nuevos
-            else {
-                slotIDItemBounds[inventoryId].Add(stackInSlot.GetSlotID(), GetItemBounds(stackInSlot));
-                slotIDItemsDict[inventoryId].Add(stackInSlot.GetSlotID(), RenderItemStack(stackInSlot));
-            } 
-            if(!stackInSlot.IsEmpty()) slotIDOutlinesDict[inventoryId][slotId].ReloadRenderers();
+            ItemStack stackInSlot = inventory.Inventories[inventoryId].GetItemStack(slotId);
+            UpdateRender(stackInSlot, toggled);
             needsUpdate = true;
-        }
-        private void DestroyGameObjectsInChildren(Transform parent) {
-            for (int i = 0; i < parent.childCount; i++) {
-                Destroy(parent.GetChild(i).gameObject);
-            }
         }
         public void ToggleRender(bool render, int inventoryId = 0) {
             if (toggled == render)
                 return;
 
             if (!render) _parent.localPosition = originalParentPosition;
-            else if (Physics.Raycast(_parent.position + Vector3.up * 5f, inventoryDownRaycastDirection, out RaycastHit hit, 6f, 1 << LayerMask.NameToLayer("Ground"))){
+            else if (Physics.Raycast(_parent.position + Vector3.up * 5f, inventoryDownRaycastDirection, out RaycastHit hit, 6f, 1 << LayerMask.NameToLayer("Ground"))) {
                 _parent.transform.position = hit.point;
             }
-            foreach (KeyValuePair<int, List<GameObject>> keyValuePair in slotIDItemsDict[inventoryId]) {
-                keyValuePair.Value.ForEach(obj => obj.SetActive(render));
-                if (render && needsUpdate) {
-                    slotIDOutlinesDict[inventoryId][keyValuePair.Key].ReloadRenderers();
+            for (int i = 0; i < inventory.Inventories[inventoryId].Size; i++) {
+                for (int j = 0; j < inventory.Inventories[inventoryId].GetItemStack(i).GetCount(); j++) {
+                    slotIDItemsRendererDict[inventoryId][i][j].Item1.gameObject.SetActive(render);
                 }
             }
-            needsUpdate = false;
+            if(toggled) needsUpdate = false;
             toggled = render;
         }
-        private void CreateSlot(int inventoryId, int slotId, float slotsPerRow) {
+        private Transform CreateSlot(int inventoryId, int slotId, float slotsPerRow) {
             GameObject slotObj = new GameObject(slotId.ToString());
             Transform slotParent = slotObj.transform;
             Vector3 centerOfSlot = CellPositionInGrid(slotId, (int) slotsPerRow, Vector3.zero, slotSize);
@@ -237,17 +198,15 @@ namespace _Project.Scripts.DiegeticUI {
             if(!slotIDOutlinesDict[inventoryId].ContainsKey(slotId)) {
                 slotIDOutlinesDict[inventoryId].Add(slotId, UIHandler.AddOutlineToObject(slotParent.gameObject, Color.white));
             }
+            return slotParent;
         }
-        private GameObject CreateItemModel(ItemStack itemStack, Transform slotParent) {
-            GameObject renderedItem = Instantiate(itemStack.Item.modelPrefab, slotParent);
-            if (renderedItem.TryGetComponent(out Rigidbody rb)) rb.isKinematic = true;
-            Collider[] colliders = renderedItem.GetComponentsInChildren<Collider>();
-            if (colliders.Length > 0)
-                foreach (var itemCollider in colliders) {
-                    itemCollider.enabled = false;
-                }
+        private (Renderer,MeshFilter) CreateItemModel(string itemName, Transform slotParent) {
+            GameObject renderedItem = new GameObject(itemName);
+            renderedItem.transform.SetParent(slotParent);
             renderedItem.SetActive(toggled);
-            return renderedItem;
+            Renderer render = renderedItem.AddComponent<MeshRenderer>();
+            MeshFilter mesh = renderedItem.AddComponent<MeshFilter>();
+            return (render, mesh);
         }
     }
 }

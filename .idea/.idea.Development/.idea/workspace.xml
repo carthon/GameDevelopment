@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aea2bea4-eef4-46ed-83e6-81c0978d1e91" name="Changes" comment="[TS-9] Project Clean up and folder management" />
+    <list default="true" id="aea2bea4-eef4-46ed-83e6-81c0978d1e91" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Development/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Development/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Logs/Log-2023-04-13.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Logs/Log-2023-04-13.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/Models/CharactersFantasy.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/Models/CharactersFantasy.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Packages/QuickOutline/Scripts/Outline.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Packages/QuickOutline/Scripts/Outline.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items/SM_Icon_Coin_01.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items/SM_Icon_Coin_01.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items/SM_Prop_Sword.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items/SM_Prop_Sword.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items/SM_Wep_Pickacxe_01.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Items/SM_Wep_Pickacxe_01.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Inventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Components/Inventory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/ContainerRenderer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/ContainerRenderer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InterfaceAbstractBaseState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InterfaceAbstractBaseState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryGrabItemInterfaceState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryGrabItemInterfaceState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventorySelectItemInterfaceState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventorySelectItemInterfaceState.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,13 +42,14 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/40/ae01fa6e/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/91/98bf5d5a/Vector3.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a2bf40a7760349bab7ee613b303b8c7235b9a0/ee/df3315fa/NetworkStream.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/DiegeticUI/ContainerRenderer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/377d90b6a60246c8b0fcf7d6e7b8f936568ba0/60/dd618c7e/Void.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/53/67c981d1/Quaternion.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/70/b85a4b83/Action`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/ed/223cf87c/SpriteRenderer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/DiegeticUI/ContainerRenderer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/205a6c4887a04d59abb3434ed0f7c98913a00/82/e803da4a/MessageSendMode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Utils/GUIUtils.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/b1/d88594ba/Transform.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.6.17/Runtime/Helpers/CinemachineInputProvider.cs" root0="SKIP_HIGHLIGHTING" />
@@ -45,6 +59,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/da6ab58261ca4bf88d2245fa0b5e29ff18000/73/fb707601/JointDrive.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/b9/2583d81d/List`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/0a/cc503fc6/NullReferenceException.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d95181a5c71a4ad88c81e8fccee6b47113ce00/9a/acdf587f/Quaternion.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/c0/00226cc3/UnityEvent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d95181a5c71a4ad88c81e8fccee6b47113ce00/5a/4cd63b8b/Transform.cs" root0="SKIP_HIGHLIGHTING" />
@@ -55,13 +70,14 @@
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Network/NetworkMessageBuilder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ad0a7939819048a0a161f66558c9886726800/90/7e1818b1/Animator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d95181a5c71a4ad88c81e8fccee6b47113ce00/51/a4e5ba43/RenderTexture.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/93a8f82184b4439ca5abff025375fe32564da0/6b/23cc4b77/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Network/Server/ServerHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/7c/4e2dbbf9/_ThreadPoolWaitCallback.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/205a6c4887a04d59abb3434ed0f7c98913a00/1b/e820e621/ActionQueue.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bc1d04d811fc4873ab7d8d9d4daddcc9568788/27/40e28f45/Single.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/edef46c9b2db4b878c98495bfdc516fa568ba8/2c/f6c60471/List`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/DiegeticUI/ContainerRenderer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/07/b93f0c4e/Array.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Network/Server/Server.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Network/MessageUtils/PlayerDataMessage.cs" root0="FORCE_HIGHLIGHTING" />
@@ -73,17 +89,15 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.veriorpies.parrelsync@f454248221/Editor/ClonesManagerWindow.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/c0/fbfef955/Debug.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Entities/GodEntity.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/External Assets/PolygonStarter/Models/SM_PolygonPrototype_Prop_Sword_01.fbx.meta" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/DiegeticUI/ContainerRenderer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/208f92fc783546f9abbe643bfc23920c762000/01/e03ca7b3/BodyPart.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Canvas/CanvasScalerWithChildTextObjectDoesNotCrash.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/CameraHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Image.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ml-agents@1.0.8/Runtime/Agent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.veriorpies.parrelsync@f454248221/Editor/ValidateCopiedFoldersIntegrity.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/da6ab58261ca4bf88d2245fa0b5e29ff18000/a1/d1903a64/Physics.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryGrabItemInterfaceState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Handlers/UIHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d95181a5c71a4ad88c81e8fccee6b47113ce00/fc/d8129a9c/Debug.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Editor/Canvas/AssertionFailureOnOutputVertexCount.cs" root0="SKIP_HIGHLIGHTING" />
@@ -91,12 +105,14 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Layout/HorizonalLayoutGroupTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d95181a5c71a4ad88c81e8fccee6b47113ce00/ea/6f5890c8/Component.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/EventSystem/InputModuleTests/MouseUpdate.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d95181a5c71a4ad88c81e8fccee6b47113ce00/8a/95ff945a/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/11/aba64bb6/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07c89f7520694139991332d3cf930d4813bc00/93/5f1b658d/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/HorizontalOrVerticalLayoutGroup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4fde398772134227852dc037ed8ddb3b18200/25/e6d5267e/QueryTriggerInteraction.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Components/InventoryManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4fde398772134227852dc037ed8ddb3b18200/25/e6d5267e/QueryTriggerInteraction.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/208f92fc783546f9abbe643bfc23920c762000/26/ca02cfaa/HostView.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/208f92fc783546f9abbe643bfc23920c762000/89/eec42118/Perlin.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d95181a5c71a4ad88c81e8fccee6b47113ce00/ec/441f801f/Object.cs" root0="SKIP_HIGHLIGHTING" />
@@ -112,10 +128,10 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/c5/d03ebd5b/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/205a6c4887a04d59abb3434ed0f7c98913a00/9c/1212e4bc/Client.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Daniel/Documents/Unity Projects/Development/Assets/_Project/Scripts/DiegeticUI/InterfaceControllers/InventoryState/InventoryGrabItemInterfaceState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d95181a5c71a4ad88c81e8fccee6b47113ce00/50/d8ba14bc/Gizmos.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/da/d1048212/AttributeUsageAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@10.10.1/Editor/Data/Graphs/DynamicMatrixMaterialSlot.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1252422ad6ee4f149239229359459ff13a00/a1/8eeaddae/IJobParallelForDefer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d95181a5c71a4ad88c81e8fccee6b47113ce00/f5/a52e1220/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/12/3e0f7e08/Void.cs" root0="SKIP_HIGHLIGHTING" />
@@ -159,10 +175,10 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="16928">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="16928" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -390,6 +406,10 @@
       <workItem from="1680440577189" duration="6981000" />
       <workItem from="1681148956981" duration="8698000" />
       <workItem from="1681204386068" duration="22433000" />
+      <workItem from="1681421296303" duration="3023000" />
+      <workItem from="1681595114423" duration="8567000" />
+      <workItem from="1681730601971" duration="13985000" />
+      <workItem from="1681802703253" duration="12084000" />
     </task>
     <task id="LOCAL-00001" summary="Added inventory System">
       <created>1652876249440</created>
@@ -615,7 +635,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681387185349</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="[TS-9] Animation reorder">
+      <created>1681391926198</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1681391926198</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -650,7 +677,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Swap Mechanic Update" />
     <MESSAGE value="Finished Hotbar Equip System" />
     <MESSAGE value="Multiplayer implementation" />
     <MESSAGE value="Multiplayer Implementation, Locomotion and Camera" />
@@ -675,7 +701,8 @@
     <MESSAGE value="[TS-9] Inventory and player models adjustments" />
     <MESSAGE value="[TS-9] Organizing project assets and folders" />
     <MESSAGE value="[TS-9] Project Clean up and folder management" />
-    <option name="LAST_COMMIT_MESSAGE" value="[TS-9] Project Clean up and folder management" />
+    <MESSAGE value="[TS-9] Animation reorder" />
+    <option name="LAST_COMMIT_MESSAGE" value="[TS-9] Animation reorder" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -685,19 +712,6 @@
           <line>87</line>
           <properties documentPath="D:\Daniel\Documents\Unity Projects\Development\Assets\_Project\Scripts\UI\GlobalOutline\OutlineEffect.cs" initialLine="87" containingFunctionPresentation="method 'BeginEffect'" />
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/_Project/Scripts/Network/Client/Client.cs</url>
-          <line>53</line>
-          <properties documentPath="D:\Daniel\Documents\Unity Projects\Development\Assets\_Project\Scripts\Network\Client\Client.cs" initialLine="53" containingFunctionPresentation="method 'SetUpClient'">
-            <startOffsets>
-              <option value="1898" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1947" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -715,7 +729,7 @@
     </pin-to-top-manager>
     <watches-manager>
       <configuration name="UNITY_DEBUG_RUN_CONFIGURATION">
-        <watch expression="gameObject" language="C#" />
+        <watch expression="child.name" language="C#" />
       </configuration>
     </watches-manager>
   </component>
