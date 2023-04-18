@@ -1,0 +1,467 @@
+Logged in D:/Daniel/Documents/Unity Projects/Development/Assets\Logs\Log-2023-03-16.txt
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 134
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 122
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 65
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 80
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 72
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 263
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 79
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 78
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 83
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 9531
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 71
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 72
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 81
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 98
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 82
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 77
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 62
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 62
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 76
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 40
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 94
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 60
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 44
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 75
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 107
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 62
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 75
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 64
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 59
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 74
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 82
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 58
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 231
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 114
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 93
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 81
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 87
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 54
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 65
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 99
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:4 SlotID:-1 to slot 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 79
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 55
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 59
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:SMALL Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 61
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 56
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 63
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 82
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 151
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 57
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 170
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 43
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 48
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 44
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 4 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 83
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 108
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 50
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 4 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 62
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 936
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 4 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 56
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 4 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 87
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 77
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 80
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[SERVER] DEBUG: Awakening outlines SM_Icon_Coin_01(Clone)
+[SERVER] DEBUG: Awakening outlines SwordOrnate(Clone)
+[CLIENT][SERVER] DEBUG: Awakening outlines Player(Clone)
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 207
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 72
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 67
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 140
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 143
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 141
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 736
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 69
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 133
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 65
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 65
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 105
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 102
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 81
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 61
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 168
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 68
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 68
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 78
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 71
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 157
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 708
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 297
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 131
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 336
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Spawned player 2 at tick : 220
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 109
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 420
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 134
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 77
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 136
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 97
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 130
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 84
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 98
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 83
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 79
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 91
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 570
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 4 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 79
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 4 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64
+[SERVER] DEBUG: Reloading Renderers 1
+[SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 142
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 3 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 2 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 4 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+[CLIENT][SERVER] DEBUG: Reloading Renderers 64

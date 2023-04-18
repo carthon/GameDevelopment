@@ -1,0 +1,1373 @@
+Logged in D:/Daniel/Documents/Unity Projects/Development/Assets\Logs\Log-2023-03-29.txt
+11:31:56[SERVER] DEBUG: Reloading Renderers 1
+11:31:56[SERVER] DEBUG: Reloading Renderers 1
+11:31:56[SERVER] DEBUG: Reloading Renderers 1
+11:31:56[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 67
+11:31:56[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:31:56[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:31:56[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:31:56[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:31:56[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:31:56[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:31:56[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:31:56[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:31:56[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:31:56[CLIENT][SERVER] INFO: Connected succesfully!
+11:32:00[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:32:00[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:32:00[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:32:00[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:32:01[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+11:32:01[CLIENT][SERVER] DEBUG: Reloading Renderers 3
+11:32:56[SERVER] DEBUG: Reloading Renderers 1
+11:32:56[SERVER] DEBUG: Reloading Renderers 1
+11:32:56[SERVER] DEBUG: Reloading Renderers 1
+11:32:57[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 67
+11:32:57[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:32:57[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:32:57[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:32:57[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:32:57[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:32:57[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:32:57[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:32:57[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:32:57[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:32:57[CLIENT][SERVER] INFO: Connected succesfully!
+11:33:00[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:33:00[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:33:00[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:33:00[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:33:01[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+11:33:01[CLIENT][SERVER] DEBUG: Reloading Renderers 3
+11:34:53[SERVER] DEBUG: Reloading Renderers 1
+11:34:53[SERVER] DEBUG: Reloading Renderers 1
+11:34:53[SERVER] DEBUG: Reloading Renderers 1
+11:34:54[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 90
+11:34:54[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:34:54[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:34:54[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:34:54[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:34:54[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:34:54[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:34:54[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:34:54[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:34:54[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:34:54[CLIENT][SERVER] INFO: Connected succesfully!
+11:34:58[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:34:58[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:34:58[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:34:58[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:34:59[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+11:34:59[CLIENT][SERVER] DEBUG: Reloading Renderers 3
+11:36:11[SERVER] DEBUG: Reloading Renderers 1
+11:36:11[SERVER] DEBUG: Reloading Renderers 1
+11:36:11[SERVER] DEBUG: Reloading Renderers 1
+11:36:12[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 73
+11:36:12[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:12[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:12[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:12[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:12[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:12[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:12[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:12[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:12[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:12[CLIENT][SERVER] INFO: Connected succesfully!
+11:36:15[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:15[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:36:15[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:15[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:36:16[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+11:36:16[CLIENT][SERVER] DEBUG: Reloading Renderers 3
+11:36:46[SERVER] DEBUG: Reloading Renderers 1
+11:36:46[SERVER] DEBUG: Reloading Renderers 1
+11:36:46[SERVER] DEBUG: Reloading Renderers 1
+11:36:47[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 136
+11:36:47[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:47[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:47[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:47[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:47[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:47[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:47[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:47[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:47[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:47[CLIENT][SERVER] INFO: Connected succesfully!
+11:36:50[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:50[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:36:50[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:36:50[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:36:50[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+11:36:50[CLIENT][SERVER] DEBUG: Reloading Renderers 3
+11:38:11[SERVER] DEBUG: Reloading Renderers 1
+11:38:11[SERVER] DEBUG: Reloading Renderers 1
+11:38:11[SERVER] DEBUG: Reloading Renderers 1
+11:38:11[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 191
+11:38:11[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:38:11[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:38:11[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:38:11[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:38:11[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:38:11[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:38:11[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:38:11[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:38:11[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:38:11[CLIENT][SERVER] INFO: Connected succesfully!
+11:38:14[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:38:14[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:38:14[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:38:14[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:38:14[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+11:38:14[CLIENT][SERVER] DEBUG: Reloading Renderers 3
+11:42:45[SERVER] DEBUG: Reloading Renderers 1
+11:42:45[SERVER] DEBUG: Reloading Renderers 1
+11:42:45[SERVER] DEBUG: Reloading Renderers 1
+11:42:45[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 145
+11:42:45[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:42:45[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:42:45[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:42:45[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:42:45[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:42:45[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:42:45[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:42:45[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:42:45[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:42:45[CLIENT][SERVER] INFO: Connected succesfully!
+11:42:49[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:42:49[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:42:49[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:42:49[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:42:49[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+11:42:49[CLIENT][SERVER] DEBUG: Reloading Renderers 3
+11:44:25[SERVER] DEBUG: Reloading Renderers 1
+11:44:25[SERVER] DEBUG: Reloading Renderers 1
+11:44:25[SERVER] DEBUG: Reloading Renderers 1
+11:44:25[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 75
+11:44:25[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:44:25[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:44:25[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:44:25[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:44:25[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:44:25[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:44:26[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:44:26[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:44:26[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:44:26[CLIENT][SERVER] INFO: Connected succesfully!
+11:44:28[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:44:28[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:44:28[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:44:28[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:44:29[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+11:44:29[CLIENT][SERVER] DEBUG: Reloading Renderers 3
+11:46:49[SERVER] DEBUG: Reloading Renderers 1
+11:46:49[SERVER] DEBUG: Reloading Renderers 1
+11:46:49[SERVER] DEBUG: Reloading Renderers 1
+11:46:50[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 121
+11:46:50[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:46:50[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:46:50[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:46:50[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:46:50[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:46:50[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:46:50[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:46:50[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:46:50[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:46:50[CLIENT][SERVER] INFO: Connected succesfully!
+11:46:53[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:46:53[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:46:53[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+11:46:53[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+11:46:53[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+11:46:53[CLIENT][SERVER] DEBUG: Reloading Renderers 3
+02:01:43[SERVER] DEBUG: Reloading Renderers 1
+02:01:43[SERVER] DEBUG: Reloading Renderers 1
+02:01:43[SERVER] DEBUG: Reloading Renderers 1
+02:01:44[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 71
+02:01:44[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:01:44[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:01:44[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:01:44[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:01:44[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:01:44[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:01:44[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:01:44[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:01:44[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:01:44[CLIENT][SERVER] INFO: Connected succesfully!
+02:01:48[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:01:48[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+02:01:48[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:01:48[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+02:01:48[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+02:01:48[CLIENT][SERVER] DEBUG: Reloading Renderers 3
+02:01:50[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+02:02:40[SERVER] DEBUG: Reloading Renderers 1
+02:02:40[SERVER] DEBUG: Reloading Renderers 1
+02:02:40[SERVER] DEBUG: Reloading Renderers 1
+02:02:40[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 64
+02:02:40[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:02:40[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:02:40[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:02:40[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:02:40[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:02:40[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:02:40[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:02:40[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:02:40[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:02:40[CLIENT][SERVER] INFO: Connected succesfully!
+02:02:45[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:02:45[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+02:02:45[CLIENT][SERVER] DEBUG: Reloading Renderers 0
+02:02:45[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+02:02:45[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+02:02:45[CLIENT][SERVER] DEBUG: Reloading Renderers 3
+02:02:47[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+02:02:47[CLIENT][SERVER] DEBUG: Reloading Renderers 1
+02:09:18[SERVER] DEBUG: Reloading Renderers 1 SM_Icon_Coin_01(Clone)
+02:09:18[SERVER] DEBUG: Reloading Renderers 1 SM_Icon_Coin_01(Clone)
+02:09:18[SERVER] DEBUG: Reloading Renderers 1 Model
+02:09:18[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 88
+02:09:18[CLIENT][SERVER] DEBUG: Reloading Renderers 0 
+02:09:18[CLIENT][SERVER] DEBUG: Reloading Renderers 0 
+02:09:18[CLIENT][SERVER] DEBUG: Reloading Renderers 0 
+02:09:18[CLIENT][SERVER] DEBUG: Reloading Renderers 0 
+02:09:18[CLIENT][SERVER] DEBUG: Reloading Renderers 0 
+02:09:18[CLIENT][SERVER] DEBUG: Reloading Renderers 0 
+02:09:18[CLIENT][SERVER] DEBUG: Reloading Renderers 0 
+02:09:18[CLIENT][SERVER] DEBUG: Reloading Renderers 0 
+02:09:18[CLIENT][SERVER] DEBUG: Reloading Renderers 0 
+02:09:18[CLIENT][SERVER] INFO: Connected succesfully!
+02:09:22[CLIENT][SERVER] DEBUG: Reloading Renderers 0 
+02:09:22[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+02:09:22[CLIENT][SERVER] DEBUG: Reloading Renderers 0 
+02:09:22[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+02:09:25[CLIENT][SERVER] DEBUG: Reloading Renderers 1 Model
+02:09:25[CLIENT][SERVER] DEBUG: Reloading Renderers 3 Model|Model|Model
+02:09:29[CLIENT][SERVER] DEBUG: Reloading Renderers 1 Model
+02:09:29[CLIENT][SERVER] DEBUG: Reloading Renderers 1 Model
+02:10:09[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+02:10:09[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+02:10:09[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+02:10:10[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 80
+02:10:10[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+02:10:10[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+02:10:10[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+02:10:10[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+02:10:10[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+02:10:10[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+02:10:10[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+02:10:10[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+02:10:10[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+02:10:10[CLIENT][SERVER] INFO: Connected succesfully!
+02:10:12[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+02:10:12[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+02:10:12[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+02:10:12[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+02:10:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+02:10:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+02:10:16[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+02:10:16[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:04:55[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:04:55[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:04:55[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:04:55[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 219
+03:04:55[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:04:55[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:04:55[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:04:55[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:04:55[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:04:55[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:04:55[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:04:55[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:04:55[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:04:55[CLIENT][SERVER] INFO: Connected succesfully!
+03:04:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:04:59[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:04:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:04:59[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:04:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:04:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:05:04[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:05:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:05:35[CLIENT][SERVER] INFO: Player 1 disconnected
+03:05:35[CLIENT][SERVER] INFO: Disconnected succesfully!
+03:05:43[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:05:43[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:05:43[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:05:44[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 69
+03:05:44[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:05:44[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:05:44[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:05:44[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:05:44[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:05:44[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:05:44[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:05:44[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:05:44[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:05:44[CLIENT][SERVER] INFO: Connected succesfully!
+03:05:47[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:05:47[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:05:47[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:05:47[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:05:47[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:05:47[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:05:49[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:06:56[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:06:56[CLIENT][SERVER] INFO: Player 1 disconnected
+03:06:56[CLIENT][SERVER] INFO: Disconnected succesfully!
+03:07:57[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:07:57[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:07:57[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:07:58[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 68
+03:07:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:07:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:07:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:07:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:07:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:07:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:07:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:07:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:07:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:07:58[CLIENT][SERVER] INFO: Connected succesfully!
+03:08:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:08:01[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:08:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:08:01[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:08:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:08:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:08:03[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:10:19[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:10:22[CLIENT][SERVER] INFO: Player 1 disconnected
+03:10:22[CLIENT][SERVER] INFO: Disconnected succesfully!
+03:16:48[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:16:48[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:16:48[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:16:49[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 65
+03:16:49[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:16:49[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:16:49[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:16:49[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:16:49[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:16:49[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:16:49[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:16:49[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:16:49[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:16:49[CLIENT][SERVER] INFO: Connected succesfully!
+03:16:52[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:16:52[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:16:52[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:16:52[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:16:52[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:16:52[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:16:54[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:16:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:16:58[CLIENT][SERVER] INFO: Player 1 disconnected
+03:16:58[CLIENT][SERVER] INFO: Disconnected succesfully!
+03:28:45[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:28:45[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:28:45[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:28:45[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 118
+03:28:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:28:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:28:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:28:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:28:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:28:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:28:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:28:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:28:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:28:45[CLIENT][SERVER] INFO: Connected succesfully!
+03:28:48[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:28:48[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:28:48[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:28:48[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:28:49[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:28:49[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:28:50[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:28:53[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:32:38[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:32:38[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:32:38[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:32:38[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 74
+03:32:38[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:32:38[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:32:38[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:32:38[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:32:38[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:32:38[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:32:38[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:32:38[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:32:38[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:32:38[CLIENT][SERVER] INFO: Connected succesfully!
+03:32:42[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:32:42[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:32:42[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:32:42[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:32:43[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:32:43[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:32:44[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:32:44[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:33:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:33:53[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:33:53[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:33:53[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:33:54[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 401
+03:33:54[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:33:54[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:33:54[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:33:54[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:33:54[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:33:54[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:33:54[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:33:54[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:33:54[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:33:54[CLIENT][SERVER] INFO: Connected succesfully!
+03:33:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:33:59[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:33:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:33:59[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:34:02[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:34:02[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:34:03[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:34:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:34:59[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:34:59[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:34:59[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:34:59[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 72
+03:34:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:34:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:34:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:34:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:34:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:34:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:34:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:34:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:34:59[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:34:59[CLIENT][SERVER] INFO: Connected succesfully!
+03:35:04[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:35:04[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:35:05[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:35:05[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:35:06[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:35:06[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:35:17[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:36:37[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:36:37[CLIENT][SERVER] INFO: Player 1 disconnected
+03:36:37[CLIENT][SERVER] INFO: Disconnected succesfully!
+03:38:26[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:38:26[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:38:26[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:38:27[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 51
+03:38:27[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:38:27[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:38:27[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:38:27[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:38:27[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:38:27[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:38:27[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:38:27[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:38:27[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:38:27[CLIENT][SERVER] INFO: Connected succesfully!
+03:38:30[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:38:30[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:38:30[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:38:30[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:38:30[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:38:30[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:38:31[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:38:48[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:38:48[CLIENT][SERVER] INFO: Player 1 disconnected
+03:38:53[CLIENT][SERVER] INFO: Disconnected succesfully!
+03:39:13[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:39:13[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:39:13[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:39:14[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 437
+03:39:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:39:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:39:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:39:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:39:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:39:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:39:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:39:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:39:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:39:14[CLIENT][SERVER] INFO: Connected succesfully!
+03:39:17[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:39:17[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:39:17[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:39:17[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:39:17[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:39:17[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:39:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:39:19[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:44:50[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:44:50[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:44:50[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:44:51[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 92
+03:44:51[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:44:51[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:44:51[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:44:51[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:44:51[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:44:51[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:44:51[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:44:51[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:44:51[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:44:51[CLIENT][SERVER] INFO: Connected succesfully!
+03:44:54[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:44:54[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:44:54[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:44:54[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:46:13[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:46:13[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:46:13[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:46:15[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 119
+03:46:15[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:46:15[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:46:15[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:46:15[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:46:15[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:46:15[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:46:15[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:46:15[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:46:15[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:46:15[CLIENT][SERVER] INFO: Connected succesfully!
+03:46:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:46:18[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:46:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:46:18[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:46:19[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:46:19[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:46:20[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:48:43[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:48:43[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:48:43[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:48:43[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 101
+03:48:43[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:48:43[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:48:43[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:48:43[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:48:43[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:48:43[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:48:43[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:48:43[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:48:43[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:48:43[CLIENT][SERVER] INFO: Connected succesfully!
+03:48:46[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:48:46[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:48:46[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:48:46[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:48:47[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:48:47[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:48:48[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:48:48[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:48:58[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:48:58[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:48:58[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:48:58[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:48:58[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:48:58[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:48:58[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:48:58[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:48:58[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:02[CLIENT][SERVER] DEBUG: Swapped 4 for 4
+03:49:18[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:49:18[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:49:18[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:49:18[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 67
+03:49:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:49:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:49:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:49:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:49:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:49:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:49:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:49:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:49:18[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:49:18[CLIENT][SERVER] INFO: Connected succesfully!
+03:49:22[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:49:22[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:49:22[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:49:22[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:49:23[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:49:23[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:49:24[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:49:31[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:39[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:43[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:44[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:45[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:45[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:45[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:45[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:45[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:45[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:45[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:45[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:45[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:46[CLIENT][SERVER] DEBUG: Swapped 4 for 1
+03:49:48[CLIENT][SERVER] DEBUG: Swapped 4 for 4
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:55[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:56[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:57[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:58[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:49:59[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:00[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:01[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:02[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:03[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:04[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 4
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:05[CLIENT][SERVER] DEBUG: Swapped 1 for 1
+03:50:40[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:50:40[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:50:40[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:50:41[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 1033
+03:50:41[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:50:41[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:50:41[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:50:41[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:50:41[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:50:41[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:50:41[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:50:41[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:50:41[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:50:41[CLIENT][SERVER] INFO: Connected succesfully!
+03:50:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:50:45[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:50:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:50:45[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:50:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:50:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:50:46[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:50:56[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:50:56[CLIENT][SERVER] INFO: Player 1 disconnected
+03:50:56[CLIENT][SERVER] INFO: Disconnected succesfully!
+03:52:11[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:52:11[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:52:11[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:52:12[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 62
+03:52:12[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:52:12[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:52:12[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:52:12[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:52:12[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:52:12[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:52:12[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:52:12[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:52:12[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:52:12[CLIENT][SERVER] INFO: Connected succesfully!
+03:52:15[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:52:15[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:52:15[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:52:15[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:52:15[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:52:15[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:52:17[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+03:53:27[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:53:27[CLIENT][SERVER] INFO: Player 1 disconnected
+03:53:27[CLIENT][SERVER] INFO: Disconnected succesfully!
+03:53:52[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:53:52[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:53:52[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:53:52[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 42
+03:53:52[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:53:52[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:53:52[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:53:52[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:53:52[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:53:52[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:53:52[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:53:52[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:53:52[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:53:52[CLIENT][SERVER] INFO: Connected succesfully!
+03:53:55[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:53:55[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:53:56[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:53:56[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:55:09[CLIENT][SERVER] INFO: Player 1 disconnected
+03:55:38[CLIENT][SERVER] INFO: Connected succesfully!
+03:55:40[CLIENT][SERVER] DEBUG: Spawned player 2 at tick : 286
+03:55:40[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:55:40[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:55:40[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:55:40[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:55:40[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:55:40[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:55:40[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:55:40[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:55:40[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:55:40[CLIENT][SERVER] INFO: Connected succesfully!
+03:55:49[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:55:49[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:55:49[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:55:50[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 67
+03:55:50[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:55:50[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:55:50[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:55:50[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:55:50[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:55:50[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:55:50[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:55:50[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:55:50[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:55:50[CLIENT][SERVER] INFO: Connected succesfully!
+03:57:22[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:57:23[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+03:57:23[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+03:57:23[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 71
+03:57:23[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+03:57:23[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+03:57:23[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+03:57:23[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+03:57:23[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+03:57:23[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+03:57:23[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+03:57:23[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+03:57:23[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+03:57:23[CLIENT][SERVER] INFO: Connected succesfully!
+03:59:49[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:59:49[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+03:59:56[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+03:59:56[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+03:59:56[CLIENT][SERVER] INFO: Player 1 disconnected
+03:59:56[CLIENT][SERVER] INFO: Disconnected succesfully!
+04:00:01[CLIENT][SERVER] DEBUG: Spawned player 2 at tick : 7700
+04:00:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+04:00:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+04:00:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+04:00:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+04:00:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+04:00:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+04:00:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+04:00:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+04:00:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+04:00:01[CLIENT][SERVER] INFO: Connected succesfully!
+04:00:07[CLIENT][SERVER] DEBUG: Added Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:64 SlotID:-1 to slot 0 | difference Item:Id:3acc9e1d47c64217b9a305c215923faa Name: Size:SMALL Description:Pues eso una moneda Count:0 SlotID:-1
+04:00:07[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 64 SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)|SM_Icon_Coin_01(Clone)
+06:28:35[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+06:28:35[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+06:28:35[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+06:28:35[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 82
+06:28:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+06:28:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+06:28:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+06:28:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+06:28:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+06:28:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+06:28:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+06:28:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+06:28:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+06:28:36[CLIENT][SERVER] INFO: Connected succesfully!
+06:28:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+06:28:39[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+06:28:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+06:28:39[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+06:28:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+06:28:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+06:28:40[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+06:28:51[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+06:28:53[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+06:28:55[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+06:29:00[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 1 Model
+06:29:03[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 1 Model
+06:29:07[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 1 Model
+06:29:09[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 1 Model
+06:39:19[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+06:39:19[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+06:39:19[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+06:39:19[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 68
+06:39:19[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+06:39:19[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+06:39:19[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+06:39:19[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+06:39:19[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+06:39:19[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+06:39:19[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+06:39:19[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+06:39:19[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+06:39:19[CLIENT][SERVER] INFO: Connected succesfully!
+06:39:22[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+06:39:22[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+06:39:22[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+06:39:22[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+06:39:23[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+06:39:23[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+06:40:38[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+06:40:38[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+06:40:38[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+06:40:39[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 73
+06:40:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+06:40:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+06:40:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+06:40:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+06:40:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+06:40:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+06:40:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+06:40:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+06:40:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+06:40:39[CLIENT][SERVER] INFO: Connected succesfully!
+06:40:42[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+06:40:42[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+06:40:42[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+06:40:42[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+06:40:42[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+06:40:42[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+07:25:14[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:25:14[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:25:14[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+07:25:14[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 386
+07:25:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+07:25:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+07:25:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+07:25:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+07:25:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+07:25:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+07:25:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+07:25:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+07:25:14[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+07:25:14[CLIENT][SERVER] INFO: Connected succesfully!
+07:25:20[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+07:25:20[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+07:25:20[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+07:25:20[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+07:25:21[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+07:25:21[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+07:25:31[CLIENT][SERVER] DEBUG: Swapped 1 for 0
+07:26:28[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:26:28[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:26:28[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+07:26:29[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 66
+07:26:29[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+07:26:29[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+07:26:29[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+07:26:29[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+07:26:29[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+07:26:29[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+07:26:29[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+07:26:29[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+07:26:29[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+07:26:29[CLIENT][SERVER] INFO: Connected succesfully!
+07:26:32[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+07:26:32[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+07:26:32[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+07:26:32[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+07:26:33[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+07:26:33[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+07:26:41[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 3 Model|Model|Model
+07:26:43[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 3 Model|Model|Model
+07:26:45[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 3 Model|Model|Model
+07:26:50[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 3 Model|Model|Model
+07:35:04[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:35:04[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:35:04[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+07:35:05[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 66
+07:35:05[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+07:35:05[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+07:35:05[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+07:35:05[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+07:35:05[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+07:35:05[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+07:35:05[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+07:35:05[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+07:35:05[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+07:35:05[CLIENT][SERVER] INFO: Connected succesfully!
+07:35:08[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+07:35:08[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+07:35:08[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+07:35:08[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+07:35:08[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+07:35:08[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+07:35:57[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:35:57[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:35:57[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+07:35:58[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 95
+07:35:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+07:35:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+07:35:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+07:35:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+07:35:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+07:35:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+07:35:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+07:35:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+07:35:58[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+07:35:58[CLIENT][SERVER] INFO: Connected succesfully!
+07:36:02[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+07:36:02[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+07:36:02[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+07:36:02[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+07:36:02[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+07:36:02[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+07:38:36[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:38:36[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:38:36[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+07:38:36[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 60
+07:38:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+07:38:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+07:38:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+07:38:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+07:38:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+07:38:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+07:38:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+07:38:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+07:38:36[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+07:38:36[CLIENT][SERVER] INFO: Connected succesfully!
+07:39:34[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:39:34[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:39:34[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+07:39:35[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 70
+07:39:35[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+07:39:35[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+07:39:35[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+07:39:35[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+07:39:35[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+07:39:35[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+07:39:35[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+07:39:35[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+07:39:35[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+07:39:35[CLIENT][SERVER] INFO: Connected succesfully!
+07:39:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+07:39:39[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+07:39:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+07:39:39[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+07:39:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+07:39:39[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+07:58:00[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:58:00[SERVER] DEBUG: Reloading Renderers for outline SM_Icon_Coin_01(Clone) 1 SM_Icon_Coin_01(Clone)
+07:58:00[SERVER] DEBUG: Reloading Renderers for outline SwordOrnate(Clone) 1 Model
+07:58:01[CLIENT][SERVER] DEBUG: Spawned player 1 at tick : 286
+07:58:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+07:58:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+07:58:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 2 0 
+07:58:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 0 
+07:58:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 4 0 
+07:58:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 5 0 
+07:58:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 6 0 
+07:58:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 7 0 
+07:58:01[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 8 0 
+07:58:01[CLIENT][SERVER] INFO: Connected succesfully!
+07:58:11[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 0 
+07:58:11[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:1 SlotID:-1 to slot 1 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+07:58:11[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 0 
+07:58:11[CLIENT][SERVER] DEBUG: Added Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:3 SlotID:-1 to slot 0 | difference Item:Id:2c5f0afbb2f64a7fa3c43002f8fb7969 Name: Size:MEDIUM Description:Pues eso, una espada Count:0 SlotID:-1
+07:58:13[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 1 1 Model
+07:58:13[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 0 3 Model|Model|Model
+07:58:51[CLIENT][SERVER] DEBUG: Reloading Renderers for outline 3 3 Model|Model|Model

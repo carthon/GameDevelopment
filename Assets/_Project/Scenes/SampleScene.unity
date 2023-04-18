@@ -1812,7 +1812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dc1876d50e1ab84f818f3b2ece56c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotSize: 0.1
+  slotSize: 0.4
   Inventory: {fileID: 0}
 --- !u!114 &1383513670
 MonoBehaviour:

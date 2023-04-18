@@ -24,8 +24,8 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers {
         
         protected void SwitchState(InterfaceAbstractBaseState newState) {
             ExitState();
-            newState.EnterState();
             if (_isRootState) {
+                newState.EnterState();
                 Context.LastState = Context.CurrentState;
                 Context.CurrentState = newState;
             }
