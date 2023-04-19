@@ -18,6 +18,7 @@ namespace _Project.Scripts.Handlers {
 
         private Vector2 _movementInput;
         private Action<bool> _OnActivateUI;
+        private Action<InputAction.CallbackContext> OnClick;
         private Action<int> _OnHotbarEquip;
         private Action<int> _OnLeftHandEquip;
         private bool _rb_Input;
@@ -122,6 +123,8 @@ namespace _Project.Scripts.Handlers {
         private void OnDisable() {
             _singleton = null;
             _inputActions.Disable();
+            
+            _inputActions.UIActions.Click.performed -= OnClick;
         }
 
         public void Update() {

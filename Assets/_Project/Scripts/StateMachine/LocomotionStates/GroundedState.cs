@@ -1,3 +1,4 @@
+using System;
 using _Project.Scripts.Components;
 using UnityEngine;
 
@@ -34,19 +35,15 @@ namespace _Project.Scripts.StateMachine.LocomotionStates {
 
         public void HandleGrounded() {
             var stats = locomotion.Stats;
-            RaycastHit hit;
-            var transformPosition = locomotion.transform.position;
-            var origin = transformPosition;
             var moveDirection = locomotion.WorldDirection;
             var dir = moveDirection;
             // dir.Normalize();
             // origin += dir;
 
-            Debug.DrawRay(origin, -Vector3.up * stats.height, Color.red, 0.1f, false);
-            if (Physics.Raycast(origin, -Vector3.up, out hit, stats.height, locomotion.Stats.groundLayer)) {
+            if (locomotion.IsGrounded) {
                 //Vector3 groundPoint = CalculateMovableGround(hit);
                 var groundPoint = locomotion.transform.position;
-                groundPoint.y = hit.point.y * 1.000001f;
+                groundPoint.y = locomotion.groundRayCast.point.y - 0.0001f;
                 locomotion.transform.position = groundPoint + Vector3.up * stats.height;
             }
             locomotion.Rb.velocity = locomotion.AppliedMovement;

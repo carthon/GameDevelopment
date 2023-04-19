@@ -31,13 +31,17 @@ namespace _Project.Scripts.StateMachine.LocomotionStates {
         }
         private void HandleJump() {
             var stats = locomotion.Stats;
-            locomotion.Rb.AddForce(Vector3.up * stats.jumpStrength);
+            Vector3 velocity = locomotion.Rb.velocity;
+            velocity.y = Mathf.Sqrt(stats.jumpStrength * -2f * stats.fallingSpeed);
+            locomotion.Rb.velocity = velocity;
         }
 
         private void HandleGravity() {
             var stats = locomotion.Stats;
             var appliedVelocity = locomotion.WorldDirection.normalized;
-            locomotion.Rb.AddForce(-Vector3.up * stats.fallingSpeed * Time.fixedDeltaTime);
+            Vector3 velocity = locomotion.Rb.velocity;
+            Vector3 gravity = velocity + Vector3.up * stats.fallingSpeed * Time.fixedDeltaTime;
+            locomotion.Rb.velocity = gravity;
             if (locomotion.Rb.velocity.y > 0) {
                 appliedVelocity += lastDirection;
                 if (appliedVelocity.magnitude < lastDirection.magnitude)

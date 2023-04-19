@@ -29,8 +29,10 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
             
             CameraHandler.Singleton.staticLookAtTransform.position = (Vector3.Distance(CameraHandler.Singleton.staticLookAtTransform.position, _lookAtPosition) > 2f) ? _lookAtPosition :
                 Vector3.Lerp(CameraHandler.Singleton.staticLookAtTransform.position, _lookAtPosition, Time.deltaTime * headRotationSpeed);
-            Quaternion lookRotation = Quaternion.LookRotation(_lookAtPosition - _player.HeadPivot.position);
-            _player.HeadPivot.rotation = Quaternion.Lerp(_player.HeadPivot.rotation, lookRotation, Time.deltaTime * headRotationSpeed);
+            if(_player != null) {
+                Quaternion lookRotation = Quaternion.LookRotation(_lookAtPosition - _player.HeadPivot.position);
+                _player.HeadPivot.rotation = Quaternion.Lerp(_player.HeadPivot.rotation, lookRotation, Time.deltaTime * headRotationSpeed);
+            }
             
             if (Physics.Raycast(ray, out RaycastHit hit, Single.PositiveInfinity, LayerMask.GetMask("Default", "Ground"), QueryTriggerInteraction.Collide)) {
                 HitPoint = hit;

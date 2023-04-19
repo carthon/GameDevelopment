@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab9dfd625d636344b8a3abb4660c6b3, type: 3}
   m_Name: LocomotionStat
   m_EditorClassIdentifier: 
-  height: 1.11
+  height: 1.134
   fallingSpeed: 100
   runSpeed: 150
   backwardsMultSpeed: 1
   strafeMultSpeed: 1
   sprintSpeed: 200
-  inAirSpeed: 100
-  jumpStrength: 1000
+  inAirSpeed: 150
+  jumpStrength: 20
   groundLayer:
     serializedVersion: 2
-    m_Bits: 9
+    m_Bits: 8
