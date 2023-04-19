@@ -26,6 +26,7 @@ namespace _Project.Scripts.Components {
         public Rigidbody Rb { get; private set; }
 
         public bool IsGrounded { get; set; }
+        public RaycastHit groundRayCast;
 
         public bool IsMoving { get; set; }
 
@@ -41,11 +42,10 @@ namespace _Project.Scripts.Components {
             CurrentState = _states.Grounded();
             CurrentState.EnterState();
         }
-        private void FixedUpdate() {
-            IsGrounded = Physics.Raycast(transform.position,-Vector3.up, Stats.height, Stats.groundLayer);
-        }
 
         public void FixedTick() {
+            Debug.DrawRay(transform.position, -Vector3.up * (Stats.height), Color.red, 0.1f, false);
+            IsGrounded = Physics.Raycast(transform.position, -Vector3.up, out groundRayCast, Stats.height, Stats.groundLayer);
             CurrentState.UpdateStates();
             state = CurrentState.StateName;
         }

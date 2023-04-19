@@ -1,5 +1,5 @@
 using System;
-using _Project.Marching_Cubes.Scripts;
+using _Project.Libraries.Marching_Cubes.Scripts;
 using UnityEditor;
 using UnityEngine;
 

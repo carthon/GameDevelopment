@@ -1,6 +1,5 @@
 using System;
 using _Project.Scripts.Components;
-using _Project.Scripts.Constants;
 using _Project.Scripts.DiegeticUI;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.MessageDataStructures;
@@ -56,7 +55,7 @@ namespace _Project.Scripts.Network.Client {
                     _serverDummy = new ServerDummy(NetworkManager.Singleton.serverDummyPlayerPrefab);
                 }
                 catch (Exception e) {
-                    Logger.Singleton.Log("Server dummy prefab not set!", Logger.Type.WARNING);
+                    Logger.Singleton.Log(e.Message, Logger.Type.WARNING);
                 }
             _player = player;
             if(NetworkManager.Singleton.TryGetComponent(out ContainerRenderer renderer)) {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Project.Scripts.TestScripts {
+namespace _Project.Scripts.StateMachine.TestScripts {
     public class PlatformMovement : MonoBehaviour {
         public Transform TransformToTravel;
         public float speed;

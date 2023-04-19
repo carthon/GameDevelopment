@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using _Project.Libraries.QuickOutline.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.Handlers;
-using QuickOutline.Scripts;
 using UnityEngine;
 using Logger = _Project.Scripts.Utils.Logger;
 
