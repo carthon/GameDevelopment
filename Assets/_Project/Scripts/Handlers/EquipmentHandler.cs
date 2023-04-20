@@ -10,7 +10,6 @@ namespace _Project.Scripts.Handlers {
         [SerializeField]
         private List<EquipmentDisplayer> _equipmentSlots;
         public List<EquipmentDisplayer> EquipmentDisplayers => _equipmentSlots;
-        public Player Player { get; set; }
 
         private void Awake() {
             _equipmentSlots = GetComponentsInChildren<EquipmentDisplayer>().ToList();

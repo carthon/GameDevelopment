@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LocomotionStat
   m_EditorClassIdentifier: 
   height: 1.134
-  fallingSpeed: 100
+  fallingSpeed: -9.8
   runSpeed: 150
   backwardsMultSpeed: 1
   strafeMultSpeed: 1

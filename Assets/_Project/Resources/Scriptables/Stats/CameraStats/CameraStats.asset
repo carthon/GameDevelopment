@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13d2bb4686689c8438ced2981f944368, type: 3}
-  m_Name: Camera Data
+  m_Name: CameraStats
   m_EditorClassIdentifier: 
   playerLookInputLerpSpeed: 15
   rotationMultiplier: 200

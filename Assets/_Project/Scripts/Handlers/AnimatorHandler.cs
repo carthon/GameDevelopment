@@ -15,6 +15,7 @@ namespace _Project.Scripts.Handlers {
         public static readonly int IsMoving = Animator.StringToHash("isMoving");
         public static readonly int IsPicking = Animator.StringToHash("isPicking");
         public static readonly int IsSearching = Animator.StringToHash("isSearching");
+        public static readonly int IsAttacking = Animator.StringToHash("isAttacking");
         private Animator _animator;
         //private Locomotion _locomotion;
 
@@ -86,7 +87,10 @@ namespace _Project.Scripts.Handlers {
             _animator.CrossFade(targetAnim, .2f);
         }
         public void SetBool(string targetBool, bool value) => _animator.SetBool(targetBool, value);
-        public void SetBool(int targetBool, bool value) => _animator.SetBool(targetBool, value);
+        public void SetBool(int targetBool, bool value, bool rootMotion = false) {
+            _animator.SetBool(targetBool, value);
+            _animator.applyRootMotion = rootMotion;
+        }
         public void SetTrigger(string targetTrigger) => _animator.SetTrigger(targetTrigger);
         public void SetFloat(string targetTrigger, float value) => _animator.SetFloat(targetTrigger, value);
     }

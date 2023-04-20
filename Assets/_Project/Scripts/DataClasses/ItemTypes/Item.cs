@@ -1,19 +1,18 @@
 using System;
+using _Project.Scripts.DataClasses.ItemActions;
 using EditorAttributes;
 using UnityEngine;
 
 namespace _Project.Scripts.DataClasses.ItemTypes {
-    public enum ItemSize {
-        BIG = 3,
-        MEDIUM = 2,
-        SMALL = 1
+    public enum ItemSize: int {
+        SMALL = 0,
+        MEDIUM,
+        BIG
     }
     [CreateAssetMenu(menuName = "Items/Stackable Item", fileName = "Stackable Item")]
+    [Serializable]
     public class Item : ScriptableObject, IEquatable<Item> {
         [Header("Item Information")]
-        public Sprite itemIcon;
-        public Mesh item3dIcon;
-        public Material iconMaterial;
         public string itemName;
         public GameObject modelPrefab;
         public ItemSize Size;
@@ -21,6 +20,8 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
         public string id;
         [field: TextArea]
         public string description;
+        [SerializeField] private ItemAction _mainAction;
+        [SerializeField] private ItemAction _secondaryAction;
 
         [SerializeField] private int maxStackSize;
         public int intID => GetInstanceID();
@@ -29,7 +30,6 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
             if (ReferenceEquals(this, other)) return true;
 
             return base.Equals(other) &&
-                Equals(itemIcon, other.itemIcon) &&
                 itemName == other.itemName &&
                 Equals(modelPrefab, other.modelPrefab) &&
                 Size == other.Size && description == other.description && maxStackSize == other.maxStackSize;
@@ -51,7 +51,6 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
         public override int GetHashCode() {
             unchecked {
                 var hashCode = base.GetHashCode();
-                hashCode = (hashCode * 397) ^ (itemIcon != null ? itemIcon.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (itemName != null ? itemName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (modelPrefab != null ? modelPrefab.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (int) Size;
@@ -63,5 +62,7 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
         public override string ToString() {
             return $"Id:{id} Name:{itemName} Size:{Size} Description:{description}";
         }
+        public bool TryDoMainAction() => _mainAction.TryDoAction();
+        public bool TryDoSecondaryAction() => _secondaryAction.TryDoAction();
     }
 }

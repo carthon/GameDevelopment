@@ -71,7 +71,8 @@ namespace _Project.Scripts.Handlers {
             IsSprinting,
             IsPicking,
             IsCrouching,
-            IsInInventory
+            IsInInventory,
+            Clicked,
         };
 
         [field: Header("UI")]
@@ -107,6 +108,9 @@ namespace _Project.Scripts.Handlers {
                 _inputActions.UIActions.Click.canceled += i => Clicked = false;
                 _inputActions.UIActions.RClick.started += i => RClicked = true;
                 _inputActions.UIActions.RClick.canceled += i => RClicked = false;
+                _inputActions.PlayerActions.RB.started += i => _rb_Input = true;
+                _inputActions.PlayerActions.RB.canceled += i => _rb_Input = false;
+                _rt_Input = _inputActions.PlayerActions.RB.phase == InputActionPhase.Started;
                 _inputActions.UIActions.HotbarInput.performed += i => {
                     HotbarSlot = (int) i.ReadValue<float>();
                     EquipInput = true;
@@ -123,8 +127,6 @@ namespace _Project.Scripts.Handlers {
         private void OnDisable() {
             _singleton = null;
             _inputActions.Disable();
-            
-            _inputActions.UIActions.Click.performed -= OnClick;
         }
 
         public void Update() {
@@ -133,7 +135,6 @@ namespace _Project.Scripts.Handlers {
             HandleCameraInput(delta);
             HandleRollAndSprintInput(delta);
             HandleJumpInput(delta);
-            HandleAttackInput(delta);
             HandleUIInput();
         }
         private void HandleCameraInput(float delta) {
@@ -152,11 +153,6 @@ namespace _Project.Scripts.Handlers {
         private void MoveInput(float delta) {
             Horizontal = _movementInput.x;
             Vertical = _movementInput.y;
-        }
-
-        private void HandleAttackInput(float delta) {
-            _rb_Input = _inputActions.PlayerActions.RB.phase == InputActionPhase.Started;
-            _rt_Input = _inputActions.PlayerActions.RB.phase == InputActionPhase.Started;
         }
 
         private void HandleJumpInput(float delta) {
