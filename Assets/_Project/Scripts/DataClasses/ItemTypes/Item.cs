@@ -20,11 +20,10 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
         public string id;
         [field: TextArea]
         public string description;
-        [SerializeField] private ItemAction _mainAction;
-        [SerializeField] private ItemAction _secondaryAction;
+        private IAction _mainAction;
+        private IAction _secondaryAction;
 
         [SerializeField] private int maxStackSize;
-        public int intID => GetInstanceID();
         public bool Equals(Item other) {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;

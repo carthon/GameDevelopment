@@ -132,7 +132,7 @@ namespace _Project.Scripts.Components {
         }
         private void HandleActions(bool[] actions) {
             if (actions[(int) ActionsEnum.PICKING]) HandlePicking();
-            if (actions[(int) ActionsEnum.ATTACKING]) HandleClick();
+            if (actions[(int) ActionsEnum.ATTACKING] && !actions[(int) ActionsEnum.SEARCHING]) HandleClick();
         }
         private void HandlePicking() {
             Grabbable lookingAtGrabbable = GetNearGrabbable();

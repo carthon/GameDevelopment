@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using _Project.Scripts.Components;
+using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.MessageDataStructures;
@@ -54,7 +55,7 @@ namespace _Project.Scripts.Network {
             _singleton = this;
         }
         private void OnValidate() {
-            Item[] items = Resources.LoadAll<Item>("Items");
+            Item[] items = GameData.Singleton.items;
             Debug.Log($"Loaded {items.Length} items");
             itemsDictionary = new DictionaryOfStringAndItems();
             foreach (Item item in items) {

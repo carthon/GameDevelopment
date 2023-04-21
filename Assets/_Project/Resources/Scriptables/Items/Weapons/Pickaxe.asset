@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b4305146d36dd47add43256157eccf, type: 3}
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 0}
-  item3dIcon: {fileID: 0}
-  iconMaterial: {fileID: 0}
   itemName: Pickaxe
   modelPrefab: {fileID: 2848782614082034420, guid: 9bef30518ff573543be3ed5db37e8c73, type: 3}
-  Size: 2
-  id: b12364e9c4524266b522a75a9a2afd8e
+  Size: 0
+  id: 6c10016d4e344e99b24ffd0cea1ec390
   description: A pickaxe
+  _mainAction: {fileID: 0}
+  _secondaryAction: {fileID: 0}
   maxStackSize: 1
   isUnarmed: 0
   OH_Light_Attack_1: 

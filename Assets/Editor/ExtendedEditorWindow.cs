@@ -29,7 +29,6 @@ namespace Editor {
                     if (!string.IsNullOrEmpty(lastPropPath) && p.propertyPath.Contains(lastPropPath)) continue;
                     lastPropPath = p.propertyPath;
                     ShowTypeProperties(p);
-                    //EditorGUILayout.PropertyField(p, drawChildren);
                 }
             }
         }
@@ -54,8 +53,11 @@ namespace Editor {
                         case int casted:
                             field.SetValue(obj, EditorGUILayout.IntField(field.Name, casted));
                             break;
+                        case float casted:
+                            field.SetValue(obj, EditorGUILayout.FloatField(field.Name, casted));
+                            break;
                         case bool casted:
-                            field.SetValue(obj, EditorGUILayout.Toggle(field.Name, (bool) casted));
+                            field.SetValue(obj, EditorGUILayout.Toggle(field.Name, casted));
                             break;
                         case GameObject casted:
                             SerializedObject serialized = new SerializedObject(casted);

@@ -3,8 +3,10 @@ using UnityEngine;
 
 namespace _Project.Scripts.DataClasses.ItemActions {
     [Serializable]
-    [CreateAssetMenu(menuName = "Data/Actions/AttackAction", fileName = "DefaultAttackAction")]
-    public class AttackAction : ScriptableObject, IAction {
+    [CreateAssetMenu(menuName = "Data/Actions/MineAction", fileName = "DefaultMineAction")]
+    public class ToolPart : ScriptableObject, IAction {
+
+        public float toolDamage;
 
         public Transform ActionHandler { get; set; }
         public bool TryDoAction() {
