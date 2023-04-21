@@ -12,7 +12,7 @@ using Object = UnityEngine.Object;
 namespace _Project.Scripts.Network.Client {
     public partial class Client : RiptideNetworking.Client {
         private const float ServerPositionError = 0.01f;
-        private static int TicksAheadOfServer = 10;
+        private static int TicksAheadOfServer = 5;
         public event Action OnClientReady;
 
         #region ReconciliationVariables

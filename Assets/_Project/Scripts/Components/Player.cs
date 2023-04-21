@@ -9,6 +9,7 @@ using RiptideNetworking;
 using TMPro;
 using UnityEngine;
 using Client = _Project.Scripts.Network.Client.Client;
+using Logger = _Project.Scripts.Utils.Logger;
 using Server = _Project.Scripts.Network.Server.Server;
 
 namespace _Project.Scripts.Components {
@@ -65,7 +66,6 @@ namespace _Project.Scripts.Components {
             _animator = GetComponent<AnimatorHandler>();
             _inventoryManager = GetComponent<InventoryManager>();
             _equipmentHandler = GetComponent<EquipmentHandler>();
-            _equipmentHandler.Player = this;
             _inventoryManager.Player = this;
             _grabler = GetComponent<Grabler>();
             _grabler.LinkedInventoryManager = _inventoryManager;
@@ -112,6 +112,7 @@ namespace _Project.Scripts.Components {
             _animator.SetBool(AnimatorHandler.IsCrouching, actions[(int)ActionsEnum.CROUCHING]);
             _animator.SetBool(AnimatorHandler.IsPicking, actions[(int)ActionsEnum.PICKING]);
             _animator.SetBool(AnimatorHandler.IsSearching, actions[(int)ActionsEnum.SEARCHING]);
+            _animator.SetBool(AnimatorHandler.IsAttacking, actions[(int)ActionsEnum.ATTACKING], actions[(int)ActionsEnum.ATTACKING]);
             _animator.SetBool(AnimatorHandler.IsFalling, !_locomotion.IsGrounded);
             CanRotate = !actions[(int)ActionsEnum.SEARCHING];
             CanMove = !actions[(int)ActionsEnum.SEARCHING];
@@ -129,10 +130,11 @@ namespace _Project.Scripts.Components {
             }
             HandleActions(actions);
         }
-        public void HandleActions(bool[] actions) {
+        private void HandleActions(bool[] actions) {
             if (actions[(int) ActionsEnum.PICKING]) HandlePicking();
+            if (actions[(int) ActionsEnum.ATTACKING] && !actions[(int) ActionsEnum.SEARCHING]) HandleClick();
         }
-        public void HandlePicking() {
+        private void HandlePicking() {
             Grabbable lookingAtGrabbable = GetNearGrabbable();
             if (!(lookingAtGrabbable is null)) {
                 LootTable leftovers = _grabler.TryPickItems(lookingAtGrabbable);
@@ -140,6 +142,11 @@ namespace _Project.Scripts.Components {
                     Debug.Log("Sobran items!");
                 }
             }
+        }
+        private void HandleClick() {
+            Logger.Singleton.Log("Clicking", Logger.Type.DEBUG);
+            EquipmentDisplayer equippedItem = EquipmentHandler.GetEquipmentSlotByBodyPart(BodyPart.RightArm);
+            if (!equippedItem.CurrentEquipedItem.IsEmpty()) equippedItem.CurrentEquipedItem.Item.TryDoMainAction();
         }
         public void UpdatePlayerMovementState(MovementMessageStruct movementMessage,  bool isInstant = true, float speed = 1f) {
             _locomotion.Rb.position = (isInstant) ? movementMessage.position : Vector3.Lerp(transform.position, movementMessage.position, speed);

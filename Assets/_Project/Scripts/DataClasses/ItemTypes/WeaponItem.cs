@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace _Project.Scripts.DataClasses.ItemTypes {
+    [Serializable]
     [CreateAssetMenu(menuName = "Items/Weapon Item")]
     public class WeaponItem : Item {
         public bool isUnarmed;

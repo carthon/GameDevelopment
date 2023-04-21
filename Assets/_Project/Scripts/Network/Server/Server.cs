@@ -42,7 +42,11 @@ namespace _Project.Scripts.Network.Server {
                 sb.Append($"ForClient:{clientId}");
                 if(NetworkManager.playersList.TryGetValue(clientId, out Player player)) {
                     sb.Append($"TotalInput:{_unprocessedInputQueue[clientId].Count}");
-                    while(_unprocessedInputQueue[clientId].Count > 0 && _unprocessedInputQueue[clientId].Peek().tick <= currentTick) {
+                    while(_unprocessedInputQueue[clientId].Count > 0) {
+                        if (_unprocessedInputQueue[clientId].Peek().tick > currentTick) {
+                            _unprocessedInputQueue[clientId].Dequeue();
+                            continue;
+                        }
                         sb.Append($"tick at peek: {_unprocessedInputQueue[clientId].Peek().tick} and current: {currentTick}");
                         InputMessageStruct inputMessage = _unprocessedInputQueue[clientId].Dequeue();
                         bool[] actions = inputMessage.actions;

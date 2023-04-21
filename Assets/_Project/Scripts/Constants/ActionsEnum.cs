@@ -5,6 +5,7 @@ namespace _Project.Scripts.Constants {
         SPRINTING,
         PICKING,
         CROUCHING,
-        SEARCHING
+        SEARCHING,
+        ATTACKING
     }
 }
