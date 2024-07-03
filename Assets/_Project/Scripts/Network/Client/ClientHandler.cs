@@ -2,6 +2,7 @@ using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Entities;
+using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Network.MessageUtils;
 using RiptideNetworking;
@@ -26,7 +27,7 @@ namespace _Project.Scripts.Network.Client {
                 return;
             SpawnMessageStruct spawnData = new SpawnMessageStruct(message);
             NetworkManager.Singleton.Tick = spawnData.tick + TicksAheadOfServer;
-            GodEntity.Spawn(spawnData.id, spawnData.entityId, spawnData.position, spawnData.tick);
+            GameManager.Spawn(spawnData.id, spawnData.entityId, spawnData.position, spawnData.tick);
             Message updateClient = Message.Create(MessageSendMode.reliable, PacketHandler.serverUpdateClient);
             NetworkManager.Singleton.Client.Send(updateClient);
         }
@@ -48,7 +49,7 @@ namespace _Project.Scripts.Network.Client {
                 return;
 
             GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(message);
-            if (GodEntity.grabbableItems.TryGetValue(grabbableData.grabbableId, out Grabbable grabbable)) {
+            if (GameManager.grabbableItems.TryGetValue(grabbableData.grabbableId, out Grabbable grabbable)) {
                 var transform = grabbable.transform;
                 transform.position = grabbableData.position;
                 transform.rotation = grabbableData.rotation;

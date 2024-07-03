@@ -14,14 +14,10 @@ namespace _Project.Scripts.DataClasses {
             private set {
                 if (_singleton == null)
                     _singleton = value;
-                else if(_singleton != null) {
-                    Debug.Log($"{nameof(GameData)} instance already exists, destroying duplicate!");
-                    Destroy(value);
-                }
             }
         }
         private void OnValidate() {
-            _singleton = this;
+            Singleton = this;
             LoadAssets();
         }
         public void LoadAssets() {

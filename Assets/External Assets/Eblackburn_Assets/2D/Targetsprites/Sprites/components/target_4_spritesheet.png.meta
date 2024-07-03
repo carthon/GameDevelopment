@@ -78,7 +78,7 @@ TextureImporter:
       213: 21300048
     second: target_4_spritesheet_24
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -99,6 +99,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -137,6 +138,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -700,6 +702,32 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      target_4_spritesheet_0: 21300000
+      target_4_spritesheet_1: 21300002
+      target_4_spritesheet_10: 21300020
+      target_4_spritesheet_11: 21300022
+      target_4_spritesheet_12: 21300024
+      target_4_spritesheet_13: 21300026
+      target_4_spritesheet_14: 21300028
+      target_4_spritesheet_15: 21300030
+      target_4_spritesheet_16: 21300032
+      target_4_spritesheet_17: 21300034
+      target_4_spritesheet_18: 21300036
+      target_4_spritesheet_19: 21300038
+      target_4_spritesheet_2: 21300004
+      target_4_spritesheet_20: 21300040
+      target_4_spritesheet_21: 21300042
+      target_4_spritesheet_22: 21300044
+      target_4_spritesheet_23: 21300046
+      target_4_spritesheet_24: 21300048
+      target_4_spritesheet_3: 21300006
+      target_4_spritesheet_4: 21300008
+      target_4_spritesheet_5: 21300010
+      target_4_spritesheet_6: 21300012
+      target_4_spritesheet_7: 21300014
+      target_4_spritesheet_8: 21300016
+      target_4_spritesheet_9: 21300018
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

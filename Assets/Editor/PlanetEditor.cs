@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using _Project.Libraries.Marching_Cubes.Scripts;
+using _Project.Scripts.Components;
+using _Project.Scripts.Handlers;
+using UnityEditor;
+using UnityEngine;
+
+namespace Editor {
+    [CustomEditor(typeof(Planet))]
+    public class PlanetEditor : UnityEditor.Editor {
+        private Planet _planet;
+        private bool _showOriginal2DMap;
+        private ChunkRenderer _chunkRenderer = new ChunkRenderer();
+        public override void OnInspectorGUI() {
+            EditorGUI.BeginChangeCheck();
+            DrawDefaultInspector();
+            if (EditorGUI.EndChangeCheck()) {
+                OnValidate();
+            }
+            _planet = (Planet) target;
+            _planet.chunkGenerationRadius = EditorGUILayout.Slider("Spawn Chunk Render Distance", _planet.chunkGenerationRadius, 1f, 1000f);
+            _showOriginal2DMap = EditorGUILayout.Toggle("Show Original 2D Map", _showOriginal2DMap);
+            if(GUILayout.Button("Generate Planet")) {
+                _planet.SetUp();
+                _planet.Generate();
+            }
+            if(GUILayout.Button("Generate Spawn Chunk")) {
+                _planet.SetUp();
+                _chunkRenderer.GenerateChunksAround(_planet, FindObjectOfType<GameManager>().spawnPoint.position, _planet.chunkGenerationRadius);
+            }
+            if(GUILayout.Button("Destroy Planet"))
+                _planet.Delete();
+            if(GUILayout.Button("Refresh Planet"))
+                OnValidate();
+            // Si hay una RenderTexture, dibujarla
+            if (_showOriginal2DMap && _planet.MeshGenerator.originalMap2D != null)
+            {
+                GUILayout.Label("Original 2D Map Preview", EditorStyles.boldLabel);
+                Rect rect = GUILayoutUtility.GetRect(256, 256, GUILayout.ExpandWidth(false));
+                EditorGUI.DrawPreviewTexture(rect, _planet.MeshGenerator.originalMap2D);
+            }
+        }
+        private void OnValidate() {
+            _planet.GenerateDensityMap();
+            _planet.MeshGenerator.OnValidate();
+            if (_chunkRenderer.ActiveChunks.Count > 0)
+                _chunkRenderer.GenerateChunksAround(_planet, FindObjectOfType<GameManager>().spawnPoint.position, _planet.chunkGenerationRadius);
+            else
+                _planet.Generate();
+        }
+        void OnSceneGUI() {
+            if (_planet.showChunkBoundaries) {
+                float chunkSize = _planet.MeshGenerator.boundsSize / _planet.NumChunks;
+                List<Chunk> activeChunks = _chunkRenderer.ActiveChunks;
+                if (activeChunks is not null && activeChunks.Count > 0) {
+                    foreach (Chunk renderedChunk in activeChunks) {
+                        Handles.DrawWireCube(renderedChunk.GetCenter(), Vector3.one * chunkSize);
+                    }
+                    return;
+                }
+                // Establece el color del Gizmo
+                Handles.color = Color.green;
+                for (int y = 0; y < _planet.NumChunks; y++)
+                for (int x = 0; x < _planet.NumChunks; x++)
+                for (int z = 0; z < _planet.NumChunks; z++) {
+                    float posX = (-(_planet.NumChunks - 1f) / 2 + x) * chunkSize;
+                    float posY = (-(_planet.NumChunks - 1f) / 2 + y) * chunkSize;
+                    float posZ = (-(_planet.NumChunks - 1f) / 2 + z) * chunkSize;
+                    Handles.DrawWireCube(new Vector3(posX, posY, posZ) + _planet.Center, Vector3.one * chunkSize);
+                }
+            }
+        }
+    }
+}

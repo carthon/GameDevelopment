@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Entities;
+using _Project.Scripts.Handlers;
 using UnityEngine;
 using Logger = _Project.Scripts.Utils.Logger;
 
@@ -12,20 +13,23 @@ namespace _Project.Scripts.Components {
 
         private int _freeSpace;
         private List<ItemStack> _items;
+        public Entity Owner { get; set; }
         public int Id { get; set; }
         public event Action<int, ItemStack> OnSlotChange;
         public event Action<int, int, int, int> OnSlotSwap;
         public string Name { get; set; }
         public int Size { get; }
 
-        public Inventory(string name, int size) {
+        public Inventory(string name, Entity owner,int size) {
             Name = name;
             Size = size;
+            Owner = owner;
             Init();
         }
-        public Inventory(int size) {
+        public Inventory(int size, Entity owner) {
             Name = "No name";
             Size = size;
+            Owner = owner;
             Init();
         }
 
@@ -154,7 +158,7 @@ namespace _Project.Scripts.Components {
         public void DropItemInSlot(int slot, int count, Vector3 worldPos, Quaternion rotation) {
             var itemStack = TakeItemsFromSlot(slot, count);
             if (!itemStack.IsEmpty())
-                GodEntity.SpawnItem(itemStack, worldPos, rotation);
+                GameManager.SpawnItem(itemStack, worldPos, rotation, Owner);
         }
         public int FindItemStackSlot(ItemStack itemStack) {
             return _items.FindIndex(item => !(item.Item is null) && item.Item.Equals(itemStack.Item) && !item.IsFull());

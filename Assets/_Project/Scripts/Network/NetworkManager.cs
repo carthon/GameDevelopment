@@ -55,12 +55,13 @@ namespace _Project.Scripts.Network {
             _singleton = this;
         }
         private void OnValidate() {
-            Item[] items = GameData.Singleton.items;
-            Debug.Log($"Loaded {items.Length} items");
+            Item[] items = GameData.Singleton != null ? GameData.Singleton.items : null;
+            Debug.Log($"Loaded {items?.Length} items");
             itemsDictionary = new DictionaryOfStringAndItems();
-            foreach (Item item in items) {
-                itemsDictionary.Add(item.id, item);
-            }
+            if (items != null)
+                foreach (Item item in items) {
+                    itemsDictionary.Add(item.id, item);
+                }
         }
         public void Start() {
             RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);

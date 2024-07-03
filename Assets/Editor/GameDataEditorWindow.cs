@@ -23,6 +23,9 @@ namespace Editor {
             window._gameData = data;
             window.OnLoad();
         }
+        public static void Open() {
+            Open(EditorUtils.FindScriptableObject<GameData>());
+        }
         public static void CreateAsset(Type type, string title, string assetPath) {
             ScriptableObject asset = CreateInstance(type);
             if (assetPath != "")

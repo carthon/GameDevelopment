@@ -6,13 +6,16 @@ namespace _Project.Scripts.DataClasses {
     [Serializable]
     public class LocomotionStats : ScriptableObject {
         public float height;
-        public float fallingSpeed;
         public float runSpeed;
+        public float crouchSpeed;
         public float backwardsMultSpeed;
         public float strafeMultSpeed;
         public float sprintSpeed;
         public float inAirSpeed;
+        public float flySpeed;
         public float jumpStrength;
+        public float groundedRayRadius;
+        public bool canFly;
         public LayerMask groundLayer;
     }
 }

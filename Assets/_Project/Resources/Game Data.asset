@@ -9,7 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4910c34db4e64cc9af7a912b13c30dd7, type: 3}
+  m_Script: {fileID: 11500000, guid: f4bc43813d0348b4da186d4966ad8137, type: 3}
   m_Name: Game Data
   m_EditorClassIdentifier: 
-  items: []
+  items:
+  - {fileID: 11400000, guid: 197434e1ea8951544a568dc1cbf4fe3a, type: 2}
+  - {fileID: 11400000, guid: 87663d26d69029a48adc8bb8f7dd1605, type: 2}
+  - {fileID: 11400000, guid: 8b7a909eae0e96a40b9941cd9b646c86, type: 2}
+  stats:
+  - {fileID: 11400000, guid: acc6319f4b3f1f14bb319d1915fbbe59, type: 2}
+  - {fileID: 11400000, guid: 3385178af7ea2ec438896af52c0d73e5, type: 2}
+  actions: []

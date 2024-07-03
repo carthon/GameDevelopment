@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Concurrent;
+using _Project.Scripts.Components.LocomotionComponent;
 using _Project.Scripts.Constants;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
+using _Project.Scripts.Entities;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
 using _Project.Scripts.Network.MessageDataStructures;
@@ -13,7 +16,7 @@ using Logger = _Project.Scripts.Utils.Logger;
 using Server = _Project.Scripts.Network.Server.Server;
 
 namespace _Project.Scripts.Components {
-    public class Player : MonoBehaviour {
+    public class Player : MonoBehaviour, Entity {
 
         private Locomotion _locomotion;
         private AnimatorHandler _animator;
@@ -25,9 +28,15 @@ namespace _Project.Scripts.Components {
         [SerializeField] private Transform _headPivot;
         [SerializeField] private Transform _head;
         [SerializeField] private Transform _headFollow;
-        public Transform inventorySpawnTransform;
         private TextMeshProUGUI _usernameDisplay;
+        private float grabDistance = 4f;
+        private float grabRadius = 0.1f;
+        [SerializeField] private Planet _planet;
+        private Collider _collider;
 
+        public Transform inventorySpawnTransform;
+        public Planet Planet { get => _planet; set => _planet = value; }
+        public Planet GetPlanet() => _planet;
         public ushort Id { get; set; }
         public bool IsLocal { get; set; }
         public string Username { get; set; }
@@ -43,8 +52,6 @@ namespace _Project.Scripts.Components {
         public bool CanRotate { get; set; }
         public bool CanMove { get; set; }
         
-        private float grabDistance = 4f;
-        private float grabRadius = 0.1f;
         public Grabbable GetNearGrabbable() =>
             _grabler.GetPickableInRange(new Ray(_headPivot.position, _headPivot.forward), grabRadius, grabDistance);
         
@@ -60,7 +67,18 @@ namespace _Project.Scripts.Components {
         private void Update() {
             _animator.UpdateAnimatorValues(_locomotion.RelativeDirection.z, _locomotion.RelativeDirection.x);
         }
-    
+        private void OnTriggerEnter(Collider other) {
+            if (_collider is null || !_collider.Equals(other)) {
+                _collider = other;
+                if (_collider.transform.TryGetComponent(out Planet planet)) {
+                    _planet = planet;
+                    _locomotion.GravityCenter = _planet.Center;
+                    _locomotion.Gravity = _planet.Gravity;
+                    _locomotion.Stats.groundLayer = _planet.GroundLayer;
+                }
+            }
+        }
+        
         public void InitializeComponents() {
             _locomotion = GetComponent<Locomotion>();
             _animator = GetComponent<AnimatorHandler>();
@@ -69,13 +87,14 @@ namespace _Project.Scripts.Components {
             _inventoryManager.Player = this;
             _grabler = GetComponent<Grabler>();
             _grabler.LinkedInventoryManager = _inventoryManager;
-            _inventoryManager.Add(new Inventory("PlayerInventory", 9));
+            _inventoryManager.Add(new Inventory("PlayerInventory", this,9));
             _grabler.CanPickUp = true;
+            _planet = GameManager.Singleton.defaultPlanet;
             CanRotate = true;
             CanMove = true;
             _usernameDisplay = GetComponentInChildren<TextMeshProUGUI>();
             _animator.Initialize();
-            _locomotion.SetUp();
+            _locomotion.SetUp(_planet.Center, _planet.Gravity);
             _actions = new bool[typeof(ActionsEnum).GetFields().Length];
         }
         public void OnSpawn() {
@@ -108,6 +127,8 @@ namespace _Project.Scripts.Components {
             _locomotion.IsMoving = actions[(int)ActionsEnum.MOVING];
             _locomotion.IsJumping = actions[(int)ActionsEnum.JUMPING];
             _locomotion.IsSprinting = actions[(int)ActionsEnum.SPRINTING];
+            _locomotion.IsCrouching = actions[(int)ActionsEnum.CROUCHING];
+            _locomotion.IsDoubleJumping = actions[(int)ActionsEnum.DOUBLEJUMPING];
             _animator.SetBool(AnimatorHandler.IsSprinting, actions[(int)ActionsEnum.SPRINTING]);
             _animator.SetBool(AnimatorHandler.IsCrouching, actions[(int)ActionsEnum.CROUCHING]);
             _animator.SetBool(AnimatorHandler.IsPicking, actions[(int)ActionsEnum.PICKING]);
@@ -117,18 +138,28 @@ namespace _Project.Scripts.Components {
             CanRotate = !actions[(int)ActionsEnum.SEARCHING];
             CanMove = !actions[(int)ActionsEnum.SEARCHING];
             if (CanRotate) {
-                Quaternion newRotation = Quaternion.Euler(0.0f, _headPivot.rotation.eulerAngles.y, 0.0f);
-                float rotationSpeed = !_locomotion.IsMoving && !InputHandler.Singleton.IsInInventory ? CameraHandler.Singleton.CameraData.playerLookInputLerpSpeed * Time.deltaTime : 1f;
-                var modelRotation = model.rotation;
-                //float rotationAngle = Quaternion.Angle(modelRotation, newRotation);
-                modelRotation = Quaternion.Lerp(modelRotation, newRotation, rotationSpeed);
-                model.rotation = modelRotation;
-                // if (!_locomotion.IsMoving) {
-                //     _animator.SetBool("isRotatingLeft", rotationAngle > 0);
-                //     _animator.SetFloat("rotateSpeed", rotationAngle);
-                // }
+                RotateCharacterModel();
             }
             HandleActions(actions);
+        }
+        public void RotateCharacterModel() {
+            // Obtener la dirección hacia la cual el headPivot está mirando, pero solo en el plano horizontal.
+            float rotationSpeed = !_locomotion.IsMoving && !InputHandler.Singleton.IsInInventory ? CameraHandler.Singleton.CameraData.playerLookInputLerpSpeed * Time.deltaTime : 1f;
+
+            // Calcula el "arriba" local basado en la orientación del planeta.
+            Vector3 localUp = (_locomotion.Rb.position - Planet.Center).normalized;
+
+            // Obtiene la dirección a la cual la cabeza está mirando, pero transformada al plano local del personaje.
+            Vector3 forwardOnPlanetSurface = _locomotion.lookForwardDirection;
+
+            // Calcula la rotación que alinea el eje "arriba" del personaje con el "arriba" local del planeta.
+            Quaternion groundAlignmentRotation = Quaternion.FromToRotation(transform.up, localUp);
+
+            // Combina la rotación que alinea al personaje con el suelo y la rotación de la cabeza.
+            Quaternion targetRotation = groundAlignmentRotation * Quaternion.LookRotation(forwardOnPlanetSurface, localUp);
+
+            // Aplica la rotación al modelo del personaje.
+            model.rotation = Quaternion.Slerp(model.rotation, targetRotation, rotationSpeed);
         }
         private void HandleActions(bool[] actions) {
             if (actions[(int) ActionsEnum.PICKING]) HandlePicking();

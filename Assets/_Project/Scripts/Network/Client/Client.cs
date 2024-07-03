@@ -1,6 +1,8 @@
 using System;
+using _Project.Libraries.Marching_Cubes.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.DiegeticUI;
+using _Project.Scripts.Entities;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.MessageDataStructures;
 using RiptideNetworking;
@@ -41,7 +43,7 @@ namespace _Project.Scripts.Network.Client {
         public Player Player {
             get
             {
-                if (_player != null)
+                if (_player)
                     return _player;
                 return null;
             }
@@ -61,14 +63,16 @@ namespace _Project.Scripts.Network.Client {
             if(NetworkManager.Singleton.TryGetComponent(out ContainerRenderer renderer)) {
                 renderer.InitializeRenderer(_player.InventoryManager, _player.inventorySpawnTransform);
             }
-            CameraHandler.Singleton.InitializeCamera(_player.Head, player.HeadFollow, player.HeadPivot);
+            GameManager.Singleton.ChunkRenderer.GenerateChunksAround(player.Planet, _player.transform.position, GameManager.Singleton.gameConfiguration.renderDistance);
+            CameraHandler.Singleton.InitializeCamera(_player.Head, _player.HeadFollow, _player.HeadPivot);
             OnClientReady?.Invoke();
         }
 
         public void Tick(int currentTick) {
-            if (_player != null && _player.IsLocal) {
+            if (_player && _player.IsLocal) {
                 HandleCamera();
                 HandlePlayer(currentTick);
+                HandleWorld(currentTick);
             }
             base.Tick();
         }
@@ -78,6 +82,10 @@ namespace _Project.Scripts.Network.Client {
             if (!InputHandler.Singleton.IsInMenu)
                 CameraHandler.Singleton.FixedTick(fixedDelta);
             CameraHandler.Singleton.Tick(delta);
+        }
+        private void HandleWorld(int currentTick) {
+            GameManager.Singleton.ChunkRenderer.GenerateChunksAround(_player.Planet, _player.transform.position, GameManager.Singleton.gameConfiguration.renderDistance);
+            //TODO: Handle world creation
         }
         private void HandlePlayer(int currentTick) {
             int bufferIndex = currentTick % NetworkManager.BufferSize;

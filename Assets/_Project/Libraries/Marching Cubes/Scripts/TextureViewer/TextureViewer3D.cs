@@ -23,7 +23,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts.TextureViewer {
 		void Update()
 		{
 			material.SetFloat("sliceDepth", sliceDepth);
-			material.SetTexture("DisplayTexture", FindObjectOfType<GenTest>().rawDensityTexture);
+			material.SetTexture("DisplayTexture", FindObjectOfType<MeshGenerator>().rawDensityTexture);
 		}
 	}
 }

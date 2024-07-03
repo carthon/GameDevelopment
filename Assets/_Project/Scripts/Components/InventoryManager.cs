@@ -29,14 +29,14 @@ namespace _Project.Scripts.Components {
 			Outline = GetComponent<Outline>();
 		}
 		public void DropItemStack(int inventoryId, int slotId) {
-			ItemStack droppedItemStack = Inventories[inventoryId].GetItemStack(slotId);
-			droppedItemStack.SetCount(0);
-			Transform playerTransform = _player.transform;
-			Inventories[inventoryId].DropItemInSlot(slotId, playerTransform.position, playerTransform.rotation);
+			Transform player = _player.transform;
+			Vector3 upDirection = player.up.normalized;
+			DropItemStack(inventoryId, slotId, player.position + upDirection * 2f, player.rotation);
 		}
 		public void DropItemStack(int inventoryId, int slotId, Vector3 position, Quaternion rotation) {
 			ItemStack droppedItemStack = Inventories[inventoryId].GetItemStack(slotId);
 			droppedItemStack.SetCount(0);
+			Inventories[inventoryId].DropItemInSlot(slotId, position, rotation);
 			Inventories[inventoryId].DropItemInSlot(slotId, position, rotation);
 		}
 		public void AddItemStackInInventory(ItemStack itemStack, int inventoryId) {

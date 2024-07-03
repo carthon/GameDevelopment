@@ -23,6 +23,7 @@ namespace _Project.Scripts.Handlers {
         private Action<int> _OnLeftHandEquip;
         private bool _rb_Input;
         private float _rollInputTimer;
+        private float _jumpInputTimer;
         private bool _rt_Input;
 
         public float MouseX { get; private set; }
@@ -58,6 +59,7 @@ namespace _Project.Scripts.Handlers {
         public bool IsRolling { get; private set; }
 
         public bool IsJumping { get; private set; }
+        public bool IsDoubleJumping { get; private set; }
 
         public bool IsPicking { get; private set; }
         public bool IsCrouching { get; private set; }
@@ -68,6 +70,7 @@ namespace _Project.Scripts.Handlers {
         public bool[] GetActions() => new[] {
             IsMoving,
             IsJumping,
+            IsDoubleJumping,
             IsSprinting,
             IsPicking,
             IsCrouching,
@@ -85,6 +88,7 @@ namespace _Project.Scripts.Handlers {
             SwapPerson = false;
             IsRolling = false;
             IsJumping = false;
+            IsDoubleJumping = false;
             IsPicking = false;
             EquipInput = false;
         }
@@ -157,8 +161,19 @@ namespace _Project.Scripts.Handlers {
 
         private void HandleJumpInput(float delta) {
             _j_Input = _inputActions.PlayerActions.Jump.phase == InputActionPhase.Performed;
-            if (_j_Input)
+            if (_j_Input) {
+                _jumpInputTimer += delta;
                 IsJumping = true;
+            }
+            else {
+                if (_jumpInputTimer is > 0 and < .2f) {
+                    IsDoubleJumping = true;
+                    _jumpInputTimer = 0;
+                }
+                else if (_jumpInputTimer > 0) {
+                    _jumpInputTimer = 0;
+                }
+            }
         }
 
         private void HandleRollAndSprintInput(float delta) {
@@ -169,7 +184,7 @@ namespace _Project.Scripts.Handlers {
                     IsSprinting = true;
             }
             else {
-                if (_rollInputTimer > 0 && _rollInputTimer < .5f) {
+                if (_rollInputTimer is > 0 and < .5f) {
                     IsRolling = true;
                     _rollInputTimer = 0;
                 }

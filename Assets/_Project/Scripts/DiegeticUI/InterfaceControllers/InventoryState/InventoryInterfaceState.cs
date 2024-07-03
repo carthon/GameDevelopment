@@ -29,7 +29,7 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
             
             CameraHandler.Singleton.staticLookAtTransform.position = (Vector3.Distance(CameraHandler.Singleton.staticLookAtTransform.position, _lookAtPosition) > 2f) ? _lookAtPosition :
                 Vector3.Lerp(CameraHandler.Singleton.staticLookAtTransform.position, _lookAtPosition, Time.deltaTime * headRotationSpeed);
-            if(_player != null) {
+            if(_player) {
                 Quaternion lookRotation = Quaternion.LookRotation(_lookAtPosition - _player.HeadPivot.position);
                 _player.HeadPivot.rotation = Quaternion.Lerp(_player.HeadPivot.rotation, lookRotation, Time.deltaTime * headRotationSpeed);
             }
@@ -38,10 +38,10 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
                 HitPoint = hit;
                 Context.UpdateWatchedVariables("SelectedItem", $"SelectedItem:{hit.collider.name}");
                 Outline outlineParent = hit.collider.GetComponentInParent<Outline>();
-                if (hit.collider.TryGetComponent(out Outline outline) || outlineParent != null) {
+                if (hit.collider.TryGetComponent(out Outline outline) || !(outlineParent is null)) {
                     _lookAtPosition = hit.collider.transform.position;
                     outline = outlineParent;
-                    if (HitMouseOutline != null && !outline.transform.Equals(HitMouseOutline.transform)) {
+                    if (!(HitMouseOutline is null) && !outline.transform.Equals(HitMouseOutline.transform)) {
                         HitMouseOutline.enabled = false;
                     }
                     HitMouseOutline = outline;

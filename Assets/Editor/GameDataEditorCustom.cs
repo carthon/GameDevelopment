@@ -18,6 +18,10 @@ namespace Editor {
     }
     [CustomEditor(typeof(GameData))]
     public class GameDataEditorCustom : UnityEditor.Editor {
+        [MenuItem("Custom Windows/Game Data")]
+        public static void ShowWindow() {
+            GameDataEditorWindow.Open();
+        }
         public override void OnInspectorGUI() {
             if (GUILayout.Button("Open Editor")) {
                 GameDataEditorWindow.Open((GameData) target);

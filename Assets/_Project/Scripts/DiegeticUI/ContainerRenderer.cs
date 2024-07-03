@@ -46,27 +46,27 @@ namespace _Project.Scripts.DiegeticUI {
             slotIDItemsRendererDict = new List<Dictionary<int, List<(Renderer, MeshFilter)>>>();
             slotIDOutlinesDict = new List<Dictionary<int, Outline>>();
             slotIDItemBounds = new List<Dictionary<int, Bounds>>();
-            foreach (Inventory inventory in inventory.Inventories) {
-                _parent = new GameObject(inventory.Id.ToString()).transform;
+            foreach (Inventory inv in inventory.Inventories) {
+                _parent = new GameObject(inv.Id.ToString()).transform;
                 _parent.SetParent(parent);
                 _parent.localPosition = Vector3.zero;
                 slotIDItemBounds.Add(new Dictionary<int, Bounds>());
                 slotIDItemsRendererDict.Add(new Dictionary<int, List<(Renderer, MeshFilter)>>());
                 slotIDOutlinesDict.Add(new Dictionary<int, Outline>());
-                inventory.OnSlotChange += UpdateInventorySlot;
-                inventory.OnSlotSwap += OnSlotSwap;
-                float slotsPerRow = (float) Math.Sqrt(inventory.Size);
+                inv.OnSlotChange += UpdateInventorySlot;
+                inv.OnSlotSwap += OnSlotSwap;
+                float slotsPerRow = (float) Math.Sqrt(inv.Size);
                 toggled = false;
-                for (int i = 0; i < inventory.Size; i++) {
-                    Transform slot = CreateSlot(inventory.Id, i, slotsPerRow);
+                for (int i = 0; i < inv.Size; i++) {
+                    Transform slot = CreateSlot(inv.Id, i, slotsPerRow);
                     List<(Renderer, MeshFilter)> list = new List<(Renderer, MeshFilter)>();
                     for (int j = 0; j < Inventory.MaxStackSize; j++) {
                         (Renderer, MeshFilter) tuple = CreateItemModel(j.ToString(), slot);
                         list.Add(tuple);
                     }
-                    slotIDItemsRendererDict[inventory.Id].Add(i, list);
-                    slotIDItemBounds[inventory.Id].Add(i, new Bounds());
-                    slotIDOutlinesDict[inventory.Id][i].ReloadRenderers();
+                    slotIDItemsRendererDict[inv.Id].Add(i, list);
+                    slotIDItemBounds[inv.Id].Add(i, new Bounds());
+                    slotIDOutlinesDict[inv.Id][i].ReloadRenderers();
                 }
             }
             _parent = parent;
@@ -83,7 +83,7 @@ namespace _Project.Scripts.DiegeticUI {
             }
             else {
                 itemRenderer = itemStack.Item.modelPrefab.GetComponentInChildren<Renderer>();
-                if (itemRenderer != null)
+                if (!(itemRenderer is null))
                     bounds = itemRenderer.bounds;
             }
             return bounds;

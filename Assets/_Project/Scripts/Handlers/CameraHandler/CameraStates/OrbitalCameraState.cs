@@ -17,7 +17,7 @@ namespace _Project.Scripts.StateMachine.CameraStates {
             cameraHandler.EnableCameraRotation = true;
         }
         protected override void UpdateState() {
-            if (InputHandler.Singleton.SwapView) {
+            if (InputHandler.Singleton.SwapView || InputHandler.Singleton.SwapPerson) {
                 cameraHandler.ChangeState(_lastState);
             }
         }

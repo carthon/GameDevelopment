@@ -1,3 +1,4 @@
+using System;
 using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DiegeticUI;
@@ -40,6 +41,7 @@ namespace _Project.Scripts.Handlers {
         [Header("Camera")]
         private Transform _playerTransform;
         private Vector3 _previousLookInput = Vector3.zero;
+        private float _verticalLookRotation; 
         [SerializeField] private string currentCameraStatus;
         public Camera MainCamera { get; private set; }
         public bool EnableCameraRotation { get; set; }
@@ -77,6 +79,7 @@ namespace _Project.Scripts.Handlers {
             if (MainCamera != null) {
                 mainCameraBrain = MainCamera.GetComponent<CinemachineBrain>();
                 mainCameraBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
+                mainCameraBrain.m_WorldUpOverride = cameraPivot;
             }
             ChangeState(new FirstPersonCameraState(this));
         }
@@ -92,6 +95,7 @@ namespace _Project.Scripts.Handlers {
             if (cameraCurrentState != null && EnableCameraRotation) {
                 CameraPitch(fixedTick);
                 CameraYaw(fixedTick);
+                //CameraRelativeRotation(fixedTick);
                 CameraSnapRotation();
                 CameraSnapFollow();
             }
@@ -103,31 +107,31 @@ namespace _Project.Scripts.Handlers {
         }
         private void UpdateLookInput(float mouseX, float mouseY) {
             _previousLookInput = _playerLookInput;
-            _playerLookInput = new Vector3(mouseX * _cameraData.sensitivityX, mouseY * _cameraData.sensitivityY, 0) * Time.fixedDeltaTime;
+            _playerLookInput = new Vector3(mouseX * _cameraData.sensitivityX, mouseY * _cameraData.sensitivityY, 0);
             //return Vector3.Lerp(_previousLookInput, _playerLookInput, _cameraData.playerLookInputLerpSpeed);
         }
         public Vector3 GetLookDirection() {
             return CameraPivot.rotation.eulerAngles;
         }
         private void CameraSnapRotation() {
-            _cameraFollow.rotation = _cameraPivot.rotation;
+            _cameraFollow.localRotation = _cameraPivot.localRotation;
         }
         private void CameraSnapFollow() {
-            var cameraPivot = _cameraPivot.transform.position;
+            var cameraPivot = _cameraPivot.transform;
             var cameraFollow = _cameraFollow.transform.position;
-            _cameraPivot.transform.position = cameraFollow;
+            cameraPivot.position = cameraFollow;
         }
         private void CameraPitch(float fixedTick) {
-            var rotationValues = _cameraPivot.rotation.eulerAngles;
+            var rotationValues = _cameraPivot.localRotation.eulerAngles;
             _cameraPitch += -1 * _playerLookInput.y * fixedTick;
-            _cameraPitch = Mathf.Clamp(_cameraPitch, -_cameraData.pitchLimitTopLimit, _cameraData.pitchLimitBottomLimit);
-            _cameraPivot.rotation = Quaternion.Euler(_cameraPitch, rotationValues.y, rotationValues.z);
+            _cameraPitch = Mathf.Clamp(_cameraPitch, _cameraData.pitchLimitBottomLimit, _cameraData.pitchLimitTopLimit);
+            _cameraPivot.localRotation = Quaternion.Euler(_cameraPitch, rotationValues.y, rotationValues.z);
         }
         private void CameraYaw(float fixedTick) {
-            var rotationValues = _cameraPivot.rotation.eulerAngles;
+            var rotationValues = _cameraPivot.localRotation.eulerAngles;
             _cameraYaw += _playerLookInput.x * fixedTick;
             //_cameraYaw = Mathf.Clamp(_cameraPitch, -_cameraData.pitchLimitTopLimit, _cameraData.pitchLimitBottomLimit);
-            _cameraPivot.rotation = Quaternion.Euler(rotationValues.x, _cameraYaw, rotationValues.z);
+            _cameraPivot.localRotation = Quaternion.Euler(rotationValues.x, _cameraYaw, rotationValues.z);
         }
         public Transform CameraFollow { get => _cameraFollow; }
         public Transform CameraPivot { get => _cameraPivot; }

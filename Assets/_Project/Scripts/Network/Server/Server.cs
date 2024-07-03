@@ -33,6 +33,7 @@ namespace _Project.Scripts.Network.Server {
 
         public Server() {
             _singleton = this;
+            //GameManager.Singleton.defaultPlanet.Generate();
         }
 
         public void Tick(int currentTick) {
@@ -62,7 +63,7 @@ namespace _Project.Scripts.Network.Server {
                 }
             }
             if(currentTick % ServerPositionSnapshotRate == 0) {
-                foreach (Grabbable grabbable in GodEntity.grabbableItems.Values) {
+                foreach (Grabbable grabbable in GameManager.grabbableItems.Values) {
                     GrabbableMessageStruct grabbableStruct = new GrabbableMessageStruct(grabbable);
                     NetworkMessageBuilder message = new NetworkMessageBuilder(MessageSendMode.reliable, (int) PacketHandler.grabbablesPosition, grabbableStruct);
                     message.Send(asServer: true);
@@ -87,7 +88,7 @@ namespace _Project.Scripts.Network.Server {
             networkMessageBuilder.Send(asServer:true);
         }
         public static void SendGrabbables(ushort toClientId = 0) {
-            foreach (Grabbable grabbable in GodEntity.grabbableItems.Values) {
+            foreach (Grabbable grabbable in GameManager.grabbableItems.Values) {
                 Transform transform = grabbable.transform;
                 GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(grabbable.Id, grabbable.itemData.id, transform.position, transform.rotation);
                 NetworkMessageBuilder messageBuilder = new NetworkMessageBuilder(MessageSendMode.reliable, (ushort) PacketHandler.clientItemSpawn, grabbableData);

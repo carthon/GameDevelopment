@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d2bb4686689c8438ced2981f944368, type: 3}
   m_Name: CameraStats
   m_EditorClassIdentifier: 
-  playerLookInputLerpSpeed: 15
+  playerLookInputLerpSpeed: 20
   rotationMultiplier: 200
-  pitchLimitTopLimit: 85
-  pitchLimitBottomLimit: 85
-  sensitivityX: 100
-  sensitivityY: 100
+  pitchLimitTopLimit: 80
+  pitchLimitBottomLimit: -75
+  sensitivityX: 10
+  sensitivityY: 10

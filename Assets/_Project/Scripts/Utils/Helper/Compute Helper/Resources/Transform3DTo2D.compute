@@ -1,0 +1,19 @@
+﻿#pragma kernel Trans2D
+
+Texture3D<float4> Source;
+RWTexture2D<float4> Target;
+float Depth;
+
+int3 dimensions;
+
+[numthreads(8,8,8)]
+void Trans2D (int3 id : SV_DispatchThreadID)
+{
+    if (id.x >= dimensions.x || id.y >= dimensions.y || id.z >= dimensions.z) {
+        return;
+    }
+    int3 inputCoord = int3(id.x, id.y, (int)Depth);
+    // Leer el valor de la textura 3D
+    // Escribir el valor en la textura 2D
+    Target[id.xy] = Source[inputCoord];
+}

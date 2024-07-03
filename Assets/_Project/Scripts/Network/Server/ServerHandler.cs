@@ -2,6 +2,7 @@ using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Entities;
+using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Network.MessageUtils;
 using RiptideNetworking;
@@ -42,7 +43,7 @@ namespace _Project.Scripts.Network.Server {
         }
         [MessageHandler((ushort) Client.Client.PacketHandler.serverUsername)]
         private static void SpawnPlayerServer(ushort fromClientId, Message message) {
-            GodEntity.Spawn(fromClientId, message.GetString(), GodEntity.Singleton.spawnPoint.position +
+            GameManager.Spawn(fromClientId, message.GetString(), GameManager.Singleton.spawnPoint.position +
                 Vector3.right * Random.value * 4, NetworkManager.Singleton.Tick);
         }
         [MessageHandler((ushort) Client.Client.PacketHandler.serverItemEquip)]

@@ -180,7 +180,7 @@ TextureImporter:
       213: 21300116
     second: bulllseyetarget_spritesheet_58
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -201,6 +201,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -239,6 +240,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -1516,6 +1518,66 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      bulllseyetarget_spritesheet_0: 21300000
+      bulllseyetarget_spritesheet_1: 21300002
+      bulllseyetarget_spritesheet_10: 21300020
+      bulllseyetarget_spritesheet_11: 21300022
+      bulllseyetarget_spritesheet_12: 21300024
+      bulllseyetarget_spritesheet_13: 21300026
+      bulllseyetarget_spritesheet_14: 21300028
+      bulllseyetarget_spritesheet_15: 21300030
+      bulllseyetarget_spritesheet_16: 21300032
+      bulllseyetarget_spritesheet_17: 21300034
+      bulllseyetarget_spritesheet_18: 21300036
+      bulllseyetarget_spritesheet_19: 21300038
+      bulllseyetarget_spritesheet_2: 21300004
+      bulllseyetarget_spritesheet_20: 21300040
+      bulllseyetarget_spritesheet_21: 21300042
+      bulllseyetarget_spritesheet_22: 21300044
+      bulllseyetarget_spritesheet_23: 21300046
+      bulllseyetarget_spritesheet_24: 21300048
+      bulllseyetarget_spritesheet_25: 21300050
+      bulllseyetarget_spritesheet_26: 21300052
+      bulllseyetarget_spritesheet_27: 21300054
+      bulllseyetarget_spritesheet_28: 21300056
+      bulllseyetarget_spritesheet_29: 21300058
+      bulllseyetarget_spritesheet_3: 21300006
+      bulllseyetarget_spritesheet_30: 21300060
+      bulllseyetarget_spritesheet_31: 21300062
+      bulllseyetarget_spritesheet_32: 21300064
+      bulllseyetarget_spritesheet_33: 21300066
+      bulllseyetarget_spritesheet_34: 21300068
+      bulllseyetarget_spritesheet_35: 21300070
+      bulllseyetarget_spritesheet_36: 21300072
+      bulllseyetarget_spritesheet_37: 21300074
+      bulllseyetarget_spritesheet_38: 21300076
+      bulllseyetarget_spritesheet_39: 21300078
+      bulllseyetarget_spritesheet_4: 21300008
+      bulllseyetarget_spritesheet_40: 21300080
+      bulllseyetarget_spritesheet_41: 21300082
+      bulllseyetarget_spritesheet_42: 21300084
+      bulllseyetarget_spritesheet_43: 21300086
+      bulllseyetarget_spritesheet_44: 21300088
+      bulllseyetarget_spritesheet_45: 21300090
+      bulllseyetarget_spritesheet_46: 21300092
+      bulllseyetarget_spritesheet_47: 21300094
+      bulllseyetarget_spritesheet_48: 21300096
+      bulllseyetarget_spritesheet_49: 21300098
+      bulllseyetarget_spritesheet_5: 21300010
+      bulllseyetarget_spritesheet_50: 21300100
+      bulllseyetarget_spritesheet_51: 21300102
+      bulllseyetarget_spritesheet_52: 21300104
+      bulllseyetarget_spritesheet_53: 21300106
+      bulllseyetarget_spritesheet_54: 21300108
+      bulllseyetarget_spritesheet_55: 21300110
+      bulllseyetarget_spritesheet_56: 21300112
+      bulllseyetarget_spritesheet_57: 21300114
+      bulllseyetarget_spritesheet_58: 21300116
+      bulllseyetarget_spritesheet_6: 21300012
+      bulllseyetarget_spritesheet_7: 21300014
+      bulllseyetarget_spritesheet_8: 21300016
+      bulllseyetarget_spritesheet_9: 21300018
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
