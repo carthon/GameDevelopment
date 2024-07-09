@@ -1,6 +1,7 @@
 using _Project.Scripts.Components.LocomotionComponent.LocomotionStates;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.Utils;
+using Google.Protobuf.WellKnownTypes;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -27,6 +28,16 @@ namespace _Project.Scripts.Components.LocomotionComponent {
         public CapsuleCollider CapsCollider { get; private set; }
 
         public bool IsGrounded { get; set; }
+        private bool _ignoreGround;
+        public bool IgnoreGround
+        {
+            get => _ignoreGround;
+            set
+            {
+                _ignoreGround = value;
+                CapsCollider.isTrigger = value;
+            }
+        }
         [FormerlySerializedAs("onGroundForward")] [HideInInspector]
         public Vector3 lookForwardDirection;
         [FormerlySerializedAs("onGroundRight")] [HideInInspector]
@@ -61,7 +72,10 @@ namespace _Project.Scripts.Components.LocomotionComponent {
             Vector3 centre = Rb.position;
             Vector3 upDir = (centre - GravityCenter).normalized;
             Vector3 castOrigin = centre + upDir * (-CapsCollider.height / 2f + CapsCollider.radius);
-            IsGrounded = Physics.Raycast(castOrigin, -upDir, out groundRayCast, Stats.height, Stats.groundLayer);
+            if(!_ignoreGround)
+                IsGrounded = Physics.Raycast(castOrigin, -upDir, out groundRayCast, Stats.height, Stats.groundLayer);
+            else
+                IsGrounded = !_ignoreGround;
             CurrentState.UpdateStates();
             state = CurrentState.StateName;
         }

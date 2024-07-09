@@ -19,7 +19,7 @@ namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
         }
         public override void CheckSwitchStates() {
             if (locomotion.IsGrounded && !hasJumped && _finishedJump) SwitchState(factory.Grounded());
-            if (!locomotion.IsGrounded && locomotion.IsDoubleJumping && !_finishedJump) SwitchState(factory.Fly());
+            if (!locomotion.IsGrounded && locomotion.IsDoubleJumping) SwitchState(factory.Fly());
         }
         public override void InitializeSubState() {
         }

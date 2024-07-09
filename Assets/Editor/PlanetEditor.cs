@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Project.Helper.Compute_Helper;
 using _Project.Libraries.Marching_Cubes.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.Handlers;
@@ -11,7 +12,7 @@ namespace Editor {
     public class PlanetEditor : UnityEditor.Editor {
         private Planet _planet;
         private bool _showOriginal2DMap;
-        private ChunkRenderer _chunkRenderer = new ChunkRenderer();
+        private ChunkRenderer _chunkRenderer;
         public override void OnInspectorGUI() {
             EditorGUI.BeginChangeCheck();
             DrawDefaultInspector();
@@ -27,12 +28,16 @@ namespace Editor {
             }
             if(GUILayout.Button("Generate Spawn Chunk")) {
                 _planet.SetUp();
+                _chunkRenderer ??= FindObjectOfType<ChunkRenderer>();
+                _chunkRenderer.Clear();
                 _chunkRenderer.GenerateChunksAround(_planet, FindObjectOfType<GameManager>().spawnPoint.position, _planet.chunkGenerationRadius);
             }
-            if(GUILayout.Button("Destroy Planet"))
+            if(GUILayout.Button("Destroy Planet")) {
                 _planet.Delete();
+                _chunkRenderer.Clear();
+            }
             if(GUILayout.Button("Refresh Planet"))
-                OnValidate();
+                RegeneratePlanet();
             // Si hay una RenderTexture, dibujarla
             if (_showOriginal2DMap && _planet.MeshGenerator.originalMap2D != null)
             {
@@ -41,20 +46,29 @@ namespace Editor {
                 EditorGUI.DrawPreviewTexture(rect, _planet.MeshGenerator.originalMap2D);
             }
         }
-        private void OnValidate() {
+        private void RegeneratePlanet() {
             _planet.GenerateDensityMap();
             _planet.MeshGenerator.OnValidate();
-            if (_chunkRenderer.ActiveChunks.Count > 0)
+            if (_chunkRenderer.ActiveChunks.Count > 0) {
+                _chunkRenderer ??= FindObjectOfType<ChunkRenderer>();
+                _chunkRenderer.Clear();
                 _chunkRenderer.GenerateChunksAround(_planet, FindObjectOfType<GameManager>().spawnPoint.position, _planet.chunkGenerationRadius);
+            }
             else
                 _planet.Generate();
         }
+        private void OnValidate() {
+            if (_planet.MeshGenerator is not null && _planet.MeshGenerator.updateOnEditor) {
+                RegeneratePlanet();
+            }
+        }
         void OnSceneGUI() {
-            if (_planet.showChunkBoundaries) {
+            _planet = (Planet) target;
+            if (_planet.showChunkBoundaries && _planet.MeshGenerator is not null) {
                 float chunkSize = _planet.MeshGenerator.boundsSize / _planet.NumChunks;
-                List<Chunk> activeChunks = _chunkRenderer.ActiveChunks;
-                if (activeChunks is not null && activeChunks.Count > 0) {
-                    foreach (Chunk renderedChunk in activeChunks) {
+                _chunkRenderer ??= FindObjectOfType<ChunkRenderer>();
+                if (_chunkRenderer.ActiveChunks is not null && _chunkRenderer.ActiveChunks.Count > 0) {
+                    foreach (Chunk renderedChunk in _chunkRenderer.ActiveChunks.Values) {
                         Handles.DrawWireCube(renderedChunk.GetCenter(), Vector3.one * chunkSize);
                     }
                     return;

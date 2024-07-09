@@ -88,7 +88,6 @@ namespace _Project.Scripts.Handlers {
                 GUILayout.Label($"IsLocal: {NetworkManager.Singleton.Client.Player.IsLocal.ToString()}");
                 GUILayout.Label($"ClientId: {NetworkManager.Singleton.Client.Player.Id.ToString()}");
             }
-            GUILayout.Label($"CurrentTick: {NetworkManager.Singleton.Tick.ToString()}");
             NetworkManager.Singleton.debugServerPosition = GUILayout.Toggle(NetworkManager.Singleton.debugServerPosition,"Enable server preview");
             foreach (string watchedVariable in _watchedVariables.Values) {
                 GUILayout.Label(watchedVariable);

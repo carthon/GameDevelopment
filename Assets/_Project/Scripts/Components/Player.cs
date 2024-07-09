@@ -10,7 +10,9 @@ using _Project.Scripts.Network;
 using _Project.Scripts.Network.MessageDataStructures;
 using RiptideNetworking;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
+using BodyPart = _Project.Scripts.DataClasses.BodyPart;
 using Client = _Project.Scripts.Network.Client.Client;
 using Logger = _Project.Scripts.Utils.Logger;
 using Server = _Project.Scripts.Network.Server.Server;
@@ -32,6 +34,7 @@ namespace _Project.Scripts.Components {
         private float grabDistance = 4f;
         private float grabRadius = 0.1f;
         [SerializeField] private Planet _planet;
+        [SerializeField] private bool isSpectator;
         private Collider _collider;
 
         public Transform inventorySpawnTransform;
@@ -66,6 +69,27 @@ namespace _Project.Scripts.Components {
         }
         private void Update() {
             _animator.UpdateAnimatorValues(_locomotion.RelativeDirection.z, _locomotion.RelativeDirection.x);
+            Vector3 position = transform.position;
+            float planetSize = _planet.NumChunks * 100;
+            UIHandler.Instance.UpdateWatchedVariables("density", $"DensityAtPosition:{_planet.GetDensityAtPoint(position)}");
+            UIHandler.Instance.UpdateWatchedVariables("planetheight", $"Planet height {position.magnitude / planetSize}");
+            UIHandler.Instance.UpdateWatchedVariables("2DPosition", $"2DPosition {SphericalToEquirectangular(position)}");
+            _locomotion.IgnoreGround = isSpectator;
+        }
+        Vector2 SphericalToEquirectangular(Vector3 position)
+        {
+            // Normalizar la posición para obtener coordenadas unitarias en la esfera
+            Vector3 normalizedPos = position.normalized;
+
+            // Calcular la longitud (lambda) y la latitud (phi)
+            double lambda = Math.Atan2(normalizedPos.z, normalizedPos.x); // Longitud
+            double phi = Math.Asin(normalizedPos.y); // Latitud
+
+            // Convertir los ángulos a coordenadas 2D (u, v)
+            double u = (lambda + Math.PI) / (2 * Math.PI); // Normalizar longitud a [0, 1]
+            double v = (phi + (Math.PI / 2)) / Math.PI; // Normalizar latitud a [0, 1]
+
+            return new Vector2((float) u, (float) v);
         }
         private void OnTriggerEnter(Collider other) {
             if (_collider is null || !_collider.Equals(other)) {
@@ -189,7 +213,6 @@ namespace _Project.Scripts.Components {
                 HeadPivot.rotation = movementMessage.headPivotRotation;
             }
         }
-
         /**<summary>
      *  <param name="itemStack">Item equipado</param>
      *  <param name="equipmentSlot">Slot en el que se equipa</param>

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Net.Mime;
 using _Project.Libraries.Marching_Cubes.Scripts;
-using _Project.Scripts.Handlers;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Serialization;
@@ -64,6 +59,52 @@ namespace _Project.Scripts.Components {
         public void Generate(Chunk chunk) {
             _meshGenerator.GenerateChunk(chunk);
         }
+        private int FindChunkIndexByPosition(Vector3 position) {
+            // Normalizar la posición al rango de chunks
+            Vector3 localPosition = position - center;
+            float chunkSize = (_meshGenerator.boundsSize) / numChunks;
+            int x = Mathf.FloorToInt((localPosition.x / chunkSize) + (numChunks / 2));
+            int y = Mathf.FloorToInt((localPosition.y / chunkSize) + (numChunks / 2));
+            int z = Mathf.FloorToInt((localPosition.z / chunkSize) + (numChunks / 2));
+
+            // Asegurarse de que las coordenadas están dentro del rango válido
+            if (!IsInBounds(new Vector3Int(x,y,z))) {
+                return -1;
+            }
+            return z + (x * numChunks) + (y * numChunks * numChunks);
+        }
+        private int GetChunkIndex(Vector3Int coords) {
+            int x = Mathf.FloorToInt(coords.x);
+            int y = Mathf.FloorToInt(coords.y);
+            int z = Mathf.FloorToInt(coords.z);
+            if (!IsInBounds(new Vector3Int(x, y, z)))
+                return -1;
+            return z + (x * numChunks) + (y * numChunks * numChunks);
+        }
+        public Chunk FindChunkAtPosition(Vector3 position) {
+            int index = FindChunkIndexByPosition(position);
+            if (index == -1)
+                return null;
+            return chunks[index];
+        }
+        public Chunk GetChunkAtCoords(Vector3Int coords) {
+            int index = GetChunkIndex(coords);
+            if (index == -1)
+                return null;
+            return chunks[index];
+        }
+        public Chunk GetClosestChunk(Vector3 position) {
+            Vector3 localPosition = position - center;
+            Vector3 lastChunkInBounds = new Vector3(ClampToBounds(localPosition.x), ClampToBounds(localPosition.y), ClampToBounds(localPosition.z));
+            return FindChunkAtPosition(lastChunkInBounds);
+        }
+        private float ClampToBounds(float value) {
+            float maxBoundsReach = (numChunks - 1 * _meshGenerator.boundsSize) / 2;
+            return Mathf.Clamp(value, -maxBoundsReach, maxBoundsReach);
+        }
+        private bool IsInBounds(Vector3Int chunkPosition) => !(chunkPosition.x < 0 || chunkPosition.x >= numChunks ||
+            chunkPosition.y < 0 || chunkPosition.y >= numChunks ||
+            chunkPosition.z < 0 || chunkPosition.z >= numChunks);
         void CreateChunks() {
             chunks = new Chunk[numChunks * numChunks * numChunks];
             float chunkSize = (_meshGenerator.boundsSize) / numChunks;
@@ -127,6 +168,7 @@ namespace _Project.Scripts.Components {
                 DestroyImmediate(transform.GetChild(0).gameObject);
             }
         }
+        public float GetDensityAtPoint(Vector3 point) => _meshGenerator.GetDensityAtPoint(point);
         public Chunk[] GetChunks() => chunks;
         private void OnDestroy() {
             Delete();

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Entities;
 using _Project.Scripts.Network;
-using UnityEditor;
+using _Project.Scripts.Network.Client;
+using _Project.Scripts.Network.Server;
 using UnityEngine;
-using Client = _Project.Scripts.Network.Client.Client;
 using Logger = _Project.Scripts.Utils.Logger;
 
 namespace _Project.Scripts.Handlers {
     [ExecuteInEditMode]
+    [RequireComponent(typeof(ChunkRenderer))]
     public class GameManager : MonoBehaviour {
         public Transform spawnPoint;
         [SerializeField] public Planet defaultPlanet;
@@ -42,7 +42,8 @@ namespace _Project.Scripts.Handlers {
         }
         public void Initialize() {
             Singleton ??= this;
-            ChunkRenderer ??= new ChunkRenderer();
+            ChunkRenderer = GetComponent<ChunkRenderer>();
+            ChunkRenderer ??= gameObject.AddComponent<ChunkRenderer>();
         }
         public static bool SpawnItem(Item item, int count, Vector3 position, Quaternion rotation, Entity spawner) {
             bool success = false;
@@ -77,9 +78,9 @@ namespace _Project.Scripts.Handlers {
             }
             if(net.IsServer) {
                 foreach (Player otherPlayer in NetworkManager.playersList.Values) {
-                    Network.Server.Server.NotifySpawn(otherPlayer, currentTick, id);
+                    Server.NotifySpawn(otherPlayer, currentTick, id);
                 }
-                Network.Server.Server.NotifySpawn(playerNetwork, currentTick);
+                Server.NotifySpawn(playerNetwork, currentTick);
             }
             playerNetwork.OnSpawn();
             if(playerNetwork.IsLocal) {

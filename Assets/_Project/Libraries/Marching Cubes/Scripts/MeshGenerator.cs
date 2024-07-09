@@ -1,10 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using _Project.Helper.Compute_Helper;
 using _Project.Scripts.Components;
 using _Project.Scripts.Handlers;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 using Debug = UnityEngine.Debug;
 
 namespace _Project.Libraries.Marching_Cubes.Scripts {
@@ -30,6 +32,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		public ComputeShader densityCompute;
 		public ComputeShader blurCompute;
 		public ComputeShader editCompute;
+		public ComputeShader colorFromTextureCompute;
 		public Material material;
 
 
@@ -61,6 +64,9 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			CreateBuffers();
 			if (Application.isPlaying)
 				renderDistance = GameManager.Singleton.gameConfiguration.renderDistance;
+		}
+		private void OnEnable() {
+			ReleaseBuffers();
 		}
 		public void OnValidate() {
 			if (updateOnEditor) {
@@ -102,6 +108,10 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 
 		public void ComputeDensity() {
 			// Get points (each point is a vector4: xyz = position, w = density)
+			if (!ComputeHelper.CanRunEditModeCompute) {
+				Debug.LogError("Compute Buffer could'nt run in editmode");
+				return;
+			}
 			int textureSize = rawDensityTexture.width;
 			timer_processDensityMap = new Stopwatch();
 			
@@ -119,7 +129,12 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		}
 
 		void ProcessDensityMap() {
+			//timer_processDensityMap.Start();
 			if (blurMap) {
+				if (!ComputeHelper.CanRunEditModeCompute) {
+					Debug.LogError("Compute Buffer could'nt run in editmode");
+					return;
+				}
 				int size = rawDensityTexture.width;
 				blurCompute.SetInts("brushCentre", 0, 0, 0);
 				blurCompute.SetInt("blurRadius", blurRadius);
@@ -134,7 +149,10 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			// Create timers:
 			timer_fetchVertexData = new Stopwatch();
 			timer_processVertexData = new Stopwatch();
-
+			if (!ComputeHelper.CanRunEditModeCompute) {
+				Debug.LogError("Compute Buffer could'nt run in editmode");
+				return;
+			}
 			// Marching cubes
 			int numVoxelsPerAxis = chunk.numPointsPerAxis - 1;
 			int marchKernel = 0;
@@ -192,15 +210,13 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		*/
 		}
 
-
-
 		void CreateBuffers() {
 			int numPoints = numPointsPerAxis * numPointsPerAxis * numPointsPerAxis;
 			int numVoxelsPerAxis = numPointsPerAxis - 1;
 			int numVoxels = numVoxelsPerAxis * numVoxelsPerAxis * numVoxelsPerAxis;
 			int maxTriangleCount = numVoxels * 5;
 			int maxVertexCount = maxTriangleCount * 3;
-
+			ReleaseBuffers();
 			triCountBuffer = new ComputeBuffer(1, sizeof (int), ComputeBufferType.Raw);
 			triangleBuffer = new ComputeBuffer(maxVertexCount, ComputeHelper.GetStride<VertexData>(), ComputeBufferType.Append);
 			vertexDataArray = new VertexData[maxVertexCount];
@@ -210,8 +226,13 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			if (triangleBuffer is not null && triCountBuffer is not null && triangleBuffer.IsValid() && triCountBuffer.IsValid())
 				ComputeHelper.Release(triangleBuffer, triCountBuffer);
 		}
-
-
+		
+		public float GetDensityAtPoint(Vector3 point) {
+			int textureSize = rawDensityTexture.width;
+			float[] result = ComputeHelper.GetColourFromTexture(originalMap, textureSize, boundsSize, point);
+			return result[0];
+		}
+		
 		void OnDestroy() {
 			updateOnEditor = false;
 		}

@@ -101,7 +101,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			{
 				mesh.SetNormals(processedNormals);
 			}
-			if(collider && !Application.isPlaying) {
+			if(collider && Application.isPlaying) {
 				collider.sharedMesh = mesh;
 			}
 			isLoaded = true;

@@ -32,6 +32,12 @@ int indexFromCoord(int3 coord) {
 	return coord.z * numPointsPerAxis * numPointsPerAxis + coord.y * numPointsPerAxis + coord.x;
 }
 
+float CalculateHeight(float3 position, float radius)
+{
+	// Calcular la altura como la distancia desde el centro
+	return length(position) / radius;
+}
+
 float sampleDensity(int3 coord) {
 	coord = max(0, min(coord, textureSize));
 	return DensityTexture[coord];

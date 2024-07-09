@@ -1,0 +1,24 @@
+﻿#pragma kernel SampleRenderTexture3D
+
+// RenderTexture de entrada
+RWTexture3D<float4> _RenderTexture3D;
+
+// Buffer de salida
+RWStructuredBuffer<float4> _Result;
+float3 worldPos;
+int textureSize;
+float planetSize;
+
+[numthreads(1, 1, 1)]
+void SampleRenderTexture3D (uint3 id : SV_DispatchThreadID)
+{
+    // Obtener la coordenada en el espacio de la textura
+    float3 texturePos = (worldPos / planetSize + 0.5) * (textureSize - 1);
+    texturePos = clamp(texturePos, 0, textureSize - 1);
+    
+    // Leer el color en la coordenada especificada
+    float4 color = _RenderTexture3D[int3(texturePos)];
+    
+    // Escribir el color en el buffer de resultados
+    _Result[0] = color;
+}
