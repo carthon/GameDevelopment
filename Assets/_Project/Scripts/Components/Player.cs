@@ -18,7 +18,7 @@ using Logger = _Project.Scripts.Utils.Logger;
 using Server = _Project.Scripts.Network.Server.Server;
 
 namespace _Project.Scripts.Components {
-    public class Player : MonoBehaviour, Entity {
+    public class Player : MonoBehaviour, IEntity {
 
         private Locomotion _locomotion;
         private AnimatorHandler _animator;
@@ -40,6 +40,7 @@ namespace _Project.Scripts.Components {
         public Transform inventorySpawnTransform;
         public Planet Planet { get => _planet; set => _planet = value; }
         public Planet GetPlanet() => _planet;
+        public GameObject GetGameObject() => gameObject;
         public ushort Id { get; set; }
         public bool IsLocal { get; set; }
         public string Username { get; set; }
@@ -72,6 +73,7 @@ namespace _Project.Scripts.Components {
             Vector3 position = transform.position;
             float planetSize = _planet.NumChunks * 100;
             UIHandler.Instance.UpdateWatchedVariables("density", $"DensityAtPosition:{_planet.GetDensityAtPoint(position)}");
+            UIHandler.Instance.UpdateWatchedVariables("continentalness", $"Continentalness:{_planet.GetContinentalnessAtPoint(position)}");
             UIHandler.Instance.UpdateWatchedVariables("planetheight", $"Planet height {position.magnitude / planetSize}");
             UIHandler.Instance.UpdateWatchedVariables("2DPosition", $"2DPosition {SphericalToEquirectangular(position)}");
             _locomotion.IgnoreGround = isSpectator;
@@ -199,7 +201,6 @@ namespace _Project.Scripts.Components {
             }
         }
         private void HandleClick() {
-            Logger.Singleton.Log("Clicking", Logger.Type.DEBUG);
             EquipmentDisplayer equippedItem = EquipmentHandler.GetEquipmentSlotByBodyPart(BodyPart.RightArm);
             if (!equippedItem.CurrentEquipedItem.IsEmpty()) equippedItem.CurrentEquipedItem.Item.TryDoMainAction();
         }

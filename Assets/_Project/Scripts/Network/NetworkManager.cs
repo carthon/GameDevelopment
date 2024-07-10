@@ -75,20 +75,22 @@ namespace _Project.Scripts.Network {
             _timer += Time.deltaTime;
             while(_timer >= minTimeBetweenTicks) {
                 _timer -= minTimeBetweenTicks;
-                if (IsServer) {
-                    Server.Tick(_currentTick);
-                    StringBuilder stringBuilder = new StringBuilder();
-                    foreach (var player in playersList.Values) {
-                        stringBuilder.Append($"Player{player.Id}:{player.GetMovementState(Tick).ToString()}");
+                if (IsClient || IsServer) {
+                    if (IsServer) {
+                        Server.Tick(_currentTick);
+                        StringBuilder stringBuilder = new StringBuilder();
+                        foreach (var player in playersList.Values) {
+                            stringBuilder.Append($"Player{player.Id}:{player.GetMovementState(Tick).ToString()}");
+                        }
+                        UIHandler.Instance.UpdateWatchedVariables("PlayersInfo", stringBuilder.ToString());
                     }
-                    UIHandler.Instance.UpdateWatchedVariables("PlayersInfo", stringBuilder.ToString());
+                    if (IsClient) {
+                        Client.Tick(_currentTick);
+                        NetworkMessageBuilder.MessagesSent = 0;
+                        NetworkMessageBuilder.MessagesReceived = 0;
+                    }
+                    Physics.Simulate(Singleton.minTimeBetweenTicks);
                 }
-                if (IsClient) {
-                    Client.Tick(_currentTick);
-                    NetworkMessageBuilder.MessagesSent = 0;
-                    NetworkMessageBuilder.MessagesReceived = 0;
-                }
-                Physics.Simulate(Singleton.minTimeBetweenTicks);
                 _currentTick++;
             }
         }

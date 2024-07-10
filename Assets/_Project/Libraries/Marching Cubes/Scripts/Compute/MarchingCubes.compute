@@ -1,5 +1,6 @@
 ﻿#pragma kernel ProcessCube
 #include "Includes/MarchTables.compute"
+#include "Includes/Utils.compute"
 
 struct Vertex {
 	float3 position;
@@ -15,6 +16,7 @@ struct Triangle {
 //
 AppendStructuredBuffer<Triangle> triangles;
 RWTexture3D<float> DensityTexture;
+RWTexture2D<float> ContinentalnessTexture;
 int textureSize;
 
 int numPointsPerAxis;
@@ -32,17 +34,21 @@ int indexFromCoord(int3 coord) {
 	return coord.z * numPointsPerAxis * numPointsPerAxis + coord.y * numPointsPerAxis + coord.x;
 }
 
-float CalculateHeight(float3 position, float radius)
-{
-	// Calcular la altura como la distancia desde el centro
-	return length(position) / radius;
-}
-
 float sampleDensity(int3 coord) {
 	coord = max(0, min(coord, textureSize));
 	return DensityTexture[coord];
 }
 
+/*
+//Change to sample Height
+float sampleDensity(int3 coord) {
+	float2 coord2D = SphericalToEquirectangular(coord) * textureSize;
+	coord2D = max(0, min(coord2D, textureSize));
+	float continentalness = ContinentalnessTexture[coord2D];
+	
+	return continentalness;
+}
+*/
 float3 calculateNormal(int3 coord) {
 	int3 offsetX = int3(1, 0, 0);
 	int3 offsetY = int3(0, 1, 0);

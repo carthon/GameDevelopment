@@ -1,19 +1,21 @@
 ﻿#pragma kernel CSMain
 #include "Includes/Noise.compute"
+#include "Includes/Utils.compute"
 #define PI 3.14159265359
 
 RWTexture3D<float> DensityTexture;
-//RWTexture2D<float> ContinentalnessTexture;
-//RWTexture2D<float> ErosionTexture;
-//RWTexture2D<float> PeekAndValleysTexture;
-//RWTexture2D<float> TemperatureTexture;
-//RWTexture2D<float> HumidityTexture;
-//RWTexture3D<float> SquashFactorTexture;
+RWTexture2D<float> ContinentalnessTexture;
+RWTexture2D<float> ErosionTexture;
+RWTexture2D<float> PeekAndValleysTexture;
+RWTexture2D<float> TemperatureTexture;
+RWTexture2D<float> HumidityTexture;
+RWTexture3D<float> SquashFactorTexture;
 int textureSize;
 
 float planetSize;
 float noiseScale;
 float noiseHeightMultiplier;
+float testValue;
 
 float fbm(int numLayers, float lacunarity, float persistence, float scale, float3 pos) {
 	float noise = 0;
@@ -37,7 +39,7 @@ float fbm2d(int numLayers, float lacunarity, float persistence, float scale, flo
 	float amplitude = 1;
 
 	for (int i = 0; i < numLayers; i ++) {
-		float n = 1-abs(SNoise2D(pos * frequency)*2-1);
+		float n = 1-abs(SNoise2D(pos * (testValue / 100))*2-1);
 		//n*=n;
 		noise += n * amplitude;
 
@@ -47,31 +49,9 @@ float fbm2d(int numLayers, float lacunarity, float persistence, float scale, flo
 	return noise;
 }
 
-float2 SphericalToEquirectangular(float3 position)
-{
-	// Normalizar la posición para obtener coordenadas unitarias en la esfera
-	float3 normalizedPos = normalize(position);
-
-	// Calcular la longitud (lambda) y la latitud (phi)
-	float lambda = atan2(normalizedPos.z, normalizedPos.x); // Longitud
-	float phi = asin(normalizedPos.y); // Latitud
-
-	// Convertir los ángulos a coordenadas 2D (u, v)
-	float u = (lambda + PI) / (2 * PI); // Normalizar longitud a [0, 1]
-	float v = (phi + (PI / 2)) / PI; // Normalizar latitud a [0, 1]
-
-	return float2(u, v);
-}
-
-float CalculateHeight(float3 position, float radius)
-{
-	// Calcular la altura como la distancia desde el centro
-	return length(position) / radius;
-}
-
 float calculateSphericalDensity(int3 cell) {
 	float3 worldPos = (cell / float(textureSize-1.0) - 0.5f) * planetSize;
-	float2 equirectangularPos = SphericalToEquirectangular(worldPos);
+	float2 equirectangularPos = SphericalToEquirectangular(worldPos) * textureSize;
 
 	float halfS = planetSize / 2;
 	float maxD = length(float3(halfS,halfS,halfS));
@@ -91,6 +71,12 @@ float calculateSphericalDensity(int3 cell) {
 
 
 	return density;
+}
+
+float calculateHeightMap(float2 pos)
+{
+	float noiseContinentalness = fbm2d(6, 2, 0.5, noiseScale, pos) * noiseHeightMultiplier;
+	return noiseContinentalness;
 }
 
 float calculateDensity(int3 cell){
@@ -122,5 +108,8 @@ void CSMain (int3 id : SV_DispatchThreadID)
 	else {
 		density = calculateSphericalDensity(id);
 	}
+	float3 worldPos = (id / float(textureSize-1.0) - 0.5f) * planetSize;
+	float2 equirectangularPos = SphericalToEquirectangular(worldPos) * textureSize;
+	ContinentalnessTexture[equirectangularPos] = calculateHeightMap(equirectangularPos);
 	DensityTexture[id] = density;
 }

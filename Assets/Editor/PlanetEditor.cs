@@ -20,7 +20,7 @@ namespace Editor {
                 OnValidate();
             }
             _planet = (Planet) target;
-            _planet.chunkGenerationRadius = EditorGUILayout.Slider("Spawn Chunk Render Distance", _planet.chunkGenerationRadius, 1f, 1000f);
+            _planet.chunkGenerationRadius = (int) EditorGUILayout.Slider("Spawn Chunk Render Distance", _planet.chunkGenerationRadius, 1, 20);
             _showOriginal2DMap = EditorGUILayout.Toggle("Show Original 2D Map", _showOriginal2DMap);
             if(GUILayout.Button("Generate Planet")) {
                 _planet.SetUp();
@@ -34,6 +34,7 @@ namespace Editor {
             }
             if(GUILayout.Button("Destroy Planet")) {
                 _planet.Delete();
+                _chunkRenderer ??= FindObjectOfType<ChunkRenderer>();
                 _chunkRenderer.Clear();
             }
             if(GUILayout.Button("Refresh Planet"))
@@ -41,9 +42,20 @@ namespace Editor {
             // Si hay una RenderTexture, dibujarla
             if (_showOriginal2DMap && _planet.MeshGenerator.originalMap2D != null)
             {
+                GUILayout.BeginHorizontal();
+                GUILayout.BeginVertical();
                 GUILayout.Label("Original 2D Map Preview", EditorStyles.boldLabel);
-                Rect rect = GUILayoutUtility.GetRect(256, 256, GUILayout.ExpandWidth(false));
-                EditorGUI.DrawPreviewTexture(rect, _planet.MeshGenerator.originalMap2D);
+                Rect rect1 = GUILayoutUtility.GetRect(128, 128, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+                EditorGUI.DrawPreviewTexture(rect1, _planet.MeshGenerator.originalMap2D);
+                GUILayout.EndVertical();
+                // Espacio flexible entre las texturas
+                GUILayout.FlexibleSpace();
+                GUILayout.BeginVertical();
+                GUILayout.Label("Continentalness", EditorStyles.boldLabel);
+                Rect rect2 = GUILayoutUtility.GetRect(128, 128, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+                EditorGUI.DrawPreviewTexture(rect2, _planet.MeshGenerator.continentalness);
+                GUILayout.EndVertical();
+                GUILayout.EndHorizontal();
             }
         }
         private void RegeneratePlanet() {

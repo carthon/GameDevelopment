@@ -6,6 +6,6 @@ namespace _Project.Scripts.DataClasses {
     [Serializable]
     public class GameConfiguration : ScriptableObject {
         [Range(1, 200)]
-        public float renderDistance;
+        public int renderDistance;
     }
 }

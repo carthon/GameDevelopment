@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using _Project.Libraries.Marching_Cubes.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
@@ -45,26 +46,34 @@ namespace _Project.Scripts.Handlers {
             ChunkRenderer = GetComponent<ChunkRenderer>();
             ChunkRenderer ??= gameObject.AddComponent<ChunkRenderer>();
         }
-        public static bool SpawnItem(Item item, int count, Vector3 position, Quaternion rotation, Entity spawner) {
+        public static bool SpawnItem(Item item, int count, Vector3 position, Quaternion rotation, IEntity spawner) {
             bool success = false;
-            GameObject itemRendered = Instantiate(item.modelPrefab, position, rotation);
-            itemRendered.layer = LayerMask.NameToLayer("Item");
-            var pickable = itemRendered.GetComponent<Grabbable>();
-            var rb = itemRendered.GetComponent<Rigidbody>();
-            if (rb is null) rb = itemRendered.AddComponent<Rigidbody>();
-            if (pickable is null) pickable = itemRendered.AddComponent<Grabbable>();
-            if (pickable && rb) {
-                var lootTable = new LootTable();
-                lootTable.AddToLootTable(item, count);
-                pickable.SetLootTable(lootTable);
-                pickable.Initialize(Grabbable.nextId, rb, item);
-                Grabbable.nextId++;
-                success = true;
+            Planet planet;
+            if (spawner is not null) {
+                planet = spawner.GetPlanet();
+                Chunk chunk = planet.FindChunkAtPosition(position);
+                if (chunk is not null && chunk.IsLoaded) {
+                    GameObject itemRendered = Instantiate(item.modelPrefab, position, rotation);
+                    itemRendered.layer = LayerMask.NameToLayer("Item");
+                    var pickable = itemRendered.GetComponent<Grabbable>();
+                    var rb = itemRendered.GetComponent<Rigidbody>();
+                    if (rb is null) rb = itemRendered.AddComponent<Rigidbody>();
+                    if (pickable is null) pickable = itemRendered.AddComponent<Grabbable>();
+                    if (pickable && rb) {
+                        var lootTable = new LootTable();
+                        lootTable.AddToLootTable(item, count);
+                        pickable.SetLootTable(lootTable);
+                        pickable.Initialize(Grabbable.nextId, rb, item);
+                        Grabbable.nextId++;
+                        success = true;
+                        chunk.AddEntity(pickable);
+                    }
+                }
             }
             return success;
         }
-        public static bool SpawnItem(ItemStack itemStack, Vector3 position, Quaternion rotation, Entity spawner) => SpawnItem(itemStack.Item, itemStack.GetCount(), position, rotation, spawner);
-        public static bool SpawnItem(Item item, int count, Transform transform, Entity spawner) => SpawnItem(item, count, transform.position, transform.rotation, spawner);
+        public static bool SpawnItem(ItemStack itemStack, Vector3 position, Quaternion rotation, IEntity spawner) => SpawnItem(itemStack.Item, itemStack.GetCount(), position, rotation, spawner);
+        public static bool SpawnItem(Item item, int count, Transform transform, IEntity spawner) => SpawnItem(item, count, transform.position, transform.rotation, spawner);
         public static Player Spawn(ushort id, string username, Vector3 position, int currentTick) {
             NetworkManager net = NetworkManager.Singleton;
             Player playerNetwork = Instantiate(Singleton._playerPrefab, position, Quaternion.identity).GetComponent<Player>();

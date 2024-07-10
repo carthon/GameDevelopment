@@ -15,16 +15,18 @@ using Logger = _Project.Scripts.Utils.Logger;
 using Server = _Project.Scripts.Network.Server.Server;
 
 namespace _Project.Scripts.Components {
-    public class Grabbable : MonoBehaviour {
+    public class Grabbable : MonoBehaviour, IEntity {
         public Item itemData;
         public static ushort nextId = 1;
         public bool hasGravity = true;
+        private Vector3 _lastGroundPosition;
         private Rigidbody Rb { get; set; }
         [SerializeField]
         private LootTable _lootTable;
         public bool HasItems => !_lootTable.IsEmpty();
         private Collider _planetCollider;
         private Planet _planet;
+        private Chunk _initialChunk;
         public ushort Id { get; private set; }
         private Outline _outline;
         private bool isNearGround { get; set; }
@@ -40,6 +42,7 @@ namespace _Project.Scripts.Components {
                 _collider = GetComponentInChildren<Collider>();
                 _outline = UIHandler.AddOutlineToObject(gameObject, Color.green);
                 _planet = GameManager.Singleton.defaultPlanet;
+                _initialChunk = _planet.FindChunkAtPosition(transform.position);
                 if (!GameManager.grabbableItems.ContainsKey(Id))
                     GameManager.grabbableItems.Add(Id, this);
                 else {
@@ -57,6 +60,12 @@ namespace _Project.Scripts.Components {
         }
 
         private void FixedUpdate() {
+            Chunk chunk = _planet.FindChunkAtPosition(transform.position);
+            if (chunk is null || !chunk.IsActive)
+                return;
+            if (!chunk.Equals(_initialChunk)) {
+                HandleChunkTransfer(chunk);
+            }
             Vector3 upDir = transform.up;
             Vector3 centre = Rb.position;
             var bounds = _collider.bounds;
@@ -64,6 +73,7 @@ namespace _Project.Scripts.Components {
             Vector3 castOrigin = centre + upDir * (colliderBounds * 2);
             wasNearGround = isNearGround;
             isNearGround = Physics.Raycast(castOrigin, -upDir, out hitInfo, colliderBounds * 4, _planet.GroundLayer);
+            _lastGroundPosition = hitInfo.point;
             if (hasGravity && !isNearGround) {
                 HandleGravity();
                 if (Rb.velocity.magnitude > 1f && Rb.collisionDetectionMode != CollisionDetectionMode.Continuous) {
@@ -75,6 +85,11 @@ namespace _Project.Scripts.Components {
             } else if (Rb.velocity.magnitude > 0) {
                 HandleGravity();
             }
+        }
+        public void HandleChunkTransfer(Chunk newChunk) {
+            _initialChunk.RemoveEntity(this);
+            newChunk.AddEntity(this);
+            _initialChunk = newChunk;
         }
         public void HandleGravity() {
             Vector3 gravityUp = (Rb.position - _planet.Center).normalized;
@@ -104,6 +119,8 @@ namespace _Project.Scripts.Components {
         public void SetOutline(bool enabled) => _outline.enabled = enabled;
         public void OnDestroy() {
             GameManager.grabbableItems.Remove(this.Id);
+            Chunk chunk = GetPlanet()?.FindChunkAtPosition(transform.position);
+            chunk?.RemoveEntity(this);
             if (NetworkManager.Singleton.IsServer) {
                 Message message = Message.Create(MessageSendMode.reliable, Server.PacketHandler.clientItemDespawn);
                 message.AddUShort(Id);
@@ -152,5 +169,8 @@ namespace _Project.Scripts.Components {
             }
         }
         #endregion
+
+        public Planet GetPlanet() => _planet;
+        public GameObject GetGameObject() => gameObject;
     }
 }

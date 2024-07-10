@@ -52,6 +52,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		Stopwatch timer_processDensityMap;
 		RenderTexture originalMap;
 		public RenderTexture originalMap2D;
+		public RenderTexture continentalness;
 		[SerializeField] private float depth;
 
 		void Start() {
@@ -86,6 +87,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			Create3DTexture(ref rawDensityTexture, size, "Raw Density Texture");
 			Create3DTexture(ref processedDensityTexture, size, "Processed Density Texture");
 			Create2DTexture(ref originalMap2D, size, "Processed 2D Density Texture");
+			Create2DTexture(ref continentalness, size, "Continentalness Values");
 
 			if (!blurMap) {
 				processedDensityTexture = rawDensityTexture;
@@ -93,6 +95,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 
 			// Set textures on compute shaders
 			densityCompute.SetTexture(0, "DensityTexture", rawDensityTexture);
+			densityCompute.SetTexture(0, "ContinentalnessTexture", continentalness);
 			editCompute.SetTexture(0, "EditTexture", rawDensityTexture);
 			blurCompute.SetTexture(0, "Source", rawDensityTexture);
 			blurCompute.SetTexture(0, "Result", processedDensityTexture);
@@ -114,11 +117,13 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			}
 			int textureSize = rawDensityTexture.width;
 			timer_processDensityMap = new Stopwatch();
+			timer_processDensityMap.Start();
 			
 			//timer_processDensityMap.Start();
 			densityCompute.SetInt("textureSize", textureSize);
 
 			densityCompute.SetFloat("planetSize", boundsSize);
+			densityCompute.SetFloat("testValue", testValue);
 			densityCompute.SetFloat("testValue", testValue);
 			densityCompute.SetFloat("noiseHeightMultiplier", noiseHeightMultiplier);
 			densityCompute.SetFloat("noiseScale", noiseScale);
@@ -141,7 +146,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 				blurCompute.SetInt("textureSize", rawDensityTexture.width);
 				ComputeHelper.Dispatch(blurCompute, size, size, size);
 			}
-			//timer_processDensityMap.Stop();
+			timer_processDensityMap.Stop();
 			Debug.Log($"Tiempo generación de densidad (ms): {timer_processDensityMap.ElapsedMilliseconds}");
 		}
 
@@ -162,6 +167,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			meshCompute.SetInt("numPointsPerAxis", numPointsPerAxis);
 			meshCompute.SetFloat("isoLevel", isoLevel);
 			meshCompute.SetFloat("planetSize", boundsSize);
+			meshCompute.SetTexture(0, "ContinentnalnessTexture", continentalness);
 			triangleBuffer.SetCounterValue(0);
 			meshCompute.SetBuffer(marchKernel, "triangles", triangleBuffer);
 
@@ -230,6 +236,11 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		public float GetDensityAtPoint(Vector3 point) {
 			int textureSize = rawDensityTexture.width;
 			float[] result = ComputeHelper.GetColourFromTexture(originalMap, textureSize, boundsSize, point);
+			return result[0];
+		}
+		public float GetContinentalnessAtPoint(Vector3 point) {
+			int textureSize = continentalness.width;
+			float[] result = ComputeHelper.GetColourFromTexture(continentalness, textureSize, boundsSize, point);
 			return result[0];
 		}
 		

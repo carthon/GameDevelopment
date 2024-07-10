@@ -18,7 +18,7 @@ namespace _Project.Scripts.Components {
         private float gravity;
         [SerializeField] private int numChunks;
         public bool showChunkBoundaries;
-        [HideInInspector] public float chunkGenerationRadius;
+        [HideInInspector] public int chunkGenerationRadius;
         public float Gravity => gravity;
         public int NumChunks => numChunks;
         public float GravityRadius => gravityRadius;
@@ -63,33 +63,33 @@ namespace _Project.Scripts.Components {
             // Normalizar la posición al rango de chunks
             Vector3 localPosition = position - center;
             float chunkSize = (_meshGenerator.boundsSize) / numChunks;
-            int x = Mathf.FloorToInt((localPosition.x / chunkSize) + (numChunks / 2));
-            int y = Mathf.FloorToInt((localPosition.y / chunkSize) + (numChunks / 2));
-            int z = Mathf.FloorToInt((localPosition.z / chunkSize) + (numChunks / 2));
+            int x = Mathf.FloorToInt((localPosition.x / chunkSize) + ((float) numChunks / 2));
+            int y = Mathf.FloorToInt((localPosition.y / chunkSize) + ((float) numChunks / 2));
+            int z = Mathf.FloorToInt((localPosition.z / chunkSize) + ((float) numChunks / 2));
 
             // Asegurarse de que las coordenadas están dentro del rango válido
-            if (!IsInBounds(new Vector3Int(x,y,z))) {
+            if (!IsPositionInPlanet(new Vector3Int(x,y,z))) {
                 return -1;
             }
             return z + (x * numChunks) + (y * numChunks * numChunks);
         }
         private int GetChunkIndex(Vector3Int coords) {
-            int x = Mathf.FloorToInt(coords.x);
-            int y = Mathf.FloorToInt(coords.y);
-            int z = Mathf.FloorToInt(coords.z);
-            if (!IsInBounds(new Vector3Int(x, y, z)))
+            int x = coords.x;
+            int y = coords.y;
+            int z = coords.z;
+            if (!IsPositionInPlanet(new Vector3Int(x, y, z)))
                 return -1;
             return z + (x * numChunks) + (y * numChunks * numChunks);
         }
         public Chunk FindChunkAtPosition(Vector3 position) {
             int index = FindChunkIndexByPosition(position);
-            if (index == -1)
+            if (index == -1 || chunks is null)
                 return null;
             return chunks[index];
         }
         public Chunk GetChunkAtCoords(Vector3Int coords) {
             int index = GetChunkIndex(coords);
-            if (index == -1)
+            if (index == -1 || chunks is null)
                 return null;
             return chunks[index];
         }
@@ -102,7 +102,7 @@ namespace _Project.Scripts.Components {
             float maxBoundsReach = (numChunks - 1 * _meshGenerator.boundsSize) / 2;
             return Mathf.Clamp(value, -maxBoundsReach, maxBoundsReach);
         }
-        private bool IsInBounds(Vector3Int chunkPosition) => !(chunkPosition.x < 0 || chunkPosition.x >= numChunks ||
+        private bool IsPositionInPlanet(Vector3Int chunkPosition) => !(chunkPosition.x < 0 || chunkPosition.x >= numChunks ||
             chunkPosition.y < 0 || chunkPosition.y >= numChunks ||
             chunkPosition.z < 0 || chunkPosition.z >= numChunks);
         void CreateChunks() {
@@ -135,8 +135,6 @@ namespace _Project.Scripts.Components {
         
         public void GenerateAllChunks() {
             Assert.IsTrue(chunks is null || chunks.Length > 0, "No chunks to generate");
-            var sw = Stopwatch.StartNew();
-            Debug.Log("Generation Time: " + sw.ElapsedMilliseconds + " ms");
 
             // Create timers:
             timer_fetchVertexData = new Stopwatch();
@@ -148,12 +146,6 @@ namespace _Project.Scripts.Components {
                 foreach (Chunk t in chunks) {
                     _meshGenerator.GenerateChunk(t);
                 }
-            Debug.Log("Total verts " + totalVerts);
-
-            // Print timers:
-            Debug.Log("Fetch vertex data: " + timer_fetchVertexData.ElapsedMilliseconds + " ms");
-            Debug.Log("Process vertex data: " + timer_processVertexData.ElapsedMilliseconds + " ms");
-            Debug.Log("Sum: " + (timer_fetchVertexData.ElapsedMilliseconds + timer_processVertexData.ElapsedMilliseconds));
         }
         public void Delete() {
             if (_meshGenerator is not null)
@@ -169,6 +161,7 @@ namespace _Project.Scripts.Components {
             }
         }
         public float GetDensityAtPoint(Vector3 point) => _meshGenerator.GetDensityAtPoint(point);
+        public float GetContinentalnessAtPoint(Vector3 point) => _meshGenerator.GetContinentalnessAtPoint(point);
         public Chunk[] GetChunks() => chunks;
         private void OnDestroy() {
             Delete();

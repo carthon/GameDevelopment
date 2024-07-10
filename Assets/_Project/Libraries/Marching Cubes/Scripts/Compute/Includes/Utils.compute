@@ -1,0 +1,23 @@
+﻿#define PI 3.14159265359
+
+float2 SphericalToEquirectangular(float3 position)
+{
+    // Normalizar la posición para obtener coordenadas unitarias en la esfera
+    float3 normalizedPos = normalize(position);
+
+    // Calcular la longitud (lambda) y la latitud (phi)
+    float lambda = atan2(normalizedPos.z, normalizedPos.x); // Longitud
+    float phi = asin(normalizedPos.y); // Latitud
+
+    // Convertir los ángulos a coordenadas 2D (u, v)
+    float u = (lambda + PI) / (2 * PI); // Normalizar longitud a [0, 1]
+    float v = (phi + (PI / 2)) / PI; // Normalizar latitud a [0, 1]
+
+    return float2(u, v);
+}
+
+float CalculateHeight(float3 position, float radius)
+{
+    // Calcular la altura como la distancia desde el centro
+    return length(position) / radius;
+}

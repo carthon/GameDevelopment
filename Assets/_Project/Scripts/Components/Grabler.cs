@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Project.Libraries.Marching_Cubes.Scripts;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using UnityEngine;
@@ -24,6 +25,10 @@ namespace _Project.Scripts.Components {
                 itemInLootTable.Count = leftOver.GetCount();
             }
             if (itemTable.IsEmpty()) {
+                Planet planet = closestGrabbable.GetPlanet();
+                Chunk chunk = planet != null ? planet.FindChunkAtPosition(transform.position) : null;
+                if (chunk != null)
+                    chunk.RemoveEntity(closestGrabbable);
                 Destroy(closestGrabbable.gameObject);
             }
             itemTable = new LootTable();
