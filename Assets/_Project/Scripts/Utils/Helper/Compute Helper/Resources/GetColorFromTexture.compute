@@ -1,6 +1,7 @@
 ﻿#pragma kernel SampleRenderTexture
 
 #define PI 3.14159265359
+#include "Includes/Utils.compute"
 // RenderTexture de entrada
 RWTexture3D<float4> _RenderTexture3D;
 RWTexture2D<float4> _RenderTexture2D;
@@ -8,44 +9,31 @@ RWTexture2D<float4> _RenderTexture2D;
 // Buffer de salida
 RWStructuredBuffer<float4> _Result;
 float3 worldPos;
-int textureSize;
+int textureWidth;
+int textureHeight;
 int dimension;
 float planetSize;
-
-float2 SphericalToEquirectangular(float3 position)
-{
-    // Normalizar la posición para obtener coordenadas unitarias en la esfera
-    float3 normalizedPos = normalize(position);
-
-    // Calcular la longitud (lambda) y la latitud (phi)
-    float lambda = atan2(normalizedPos.z, normalizedPos.x); // Longitud
-    float phi = asin(normalizedPos.y); // Latitud
-
-    // Convertir los ángulos a coordenadas 2D (u, v)
-    float u = (lambda + PI) / (2 * PI); // Normalizar longitud a [0, 1]
-    float v = (phi + (PI / 2)) / PI; // Normalizar latitud a [0, 1]
-
-    return float2(u, v);
-}
 
 [numthreads(1, 1, 1)]
 void SampleRenderTexture (uint3 id : SV_DispatchThreadID)
 {
     // Verifica si la textura está cargada y escribe en el RenderTexture
     // Obtener la coordenada en el espacio de la textura
-    float3 texturePos = (worldPos / planetSize + 0.5) * (textureSize - 1);
-    float2 texture2dPos = SphericalToEquirectangular(worldPos) * textureSize;
-    texturePos = clamp(texturePos, 0, textureSize - 1);
-    texture2dPos = clamp(texture2dPos, 0, textureSize - 1);
+    float3 fTexture3DPos = (worldPos / planetSize + 0.5) * (textureWidth - 1);
+    float2 fTexture2DPos = SphericalToEquirectangular(worldPos);
+    fTexture3DPos = clamp(fTexture3DPos, 0, textureWidth - 1);
     
     if (dimension == 3)
     {
         // Leer el color en la coordenada especificada
-        float4 color = _RenderTexture3D[int3(texturePos)];
+        float4 color = _RenderTexture3D[int3(fTexture3DPos)];
         _Result[0] = color;
     } else if (dimension == 2) {
         // Leer el color en la coordenada especificada
-        float4 color = _RenderTexture2D[int2(texture2dPos)];
+        int2 texture2DPos = int2(fTexture2DPos.x * textureWidth, fTexture2DPos.y * textureHeight);
+        texture2DPos.x = clamp(texture2DPos.x, 0 , textureWidth);
+        texture2DPos.y = clamp(texture2DPos.y, 0 , textureHeight);
+        float4 color = _RenderTexture2D[texture2DPos];
         _Result[0] = color;        
     }
 }

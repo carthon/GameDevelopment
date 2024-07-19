@@ -40,18 +40,19 @@ namespace Editor {
             if(GUILayout.Button("Refresh Planet"))
                 RegeneratePlanet();
             // Si hay una RenderTexture, dibujarla
-            if (_showOriginal2DMap && _planet.MeshGenerator.originalMap2D != null)
+            if (_showOriginal2DMap && _planet.MeshGenerator is not null 
+                && _planet.MeshGenerator.originalMap2D is not null && _planet.MeshGenerator.continentalness is not null)
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.BeginVertical();
-                GUILayout.Label("Original 2D Map Preview", EditorStyles.boldLabel);
+                GUILayout.Label(_planet.MeshGenerator.originalMap2D.name, EditorStyles.boldLabel);
                 Rect rect1 = GUILayoutUtility.GetRect(128, 128, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
                 EditorGUI.DrawPreviewTexture(rect1, _planet.MeshGenerator.originalMap2D);
                 GUILayout.EndVertical();
                 // Espacio flexible entre las texturas
                 GUILayout.FlexibleSpace();
                 GUILayout.BeginVertical();
-                GUILayout.Label("Continentalness", EditorStyles.boldLabel);
+                GUILayout.Label(_planet.MeshGenerator.continentalness.name, EditorStyles.boldLabel);
                 Rect rect2 = GUILayoutUtility.GetRect(128, 128, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
                 EditorGUI.DrawPreviewTexture(rect2, _planet.MeshGenerator.continentalness);
                 GUILayout.EndVertical();

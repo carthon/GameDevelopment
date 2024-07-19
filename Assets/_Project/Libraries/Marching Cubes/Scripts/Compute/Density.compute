@@ -10,7 +10,9 @@ RWTexture2D<float> PeekAndValleysTexture;
 RWTexture2D<float> TemperatureTexture;
 RWTexture2D<float> HumidityTexture;
 RWTexture3D<float> SquashFactorTexture;
-int textureSize;
+int densityTextureSize;
+int sphereTextureHeight;
+int sphereTextureWidth;
 
 float planetSize;
 float noiseScale;
@@ -39,7 +41,7 @@ float fbm2d(int numLayers, float lacunarity, float persistence, float scale, flo
 	float amplitude = 1;
 
 	for (int i = 0; i < numLayers; i ++) {
-		float n = 1-abs(SNoise2D(pos * (testValue / 100))*2-1);
+		float n = 1-abs(SNoise2D(pos * frequency)*2-1);
 		//n*=n;
 		noise += n * amplitude;
 
@@ -50,8 +52,7 @@ float fbm2d(int numLayers, float lacunarity, float persistence, float scale, flo
 }
 
 float calculateSphericalDensity(int3 cell) {
-	float3 worldPos = (cell / float(textureSize-1.0) - 0.5f) * planetSize;
-	float2 equirectangularPos = SphericalToEquirectangular(worldPos) * textureSize;
+	float3 worldPos = (cell / float(densityTextureSize-1.0) - 0.5) * planetSize;
 
 	float halfS = planetSize / 2;
 	float maxD = length(float3(halfS,halfS,halfS));
@@ -62,12 +63,11 @@ float calculateSphericalDensity(int3 cell) {
 
 	// Noise
 	float noiseDensity = fbm(6, 2, 0.5, noiseScale, worldPos) * noiseHeightMultiplier;
-	float noiseContinentalness = fbm2d(6, 2, 0.5, noiseScale, equirectangularPos) * noiseHeightMultiplier;
-	float noiseErosion = fbm2d(6, 2, 0.5, noiseScale, equirectangularPos) * noiseHeightMultiplier;
-	float noisePeaksAndValleys = fbm2d(6, 2, 0.5, noiseScale, equirectangularPos) * noiseHeightMultiplier;
+	//float noiseContinentalness = fbm2d(6, 2, 0.5, noiseScale, equirectangularPos) * noiseHeightMultiplier;
+	//float noiseErosion = fbm2d(6, 2, 0.5, noiseScale, equirectangularPos) * noiseHeightMultiplier;
+	//float noisePeaksAndValleys = fbm2d(6, 2, 0.5, noiseScale, equirectangularPos) * noiseHeightMultiplier;
 
 	density += noiseDensity;
-	//ContinentalnessTexture[cell] = noiseContinentalness;
 
 
 	return density;
@@ -76,11 +76,24 @@ float calculateSphericalDensity(int3 cell) {
 float calculateHeightMap(float2 pos)
 {
 	float noiseContinentalness = fbm2d(6, 2, 0.5, noiseScale, pos) * noiseHeightMultiplier;
+	
+	float u = pos.y / float(sphereTextureWidth);
+	float v = pos.x / float(sphereTextureHeight);
+	float colorValue = u * v;
+	// Dibujar un punto en el centro de la textura
+	int2 centerCoords = int2(sphereTextureWidth / 2, sphereTextureHeight / 2);
+	//noiseContinentalness = colorValue * noiseHeightMultiplier;  // Color distintivo, por ejemplo, blanco
+	if (abs(pos.x - centerCoords.x) < 10 && abs(pos.y - centerCoords.y) < 10) {
+		noiseContinentalness = 1.0 * noiseHeightMultiplier;  // Color distintivo, por ejemplo, blanco
+	} else {
+		noiseContinentalness = 0 * noiseHeightMultiplier;
+	}
+	
 	return noiseContinentalness;
 }
 
 float calculateDensity(int3 cell){
-	float3 worldPos = (cell / float(textureSize-1.0) - 0.5f) * planetSize;
+	float3 worldPos = (cell / float(densityTextureSize-1.0) - 0.5) * planetSize;
 	float density = 0;
 	// Noise
 	float noise = fbm(6, 2, 0.5, noiseScale, worldPos) * noiseHeightMultiplier;
@@ -92,14 +105,14 @@ float calculateDensity(int3 cell){
 [numthreads(8,8,8)]
 void CSMain (int3 id : SV_DispatchThreadID)
 {
-	if (id.x >= textureSize || id.y >= textureSize || id.z >= textureSize) {
+	if (id.x >= densityTextureSize || id.y >= densityTextureSize || id.z >= densityTextureSize) {
 		return;
 	}
 
 	float density = 0;
 
 	const int b = 1;
-	if (id.x >= textureSize-b || id.y >= textureSize-b || id.z >= textureSize-b) {
+	if (id.x >= densityTextureSize-b || id.y >= densityTextureSize-b || id.z >= densityTextureSize-b) {
 		density = 1;
 	}
 	else if (id.x <= b || id.y <= b || id.z <=b) {
@@ -108,8 +121,13 @@ void CSMain (int3 id : SV_DispatchThreadID)
 	else {
 		density = calculateSphericalDensity(id);
 	}
-	float3 worldPos = (id / float(textureSize-1.0) - 0.5f) * planetSize;
-	float2 equirectangularPos = SphericalToEquirectangular(worldPos) * textureSize;
-	ContinentalnessTexture[equirectangularPos] = calculateHeightMap(equirectangularPos);
+	float3 worldPos = (id / float(densityTextureSize-1.0) - 0.5) * planetSize;
+	float2 equirectangularPos = SphericalToEquirectangular(worldPos);
+	int2 textureCoords = int2(equirectangularPos.x * sphereTextureWidth, equirectangularPos.y * sphereTextureHeight);
+	// Asegurarse de que las coordenadas estén dentro de los límites de la textura
+	textureCoords.x = clamp(textureCoords.x, 0 , sphereTextureWidth);
+	textureCoords.y = clamp(textureCoords.y, 0 , sphereTextureHeight);
+	ContinentalnessTexture[textureCoords] = calculateHeightMap(textureCoords);
+	
 	DensityTexture[id] = density;
 }

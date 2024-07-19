@@ -17,7 +17,10 @@ struct Triangle {
 AppendStructuredBuffer<Triangle> triangles;
 RWTexture3D<float> DensityTexture;
 RWTexture2D<float> ContinentalnessTexture;
-int textureSize;
+
+int densityTextureSize;
+int sphereTextureHeight;
+int sphereTextureWidth;
 
 int numPointsPerAxis;
 float planetSize;
@@ -26,29 +29,35 @@ float3 chunkCoord;
 float3 planetCenter;
 
 float3 coordToWorld(int3 coord) {
-	return (coord / (textureSize - 1.0) - 0.5f) * planetSize + planetCenter;
+	return (coord / float(densityTextureSize) - 0.5f) * planetSize + planetCenter;
 }
 
 int indexFromCoord(int3 coord) {
 	coord = coord - int3(chunkCoord);
 	return coord.z * numPointsPerAxis * numPointsPerAxis + coord.y * numPointsPerAxis + coord.x;
 }
-
+/*
 float sampleDensity(int3 coord) {
-	coord = max(0, min(coord, textureSize));
+	coord = max(0, min(coord, densityTextureSize));
 	return DensityTexture[coord];
 }
+*/
 
-/*
 //Change to sample Height
 float sampleDensity(int3 coord) {
-	float2 coord2D = SphericalToEquirectangular(coord) * textureSize;
-	coord2D = max(0, min(coord2D, textureSize));
+	float3 coord3d = coordToWorld(coord);
+	float2 equirectangularPos = SphericalToEquirectangular(coord3d);
+	int2 coord2D = int2(equirectangularPos.x * sphereTextureWidth, equirectangularPos.y * sphereTextureHeight);
+	coord2D.x = clamp(coord2D.x, 0 , sphereTextureWidth);
+	coord2D.y = clamp(coord2D.y, 0 , sphereTextureHeight);
+	float actualHeight = CalculateHeight(coord3d, planetCenter);
 	float continentalness = ContinentalnessTexture[coord2D];
-	
-	return continentalness;
+	float halfS = planetSize / 2;
+	float maxD = length(float3(halfS,halfS,halfS));
+	float targetHeight = continentalness * planetSize;
+	return actualHeight + continentalness - isoLevel;
 }
-*/
+
 float3 calculateNormal(int3 coord) {
 	int3 offsetX = int3(1, 0, 0);
 	int3 offsetY = int3(0, 1, 0);

@@ -209,7 +209,8 @@ namespace _Project.Helper.Compute_Helper {
 			transform3DTo2DCompute.SetFloat("Depth", depth);
 			Dispatch(transform3DTo2DCompute, source.width, source.height, 1);
 		}
-		public static float[] GetColourFromTexture(RenderTexture source, int textureSize, float planetSize, Vector3 point) {
+		public static float[] GetColourFromTexture(RenderTexture source, int textureSize, float planetSize, Vector3 point) => GetColourFromTexture(source, textureSize, textureSize, planetSize, point);
+		public static float[] GetColourFromTexture(RenderTexture source, int width, int height, float planetSize, Vector3 point) {
 			float[] result = new float[4];
 			if (source is null || source.updateCount == 0) {
 				Debug.LogError("Source texture is null");
@@ -225,7 +226,8 @@ namespace _Project.Helper.Compute_Helper {
 				getColourFromTexture.SetTexture(0, "_RenderTexture2D", source);
 				getColourFromTexture.SetInt("dimension", 2);
 			}
-			getColourFromTexture.SetInt( "textureSize", textureSize);
+			getColourFromTexture.SetInt( "textureWidth", width);
+			getColourFromTexture.SetInt( "textureHeight", height);
 			getColourFromTexture.SetFloat("planetSize", planetSize);
 			getColourFromTexture.SetBuffer(0, "_Result", resultBuffer);
 			getColourFromTexture.SetFloats("worldPos", point.x, point.y, point.z);

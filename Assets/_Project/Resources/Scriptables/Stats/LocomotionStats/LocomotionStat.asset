@@ -19,7 +19,7 @@ MonoBehaviour:
   strafeMultSpeed: 1
   sprintSpeed: 350
   inAirSpeed: 150
-  flySpeed: 500
+  flySpeed: 1000
   jumpStrength: 10
   groundedRayRadius: 0
   canFly: 1
