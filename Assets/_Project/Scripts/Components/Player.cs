@@ -72,7 +72,7 @@ namespace _Project.Scripts.Components {
             _animator.UpdateAnimatorValues(_locomotion.RelativeDirection.z, _locomotion.RelativeDirection.x);
             Vector3 position = transform.position;
             float planetSize = _planet.NumChunks * 100;
-            UIHandler.Instance.UpdateWatchedVariables("density", $"DensityAtPosition:{_planet.GetDensityAtPoint(position)}");
+            //UIHandler.Instance.UpdateWatchedVariables("density", $"DensityAtPosition:{_planet.GetDensityAtPoint(position)}");
             UIHandler.Instance.UpdateWatchedVariables("continentalness", $"Continentalness:{_planet.GetContinentalnessAtPoint(position)}");
             UIHandler.Instance.UpdateWatchedVariables("planetheight", $"Planet height {position.magnitude / planetSize}");
             UIHandler.Instance.UpdateWatchedVariables("2DPosition", $"2DPosition {SphericalToEquirectangular(position)}");

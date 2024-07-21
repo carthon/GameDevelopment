@@ -83,12 +83,12 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			// Each chunk has "numPointsPerAxis" points along each axis
 			// The last points of each chunk overlap in space with the first points of the next chunk
 			// Therefore we need one fewer pixel than points for each added chunk
-			float resolution = 50f;
+			float resolution = 1f;
 			float radius = boundsSize / 2;
 			int size = _planet.NumChunks * (numPointsPerAxis - 1) + 1;
 			float circumference = 2.0f * Mathf.PI * radius;
-			int textureWidth = Mathf.CeilToInt(circumference * testValue);
-			int textureHeight = Mathf.CeilToInt(circumference / 2.0f * testValue);
+			int textureWidth = Mathf.CeilToInt(circumference * resolution);
+			int textureHeight = Mathf.CeilToInt(circumference / 2.0f * resolution);
 			Debug.Log($"TextureHeight: {textureHeight} TextureWidth: {textureWidth}");
 			
 			Create3DTexture(ref rawDensityTexture, size, "Raw Density Texture");

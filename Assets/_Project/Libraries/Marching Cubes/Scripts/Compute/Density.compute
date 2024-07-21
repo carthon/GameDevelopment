@@ -35,6 +35,7 @@ float fbm(int numLayers, float lacunarity, float persistence, float scale, float
 
 	return noise;
 }
+
 float fbm2d(int numLayers, float lacunarity, float persistence, float scale, float2 pos) {	
 	float noise = 0;
 	float frequency = scale / 100;
@@ -43,6 +44,43 @@ float fbm2d(int numLayers, float lacunarity, float persistence, float scale, flo
 	for (int i = 0; i < numLayers; i ++) {
 		float n = 1-abs(SNoise2D(pos * frequency)*2-1);
 		//n*=n;
+		noise += n * amplitude;
+
+		amplitude *= persistence;
+		frequency *= lacunarity;
+	}
+	return noise;
+}
+
+float periodicNoise2D(float2 pos)
+{
+	int heightLimit = sphereTextureHeight - 1;
+	int widthLimit = sphereTextureWidth - 1;
+	
+    float2 p = float2(pos.x % widthLimit, pos.y % heightLimit); // Asegura que las coordenadas se repitan dentro del periodo
+    float2 q = float2((pos.x - p.x) / widthLimit, (pos.y - p.y) / heightLimit); // Coordenadas locales normalizadas
+
+    float a = SNoise2D(p);
+    p = float2(pos.x + 1.0 * testValue % widthLimit, pos.y % heightLimit);
+    float b = SNoise2D(p);
+    p = float2(pos.x * testValue % widthLimit, pos.y + 1.0 * testValue % heightLimit);
+    float c = SNoise2D(p);
+    p = float2(pos.x + 1.0 * testValue % widthLimit, pos.y + 1.0 * testValue % heightLimit);
+    float d = SNoise2D(p);
+
+    float u = smoothstep(0.0, 1.0, q.x);
+    float v = smoothstep(0.0, 1.0, q.y);
+
+    return lerp(lerp(a, b, u), lerp(c, d, u), v);
+}
+
+float fbm2dPeriodic(int numLayers, float lacunarity, float persistence, float scale, float2 pos) {  
+	float noise = 0;
+	float frequency = scale / 100;
+	float amplitude = 1;
+
+	for (int i = 0; i < numLayers; i ++) {
+		float n = 1 - abs(periodicNoise2D(pos * frequency) * 2 - 1);
 		noise += n * amplitude;
 
 		amplitude *= persistence;
@@ -75,20 +113,21 @@ float calculateSphericalDensity(int3 cell) {
 
 float calculateHeightMap(float2 pos)
 {
-	float noiseContinentalness = fbm2d(6, 2, 0.5, noiseScale, pos) * noiseHeightMultiplier;
-	
+	float noiseContinentalness = fbm2dPeriodic(6, 2, 0.5, noiseScale, pos) * noiseHeightMultiplier;
+
+	/*
 	float u = pos.y / float(sphereTextureWidth);
 	float v = pos.x / float(sphereTextureHeight);
 	float colorValue = u * v;
 	// Dibujar un punto en el centro de la textura
 	int2 centerCoords = int2(sphereTextureWidth / 2, sphereTextureHeight / 2);
 	//noiseContinentalness = colorValue * noiseHeightMultiplier;  // Color distintivo, por ejemplo, blanco
-	if (abs(pos.x - centerCoords.x) < 10 && abs(pos.y - centerCoords.y) < 10) {
+	if (abs(pos.x - sphereTextureWidth) < testValue) {
 		noiseContinentalness = 1.0 * noiseHeightMultiplier;  // Color distintivo, por ejemplo, blanco
 	} else {
 		noiseContinentalness = 0 * noiseHeightMultiplier;
 	}
-	
+	*/
 	return noiseContinentalness;
 }
 
@@ -121,7 +160,7 @@ void CSMain (int3 id : SV_DispatchThreadID)
 	else {
 		density = calculateSphericalDensity(id);
 	}
-	float3 worldPos = (id / float(densityTextureSize-1.0) - 0.5) * planetSize;
+	float3 worldPos = (id / float(densityTextureSize) - 0.5) * planetSize;
 	float2 equirectangularPos = SphericalToEquirectangular(worldPos);
 	int2 textureCoords = int2(equirectangularPos.x * sphereTextureWidth, equirectangularPos.y * sphereTextureHeight);
 	// Asegurarse de que las coordenadas estén dentro de los límites de la textura

@@ -52,9 +52,6 @@ float sampleDensity(int3 coord) {
 	coord2D.y = clamp(coord2D.y, 0 , sphereTextureHeight);
 	float actualHeight = CalculateHeight(coord3d, planetCenter);
 	float continentalness = ContinentalnessTexture[coord2D];
-	float halfS = planetSize / 2;
-	float maxD = length(float3(halfS,halfS,halfS));
-	float targetHeight = continentalness * planetSize;
 	return actualHeight + continentalness - isoLevel;
 }
 
