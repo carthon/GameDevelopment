@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using _Project.Helper.Compute_Helper;
 using _Project.Libraries.Marching_Cubes.Scripts;
 using _Project.Scripts.Components;
+using _Project.Scripts.Constants;
+using _Project.Scripts.DataClasses;
 using _Project.Scripts.Handlers;
 using UnityEditor;
 using UnityEngine;
@@ -51,11 +53,17 @@ namespace Editor {
                 GUILayout.EndVertical();
                 // Espacio flexible entre las texturas
                 GUILayout.FlexibleSpace();
-                GUILayout.BeginVertical();
-                GUILayout.Label(_planet.MeshGenerator.continentalness.name, EditorStyles.boldLabel);
-                Rect rect2 = GUILayoutUtility.GetRect(128, 128, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
-                EditorGUI.DrawPreviewTexture(rect2, _planet.MeshGenerator.continentalness);
-                GUILayout.EndVertical();
+                for (int i = 0; i < _planet.MeshGenerator.NoiseData.noiseParams.Count; i++) {
+                    NoiseParams noiseParams = _planet.MeshGenerator.NoiseData.noiseParams[i];
+                    if (noiseParams.noiseType == DensityEnum.DENSITY_NOISE)
+                        continue;
+                    GUILayout.BeginVertical();
+                    GUILayout.Label(noiseParams.noiseName, EditorStyles.boldLabel);
+                    Rect rect = GUILayoutUtility.GetRect(128, 128, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+                        EditorGUI.DrawPreviewTexture(rect, _planet.MeshGenerator.noiseTextures[i]);
+                    GUILayout.EndVertical();
+                    GUILayout.FlexibleSpace();
+                }
                 GUILayout.EndHorizontal();
             }
         }

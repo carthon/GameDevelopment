@@ -53,6 +53,7 @@ namespace _Project.Scripts.Handlers {
                 planet = spawner.GetPlanet();
                 Chunk chunk = planet.FindChunkAtPosition(position);
                 if (chunk is not null && chunk.IsLoaded) {
+                    planet.GetHeightMapValuesAtPoint(position);
                     GameObject itemRendered = Instantiate(item.modelPrefab, position, rotation);
                     itemRendered.layer = LayerMask.NameToLayer("Item");
                     var pickable = itemRendered.GetComponent<Grabbable>();

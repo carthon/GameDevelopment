@@ -200,7 +200,6 @@ namespace _Project.Helper.Compute_Helper {
 			copy3DCompute.SetTexture(0, "Target", target);
 			Dispatch(copy3DCompute, target.width, target.height, target.volumeDepth);//
 		}
-
 		public static void TransformTexture3DTo2D(RenderTexture source, RenderTexture target, float depth) {
 			LoadComputeShader(ref transform3DTo2DCompute, "Transform3DTo2D");
 			transform3DTo2DCompute.SetInts("dimensions", source.width, source.height, source.volumeDepth);

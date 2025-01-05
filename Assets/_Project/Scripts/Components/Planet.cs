@@ -99,7 +99,7 @@ namespace _Project.Scripts.Components {
             return FindChunkAtPosition(lastChunkInBounds);
         }
         private float ClampToBounds(float value) {
-            float maxBoundsReach = (numChunks - 1 * _meshGenerator.boundsSize) / 2;
+            float maxBoundsReach = (_meshGenerator.boundsSize / 2) - 1;
             return Mathf.Clamp(value, -maxBoundsReach, maxBoundsReach);
         }
         private bool IsPositionInPlanet(Vector3Int chunkPosition) => !(chunkPosition.x < 0 || chunkPosition.x >= numChunks ||
@@ -161,7 +161,7 @@ namespace _Project.Scripts.Components {
             }
         }
         public float GetDensityAtPoint(Vector3 point) => _meshGenerator.GetDensityAtPoint(point);
-        public float GetContinentalnessAtPoint(Vector3 point) => _meshGenerator.GetContinentalnessAtPoint(point);
+        public float GetHeightMapValuesAtPoint(Vector3 point) => _meshGenerator.GetHeightMapValuesAtPoint(point);
         public Chunk[] GetChunks() => chunks;
         private void OnDestroy() {
             Delete();

@@ -22,8 +22,8 @@ namespace _Project.Scripts.Handlers {
             _lastPlanet = planet;
             _lastPosition = position;
             _chunksToRender = nChunks;
-            _lastChunkVisited ??= planet.GetClosestChunk(position);
-            if(!_lastChunkVisited.IsInBounds(position)) _lastChunkVisited = planet.FindChunkAtPosition(position);
+            _lastChunkVisited = planet.GetClosestChunk(position);
+            //if (!_lastChunkVisited.IsInBounds(position)) _lastChunkVisited = planet.FindChunkAtPosition(position);
             RenderingQueue.Enqueue(_lastChunkVisited);
             if (_lastPlanet != planet) {
                 _centerChunk = planet.FindChunkAtPosition(planet.Center).GetCoords();

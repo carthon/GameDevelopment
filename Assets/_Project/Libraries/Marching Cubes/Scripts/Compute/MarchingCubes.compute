@@ -16,7 +16,7 @@ struct Triangle {
 //
 AppendStructuredBuffer<Triangle> triangles;
 RWTexture3D<float> DensityTexture;
-RWTexture2D<float> ContinentalnessTexture;
+RWTexture2D<float> HeightMapTexture;
 
 int densityTextureSize;
 int sphereTextureHeight;
@@ -44,15 +44,15 @@ float sampleDensity(int3 coord) {
 */
 
 //Change to sample Height
-float sampleDensity(int3 coord) {
+float sampleHeight(int3 coord) {
 	float3 coord3d = coordToWorld(coord);
 	float2 equirectangularPos = SphericalToEquirectangular(coord3d);
 	int2 coord2D = int2(equirectangularPos.x * sphereTextureWidth, equirectangularPos.y * sphereTextureHeight);
 	coord2D.x = clamp(coord2D.x, 0 , sphereTextureWidth);
 	coord2D.y = clamp(coord2D.y, 0 , sphereTextureHeight);
-	float actualHeight = CalculateHeight(coord3d, planetCenter);
-	float continentalness = ContinentalnessTexture[coord2D];
-	return actualHeight + continentalness - isoLevel;
+	float heightToPos = CalculateHeight(coord3d, planetCenter);
+	float desiredHeightByMap = HeightMapTexture[coord2D];
+	return heightToPos + desiredHeightByMap - isoLevel;
 }
 
 float3 calculateNormal(int3 coord) {
@@ -60,9 +60,9 @@ float3 calculateNormal(int3 coord) {
 	int3 offsetY = int3(0, 1, 0);
 	int3 offsetZ = int3(0, 0, 1);
 
-	float dx = sampleDensity(coord + offsetX) - sampleDensity(coord - offsetX);
-	float dy = sampleDensity(coord + offsetY) - sampleDensity(coord - offsetY);
-	float dz = sampleDensity(coord + offsetZ) - sampleDensity(coord - offsetZ);
+	float dx = sampleHeight(coord + offsetX) - sampleHeight(coord - offsetX);
+	float dy = sampleHeight(coord + offsetY) - sampleHeight(coord - offsetY);
+	float dz = sampleHeight(coord + offsetZ) - sampleHeight(coord - offsetZ);
 
 	return normalize(float3(dx, dy, dz));
 }
@@ -74,8 +74,8 @@ Vertex createVertex(int3 coordA, int3 coordB) {
 	
 	float3 posA = coordToWorld(coordA);
 	float3 posB = coordToWorld(coordB);
-	float densityA = sampleDensity(coordA);
-	float densityB = sampleDensity(coordB);
+	float densityA = sampleHeight(coordA);
+	float densityB = sampleHeight(coordB);
 
 	// Interpolate between the two corner points based on the density
 	float t = (isoLevel - densityA) / (densityB - densityA);
@@ -129,7 +129,7 @@ void ProcessCube (int3 id : SV_DispatchThreadID)
 		// Think of the configuration as an 8-bit binary number (each bit represents the state of a corner point).
 		// The state of each corner point is either 0: above the surface, or 1: below the surface.
 		// The code below sets the corresponding bit to 1, if the point is below the surface.
-		if (sampleDensity(cornerCoords[i]) < isoLevel) {
+		if (sampleHeight(cornerCoords[i]) < isoLevel) {
 			cubeConfiguration |= (1 << i);
 		}
 	}
