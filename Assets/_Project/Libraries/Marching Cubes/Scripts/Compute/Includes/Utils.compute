@@ -4,7 +4,6 @@
 #define HEIGHTMAP_NOISE 2
 
 struct NoiseParams {
-    int noiseId;
     int noiseType;
     int numLayers;
     float lacunarity, persistence, noiseScale;

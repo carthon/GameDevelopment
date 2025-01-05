@@ -156,11 +156,18 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 
 			for (int i = 0; i < NoiseData.noiseParams.Count; i++) {
 				NoiseParams noiseParams = NoiseData.noiseParams[i];
+				GPUNoiseParams gpuNoiseParams = new GPUNoiseParams() {
+					lacunarity = noiseParams.lacunarity,
+					noiseScale = noiseParams.noiseScale,
+					noiseType = noiseParams.noiseType,
+					numLayers = noiseParams.numLayers,
+					persistence = noiseParams.persistence,
+				};
 				if (noiseParams.noiseType == DensityEnum.HEIGHTMAP_NOISE)
 					densityCompute.SetTexture(0, "Generic2DNoiseTexture", noiseTextures[i]);
 				else if (noiseParams.noiseType == DensityEnum.DENSITY_NOISE)
 					densityCompute.SetTexture(0, "Generic3DNoiseTexture", noiseTextures[i]);
-				noiseDataBuffer.SetData(new []{ NoiseData.noiseParams[i] });
+				noiseDataBuffer.SetData(new []{ gpuNoiseParams });
 				densityCompute.SetBuffer(0, "NoiseParamsBuffer", noiseDataBuffer);
 				ComputeHelper.Dispatch(densityCompute, size, size, size);
 				Debug.Log($"Processed noise layer {i} with data {noiseParams.ToString()}: Saved to texture {noiseTextures[i].name}");
@@ -247,7 +254,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		void Update() {
 
 			// TODO: move somewhere more sensible
-			material.SetTexture("DensityTex", originalMap);
+			material.SetTexture("DensityTex", noiseTextures[0]);
 			//material.SetFloat("oceanRadius", FindObjectOfType<Water>().radius);
 			material.SetFloat("planetBoundsSize", boundsSize);
 			/*
@@ -268,7 +275,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			ReleaseBuffers();
 			triangleCountBuffer = new ComputeBuffer(1, sizeof (int), ComputeBufferType.Raw);
 			meshTriangleBuffer = new ComputeBuffer(maxVertexCount, ComputeHelper.GetStride<VertexData>(), ComputeBufferType.Append);
-			noiseDataBuffer = new ComputeBuffer(1, ComputeHelper.GetStride<NoiseParams>(), ComputeBufferType.Structured);
+			noiseDataBuffer = new ComputeBuffer(1, ComputeHelper.GetStride<GPUNoiseParams>(), ComputeBufferType.Structured);
 			vertexDataArray = new VertexData[maxVertexCount];
 		}
 
@@ -284,7 +291,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		}
 		public float GetHeightMapValuesAtPoint(Vector3 point) {
 			Assert.IsTrue(noiseTextures.Length > 0);
-			float[] result = ComputeHelper.GetColourFromTexture(noiseTextures[0], continentalness.width, continentalness.height, boundsSize, point);
+			float[] result = ComputeHelper.GetColourFromTexture(noiseTextures[0], noiseTextures[0].width, noiseTextures[0].height, boundsSize, point);
 			return result[0];
 		}
 		

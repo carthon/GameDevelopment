@@ -43,7 +43,7 @@ namespace Editor {
                 RegeneratePlanet();
             // Si hay una RenderTexture, dibujarla
             if (_showOriginal2DMap && _planet.MeshGenerator is not null 
-                && _planet.MeshGenerator.originalMap2D is not null && _planet.MeshGenerator.continentalness is not null)
+                && _planet.MeshGenerator.originalMap2D is not null)
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.BeginVertical();
