@@ -13,15 +13,21 @@ MonoBehaviour:
   m_Name: Noise Data
   m_EditorClassIdentifier: 
   noiseParams:
-  - noiseId: 0
+  - noiseName: Caves
+    noiseType: 1
+    numLayers: 3
+    lacunarity: 2
+    persistence: 0.3
+    noiseScale: 20
+  - noiseName: Normal
     noiseType: 2
     numLayers: 6
-    lacunarity: 5
+    lacunarity: 2
     persistence: 0.5
-    noiseScale: 0.1
-  - noiseId: 1
+    noiseScale: 0.04
+  - noiseName: Planes
     noiseType: 1
-    numLayers: 6
-    lacunarity: 5
-    persistence: 0.5
-    noiseScale: 0.1
+    numLayers: 3
+    lacunarity: 2
+    persistence: 0.3
+    noiseScale: 0.01

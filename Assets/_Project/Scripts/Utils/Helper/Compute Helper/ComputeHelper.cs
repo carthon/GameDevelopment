@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using _Project.Scripts.Utils;
+using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 
@@ -18,6 +21,7 @@ namespace _Project.Helper.Compute_Helper {
 		static ComputeShader copy3DCompute;
 		static ComputeShader transform3DTo2DCompute;
 		static ComputeShader getColourFromTexture;
+		static ComputeShader densityNormalizer;
 
 
 
@@ -162,10 +166,10 @@ namespace _Project.Helper.Compute_Helper {
 			CreateRenderTexture(ref texture, template);
 		}
 
-		static void CreateRenderTexture3D(ref RenderTexture texture, int size, string name = "Untitled")
+		static void CreateRenderTexture3D(ref RenderTexture texture, int width, int height, int depth, string name = "Untitled")
 		{
-			var format = UnityEngine.Experimental.Rendering.GraphicsFormat.R16_SFloat;
-			if (texture == null || !texture.IsCreated() || texture.width != size || texture.height != size || texture.volumeDepth != size || texture.graphicsFormat != format)
+			var format = GraphicsFormat.R16_SFloat;
+			if (texture == null || !texture.IsCreated() || texture.width != width || texture.height != height || texture.volumeDepth != depth || texture.graphicsFormat != format)
 			{
 				//Debug.Log ("Create tex: update noise: " + updateNoise);
 				if (texture != null)
@@ -173,11 +177,11 @@ namespace _Project.Helper.Compute_Helper {
 					texture.Release();
 				}
 				const int numBitsInDepthBuffer = 0;
-				texture = new RenderTexture(size, size, numBitsInDepthBuffer);
+				texture = new RenderTexture(width, height, numBitsInDepthBuffer);
 				texture.graphicsFormat = format;
-				texture.volumeDepth = size;
+				texture.volumeDepth = depth;
 				texture.enableRandomWrite = true;
-				texture.dimension = UnityEngine.Rendering.TextureDimension.Tex3D;
+				texture.dimension = TextureDimension.Tex3D;
 				texture.Create();
 			}
 			texture.wrapMode = TextureWrapMode.Repeat;
@@ -208,6 +212,41 @@ namespace _Project.Helper.Compute_Helper {
 			transform3DTo2DCompute.SetFloat("Depth", depth);
 			Dispatch(transform3DTo2DCompute, source.width, source.height, 1);
 		}
+		public static RenderTexture CombineRender2DTexturesToArray(RenderTexture[] textures) {
+			Assert.IsTrue(textures.Length > 0);
+			RenderTexture texture2D = textures.First(texture => texture.dimension == TextureDimension.Tex2D);
+			int width = texture2D.width;
+			int height = texture2D.height;
+			int depth = textures.Count(texture => texture.dimension == TextureDimension.Tex2D);
+
+			RenderTexture outTexture = new RenderTexture(width, height, 0) {
+				dimension = TextureDimension.Tex2DArray,
+				volumeDepth = depth,
+				enableRandomWrite = true,
+				format = texture2D.format
+			};
+			outTexture.Create();
+
+			// Copiar texturas individuales al array
+			int j = 0;
+			for (int i = 0; i < textures.Length; i++) {
+				if (textures[i].dimension == TextureDimension.Tex2D) {
+					Graphics.CopyTexture(textures[i], 0, 0, outTexture, j, 0);
+					j++;
+				}
+			}
+			return outTexture;
+		}
+		public static void ExtractRender2DTextureToArray(RenderTexture texture, ref RenderTexture[] textures) {
+			// Copiar texturas individuales al array
+			int j = 0;
+			for (int i = 0; i < textures.Length; i++) {
+				if (textures[i].dimension == TextureDimension.Tex2D) {
+					Graphics.CopyTexture(texture, j, 0, textures[i], 0, 0);
+					j++;
+				}
+			}
+		}
 		public static float[] GetColourFromTexture(RenderTexture source, int textureSize, float planetSize, Vector3 point) => GetColourFromTexture(source, textureSize, textureSize, planetSize, point);
 		public static float[] GetColourFromTexture(RenderTexture source, int width, int height, float planetSize, Vector3 point) {
 			float[] result = new float[4];
@@ -215,14 +254,20 @@ namespace _Project.Helper.Compute_Helper {
 				Debug.LogError("Source texture is null");
 				return new []{ 0f, 0f };
 			}
+			RenderTexture emptyTexture3D = null;
+			CreateRenderTexture3D(ref emptyTexture3D, 2, 2, 2);
+			RenderTexture emptyTexture2D = null;
+			CreateRenderTexture(ref emptyTexture2D, 2, 2);
 			LoadComputeShader(ref getColourFromTexture, "GetColorFromTexture");
 			ComputeBuffer resultBuffer = new ComputeBuffer(1, sizeof(float) * 4);
 			if (source.dimension == TextureDimension.Tex3D) {
 				getColourFromTexture.SetTexture(0, "_RenderTexture3D", source);
+				getColourFromTexture.SetTexture(0, "_RenderTexture2D", emptyTexture2D);
 				getColourFromTexture.SetInt("dimension", 3);
 			}
 			if (source.dimension == TextureDimension.Tex2D) {
 				getColourFromTexture.SetTexture(0, "_RenderTexture2D", source);
+				getColourFromTexture.SetTexture(0, "_RenderTexture3D", emptyTexture3D);
 				getColourFromTexture.SetInt("dimension", 2);
 			}
 			getColourFromTexture.SetInt( "textureWidth", width);
@@ -232,10 +277,27 @@ namespace _Project.Helper.Compute_Helper {
 			getColourFromTexture.SetFloats("worldPos", point.x, point.y, point.z);
 			Dispatch(getColourFromTexture, 1);
 			resultBuffer.GetData(result);
+			Release(emptyTexture2D, emptyTexture3D);
 			Release(resultBuffer);
 			return result;
 		}
 
+		public static void Normalize3DTexture(ref RenderTexture texture, float min, float max) {
+			if (texture == null)
+				return;
+			ComputeBuffer minMaxBuffer = new ComputeBuffer(2, sizeof(uint), ComputeBufferType.Raw);
+			LoadComputeShader(ref densityNormalizer, "DensityNormalizer");
+			if (densityNormalizer == null)
+				return;
+			uint[] initValues = new uint[2];
+			initValues[0] = MathUtility.FloatToUint(min);
+			initValues[1] = MathUtility.FloatToUint(max);
+			minMaxBuffer.SetData(initValues);
+			densityNormalizer.SetTexture(0, "OutputMap", texture);
+			densityNormalizer.SetBuffer(0, "DensityMinMax", minMaxBuffer);
+			Dispatch(densityNormalizer, texture.width, texture.height, texture.volumeDepth);
+			Release(minMaxBuffer);
+		}
 
 		/// Swap channels of texture, or set to zero. For example, if inputs are: (green, red, zero, zero)
 		/// then red and green channels will be swapped, and blue and alpha channels will be set to zero.

@@ -1963,12 +1963,12 @@
         <member name="M:RiptideNetworking.Utils.DoubleKeyDictionary`3.Clear">
             <summary>Removes all keys and values from the dictionary.</summary>
         </member>
-        <member name="P:RiptideNetworking.Utils.DoubleKeyDictionary`3.Item(`0)">
+        <member name="P:RiptideNetworking.Utils.DoubleKeyDictionary`3.ItemStack(`0)">
             <summary>Gets the value associated with the specified key 1.</summary>
             <param name="key">The key 1 of the value to get.</param>
             <returns>The value associated with the specified key 1.</returns>
         </member>
-        <member name="P:RiptideNetworking.Utils.DoubleKeyDictionary`3.Item(`1)">
+        <member name="P:RiptideNetworking.Utils.DoubleKeyDictionary`3.ItemStack(`1)">
             <summary>Gets the value associated with the specified key 2.</summary>
             <param name="key">The key 2 of the value to get.</param>
             <returns>The value associated with the specified key 2.</returns>

@@ -7,9 +7,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using _Project.Scripts.DataClasses;
 using UnityEditor;
-using UnityEditor.Compilation;
 using UnityEngine;
-using Assembly = System.Reflection.Assembly;
 
 namespace Editor {
     public class GameDataEditorWindow : ExtendedEditorWindow {
@@ -17,6 +15,7 @@ namespace Editor {
         private FieldInfo[] properties;
         private Dictionary<string,Type> availableScriptableClasses;
         private string newAssetTitle = "Name";
+        private Vector2 scrollPosition = Vector2.zero;
         private bool showTooltip;
         public static void Open(GameData data) {
             GameDataEditorWindow window = GetWindow<GameDataEditorWindow>("Game data Editor");
@@ -117,6 +116,8 @@ namespace Editor {
         public void OnGUI() {
             newAssetTitle = EditorGUILayout.TextField(newAssetTitle);
             int i = 0;
+            // Iniciar el área de desplazamiento
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
             EditorGUILayout.BeginHorizontal();
             foreach (string path in availableScriptableClasses.Keys) {
                 Type type = availableScriptableClasses[path];
@@ -134,6 +135,7 @@ namespace Editor {
                 currentProperty = serializedObject.FindProperty(property.Name);
                 DrawCurrentProperty();
             }
+            EditorGUILayout.EndScrollView();
         }
         private void DrawCurrentProperty(){
             EditorGUILayout.BeginHorizontal();

@@ -52,8 +52,7 @@ namespace _Project.Scripts.Components {
             GenerateDensityMap();
         }
         public void GenerateDensityMap() {
-            _meshGenerator.ComputeDensity();
-            _meshGenerator.CreateRenderTextures();
+            _meshGenerator.ComputeDensity(Vector3.zero);
         }
         public void Generate() { GenerateAllChunks(); }
         public void Generate(Chunk chunk) {
@@ -161,7 +160,9 @@ namespace _Project.Scripts.Components {
             }
         }
         public float GetDensityAtPoint(Vector3 point) => _meshGenerator.GetDensityAtPoint(point);
-        public float GetHeightMapValuesAtPoint(Vector3 point) => _meshGenerator.GetHeightMapValuesAtPoint(point);
+        public float GetHeightMapValuesAtPoint(Vector3 point) {
+            return _meshGenerator.GetHeightMapValuesAtPoint(point);
+        }
         public Chunk[] GetChunks() => chunks;
         private void OnDestroy() {
             Delete();

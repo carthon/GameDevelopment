@@ -71,10 +71,9 @@ namespace _Project.Scripts.Components {
         private void Update() {
             _animator.UpdateAnimatorValues(_locomotion.RelativeDirection.z, _locomotion.RelativeDirection.x);
             Vector3 position = transform.position;
-            float planetSize = _planet.NumChunks * 100;
-            //UIHandler.Instance.UpdateWatchedVariables("density", $"DensityAtPosition:{_planet.GetDensityAtPoint(position)}");
-            UIHandler.Instance.UpdateWatchedVariables("continentalness", $"Continentalness:{_planet.GetHeightMapValuesAtPoint(position)}");
-            UIHandler.Instance.UpdateWatchedVariables("planetheight", $"Planet height {position.magnitude / planetSize}");
+            UIHandler.Instance.UpdateWatchedVariables("density", $"DensityAtPosition:{_planet.GetDensityAtPoint(position)}");
+            UIHandler.Instance.UpdateWatchedVariables("debugHitTexture", $"Continentalness:{_planet.GetHeightMapValuesAtPoint(position)}");
+            UIHandler.Instance.UpdateWatchedVariables("planetheight", $"Planet height {(position - _planet.Center).magnitude}");
             UIHandler.Instance.UpdateWatchedVariables("2DPosition", $"2DPosition {SphericalToEquirectangular(position)}");
             _locomotion.IgnoreGround = isSpectator;
         }
@@ -202,7 +201,7 @@ namespace _Project.Scripts.Components {
         }
         private void HandleClick() {
             EquipmentDisplayer equippedItem = EquipmentHandler.GetEquipmentSlotByBodyPart(BodyPart.RightArm);
-            if (!equippedItem.CurrentEquipedItem.IsEmpty()) equippedItem.CurrentEquipedItem.Item.TryDoMainAction();
+            if (equippedItem.CurrentEquipedItem != null && !equippedItem.CurrentEquipedItem.IsEmpty()) equippedItem.CurrentEquipedItem.Item.TryDoMainAction();
         }
         public void UpdatePlayerMovementState(MovementMessageStruct movementMessage,  bool isInstant = true, float speed = 1f) {
             _locomotion.Rb.position = (isInstant) ? movementMessage.position : Vector3.Lerp(transform.position, movementMessage.position, speed);
@@ -215,7 +214,7 @@ namespace _Project.Scripts.Components {
             }
         }
         /**<summary>
-     *  <param name="itemStack">Item equipado</param>
+     *  <param name="itemStack">ItemStack equipado</param>
      *  <param name="equipmentSlot">Slot en el que se equipa</param>
      *  <param name="activeState">Estado de actividad</param>
      * <p>Si se ejecuta como servidor: notifica a todos los clientes del equipamiento del enviado</p>

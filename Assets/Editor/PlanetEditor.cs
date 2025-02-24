@@ -60,7 +60,7 @@ namespace Editor {
                     GUILayout.BeginVertical();
                     GUILayout.Label(noiseParams.noiseName, EditorStyles.boldLabel);
                     Rect rect = GUILayoutUtility.GetRect(128, 128, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
-                        EditorGUI.DrawPreviewTexture(rect, _planet.MeshGenerator.noiseTextures[i]);
+                    EditorGUI.DrawPreviewTexture(rect, _planet.MeshGenerator.noiseTextures[i]);
                     GUILayout.EndVertical();
                     GUILayout.FlexibleSpace();
                 }
@@ -70,12 +70,19 @@ namespace Editor {
         private void RegeneratePlanet() {
             _planet.GenerateDensityMap();
             _planet.MeshGenerator.OnValidate();
+            _chunkRenderer ??= FindObjectOfType<ChunkRenderer>();
             if (_chunkRenderer.ActiveChunks.Count > 0) {
                 _chunkRenderer ??= FindObjectOfType<ChunkRenderer>();
                 _chunkRenderer.Clear();
-                _chunkRenderer.GenerateChunksAround(_planet, FindObjectOfType<GameManager>().spawnPoint.position, _planet.chunkGenerationRadius);
+                Player player = FindObjectOfType<Player>();
+                if (player) {
+                    _chunkRenderer.GenerateChunksAround(_planet, player.transform.position, _planet.chunkGenerationRadius);
+                }
+                else {
+                    _chunkRenderer.GenerateChunksAround(_planet, FindObjectOfType<GameManager>().spawnPoint.position, _planet.chunkGenerationRadius);
+                }
             }
-            else
+            else 
                 _planet.Generate();
         }
         private void OnValidate() {

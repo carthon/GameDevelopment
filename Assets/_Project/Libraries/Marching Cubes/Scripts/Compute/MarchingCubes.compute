@@ -29,21 +29,19 @@ float3 chunkCoord;
 float3 planetCenter;
 
 float3 coordToWorld(int3 coord) {
-	return (coord / float(densityTextureSize) - 0.5f) * planetSize + planetCenter;
+	return (coord / float(densityTextureSize - 1) - 0.5f) * planetSize + planetCenter;
 }
 
 int indexFromCoord(int3 coord) {
 	coord = coord - int3(chunkCoord);
 	return coord.z * numPointsPerAxis * numPointsPerAxis + coord.y * numPointsPerAxis + coord.x;
 }
-/*
+
 float sampleDensity(int3 coord) {
 	coord = max(0, min(coord, densityTextureSize));
 	return DensityTexture[coord];
 }
-*/
 
-//Change to sample Height
 float sampleHeight(int3 coord) {
 	float3 coord3d = coordToWorld(coord);
 	float2 equirectangularPos = SphericalToEquirectangular(coord3d);
@@ -60,9 +58,9 @@ float3 calculateNormal(int3 coord) {
 	int3 offsetY = int3(0, 1, 0);
 	int3 offsetZ = int3(0, 0, 1);
 
-	float dx = sampleHeight(coord + offsetX) - sampleHeight(coord - offsetX);
-	float dy = sampleHeight(coord + offsetY) - sampleHeight(coord - offsetY);
-	float dz = sampleHeight(coord + offsetZ) - sampleHeight(coord - offsetZ);
+	float dx = sampleDensity(coord + offsetX) - sampleDensity(coord - offsetX);
+	float dy = sampleDensity(coord + offsetY) - sampleDensity(coord - offsetY);
+	float dz = sampleDensity(coord + offsetZ) - sampleDensity(coord - offsetZ);
 
 	return normalize(float3(dx, dy, dz));
 }
@@ -74,8 +72,8 @@ Vertex createVertex(int3 coordA, int3 coordB) {
 	
 	float3 posA = coordToWorld(coordA);
 	float3 posB = coordToWorld(coordB);
-	float densityA = sampleHeight(coordA);
-	float densityB = sampleHeight(coordB);
+	float densityA = sampleDensity(coordA);
+	float densityB = sampleDensity(coordB);
 
 	// Interpolate between the two corner points based on the density
 	float t = (isoLevel - densityA) / (densityB - densityA);
@@ -129,7 +127,7 @@ void ProcessCube (int3 id : SV_DispatchThreadID)
 		// Think of the configuration as an 8-bit binary number (each bit represents the state of a corner point).
 		// The state of each corner point is either 0: above the surface, or 1: below the surface.
 		// The code below sets the corresponding bit to 1, if the point is below the surface.
-		if (sampleHeight(cornerCoords[i]) < isoLevel) {
+		if (sampleDensity(cornerCoords[i]) < isoLevel) {
 			cubeConfiguration |= (1 << i);
 		}
 	}

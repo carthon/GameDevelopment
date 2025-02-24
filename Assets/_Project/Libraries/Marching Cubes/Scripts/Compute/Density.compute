@@ -2,26 +2,43 @@
 #include "Includes/Noise.compute"
 #include "Includes/Utils.compute"
 
-RWTexture3D<float> Generic3DNoiseTexture;
+RWTexture3D<float> OutputMap;
+RWTexture2DArray<float> NoiseTextures;
+RWTexture2D<float> DebugHitsTexture;
 
-RWTexture2D<float> ContinentalnessTexture;
 RWTexture2D<float> ErosionTexture;
+RWTexture2D<float> ContinentalnessTexture;
 RWTexture2D<float> PeekAndValleysTexture;
 RWTexture2D<float> TemperatureTexture;
 RWTexture2D<float> HumidityTexture;
 RWTexture3D<float> SquashFactorTexture;
 
-RWTexture2D<float> Generic2DNoiseTexture;
 StructuredBuffer<NoiseParams> NoiseParamsBuffer;
-
+RWStructuredBuffer<uint> DensityMinMax;
 int densityTextureSize;
 int sphereTextureHeight;
 int sphereTextureWidth;
 
 float planetSize;
+float3 planetCenter;
+float isoLevel;
 float noiseScale;
 float noiseHeightMultiplier;
 float testValue;
+
+int2 calculateTextureCoords(int3 cell)
+{
+	float3 worldPos = (cell / float(densityTextureSize) - 0.5) * planetSize;
+	float2 equirectangularPos = SphericalToEquirectangular(worldPos);
+	int2 textureCoords = int2(equirectangularPos.x * sphereTextureWidth, equirectangularPos.y * sphereTextureHeight);
+	textureCoords.x = clamp(textureCoords.x, 0 , sphereTextureWidth - 1);
+	textureCoords.y = clamp(textureCoords.y, 0 , sphereTextureHeight - 1);
+	return textureCoords;
+}
+
+float3 texCoordToWorld(int3 coord) {
+	return (coord / float(densityTextureSize - 1) - 0.5f) * planetSize + planetCenter;
+}
 
 float fbm(int numLayers, float lacunarity, float persistence, float scale, float3 pos) {
 	float noise = 0;
@@ -93,6 +110,7 @@ float fbm2dPeriodic(int numLayers, float lacunarity, float persistence, float sc
 	}
 	return noise;
 }
+
 float smoothEdge(float value, float edgeDistance, float edgeWidth)
 {
 	// edgeDistance: distancia del píxel al borde
@@ -100,6 +118,7 @@ float smoothEdge(float value, float edgeDistance, float edgeWidth)
 	//return smoothstep(edgeWidth, 0.0, edgeDistance) * value;
 	return smoothstep(0.0, edgeWidth, edgeDistance);
 }
+
 float fbm2dWithEdgeSmoothing(int numLayers, float lacunarity, float persistence, float scale, float2 pos)
 {
 	float noise = 0;
@@ -125,9 +144,9 @@ float fbm2dWithEdgeSmoothing(int numLayers, float lacunarity, float persistence,
 	return noise * edgeFactor;
 }
 
-float calculateDensityMap(int3 id, NoiseParams noise_params)
+float calculateDensityMap(int3 cell, NoiseParams noise_params)
 {
-	float3 worldPos = (id / float(densityTextureSize-1.0) - 0.5) * planetSize;
+	float3 worldPos = texCoordToWorld(cell);
 	float halfS = planetSize / 2;
 	float maxD = length(float3(halfS,halfS,halfS));
 	float fudge = 1;
@@ -139,44 +158,47 @@ float calculateDensityMap(int3 id, NoiseParams noise_params)
 	return density;
 }
 
-float calculateHeightMap(float2 pos, NoiseParams noise_params)
+float calculateDensitySphere(int3 cell)
 {
-	float noiseContinentalness = fbm2dWithEdgeSmoothing(noise_params.numLayers, noise_params.lacunarity, noise_params.persistence,
+	float3 worldPos = texCoordToWorld(cell);
+	float halfS = planetSize / 2;
+	float maxD = length(float3(halfS,halfS,halfS));
+	float fudge = 1;
+	float density = length(worldPos) / (maxD + fudge);
+
+	return density;
+}
+
+float heightMapNoise(float2 pos, NoiseParams noise_params)
+{
+	float noise = fbm2dWithEdgeSmoothing(noise_params.numLayers, noise_params.lacunarity, noise_params.persistence,
 		noise_params.noiseScale, pos) * noiseHeightMultiplier;
-
-	/*
-	float u = pos.y / float(sphereTextureWidth);
-	float v = pos.x / float(sphereTextureHeight);
-	float colorValue = u * v;
-	// Dibujar un punto en el centro de la textura
-	int2 centerCoords = int2(sphereTextureWidth / 2, sphereTextureHeight / 2);
-	//noiseContinentalness = colorValue * noiseHeightMultiplier;  // Color distintivo, por ejemplo, blanco
-	if (abs(pos.x - sphereTextureWidth) < testValue) {
-		noiseContinentalness = 1.0 * noiseHeightMultiplier;  // Color distintivo, por ejemplo, blanco
-	} else {
-		noiseContinentalness = 0 * noiseHeightMultiplier;
-	}
-	*/
-	return noiseContinentalness;
+	return noise;
 }
 
-void SetHeightMap(int3 id, NoiseParams noise_params)
-{
-	float3 worldPos = (id / float(densityTextureSize) - 0.5) * planetSize;
-	float2 equirectangularPos = SphericalToEquirectangular(worldPos);
-	int2 textureCoords = int2(equirectangularPos.x * sphereTextureWidth, equirectangularPos.y * sphereTextureHeight);
-	// Asegurarse de que las coordenadas estén dentro de los límites de la textura
-	textureCoords.x = clamp(textureCoords.x, 0 , sphereTextureWidth);
-	textureCoords.y = clamp(textureCoords.y, 0 , sphereTextureHeight);
-	Generic2DNoiseTexture[textureCoords] = calculateHeightMap(textureCoords, noise_params);
-}
-
-void SetSphericalDensity(int3 cell) {
-	NoiseParams noise_params = NoiseParamsBuffer[0];
+void CalculateSphericalDensity(int3 cell) {
+	NoiseParams noise_params = NoiseParamsBuffer[1];
 	if (noise_params.noiseType == DENSITY_NOISE) {
-		Generic3DNoiseTexture[cell] = calculateDensityMap(cell, noise_params);		
+		OutputMap[cell] = calculateDensityMap(cell, noise_params);
 	} else if (noise_params.noiseType == HEIGHTMAP_NOISE) {
-		SetHeightMap(cell, noise_params);
+		//Revisar porque al tratar asi la densidad sumandola al mapa de alturas salen pequeños artefactos en la malla
+		//Habría que ver si hay que suavizar o ajustar el cálculo de textureCoords
+		//Calculo altura por ruido
+		uint2 textureCoords = calculateTextureCoords(cell);
+		float heightValue = heightMapNoise(textureCoords, noise_params);
+		//Transformación de ruido 2D a 3D esférico
+		float3 coord3d = texCoordToWorld(cell);
+		float heightToPos = CalculateHeight(coord3d, planetCenter);
+		float density = heightValue + heightToPos;
+		float incremental = DebugHitsTexture[textureCoords];
+		DebugHitsTexture[textureCoords] = incremental + 1.0f;
+		NoiseTextures[uint3(textureCoords, 0)] = heightValue / noiseHeightMultiplier;
+		OutputMap[cell] = density;
+		if (density > 0) {
+			uint ud = asuint(density);
+			InterlockedMin(DensityMinMax[0], ud);
+			InterlockedMax(DensityMinMax[1], ud);
+		}
 	}
 }
 
@@ -196,5 +218,5 @@ void CSMain (int3 id : SV_DispatchThreadID)
 	if (id.x >= densityTextureSize || id.y >= densityTextureSize || id.z >= densityTextureSize) {
 		return;
 	}
-	SetSphericalDensity(id);
+	CalculateSphericalDensity(id);
 }

@@ -87,9 +87,12 @@ namespace _Project.Scripts.Handlers {
         }
 
         public void Clear() {
+            foreach (Chunk chunk in RenderingQueue) {
+                chunk.IsLoaded = false;
+                chunk.IsActive = false;
+            }
             RenderingQueue.Clear();
             ActiveChunks.Clear();
-            
         }
     }
 }

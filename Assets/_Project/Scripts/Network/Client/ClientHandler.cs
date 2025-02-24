@@ -7,6 +7,7 @@ using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Network.MessageUtils;
 using RiptideNetworking;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace _Project.Scripts.Network.Client {
     public partial class Client {
