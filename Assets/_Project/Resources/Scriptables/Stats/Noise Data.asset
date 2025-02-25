@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53ad44a03cd146449b168624bfdab33a, type: 3}
+  m_Name: Noise Data
+  m_EditorClassIdentifier: 
+  noiseParams:
+  - noiseName: Caves
+    noiseType: 1
+    numLayers: 3
+    lacunarity: 2
+    persistence: 0.3
+    noiseScale: 20
+  - noiseName: Normal
+    noiseType: 2
+    numLayers: 6
+    lacunarity: 2
+    persistence: 0.5
+    noiseScale: 0.04
+  - noiseName: Planes
+    noiseType: 1
+    numLayers: 3
+    lacunarity: 2
+    persistence: 0.3
+    noiseScale: 0.01

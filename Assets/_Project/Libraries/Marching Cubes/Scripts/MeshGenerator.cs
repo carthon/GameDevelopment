@@ -1,11 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using _Project.Helper.Compute_Helper;
 using _Project.Scripts.Components;
+using _Project.Scripts.Constants;
+using _Project.Scripts.DataClasses;
 using _Project.Scripts.Handlers;
+using _Project.Scripts.Utils;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Debug = UnityEngine.Debug;
 
@@ -20,7 +26,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		public bool useFlatShading;
 		private float renderDistance = 0f;
 
-		public float noiseScale;
+		public NoiseData NoiseData;
 		public float noiseHeightMultiplier;
 		public bool blurMap;
 		public int blurRadius = 3;
@@ -32,15 +38,16 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		public ComputeShader densityCompute;
 		public ComputeShader blurCompute;
 		public ComputeShader editCompute;
-		public ComputeShader colorFromTextureCompute;
 		public Material material;
 
 
 		// Private
-		ComputeBuffer triangleBuffer;
-		ComputeBuffer triCountBuffer;
-		public RenderTexture rawDensityTexture;
-		public RenderTexture processedDensityTexture;
+		ComputeBuffer meshTriangleBuffer;
+		ComputeBuffer waterTriangleBuffer;
+		ComputeBuffer triangleCountBuffer;
+		ComputeBuffer waterTriangleCountBuffer;
+		ComputeBuffer noiseDataBuffer;
+		ComputeBuffer densityMinMaxBuffer;
 		private Vector3 _reference;
 		private Planet _planet;
 
@@ -50,10 +57,11 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		Stopwatch timer_fetchVertexData;
 		Stopwatch timer_processVertexData;
 		Stopwatch timer_processDensityMap;
-		RenderTexture originalMap;
+		[SerializeField] RenderTexture densityMap;
 		public RenderTexture originalMap2D;
-		public RenderTexture continentalness;
-		[SerializeField] private float depth;
+		[FormerlySerializedAs("continentalness")] public RenderTexture debugHitTexture;
+		public RenderTexture[] noiseTextures;
+		[SerializeField] private float depthToSlice;
 
 		void Start() {
 			Debug.Log("Graphics device version: " + SystemInfo.graphicsDeviceVersion);
@@ -71,9 +79,8 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		}
 		public void OnValidate() {
 			if (updateOnEditor) {
-				material.SetTexture("DensityTex", originalMap);
-				//material.SetFloat("oceanRadius", FindObjectOfType<Water>().radius);
-				material.SetFloat("planetBoundsSize", boundsSize);
+				UpdateMaterialData();
+				CreateRenderTextures();
 			}
 		}
 
@@ -89,57 +96,91 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			float circumference = 2.0f * Mathf.PI * radius;
 			int textureWidth = Mathf.CeilToInt(circumference * resolution);
 			int textureHeight = Mathf.CeilToInt(circumference / 2.0f * resolution);
-			Debug.Log($"TextureHeight: {textureHeight} TextureWidth: {textureWidth}");
 			
-			Create3DTexture(ref rawDensityTexture, size, "Raw Density Texture");
-			Create3DTexture(ref processedDensityTexture, size, "Processed Density Texture");
 			Create2DTexture(ref originalMap2D, size, "Processed 2D Density Texture");
-			Create2DTexture(ref continentalness, textureHeight, textureWidth, "Continentalness Values");
-			//Create2DTexture(ref continentalness, size, "Continentalness Values");
-
-			if (!blurMap) {
-				processedDensityTexture = rawDensityTexture;
+			Create2DTexture(ref debugHitTexture, textureHeight, textureWidth, 0, "Debug Value");
+			Create3DTexture(ref densityMap, size, "Density Values");
+			noiseTextures = new RenderTexture[NoiseData.noiseParams.Count];
+			for (int i = 0; i < NoiseData.noiseParams.Count; i++) {
+				NoiseParams noiseParams = NoiseData.noiseParams[i];
+				if (noiseParams.noiseType == DensityEnum.HEIGHTMAP_NOISE)
+					Create2DTexture(ref noiseTextures[i], textureHeight, textureWidth, 0, noiseParams.noiseName);
+				else
+					Create3DTexture(ref noiseTextures[i], size, noiseParams.noiseName);
 			}
 
 			// Set textures on compute shaders
-			densityCompute.SetTexture(0, "DensityTexture", rawDensityTexture);
-			densityCompute.SetTexture(0, "ContinentalnessTexture", continentalness);
-			editCompute.SetTexture(0, "EditTexture", rawDensityTexture);
-			blurCompute.SetTexture(0, "Source", rawDensityTexture);
-			blurCompute.SetTexture(0, "Result", processedDensityTexture);
-			meshCompute.SetTexture(0, "DensityTexture", (blurCompute) ? processedDensityTexture : rawDensityTexture);
+			//densityCompute.SetTexture(0, "DensityTexture", rawDensityTexture);
+			//editCompute.SetTexture(0, "EditTexture", rawDensityTexture);
+			//blurCompute.SetTexture(0, "Source", rawDensityTexture);
+			//blurCompute.SetTexture(0, "Result", processedDensityTexture);
+			//meshCompute.SetTexture(0, "DensityTexture", (blurCompute) ? processedDensityTexture : rawDensityTexture);
 		}
 
 		public void CreateRenderTextures() {
-			ComputeHelper.CreateRenderTexture3D(ref originalMap, processedDensityTexture);
-			ComputeHelper.CopyRenderTexture3D(processedDensityTexture, originalMap);
-			ComputeHelper.TransformTexture3DTo2D(originalMap, originalMap2D, depth % originalMap.volumeDepth);
-			material.EnableKeyword("_MAIN_LIGHT_SHADOWS");
+			//ComputeHelper.CreateRenderTexture3D(ref densityMap, processedDensityTexture);
+			//ComputeHelper.CopyRenderTexture3D(processedDensityTexture, densityMap);
+			ComputeHelper.TransformTexture3DTo2D(densityMap, originalMap2D, depthToSlice % densityMap.volumeDepth);
 		}
 
-		public void ComputeDensity() {
+		public void ComputeDensity(Vector3 point) {
 			// Get points (each point is a vector4: xyz = position, w = density)
 			if (!ComputeHelper.CanRunEditModeCompute) {
 				Debug.LogError("Compute Buffer could'nt run in editmode");
 				return;
 			}
-			int textureSize = rawDensityTexture.width;
 			timer_processDensityMap = new Stopwatch();
 			timer_processDensityMap.Start();
 			
-			//timer_processDensityMap.Start();
-			densityCompute.SetInt("densityTextureSize", textureSize);
-			densityCompute.SetInt("sphereTextureHeight", continentalness.height);
-			densityCompute.SetInt("sphereTextureWidth", continentalness.width);
+			densityCompute.SetInt("densityTextureSize", densityMap.width);
+			
+			uint[] initValues = new uint[2];
+			initValues[0] = MathUtility.FloatToUint(3.4e+38f); // min lo inicializamos a +∞
+			initValues[1] = MathUtility.FloatToUint(0); // max lo inicializamos a 0
+			densityMinMaxBuffer.SetData(initValues);
+			densityCompute.SetBuffer(0, "DensityMinMax", densityMinMaxBuffer);
+			
+			densityCompute.SetInt("sphereTextureHeight", debugHitTexture.height);
+			densityCompute.SetInt("sphereTextureWidth", debugHitTexture.width);
 
 			densityCompute.SetFloat("planetSize", boundsSize);
+			densityCompute.SetVector("planetCenter", _planet.Center);
+			densityCompute.SetFloat("isoLevel", isoLevel);
 			densityCompute.SetFloat("testValue", testValue);
 			densityCompute.SetFloat("noiseHeightMultiplier", noiseHeightMultiplier);
-			densityCompute.SetFloat("noiseScale", noiseScale);
 
-			ComputeHelper.Dispatch(densityCompute, textureSize, textureSize, textureSize);
-
-			ProcessDensityMap();
+			List<NoiseParams> noiseParams = NoiseData.noiseParams;
+			List<GPUNoiseParams> gpuNoiseParams = new List<GPUNoiseParams>();
+			foreach (NoiseParams noiseParam in noiseParams) {
+				GPUNoiseParams gpuNoiseParam = new GPUNoiseParams() {
+					lacunarity = noiseParam.lacunarity,
+					noiseScale = noiseParam.noiseScale,
+					noiseType = noiseParam.noiseType,
+					numLayers = noiseParam.numLayers,
+					persistence = noiseParam.persistence,
+				};
+				gpuNoiseParams.Add(gpuNoiseParam);
+			}
+			noiseDataBuffer.SetData(gpuNoiseParams.ToArray());
+			densityCompute.SetBuffer(0, "NoiseParamsBuffer", noiseDataBuffer);
+			
+			RenderTexture tempTexture = ComputeHelper.CombineRender2DTexturesToArray(noiseTextures);
+			densityCompute.SetTexture(0, "NoiseTextures", tempTexture);
+			densityCompute.SetTexture(0, "DebugHitsTexture", debugHitTexture);
+			densityCompute.SetTexture(0, "OutputMap", densityMap);
+			Debug.Log($"Generating map for 3D Texture: {densityMap.width} {densityMap.height} {densityMap.depth}");
+			ComputeHelper.Dispatch(densityCompute, densityMap.width, densityMap.height, densityMap.volumeDepth);
+			ComputeHelper.ExtractRender2DTextureToArray(tempTexture, ref noiseTextures);
+			
+			uint[] minMax = new uint[2];
+			densityMinMaxBuffer.GetData(minMax);
+			float minVal = MathUtility.UintToFloat(minMax[0]);
+			float maxVal = MathUtility.UintToFloat(minMax[1]);
+			Debug.Log($"MaxDensity: {maxVal} MinDensity: {minVal}");
+			
+			//ComputeHelper.Normalize3DTexture(ref densityMap, minVal, maxVal);
+			UpdateMaterialData();
+			//ProcessDensityMap();
 		}
 
 		void ProcessDensityMap() {
@@ -149,16 +190,27 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 					Debug.LogError("Compute Buffer could'nt run in editmode");
 					return;
 				}
-				int size = rawDensityTexture.width;
-				blurCompute.SetInts("brushCentre", 0, 0, 0);
-				blurCompute.SetInt("blurRadius", blurRadius);
-				blurCompute.SetInt("textureSize", rawDensityTexture.width);
-				ComputeHelper.Dispatch(blurCompute, size, size, size);
+				//int size = rawDensityTexture.width;
+				//blurCompute.SetInts("brushCentre", 0, 0, 0);
+				//blurCompute.SetInt("blurRadius", blurRadius);
+				//blurCompute.SetInt("textureSize", rawDensityTexture.width);
+				//ComputeHelper.Dispatch(blurCompute, size, size, size);
 			}
 			timer_processDensityMap.Stop();
 			Debug.Log($"Tiempo generación de densidad (ms): {timer_processDensityMap.ElapsedMilliseconds}");
 		}
 
+		public void UpdateMaterialData() {
+			material.SetTexture("DensityTex", densityMap);
+			//material.SetFloat("oceanRadius", FindObjectOfType<Water>().radius);
+			material.SetFloat("planetBoundsSize", boundsSize);
+			if (_planet is null) {
+				TryGetComponent(out _planet);
+			}
+			material.SetVector("planetCenter", _planet.Center);
+			material.EnableKeyword("_MAIN_LIGHT_SHADOWS");
+		}
+		
 		public void GenerateChunk(Chunk chunk) {
 			// Create timers:
 			timer_fetchVertexData = new Stopwatch();
@@ -170,36 +222,38 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			// Marching cubes
 			int numVoxelsPerAxis = chunk.numPointsPerAxis - 1;
 			int marchKernel = 0;
-			
-			meshCompute.SetInt("densityTextureSize", processedDensityTexture.width);
-			meshCompute.SetInt("sphereTextureHeight", continentalness.height);
-			meshCompute.SetInt("sphereTextureWidth", continentalness.width);
+			RenderTexture texture = noiseTextures[1];
+			if (texture is null) return;
+			//Revisar el cálculo de texture.height y width
+			meshCompute.SetInt("densityTextureSize", densityMap.width);
+			meshCompute.SetInt("sphereTextureHeight", texture.height);
+			meshCompute.SetInt("sphereTextureWidth", texture.width);
 			meshCompute.SetInt("numPointsPerAxis", numPointsPerAxis);
 			meshCompute.SetFloat("isoLevel", isoLevel);
 			meshCompute.SetFloat("planetSize", boundsSize);
-			meshCompute.SetTexture(0, "ContinentalnessTexture", continentalness);
-			triangleBuffer.SetCounterValue(0);
-			meshCompute.SetBuffer(marchKernel, "triangles", triangleBuffer);
+			meshCompute.SetTexture(0, "DensityTexture", densityMap);
+			meshTriangleBuffer.SetCounterValue(0);
+			meshCompute.SetBuffer(marchKernel, "triangles", meshTriangleBuffer);
 
 			Vector3 chunkCoord = (Vector3) chunk.GetCoords() * (numPointsPerAxis - 1);
 			meshCompute.SetVector("chunkCoord", chunkCoord);
 			meshCompute.SetVector("planetCenter", _planet.Center);
-
+			
 			ComputeHelper.Dispatch(meshCompute, numVoxelsPerAxis, numVoxelsPerAxis, numVoxelsPerAxis, marchKernel);
 
 			// Create mesh
 			int[] vertexCountData = new int[1];
-			triCountBuffer.SetData(vertexCountData);
-			ComputeBuffer.CopyCount(triangleBuffer, triCountBuffer, 0);
+			triangleCountBuffer.SetData(vertexCountData);
+			ComputeBuffer.CopyCount(meshTriangleBuffer, triangleCountBuffer, 0);
 
 			//timer_fetchVertexData.Start();
-			triCountBuffer.GetData(vertexCountData);
+			triangleCountBuffer.GetData(vertexCountData);
 
 			int numVertices = vertexCountData[0] * 3;
 
 			// Fetch vertex data from GPU
 
-			triangleBuffer.GetData(vertexDataArray, 0, 0, numVertices);
+			meshTriangleBuffer.GetData(vertexDataArray, 0, 0, numVertices);
 
 			//timer_fetchVertexData.Stop();
 			Debug.Log($"Tiempo creación de vértices(ms): {timer_fetchVertexData.ElapsedMilliseconds}");
@@ -212,18 +266,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		}
 
 		void Update() {
-
-			// TODO: move somewhere more sensible
-			material.SetTexture("DensityTex", originalMap);
-			//material.SetFloat("oceanRadius", FindObjectOfType<Water>().radius);
-			material.SetFloat("planetBoundsSize", boundsSize);
-			/*
-		if (Input.GetKeyDown(KeyCode.G))
-		{
-			Debug.Log("Generate");
-			GenerateAllChunks();
-		}
-		*/
+			CreateRenderTextures();
 		}
 
 		void CreateBuffers() {
@@ -233,31 +276,40 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			int maxTriangleCount = numVoxels * 5;
 			int maxVertexCount = maxTriangleCount * 3;
 			ReleaseBuffers();
-			triCountBuffer = new ComputeBuffer(1, sizeof (int), ComputeBufferType.Raw);
-			triangleBuffer = new ComputeBuffer(maxVertexCount, ComputeHelper.GetStride<VertexData>(), ComputeBufferType.Append);
+			triangleCountBuffer = new ComputeBuffer(1, sizeof (int), ComputeBufferType.Raw);
+			meshTriangleBuffer = new ComputeBuffer(maxVertexCount, ComputeHelper.GetStride<VertexData>(), ComputeBufferType.Append);
+			noiseDataBuffer = new ComputeBuffer(NoiseData.noiseParams.Count, ComputeHelper.GetStride<GPUNoiseParams>(), ComputeBufferType.Structured);
+			densityMinMaxBuffer = new ComputeBuffer(2, sizeof(uint), ComputeBufferType.Raw);
 			vertexDataArray = new VertexData[maxVertexCount];
 		}
 
 		public void ReleaseBuffers() {
-			if (triangleBuffer is not null && triCountBuffer is not null && triangleBuffer.IsValid() && triCountBuffer.IsValid())
-				ComputeHelper.Release(triangleBuffer, triCountBuffer);
+			if (meshTriangleBuffer is not null && triangleCountBuffer is not null && noiseDataBuffer is not null &&
+			    meshTriangleBuffer.IsValid() && triangleCountBuffer.IsValid() && noiseDataBuffer.IsValid())
+				ComputeHelper.Release(meshTriangleBuffer, triangleCountBuffer, noiseDataBuffer);
 		}
 		
 		public float GetDensityAtPoint(Vector3 point) {
-			float[] result = ComputeHelper.GetColourFromTexture(originalMap, rawDensityTexture.width, boundsSize, point);
+			float[] result = ComputeHelper.GetColourFromTexture(densityMap, densityMap.width, densityMap.height, boundsSize, point);
 			return result[0];
 		}
-		public float GetContinentalnessAtPoint(Vector3 point) {
-			float[] result = ComputeHelper.GetColourFromTexture(continentalness, continentalness.width, continentalness.height, boundsSize, point);
+		public float GetHeightMapValuesAtPoint(Vector3 point) {
+			Assert.IsTrue(noiseTextures.Length > 0);
+			int textureId = 0;
+			foreach (NoiseParams dataNoiseParam in NoiseData.noiseParams) {
+				if (dataNoiseParam.noiseType == DensityEnum.HEIGHTMAP_NOISE)
+					break;
+				textureId++;
+			}
+			float[] result = ComputeHelper.GetColourFromTexture(noiseTextures[textureId], noiseTextures[textureId].width, noiseTextures[textureId].height, boundsSize, point);
 			return result[0];
 		}
 		
 		void OnDestroy() {
 			updateOnEditor = false;
 		}
-
 		public void Terraform(Vector3 point, float weight, float radius) {
-
+			/*
 			int editTextureSize = rawDensityTexture.width;
 			float editPixelWorldSize = boundsSize / editTextureSize;
 			int editRadius = Mathf.CeilToInt(radius / editPixelWorldSize);
@@ -291,7 +343,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 				ComputeHelper.Dispatch(blurCompute, k, k, k);
 			}
 
-			//ComputeHelper.CopyRenderTexture3D(originalMap, processedDensityTexture);
+			//ComputeHelper.CopyRenderTexture3D(densityMap, processedDensityTexture);
 /*
 			float worldRadius = (editRadius + 1 + ((blurMap) ? blurRadius : 0)) * editPixelWorldSize;
 			for (int i = 0; i < chunks.Length; i++) {
@@ -305,32 +357,35 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			}*/
 		}
 
-		void Create3DTexture(ref RenderTexture texture, int size, string name) {
+		void Create3DTexture(ref RenderTexture texture, int size, string name = "Empty") {
+			Create3DTexture(ref texture, size, size, size, name);
+		}
+		void Create3DTexture(ref RenderTexture texture, int width, int height, int depth, string name = "Empty") {
 			//
 			var format = GraphicsFormat.R32_SFloat;
-			if (texture == null || !texture.IsCreated() || texture.width != size || texture.height != size || texture.volumeDepth != size || texture.graphicsFormat != format) {
+			if (texture == null || !texture.IsCreated() || texture.width != width || texture.height != height || texture.volumeDepth != depth || texture.graphicsFormat != format) {
 				//Debug.Log ("Create tex: update noise: " + updateNoise);
 				if (texture != null) {
 					texture.Release();
 				}
 				const int numBitsInDepthBuffer = 0;
-				texture = new RenderTexture(size, size, numBitsInDepthBuffer);
+				texture = new RenderTexture(width, height, numBitsInDepthBuffer);
 				texture.graphicsFormat = format;
-				texture.volumeDepth = size;
+				texture.volumeDepth = depth;
 				texture.enableRandomWrite = true;
 				texture.dimension = TextureDimension.Tex3D;
-
-
+				
+				Debug.Log($"TextureHeight: {height} TextureWidth: {width} TextureDepth: {depth}");
 				texture.Create();
 			}
 			texture.wrapMode = TextureWrapMode.Repeat;
 			texture.filterMode = FilterMode.Bilinear;
 			texture.name = name;
 		}
-		void Create2DTexture(ref RenderTexture texture, int size, string name) {
-			Create2DTexture(ref texture, size, size, name);
+		void Create2DTexture(ref RenderTexture texture, int size, string name = "Empty") {
+			Create2DTexture(ref texture, size, size, 0, name);
 		}
-		void Create2DTexture(ref RenderTexture texture, int height, int width, string name) {
+		void Create2DTexture(ref RenderTexture texture, int height, int width, int depth = 0, string name = "Empty") {
 			var format = GraphicsFormat.R32_SFloat;
 			if (texture == null || !texture.IsCreated() || texture.width != width || texture.height != height || texture.volumeDepth != 0 || texture.graphicsFormat != format) {
 				//Debug.Log ("Create tex: update noise: " + updateNoise);
@@ -340,12 +395,13 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 				const int numBitsInDepthBuffer = 0;
 				texture = new RenderTexture(width, height, numBitsInDepthBuffer);
 				texture.graphicsFormat = format;
-				texture.volumeDepth = 0;
+				texture.volumeDepth = depth;
 				texture.enableRandomWrite = true;
 				texture.dimension = TextureDimension.Tex2D;
 
 
 				texture.Create();
+				Debug.Log($"TextureHeight: {height} TextureWidth: {width} TextureDepth: {depth}");
 			}
 			texture.wrapMode = TextureWrapMode.Repeat;
 			texture.filterMode = FilterMode.Bilinear;

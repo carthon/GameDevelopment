@@ -66,6 +66,7 @@ Shader "Custom/Terrain"
 			float4 _GrassLightTex_ST;
 			float4 _GrassDarkTex_ST;
             float planetBoundsSize;
+            float planetCenter;
             
 			half _Glossiness;
 			half _Specular;
@@ -125,7 +126,8 @@ Shader "Custom/Terrain"
 			}
 	            
 			float3 worldToTexPos(float3 worldPos) {
-				return worldPos / planetBoundsSize + 0.5;
+            	float3 local = worldPos - planetCenter;
+				return (local / planetBoundsSize / 2) + 0.5;
 			}
             
             Interpolators Vertex (Attributes v) //Transform normal to world space
@@ -145,12 +147,16 @@ Shader "Custom/Terrain"
             float4 Fragment (Interpolators i) : SV_Target
             {
                 // sample the texture
-				float3 t = worldToTexPos(i.positionWS);
+				float3 t = saturate( worldToTexPos(i.positionWS) );
 				float density = SAMPLE_TEXTURE3D(DensityTex, sampler_DensityTex, t);
 				//0 = flat, 0.5 = vertical, 1 = flat (but upside down)
 				float steepness = 1 - (dot(normalize(i.positionWS), i.normalOS) * 0.5 + 0.5);
-				float dstFromCentre = length(i.positionWS);
-
+				float dstFromCentre = length(i.positionWS - planetCenter);
+            	//density = (density + 1) / 2;
+				// Normalización:
+				density = (density - 290) / (350 - 290);
+			    // Escala a [0..1] => (densidad + 1)/2
+            	//return float4(density, density, density, 1.0f);
 				float4 noise = triplanarOffset(i.positionWS, i.normalOS, 30, _NoiseTex, sampler_NoiseTex, 0);
 				float4 noise2 = triplanarOffset(i.positionWS, i.normalOS, 50, _NoiseTex, sampler_NoiseTex, 0);
 				

@@ -4,6 +4,17 @@ using static UnityEngine.Mathf;
 namespace _Project.Scripts.Utils {
 	public static class MathUtility
 	{
+		public static uint FloatToUint(float f)
+		{
+			byte[] bytes = System.BitConverter.GetBytes(f); // 4 bytes
+			return System.BitConverter.ToUInt32(bytes, 0);
+		}
+
+		public static float UintToFloat(uint i)
+		{
+			byte[] bytes = System.BitConverter.GetBytes(i);
+			return System.BitConverter.ToSingle(bytes, 0);
+		}
 
 		public static bool SphereIntersectsBox(Vector3 sphereCentre, float sphereRadius, Vector3 boxCentre, Vector3 boxSize)
 		{
@@ -29,6 +40,12 @@ namespace _Project.Scripts.Utils {
 		public static Vector3 WorldToLocalVector(Quaternion rotation, Vector3 vector)
 		{
 			return Quaternion.Inverse(rotation) * vector;
+		}
+
+		public static int CoordToIndex(int x, int y, int width) => y * width + x;
+		public static void IndexToCoord(int index, int width, ref int x, ref int y) {
+			y = index / width;
+			x = index % width;
 		}
 
 	}

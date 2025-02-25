@@ -128,9 +128,9 @@ namespace _Project.Scripts.Components {
         }
 
         public ItemStack TakeItemsFromSlot(int slot, int count) {
-            var itemStackCopy = new ItemStack(this, slot);
+            var takenItemStack = new ItemStack(this, slot);
             if (IsValidSlot(slot) && !_items[slot].IsEmpty()) {
-                itemStackCopy = new ItemStack(_items[slot]);
+                takenItemStack = new ItemStack(_items[slot]);
                 var newCount = _items[slot].GetCount() - count;
                 if (newCount <= 0) {
                     _freeSpace += 1;
@@ -138,10 +138,10 @@ namespace _Project.Scripts.Components {
                     newCount = 0;
                 }
                 _items[slot].SetCount(newCount);
-                itemStackCopy.SetCount(count);
+                takenItemStack.SetCount(count);
                 OnSlotChange?.Invoke(slot, _items[slot]);
             }
-            return itemStackCopy;
+            return takenItemStack;
         }
 
         public ItemStack TakeStack(ItemStack itemStack) {

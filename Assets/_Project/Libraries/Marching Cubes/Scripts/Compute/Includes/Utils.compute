@@ -1,5 +1,14 @@
 ﻿#define PI 3.14159265359
 
+#define DENSITY_NOISE 1
+#define HEIGHTMAP_NOISE 2
+
+struct NoiseParams {
+    int noiseType;
+    int numLayers;
+    float lacunarity, persistence, noiseScale;
+};
+
 float2 SphericalToEquirectangular(float3 position)
 {
     // Normalizar la posición para obtener coordenadas unitarias en la esfera

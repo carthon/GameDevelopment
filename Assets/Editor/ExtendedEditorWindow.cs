@@ -43,7 +43,7 @@ namespace Editor {
                 EditorGUI.indentLevel++;
                 EditorGUILayout.LabelField(obj.name, EditorStyles.boldLabel);
 
-                var fields = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+                var fields = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
                 foreach (var field in fields) {
                     switch (field.GetValue(obj)) {
@@ -62,29 +62,6 @@ namespace Editor {
                         case GameObject casted:
                             SerializedObject serialized = new SerializedObject(casted);
                             EditorGUILayout.PropertyField(serialized.FindProperty("m_Name"), true);
-                            break;
-                        case ItemSize casted:
-                            List<string> options = new List<string>();
-                            foreach (ItemSize itemSize in Enum.GetValues(typeof(ItemSize))) {
-                                options.Add(itemSize.ToString());
-                            }
-                            int selectedIndex = (int) casted;
-                            EditorGUILayout.BeginHorizontal();
-                            EditorGUILayout.PrefixLabel("ItemSize: ");
-                            if(EditorGUILayout.DropdownButton(new GUIContent(options[selectedIndex]), FocusType.Keyboard)) {
-                                GenericMenu menu = new GenericMenu();
-                                for (int i = 0; i < options.Count; i++)
-                                {
-                                    int index = i;
-                                    menu.AddItem(new GUIContent(options[index]), selectedIndex == index, () =>
-                                    {
-                                        selectedIndex = index;
-                                        field.SetValue(obj, (ItemSize) selectedIndex);
-                                    });
-                                }
-                                menu.ShowAsContext();
-                            }
-                            EditorGUILayout.EndHorizontal();
                             break;
                         case LayerMask casted:
                             int layerMaskValue = casted.value;
