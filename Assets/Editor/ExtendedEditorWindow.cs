@@ -63,29 +63,6 @@ namespace Editor {
                             SerializedObject serialized = new SerializedObject(casted);
                             EditorGUILayout.PropertyField(serialized.FindProperty("m_Name"), true);
                             break;
-                        case ItemSize casted:
-                            List<string> options = new List<string>();
-                            foreach (ItemSize itemSize in Enum.GetValues(typeof(ItemSize))) {
-                                options.Add(itemSize.ToString());
-                            }
-                            int selectedIndex = (int) casted;
-                            EditorGUILayout.BeginHorizontal();
-                            EditorGUILayout.PrefixLabel("ItemSize: ");
-                            if(EditorGUILayout.DropdownButton(new GUIContent(options[selectedIndex]), FocusType.Keyboard)) {
-                                GenericMenu menu = new GenericMenu();
-                                for (int i = 0; i < options.Count; i++)
-                                {
-                                    int index = i;
-                                    menu.AddItem(new GUIContent(options[index]), selectedIndex == index, () =>
-                                    {
-                                        selectedIndex = index;
-                                        field.SetValue(obj, (ItemSize) selectedIndex);
-                                    });
-                                }
-                                menu.ShowAsContext();
-                            }
-                            EditorGUILayout.EndHorizontal();
-                            break;
                         case LayerMask casted:
                             int layerMaskValue = casted.value;
                             layerMaskValue = EditorGUILayout.MaskField(field.Name, layerMaskValue, UnityEditorInternal.InternalEditorUtility.layers);

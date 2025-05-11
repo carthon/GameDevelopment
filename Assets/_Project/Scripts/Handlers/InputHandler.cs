@@ -19,6 +19,8 @@ namespace _Project.Scripts.Handlers {
         private Vector2 _movementInput;
         private Action<bool> _OnActivateUI;
         private Action<InputAction.CallbackContext> OnClick;
+        public Action OnItemRotation;
+        public Action OnPickAction;
         private Action<int> _OnHotbarEquip;
         private Action<int> _OnLeftHandEquip;
         private bool _rb_Input;
@@ -72,7 +74,6 @@ namespace _Project.Scripts.Handlers {
             IsJumping,
             IsDoubleJumping,
             IsSprinting,
-            IsPicking,
             IsCrouching,
             IsInInventory,
             Clicked,
@@ -89,7 +90,6 @@ namespace _Project.Scripts.Handlers {
             IsRolling = false;
             IsJumping = false;
             IsDoubleJumping = false;
-            IsPicking = false;
             EquipInput = false;
         }
         public void Awake() {
@@ -102,6 +102,8 @@ namespace _Project.Scripts.Handlers {
                 _inputActions.PlayerSpaceMovement.Camera.performed += i => _cameraInput = i.ReadValue<Vector2>();
                 _inputActions.PlayerActions.Crouch.started += i => IsCrouching = true;
                 _inputActions.PlayerActions.Crouch.canceled += i => IsCrouching = false;
+                _inputActions.PlayerActions.RB.started += i => _rb_Input = true;
+                _inputActions.PlayerActions.RB.canceled += i => _rb_Input = false;
                 
                 _inputActions.Camera.OrbitalView.performed += i => SwapView = true;
                 _inputActions.Camera.SwapPersonCamera.performed += i => SwapPerson = true;
@@ -112,8 +114,7 @@ namespace _Project.Scripts.Handlers {
                 _inputActions.UIActions.Click.canceled += i => Clicked = false;
                 _inputActions.UIActions.RClick.started += i => RClicked = true;
                 _inputActions.UIActions.RClick.canceled += i => RClicked = false;
-                _inputActions.PlayerActions.RB.started += i => _rb_Input = true;
-                _inputActions.PlayerActions.RB.canceled += i => _rb_Input = false;
+                _inputActions.UIActions.RotateInventorItem.performed += context => OnItemRotation.Invoke();
                 _rt_Input = _inputActions.PlayerActions.RB.phase == InputActionPhase.Started;
                 _inputActions.UIActions.HotbarInput.performed += i => {
                     HotbarSlot = (int) i.ReadValue<float>();
@@ -151,7 +152,7 @@ namespace _Project.Scripts.Handlers {
         private void HandleUIInput() {
             IsUIEnabled = IsInMenu || IsInInventory;
             _dropItem = _inputActions.UIActions.DropItem.phase == InputActionPhase.Started;
-            IsPicking = _inputActions.PlayerActions.PickItem.phase == InputActionPhase.Performed;
+            _inputActions.PlayerActions.PickItem.performed += context => OnPickAction?.Invoke();
         }
 
         private void MoveInput(float delta) {

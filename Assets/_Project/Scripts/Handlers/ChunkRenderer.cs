@@ -19,6 +19,8 @@ namespace _Project.Scripts.Handlers {
         private Chunk _lastChunkVisited;
         [SerializeField] private bool _isLoading = false;
         public void GenerateChunksAround(Planet planet, Vector3 position, int nChunks) {
+            if (planet is null)
+                return;
             _lastPlanet = planet;
             _lastPosition = position;
             _chunksToRender = nChunks;
@@ -26,7 +28,7 @@ namespace _Project.Scripts.Handlers {
             if(!_lastChunkVisited.IsInBounds(position)) _lastChunkVisited = planet.FindChunkAtPosition(position);
             RenderingQueue.Enqueue(_lastChunkVisited);
             if (_lastPlanet != planet) {
-                _centerChunk = planet.FindChunkAtPosition(planet.Center).GetCoords();
+                _centerChunk = planet.FindChunkAtPosition(planet.PlanetData.Center).GetCoords();
             }
             // Determine chunks to load and unload
             if(_lastChunkVisited is not null)
@@ -35,7 +37,7 @@ namespace _Project.Scripts.Handlers {
                 for (int z = -nChunks; z <= nChunks; z++) {
                     Vector3 positionToCenter = _lastChunkVisited.GetCoords() - _centerChunk;
                     Vector3Int chunkCoord = new Vector3Int(_lastChunkVisited.GetCoords().x + x, _lastChunkVisited.GetCoords().y + y, _lastChunkVisited.GetCoords().z + z);
-                    Vector3 currentVector = chunkCoord - planet.Center;
+                    Vector3 currentVector = chunkCoord - planet.PlanetData.Center;
                     float dotProduct = Vector3.Dot(positionToCenter, currentVector);
                     //Calculamos la distancia entre el punto del jugador y el punto del chunk, si el chunk está en el lado opuesto al jugador desde el centro
                     //No renderizamos los chunks para ahorrar tiempo de procesamiento

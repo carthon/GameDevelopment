@@ -94,7 +94,7 @@ namespace Editor {
                     float posX = (-(_planet.NumChunks - 1f) / 2 + x) * chunkSize;
                     float posY = (-(_planet.NumChunks - 1f) / 2 + y) * chunkSize;
                     float posZ = (-(_planet.NumChunks - 1f) / 2 + z) * chunkSize;
-                    Handles.DrawWireCube(new Vector3(posX, posY, posZ) + _planet.Center, Vector3.one * chunkSize);
+                    Handles.DrawWireCube(new Vector3(posX, posY, posZ) + _planet.PlanetData.Center, Vector3.one * chunkSize);
                 }
             }
         }

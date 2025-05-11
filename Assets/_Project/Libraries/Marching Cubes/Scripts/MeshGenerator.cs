@@ -183,7 +183,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 
 			Vector3 chunkCoord = (Vector3) chunk.GetCoords() * (numPointsPerAxis - 1);
 			meshCompute.SetVector("chunkCoord", chunkCoord);
-			meshCompute.SetVector("planetCenter", _planet.Center);
+			meshCompute.SetVector("planetCenter", _planet.PlanetData.Center);
 
 			ComputeHelper.Dispatch(meshCompute, numVoxelsPerAxis, numVoxelsPerAxis, numVoxelsPerAxis, marchKernel);
 

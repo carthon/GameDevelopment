@@ -42,7 +42,8 @@ namespace _Project.Scripts.Components {
                 _collider = GetComponentInChildren<Collider>();
                 _outline = UIHandler.AddOutlineToObject(gameObject, Color.green);
                 _planet = GameManager.Singleton.defaultPlanet;
-                _initialChunk = _planet.FindChunkAtPosition(transform.position);
+                if (_planet is not null)
+                    _initialChunk = _planet.FindChunkAtPosition(transform.position);
                 if (!GameManager.grabbableItems.ContainsKey(Id))
                     GameManager.grabbableItems.Add(Id, this);
                 else {
@@ -60,11 +61,19 @@ namespace _Project.Scripts.Components {
         }
 
         private void FixedUpdate() {
-            Chunk chunk = _planet.FindChunkAtPosition(transform.position);
-            if (chunk is null || !chunk.IsActive)
-                return;
-            if (!chunk.Equals(_initialChunk)) {
-                HandleChunkTransfer(chunk);
+            int groundLayer = LayerMask.NameToLayer("Ground");
+            float gravity = 9.8f;
+            Vector3 center = Vector3.down * float.MaxValue;
+            if (_planet is not null) {
+                gravity = _planet.PlanetData.Gravity;
+                center = _planet.PlanetData.Center;
+                Chunk chunk = _planet.FindChunkAtPosition(transform.position);
+                groundLayer = _planet.GroundLayer;
+                if (chunk is null || !chunk.IsActive)
+                    return;
+                if (!chunk.Equals(_initialChunk)) {
+                    HandleChunkTransfer(chunk);
+                }
             }
             Vector3 upDir = transform.up;
             Vector3 centre = Rb.position;
@@ -72,10 +81,10 @@ namespace _Project.Scripts.Components {
             float colliderBounds = bounds.extents.y;
             Vector3 castOrigin = centre + upDir * (colliderBounds * 2);
             wasNearGround = isNearGround;
-            isNearGround = Physics.Raycast(castOrigin, -upDir, out hitInfo, colliderBounds * 4, _planet.GroundLayer);
+            isNearGround = Physics.Raycast(castOrigin, -upDir, out hitInfo, colliderBounds * 4, groundLayer);
             _lastGroundPosition = hitInfo.point;
             if (hasGravity && !isNearGround) {
-                HandleGravity();
+                HandleGravity(center, gravity);
                 if (Rb.velocity.magnitude > 1f && Rb.collisionDetectionMode != CollisionDetectionMode.Continuous) {
                     Rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
                 }
@@ -83,7 +92,7 @@ namespace _Project.Scripts.Components {
                 if (Rb.collisionDetectionMode != CollisionDetectionMode.Discrete)
                     Rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
             } else if (Rb.velocity.magnitude > 0) {
-                HandleGravity();
+                HandleGravity(center, gravity);
             }
         }
         public void HandleChunkTransfer(Chunk newChunk) {
@@ -91,13 +100,13 @@ namespace _Project.Scripts.Components {
             newChunk.AddEntity(this);
             _initialChunk = newChunk;
         }
-        public void HandleGravity() {
-            Vector3 gravityUp = (Rb.position - _planet.Center).normalized;
-            Vector3 gravityForce = -gravityUp * _planet.Gravity; // La aceleración de la gravedad debe ser negativa para que 'tire' del jugador hacia el centro del planeta
+        public void HandleGravity(Vector3 center, float gravity) {
+            Vector3 gravityUp = (Rb.position - center).normalized;
+            Vector3 gravityForce = -gravityUp * gravity; // La aceleración de la gravedad debe ser negativa para que 'tire' del jugador hacia el centro del planeta
             Rb.AddForce(gravityForce, ForceMode.Acceleration); // Aplicamos la fuerza de gravedad como una aceleración
         }
-        public void HandleBounce() {
-            Vector3 gravityUp = (Rb.position - _planet.Center).normalized;
+        public void HandleBounce(Vector3 center) {
+            Vector3 gravityUp = (Rb.position - _planet.PlanetData.Center).normalized;
             Vector3 gravityForce = gravityUp * (Rb.velocity.magnitude);
             Rb.AddForce(gravityForce, ForceMode.Impulse);
             
@@ -118,7 +127,7 @@ namespace _Project.Scripts.Components {
         }
         public void SetOutline(bool enabled) => _outline.enabled = enabled;
         public void OnDestroy() {
-            GameManager.grabbableItems.Remove(this.Id);
+            GameManager.grabbableItems.Remove(Id);
             Chunk chunk = GetPlanet()?.FindChunkAtPosition(transform.position);
             chunk?.RemoveEntity(this);
             if (NetworkManager.Singleton.IsServer) {
@@ -155,7 +164,7 @@ namespace _Project.Scripts.Components {
                 if (NetworkManager.Singleton.itemsDictionary.TryGetValue(grabbableData.itemId, out Item prefabData)) {
                     Rigidbody rb = null;
                     if (!GameManager.grabbableItems.TryGetValue(grabbableData.grabbableId, out Grabbable grabbable)) {
-                        grabbable = Instantiate(prefabData.modelPrefab, grabbableData.position,
+                        grabbable = Instantiate(prefabData.itemPrefab, grabbableData.position,
                             grabbableData.rotation).AddComponent<Grabbable>();
                     }
                     else {

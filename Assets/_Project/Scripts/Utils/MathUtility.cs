@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Mathf;
 
@@ -31,5 +32,11 @@ namespace _Project.Scripts.Utils {
 			return Quaternion.Inverse(rotation) * vector;
 		}
 
+		public static int CeilToInt(float value) => (int)Ceil(value);
+
+		public static (int, int) IndexToCoordinates(int index, int width) {
+			return (index % width, index / width);
+		}
+		public static int CoordinatesToIndex(int x, int y, int width) => y * width + x;
 	}
 }

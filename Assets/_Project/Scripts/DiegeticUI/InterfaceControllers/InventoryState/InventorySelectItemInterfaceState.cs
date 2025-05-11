@@ -4,31 +4,28 @@ using _Project.Libraries.QuickOutline.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.Handlers;
 using UnityEngine;
-using Logger = _Project.Scripts.Utils.Logger;
 
 namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
     public class InventorySelectItemInterfaceState : InterfaceAbstractBaseState {
         private InventoryInterfaceState _inventoryInterfaceState;
-        public InventorySelectItemInterfaceState(InterfaceStateFactory factory, UIHandler context) : base(factory, context) {
+        public InventorySelectItemInterfaceState(InterfaceStateFactory factory, ContainerRenderer context) : base(factory, context) {
         }
         protected override void UpdateState() {
             CheckSwitchStates();
         }
         private bool TrySelectItem(Outline obj, int count = -1) {
-            int slot = Int32.Parse(obj.transform.name);
-            int inventoryId = Int32.Parse(obj.transform.parent.name);
-            Inventory inventory = ContainerRenderer.Singleton.inventory.Inventories[inventoryId];
-            itemSelected = count > -1 ? inventory.GetItemStack(slot, count) : inventory.GetItemStack(slot);
-            if (!itemSelected.IsEmpty()) {
-                _inventoryInterfaceState.GrabbedItems = new List<Transform>();
-                _inventoryInterfaceState.LastGrabbedItemsLocalPosition = new List<Vector3>();
-                for (int i = 0; i < itemSelected.GetCount(); i++) {
-                    Transform child = obj.transform.GetChild(i);
-                    _inventoryInterfaceState.GrabbedItems.Add(child);
-                    _inventoryInterfaceState.LastGrabbedItemsLocalPosition.Add(child.localPosition);
-                }
+            if (Context.renderedItems.TryGetValue(obj.transform.gameObject, out Vector2Int inventorySlot)) {
+                Inventory inventory = Context.Inventory;
+                itemSelected = inventory.GetInventorySlot(inventorySlot);
+                if (itemSelected.ItemStack.IsEmpty())
+                    return !itemSelected.ItemStack.IsEmpty();
+                _inventoryInterfaceState.GrabbedItemsCollider.Clear();
+                _inventoryInterfaceState.LastGrabbedItemsLocalPosition.Clear();
+                Collider child = obj.GetComponent<Collider>();
+                _inventoryInterfaceState.GrabbedItemsCollider.Add(child);
+                _inventoryInterfaceState.LastGrabbedItemsLocalPosition.Add(child.transform.localPosition);
             }
-            return !itemSelected.IsEmpty();
+            return !itemSelected.ItemStack.IsEmpty();
         }
         protected sealed override void EnterState() {
             _inventoryInterfaceState = (InventoryInterfaceState) CurrentSuperState;

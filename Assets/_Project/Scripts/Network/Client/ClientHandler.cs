@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
@@ -5,6 +6,7 @@ using _Project.Scripts.Entities;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Network.MessageUtils;
+using _Project.Scripts.Utils;
 using RiptideNetworking;
 using UnityEngine;
 
@@ -17,8 +19,8 @@ namespace _Project.Scripts.Network.Client {
                 return;
             ushort playerId = message.GetUShort();
             int inventoryId = message.GetInt();
-            ItemStack itemStack = message.GetItemStack();
-            Singleton.Player.InventoryManager.SetItemStack(itemStack, inventoryId);
+            InventorySlot inventorySlot = message.GetInventorySlot();
+            Singleton.Player.InventoryManager.SetInventorySlot(inventorySlot, inventoryId);
         }
         
         [MessageHandler((ushort)Server.Server.PacketHandler.spawnMessage)]
@@ -96,7 +98,8 @@ namespace _Project.Scripts.Network.Client {
         public static void DropItemStack(ItemStack itemStack, Vector3 position, Quaternion rotation) {
             if (NetworkManager.Singleton.IsClient) {
                 Message message = Message.Create(MessageSendMode.reliable, PacketHandler.serverItemDrop);
-                message.AddInts(new[] {itemStack.GetInventory().Id, itemStack.GetSlotID()});
+                message.AddInt(itemStack.GetInventory().Id);
+                message.AddVector2Int(itemStack.OriginalSlot);
                 message.AddVector3(position);
                 message.AddQuaternion(rotation);
                 NetworkManager.Singleton.Client.Send(message);

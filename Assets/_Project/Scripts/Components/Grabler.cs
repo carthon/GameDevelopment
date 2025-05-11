@@ -21,8 +21,9 @@ namespace _Project.Scripts.Components {
             var leftOvers = new List<ItemStack>();
             foreach (var itemInLootTable in itemTable.LootTables) {
                 var leftOver = LinkedInventoryManager.AddItemStack(new ItemStack(itemInLootTable.Item, itemInLootTable.Count));
-                leftOvers.Add(leftOver);
                 itemInLootTable.Count = leftOver.GetCount();
+                if (leftOver.GetCount() > 0)
+                    leftOvers.Add(leftOver);
             }
             if (itemTable.IsEmpty()) {
                 Planet planet = closestGrabbable.GetPlanet();

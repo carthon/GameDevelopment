@@ -1,6 +1,7 @@
 ﻿using System;
 using _Project.Scripts.Components;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace _Project.Scripts.DataClasses.ItemTypes {
     [Serializable]
@@ -11,42 +12,46 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
 
         private Inventory parent;
         public Item Item { get; set; }
-        private int slotID;
+        public Vector2Int OriginalSlot;
         public ItemStack(ItemStack itemStack) {
             Item = itemStack.Item;
             count = itemStack.GetCount();
             parent = itemStack.parent;
-            slotID = itemStack.slotID;
+            OriginalSlot = itemStack.OriginalSlot;
         }
-
-        public ItemStack(Inventory parent, int slotID) {
+        public ItemStack(Inventory parent, Vector2Int originalSlot) {
             Item = null;
-            this.slotID = slotID;
+            OriginalSlot = originalSlot;
             count = 0;
             this.parent = parent;
         }
-
+        public ItemStack(Inventory parent) {
+            Item = null;
+            OriginalSlot = Vector2Int.zero;
+            count = 0;
+            this.parent = parent;
+        }
         public ItemStack() {
             Item = null;
-            slotID = -1;
+            OriginalSlot = Vector2Int.zero;
             count = 0;
             parent = null;
         }
         public ItemStack(Item item, int count) {
             Item = item;
             this.count = count;
-            slotID = -1;
+            OriginalSlot = Vector2Int.zero;
             parent = null;
         }
-        public ItemStack(Item item, int count, int slotID) {
+        public ItemStack(Item item, int count, Vector2Int originalSlot) {
             Item = item;
             this.count = count;
-            this.slotID = slotID;
+            OriginalSlot = originalSlot;
             parent = null;
         }
-        public ItemStack(Item item, int slotID, Inventory parent) {
+        public ItemStack(Item item, Vector2Int originalSlot, Inventory parent) {
             Item = item;
-            this.slotID = slotID;
+            this.OriginalSlot = originalSlot;
             this.parent = parent;
             count = 0;
         }
@@ -60,6 +65,8 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
         public void SetStack(ItemStack itemStack) {
             Item = itemStack.Item;
             count = itemStack.GetCount();
+            OriginalSlot = itemStack.OriginalSlot;
+            parent = itemStack.parent;
         }
         public bool IsEmpty() {
             return count <= 0;
@@ -67,24 +74,19 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
         public bool IsFull() {
             return count >= Item.GetMaxStackSize();
         }
-        public int GetSlotID() {
-            return slotID;
-        }
-        public void SetSlot(int newValue) {
-            slotID = newValue;
-        }
         public Inventory GetInventory() {
             return parent;
         }
         public override int GetHashCode() {
-            return (Item, slotID, Count: count).GetHashCode();
+            return (Item, slotID: OriginalSlot, Count: count).GetHashCode();
         }
         public override bool Equals([CanBeNull] object obj) {
             return Equals(obj as ItemStack);
         }
         public bool Equals(ItemStack other) {
             return other != null &&
-                Item == other.Item;
+                Item == other.Item && OriginalSlot == other.OriginalSlot && 
+                parent == other.parent;
         }
         public ItemStack GetCopy() {
             return new ItemStack(this);
@@ -93,7 +95,7 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
             parent = inventory;
         }
         public override string ToString() {
-            return $"Item:{Item.ToString()} Count:{count} SlotID:{slotID}";
+            return $"Item:{Item.ToString()} Count:{count} OriginalSlot:{OriginalSlot}";
         }
     }
 }
