@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using _Project.Helper.Compute_Helper;
 using _Project.Scripts.Components;
+using _Project.Scripts.DataClasses;
 using _Project.Scripts.Handlers;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
@@ -26,6 +27,8 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		public int blurRadius = 3;
 
 		public bool updateOnEditor = false;
+		public NoiseData NoiseData;
+		public RenderTexture[] noiseTextures;
 
 		[Header("References")]
 		public ComputeShader meshCompute;

@@ -76,7 +76,7 @@ namespace _Project.Scripts.Components {
             Vector3 position = transform.position;
             //UIHandler.Instance.UpdateWatchedVariables("density", $"DensityAtPosition:{_planet.GetDensityAtPoint(position)}");
             if (_planet is not null) {
-                UIHandler.Instance.UpdateWatchedVariables("continentalness", $"Continentalness:{_planet.GetContinentalnessAtPoint(position)}");
+                UIHandler.Instance.UpdateWatchedVariables("continentalness", $"Continentalness:{_planet.GetHeightMapValuesAtPoint(position)}");
                 float planetSize = _planet.NumChunks * 100;
                 UIHandler.Instance.UpdateWatchedVariables("planetheight", $"Planet height {position.magnitude / planetSize}");
             }
