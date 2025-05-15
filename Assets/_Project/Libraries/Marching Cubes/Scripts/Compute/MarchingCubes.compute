@@ -16,7 +16,7 @@ struct Triangle {
 //
 AppendStructuredBuffer<Triangle> triangles;
 RWTexture3D<float> DensityTexture;
-RWTexture2D<float> ContinentalnessTexture;
+RWTexture2D<float> HeightMapTexture;
 
 int densityTextureSize;
 int sphereTextureHeight;
@@ -29,30 +29,28 @@ float3 chunkCoord;
 float3 planetCenter;
 
 float3 coordToWorld(int3 coord) {
-	return (coord / float(densityTextureSize) - 0.5f) * planetSize + planetCenter;
+	return (coord / float(densityTextureSize - 1) - 0.5f) * planetSize + planetCenter;
 }
 
 int indexFromCoord(int3 coord) {
 	coord = coord - int3(chunkCoord);
 	return coord.z * numPointsPerAxis * numPointsPerAxis + coord.y * numPointsPerAxis + coord.x;
 }
-/*
+
 float sampleDensity(int3 coord) {
 	coord = max(0, min(coord, densityTextureSize));
 	return DensityTexture[coord];
 }
-*/
 
-//Change to sample Height
-float sampleDensity(int3 coord) {
+float sampleHeight(int3 coord) {
 	float3 coord3d = coordToWorld(coord);
 	float2 equirectangularPos = SphericalToEquirectangular(coord3d);
 	int2 coord2D = int2(equirectangularPos.x * sphereTextureWidth, equirectangularPos.y * sphereTextureHeight);
 	coord2D.x = clamp(coord2D.x, 0 , sphereTextureWidth);
 	coord2D.y = clamp(coord2D.y, 0 , sphereTextureHeight);
-	float actualHeight = CalculateHeight(coord3d, planetCenter);
-	float continentalness = ContinentalnessTexture[coord2D];
-	return actualHeight + continentalness - isoLevel;
+	float heightToPos = CalculateHeight(coord3d, planetCenter);
+	float desiredHeightByMap = HeightMapTexture[coord2D];
+	return heightToPos + desiredHeightByMap - isoLevel;
 }
 
 float3 calculateNormal(int3 coord) {

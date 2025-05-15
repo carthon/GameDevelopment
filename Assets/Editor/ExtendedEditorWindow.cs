@@ -43,7 +43,7 @@ namespace Editor {
                 EditorGUI.indentLevel++;
                 EditorGUILayout.LabelField(obj.name, EditorStyles.boldLabel);
 
-                var fields = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+                var fields = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
                 foreach (var field in fields) {
                     switch (field.GetValue(obj)) {

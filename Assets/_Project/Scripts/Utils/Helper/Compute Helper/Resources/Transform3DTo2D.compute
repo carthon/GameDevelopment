@@ -15,5 +15,5 @@ void Trans2D (int3 id : SV_DispatchThreadID)
     int3 inputCoord = int3(id.x, id.y, (int)Depth);
     // Leer el valor de la textura 3D
     // Escribir el valor en la textura 2D
-    Target[id.xy] = Source[inputCoord];
+    Target[id.xy] = Source[inputCoord] / 255;
 }

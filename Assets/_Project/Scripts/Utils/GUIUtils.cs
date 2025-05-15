@@ -1,7 +1,6 @@
-using _Project.Scripts.Handlers;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace _Project.Scripts.Utils {
     public class GUIUtils {
@@ -20,8 +19,8 @@ namespace _Project.Scripts.Utils {
         }
         public static void DrawWorldText(string text, Vector3 worldPos, Color? colour = null) {
 #if UNITY_EDITOR
-            UnityEditor.Handles.color = colour ?? Color.white;
-            UnityEditor.Handles.Label(worldPos, text);
+            Handles.color = colour ?? Color.white;
+            Handles.Label(worldPos, text);
 #endif
         }
     }

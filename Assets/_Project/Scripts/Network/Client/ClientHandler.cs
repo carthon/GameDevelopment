@@ -9,6 +9,7 @@ using _Project.Scripts.Network.MessageUtils;
 using _Project.Scripts.Utils;
 using RiptideNetworking;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace _Project.Scripts.Network.Client {
     public partial class Client {
