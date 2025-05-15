@@ -1,205 +1,134 @@
 using System;
 using System.Collections.Generic;
-using _Project.Libraries.QuickOutline.Scripts;
 using _Project.Scripts.Components;
+using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Handlers;
+using _Project.Scripts.Utils;
 using UnityEngine;
-using Logger = _Project.Scripts.Utils.Logger;
 
 namespace _Project.Scripts.DiegeticUI {
     public class ContainerRenderer : MonoBehaviour {
-        [SerializeField]
-        public float slotSize = 0.1f;
-        public InventoryManager inventory;
-        private Transform _parent;
-        private List<Dictionary<int, List<(Renderer, MeshFilter)>>> slotIDItemsRendererDict;
-        private List<Dictionary<int, Outline>> slotIDOutlinesDict;
-        private List<Dictionary<int, Bounds>> slotIDItemBounds;
-        private static ContainerRenderer _singleton;
-        private Vector3 originalParentPosition;
-        private Vector3 inventoryDownRaycastDirection = Vector3.down;
-        private bool toggled;
+        public Inventory Inventory;
         
-        private int itemsPerRow = 0;
-        private int itemsPerColumn = 0;
-        private int itemPileHeight = 0;
-        public Transform SpawnPoint { get => _parent; }
-        public static ContainerRenderer Singleton
-        {
-            get => _singleton;
-            private set {
-                if (_singleton == null)
-                    _singleton = value;
-                else if(_singleton != null) {
-                    Debug.Log($"{nameof(ContainerRenderer)} instance already exists, destroying duplicate!");
-                    Destroy(value);
-                }
-            }
+        public Grid inventoryGrid;
+        public Transform inventorySpawn;
+        public Dictionary<GameObject, Vector2Int> renderedItems = new Dictionary<GameObject, Vector2Int>();
+        public Color okIndicator = Color.green;
+        public Color errorIndicator = Color.red;
+        public Color dropIndicator = Color.magenta;
+
+        public bool visualizeGrid = false;
+        public float radius = 5f;       // Radio en unidades del mundo.
+        public Color gizmoColor = Color.green;
+
+        public void AttachToInventory(Inventory inventory) {
+            Inventory = inventory;
+            Inventory.OnSlotChange += InventoryOnSlotChange;
         }
-        private void Awake() {
-            Singleton = this;
-        }
-        
-        public void InitializeRenderer(InventoryManager inventoryManager, Transform parent) {
-            inventory = inventoryManager;
-            slotIDItemsRendererDict = new List<Dictionary<int, List<(Renderer, MeshFilter)>>>();
-            slotIDOutlinesDict = new List<Dictionary<int, Outline>>();
-            slotIDItemBounds = new List<Dictionary<int, Bounds>>();
-            foreach (Inventory inv in inventory.Inventories) {
-                _parent = new GameObject(inv.Id.ToString()).transform;
-                _parent.SetParent(parent);
-                _parent.localPosition = Vector3.zero;
-                slotIDItemBounds.Add(new Dictionary<int, Bounds>());
-                slotIDItemsRendererDict.Add(new Dictionary<int, List<(Renderer, MeshFilter)>>());
-                slotIDOutlinesDict.Add(new Dictionary<int, Outline>());
-                inv.OnSlotChange += UpdateInventorySlot;
-                inv.OnSlotSwap += OnSlotSwap;
-                float slotsPerRow = (float) Math.Sqrt(inv.Size);
-                toggled = false;
-                for (int i = 0; i < inv.Size; i++) {
-                    Transform slot = CreateSlot(inv.Id, i, slotsPerRow);
-                    List<(Renderer, MeshFilter)> list = new List<(Renderer, MeshFilter)>();
-                    for (int j = 0; j < Inventory.MaxStackSize; j++) {
-                        (Renderer, MeshFilter) tuple = CreateItemModel(j.ToString(), slot);
-                        list.Add(tuple);
-                    }
-                    slotIDItemsRendererDict[inv.Id].Add(i, list);
-                    slotIDItemBounds[inv.Id].Add(i, new Bounds());
-                    slotIDOutlinesDict[inv.Id][i].ReloadRenderers();
-                }
-            }
-            _parent = parent;
-            originalParentPosition = _parent.localPosition;
-        }
-        private void OnSlotSwap(int inventoryId, int otherInventoryId, int slot, int otherSlot) {
-            UpdateInventorySlot(otherSlot, otherInventoryId);
-            UpdateInventorySlot(slot, inventoryId);
-        }
-        private Bounds GetItemBounds(ItemStack itemStack) {
-            Bounds bounds = new Bounds();
-            if (itemStack.Item.modelPrefab.TryGetComponent(out Renderer itemRenderer)) {
-                bounds = itemRenderer.bounds;
-            }
-            else {
-                itemRenderer = itemStack.Item.modelPrefab.GetComponentInChildren<Renderer>();
-                if (!(itemRenderer is null))
-                    bounds = itemRenderer.bounds;
-            }
-            return bounds;
-        }
-        private void UpdateRender(ItemStack itemStack, bool render = true) {
-            int slot = itemStack.GetSlotID();
-            int inventoryId = itemStack.GetInventory().Id;
-            if (itemStack.IsEmpty()) {
-                slotIDItemBounds[inventoryId][slot] = new Bounds();
-                foreach ((Renderer, MeshFilter) obj in slotIDItemsRendererDict[inventoryId][slot]) {
-                    obj.Item2.sharedMesh = null;
-                    obj.Item2.gameObject.SetActive(false);
-                }
+        public void DetachInventory(Inventory inventory) {
+            if (Inventory is null)
                 return;
+            Inventory.OnSlotChange -= InventoryOnSlotChange;
+            Inventory = null;
+        }
+        private void InventoryOnSlotChange(InventorySlot inventorySlot) {
+            // Item is already being rendered
+            Vector2Int modelInSlot;
+            if (inventorySlot.Model is not null && renderedItems.TryGetValue(inventorySlot.Model, out modelInSlot)) {
+                if (inventorySlot.IsOrigin && !Inventory.GetItemStackFromSlot(modelInSlot).IsEmpty()) {
+                    renderedItems.Remove(inventorySlot.Model);
+                    Destroy(inventorySlot.Model);
+                    inventorySlot.Model = null;
+                    RenderItem(inventorySlot);
+                }
+                else if (!inventorySlot.IsOrigin || Inventory.GetItemStackFromSlot(modelInSlot).IsEmpty()) {
+                    renderedItems.Remove(inventorySlot.Model);
+                    Destroy(inventorySlot.Model);
+                    inventorySlot.Model = null;
+                }
             }
-            Renderer itemRenderer = itemStack.Item.modelPrefab.GetComponentInChildren<Renderer>();
-            MeshFilter mesh = itemStack.Item.modelPrefab.GetComponentInChildren<MeshFilter>();
-            Transform meshTransform = mesh.transform;
-            Quaternion childRotation = meshTransform.localRotation;
-            Vector3 childScale = meshTransform.localScale;
-            float itemSize = slotSize;
-            Bounds itemBounds = GetItemBounds(itemStack);
-            slotIDItemBounds[inventoryId][slot] = itemBounds;
-            Vector3 itemExtents = itemBounds.extents * slotSize;
-            Logger.Singleton.Log($"Update mesh:{mesh} render: {itemRenderer}, Bounds:{itemBounds.extents}", Logger.Type.DEBUG);
-            
-            for (int i = 0; i < itemStack.GetCount(); i++) {
-                slotIDItemsRendererDict[inventoryId][slot][i].Item2.sharedMesh = mesh.sharedMesh;
-                slotIDItemsRendererDict[inventoryId][slot][i].Item1.sharedMaterial = itemRenderer.sharedMaterial;
-                slotIDItemsRendererDict[inventoryId][slot][i].Item1.gameObject.SetActive(render);
-                Transform child = slotIDItemsRendererDict[inventoryId][slot][i].Item1.transform;
-                child.localRotation = childRotation;
-                child.localScale = childScale * itemSize;
-                SetRenderPositionInSlot(i, child, itemExtents);
+            // First time item being rendered, we link the GameObject to the dictionary
+            else if (inventorySlot.IsOrigin && inventorySlot.ItemStack is not null && !inventorySlot.ItemStack.IsEmpty()) {
+                RenderItem(inventorySlot);
             }
-            itemsPerColumn = 0;
-            itemsPerRow = 0;
-            itemPileHeight = 0;
         }
-        private void SetRenderPositionInSlot(int slot, Transform renderedItem, Vector3 itemExtents) {
-            Bounds cellBounds = new Bounds(Vector3.zero, Vector3.one * slotSize / 2);
-            Bounds itemBounds = new Bounds(Vector3.zero, itemExtents * 2);
-            renderedItem.localPosition = Vector3.zero;
-            renderedItem.position += ModelPositionFromBounds(slot, Vector3.zero, itemBounds, cellBounds);
-        }
-        private Vector3 ModelPositionFromBounds(int cellIndex, Vector3 centerOfGrid, Bounds modelBounds, Bounds cellBounds) {
-            Vector3 leftBottomCellCorner = centerOfGrid - cellBounds.extents;
-            Vector3 leftBottomItemCenter = leftBottomCellCorner + modelBounds.extents;
-            Vector3 modelExtents = modelBounds.extents * 2;
-            modelBounds.center = leftBottomItemCenter + new Vector3(modelExtents.x, 0 , 0) * cellIndex;
-            if (modelBounds.Intersects(cellBounds)) {
-                return modelBounds.center;
+        private void RenderItem(InventorySlot inventorySlot) {
+            GameObject renderedStack = InstantiateItemRender(inventorySlot);
+            if (renderedItems.TryAdd(renderedStack, inventorySlot.ItemStack.OriginalSlot)) {
+                inventorySlot.Model = renderedStack;
+            } else {
+                Debug.LogError("Error trying to add item to render Dict");
             }
-            if (itemsPerRow == 0) {
-                itemsPerRow = cellIndex;
+        }
+        private GameObject InstantiateItemRender(InventorySlot inventorySlot) {
+            ItemStack itemStack = inventorySlot.ItemStack;
+            Vector3 position = FindPositionFromSlot(itemStack.OriginalSlot);
+            GameObject itemRendered = Instantiate(itemStack.Item.model, position, transform.rotation, inventorySpawn);
+            Bounds itemBounds = ExtractGameObjectBoundsAndSetTrigger(itemRendered);
+            if (inventorySlot.IsFlipped)
+                itemRendered.transform.Rotate(0, 90, 0);
+            else
+                itemRendered.transform.Rotate(0, 180, 0);
+            itemRendered.transform.position +=  inventorySpawn.up * (itemBounds.extents.y / 2);
+            itemRendered.tag = global::Constants.TAG_UISLOT;
+            Debug.Log($"Extents: {itemBounds.extents} && Scale: {itemRendered.transform.localScale}");
+            //GameObjectUtils.SetLayerRecursively(itemRendered, LayerMask.NameToLayer("Inventory"), "UISlot");
+            UIHandler.AddOutlineToObject(itemRendered, Color.white);
+            return itemRendered;
+        }
+        private Bounds ExtractGameObjectBoundsAndSetTrigger(GameObject obj) {
+            Collider[] colliders = obj.GetComponents<Collider>();
+            if (colliders.Length > 0)
+            {
+                Bounds combinedBounds = colliders[0].bounds;
+                for (int i = 1; i < colliders.Length; i++) {
+                    combinedBounds.Encapsulate(colliders[i].bounds);
+                }
+                return combinedBounds;
             }
-            modelBounds.center = leftBottomItemCenter + new Vector3(modelExtents.x, 0 , 0) * (cellIndex % itemsPerRow)
-                + new Vector3(0, 0, modelExtents.z) * (cellIndex / itemsPerRow % itemsPerRow);
-            if (!modelBounds.Intersects(cellBounds) && itemsPerColumn == 0) itemsPerColumn = cellIndex - 1;
-            if (itemsPerColumn != 0)
-                modelBounds.center = leftBottomItemCenter + new Vector3(modelExtents.x, 0 , 0) * (cellIndex % itemsPerRow)
-                    + new Vector3(0, 0, modelExtents.z) * (cellIndex / itemsPerColumn % itemsPerColumn);
-            if(cellIndex % (itemsPerRow * itemsPerRow) == 0 && cellIndex != 0)
-                itemPileHeight++;
-            modelBounds.center += new Vector3(0, modelExtents.y, 0) * itemPileHeight;
-            return modelBounds.center;
+            return new Bounds();
         }
-        private Vector3 CellPositionInGrid(int cellIndex, int cellPerRow, Vector3 gridPosition, float cellSize) {
-            Vector3 centerOfGrid = gridPosition - new Vector3((cellPerRow - 1) * cellSize, 0, (cellPerRow - 1) * cellSize) / 2;
-            // ReSharper disable once PossibleLossOfFraction
-            Vector3 cellPosition = new Vector3(cellIndex % cellPerRow, 0, (cellIndex / cellPerRow) % cellPerRow) * cellSize;
-            return centerOfGrid + cellPosition;
+        private Vector3 FindPositionFromSlot(Vector2Int slotPosition) {
+            Vector3Int centerCell = new Vector3Int(slotPosition.x, 0, -slotPosition.y);
+            Vector3 cellCenterWorld = inventoryGrid.GetCellCenterWorld(centerCell);
+            Vector3 localPos = inventoryGrid.transform.InverseTransformPoint(cellCenterWorld);
+            localPos.y = 0;
+            return inventoryGrid.transform.TransformPoint(localPos);
         }
-        private void UpdateInventorySlot(int slotId, ItemStack itemStack) => UpdateInventorySlot(slotId, itemStack.GetInventory().Id);
-        public void UpdateInventorySlot(int slotId, int inventoryId) {
-            ItemStack stackInSlot = inventory.Inventories[inventoryId].GetItemStack(slotId);
-            UpdateRender(stackInSlot, toggled);
-        }
-        public void ToggleRender(bool render, int inventoryId = 0) {
-            if (toggled == render)
+        private void OnDrawGizmos()
+        {
+            if (inventoryGrid == null || !visualizeGrid)
                 return;
 
-            if (!render) _parent.localPosition = originalParentPosition;
-            else if (Physics.Raycast(_parent.position + Vector3.up * 5f, inventoryDownRaycastDirection, out RaycastHit hit, 6f, 1 << LayerMask.NameToLayer("Ground"))) {
-                _parent.transform.position = hit.point;
-            }
-            for (int i = 0; i < inventory.Inventories[inventoryId].Size; i++) {
-                for (int j = 0; j < inventory.Inventories[inventoryId].GetItemStack(i).GetCount(); j++) {
-                    slotIDItemsRendererDict[inventoryId][i][j].Item1.gameObject.SetActive(render);
+            Gizmos.color = gizmoColor;
+
+            // Tamaño de celda definido en la Grid
+            Vector3 cellSize = inventoryGrid.cellSize;
+        
+            // Convertimos el punto central a coordenadas de celda para obtener la celda central.
+            Vector3Int centerCell = inventoryGrid.WorldToCell(inventorySpawn.position);
+        
+            // Calcula cuántas celdas se requieren para cubrir el radio.
+            // Usamos la mayor dimensión de la celda para asegurarnos de cubrir el área.
+            int cellsRadius = Mathf.CeilToInt(radius / Mathf.Max(cellSize.x, cellSize.z));
+
+            // Iteramos sobre un rango de celdas que podría cubrir el radio.
+            for (int x = -cellsRadius; x <= cellsRadius; x++)
+            {
+                for (int z = -cellsRadius; z <= cellsRadius; z++)
+                {
+                    Vector3Int cellPos = centerCell + new Vector3Int(x, 0, z);
+                    // Obtenemos el centro de la celda en el mundo.
+                    Vector3 cellWorldCenter = inventoryGrid.GetCellCenterWorld(cellPos);
+                    // Comprobamos si el centro de la celda está dentro del radio.
+                    if (Vector3.Distance(cellWorldCenter, inventorySpawn.position) <= radius)
+                    {
+                        // Dibujamos la celda (por ejemplo, un cubo con el tamaño de la celda).
+                        Gizmos.DrawWireCube(cellWorldCenter, cellSize);
+                    }
                 }
             }
-            toggled = render;
-        }
-        private Transform CreateSlot(int inventoryId, int slotId, float slotsPerRow) {
-            GameObject slotObj = new GameObject(slotId.ToString());
-            Transform slotParent = slotObj.transform;
-            Vector3 centerOfSlot = CellPositionInGrid(slotId, (int) slotsPerRow, Vector3.zero, slotSize);
-            slotParent.SetParent(_parent);
-            slotParent.localPosition = centerOfSlot + Vector3.up * slotSize / 2;
-            slotParent.rotation = _parent.rotation;
-            slotParent.tag = "UISlot";
-            BoxCollider boxCollider = slotParent.gameObject.AddComponent<BoxCollider>();
-            boxCollider.size = new Vector3(1, 0.2f, 1) * slotSize;
-            boxCollider.isTrigger = true;
-            if(!slotIDOutlinesDict[inventoryId].ContainsKey(slotId)) {
-                slotIDOutlinesDict[inventoryId].Add(slotId, UIHandler.AddOutlineToObject(slotParent.gameObject, Color.white));
-            }
-            return slotParent;
-        }
-        private (Renderer,MeshFilter) CreateItemModel(string itemName, Transform slotParent) {
-            GameObject renderedItem = new GameObject(itemName);
-            renderedItem.transform.SetParent(slotParent);
-            renderedItem.SetActive(toggled);
-            Renderer render = renderedItem.AddComponent<MeshRenderer>();
-            MeshFilter mesh = renderedItem.AddComponent<MeshFilter>();
-            return (render, mesh);
         }
     }
 }

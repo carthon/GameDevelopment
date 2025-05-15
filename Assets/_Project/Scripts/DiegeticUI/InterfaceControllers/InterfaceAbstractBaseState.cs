@@ -1,4 +1,5 @@
 using _Project.Libraries.QuickOutline.Scripts;
+using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Utils;
@@ -8,16 +9,16 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers {
         protected InterfaceAbstractBaseState CurrentSubState;
         protected InterfaceAbstractBaseState CurrentSuperState;
         public Outline HitMouseOutline;
-        protected ItemStack itemSelected;
+        protected InventorySlot itemSelected;
         protected bool _isRootState = false;
         protected InterfaceStateFactory Factory;
-        protected UIHandler Context;
+        protected ContainerRenderer Context;
         protected abstract void UpdateState();
         protected abstract void EnterState();
         protected abstract void ExitState();
         public abstract string StateName();
         
-        protected InterfaceAbstractBaseState(InterfaceStateFactory factory, UIHandler context) {
+        protected InterfaceAbstractBaseState(InterfaceStateFactory factory, ContainerRenderer context) {
             this.Factory = factory;
             this.Context = context;
         }
@@ -26,8 +27,8 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers {
             ExitState();
             if (_isRootState) {
                 newState.EnterState();
-                Context.LastState = Context.CurrentState;
-                Context.CurrentState = newState;
+                UIHandler.Instance.LastState = UIHandler.Instance.CurrentState;
+                UIHandler.Instance.CurrentState = newState;
             }
             else if (CurrentSuperState != null) CurrentSuperState.SetSubState(newState);
         }

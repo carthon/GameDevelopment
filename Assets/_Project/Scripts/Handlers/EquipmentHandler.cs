@@ -42,7 +42,7 @@ namespace _Project.Scripts.Handlers {
                 UnloadItemModel(equipmentDisplayer);
                 return;
             }
-            var model = Instantiate(itemStack.Item.modelPrefab);
+            var model = Instantiate(itemStack.Item.itemPrefab);
             if (model != null) model.transform.parent = equipmentDisplayer.OverrideTransform != null ? equipmentDisplayer.OverrideTransform : transform;
             model.transform.localPosition = Vector3.zero;
             model.transform.localRotation = Quaternion.identity;
@@ -57,7 +57,7 @@ namespace _Project.Scripts.Handlers {
                 return;
             }
 
-            var model = Instantiate(itemStack.Item.modelPrefab);
+            var model = Instantiate(itemStack.Item.itemPrefab);
             if (model != null) model.transform.parent = equipmentDisplayer.OverrideTransform != null ? equipmentDisplayer.OverrideTransform : transform;
             foreach (var componentsInChild in model.GetComponentsInChildren<Collider>()) componentsInChild.enabled = false;
             if (model.TryGetComponent(out Rigidbody rb)) rb.isKinematic = true;

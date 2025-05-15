@@ -7,24 +7,26 @@ using UnityEngine.Serialization;
 using Debug = UnityEngine.Debug;
 
 namespace _Project.Scripts.Components {
+    [Serializable]
+    public struct PlanetData {
+        public Vector3 Center;
+        public float Gravity;
+    }
     public class Planet : MonoBehaviour {
         [FormerlySerializedAs("_gravityRadius")] [SerializeField]
         private float gravityRadius;
-        [FormerlySerializedAs("_center")]
-        private Vector3 center;
         [FormerlySerializedAs("_groundLayer")] [SerializeField]
         private LayerMask groundLayer;
-        [FormerlySerializedAs("_gravity")] [SerializeField]
-        private float gravity;
         [SerializeField] private int numChunks;
         public bool showChunkBoundaries;
         [HideInInspector] public int chunkGenerationRadius;
-        public float Gravity => gravity;
+        [SerializeField]
+        private PlanetData _planetData;
+        public PlanetData PlanetData => _planetData;
         public int NumChunks => numChunks;
         public float GravityRadius => gravityRadius;
         public MeshGenerator MeshGenerator => _meshGenerator;
         public LayerMask GroundLayer => groundLayer;
-        public Vector3 Center => center;
         private SphereCollider _collider;
         private MeshGenerator _meshGenerator;
         private Chunk[] chunks;
@@ -45,7 +47,7 @@ namespace _Project.Scripts.Components {
             }
             _collider.radius = gravityRadius;
             _collider.center = Vector3.zero;
-            center = transform.position;
+            _planetData.Center = transform.position;
             if (chunks == null || chunks.Length != numChunks * numChunks * numChunks)
                 CreateChunks();
             _meshGenerator.InitMesh(this);
@@ -60,7 +62,7 @@ namespace _Project.Scripts.Components {
         }
         private int FindChunkIndexByPosition(Vector3 position) {
             // Normalizar la posición al rango de chunks
-            Vector3 localPosition = position - center;
+            Vector3 localPosition = position - _planetData.Center;
             float chunkSize = (_meshGenerator.boundsSize) / numChunks;
             int x = Mathf.FloorToInt((localPosition.x / chunkSize) + ((float) numChunks / 2));
             int y = Mathf.FloorToInt((localPosition.y / chunkSize) + ((float) numChunks / 2));
@@ -93,7 +95,7 @@ namespace _Project.Scripts.Components {
             return chunks[index];
         }
         public Chunk GetClosestChunk(Vector3 position) {
-            Vector3 localPosition = position - center;
+            Vector3 localPosition = position - _planetData.Center;
             Vector3 lastChunkInBounds = new Vector3(ClampToBounds(localPosition.x), ClampToBounds(localPosition.y), ClampToBounds(localPosition.z));
             return FindChunkAtPosition(lastChunkInBounds);
         }
@@ -117,7 +119,7 @@ namespace _Project.Scripts.Components {
                         float posY = (-(numChunks - 1f) / 2 + y) * chunkSize;
                         float posZ = (-(numChunks - 1f) / 2 + z) * chunkSize;
                         Vector3 relativeCentre = new Vector3(posX, posY, posZ);
-                        Vector3 centre = relativeCentre + center; // Centro relativo del chunk
+                        Vector3 centre = relativeCentre + _planetData.Center; // Centro relativo del chunk
 
                         GameObject meshHolder = new GameObject($"Chunk ({x}, {y}, {z})");
                         meshHolder.transform.parent = transform;

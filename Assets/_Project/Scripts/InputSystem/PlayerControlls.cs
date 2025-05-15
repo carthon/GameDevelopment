@@ -183,6 +183,15 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""a663cccb-c7d1-45ec-b0ef-971cb1586408"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -262,6 +271,17 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43b242b7-09bc-4bbf-96ee-5d86d1dd6849"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -327,6 +347,15 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
                     ""name"": ""RClick"",
                     ""type"": ""Button"",
                     ""id"": ""438a32ce-21ca-497f-b655-9e5516c17fbe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateInventorItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""d2ea9785-62e7-46d3-a2b1-63de03a1933b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -509,6 +538,17 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
                     ""action"": ""RClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0aa83b30-28f9-4062-98c1-33dbc8f3bc40"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateInventorItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -575,6 +615,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         m_PlayerActions_PickItem = m_PlayerActions.FindAction("PickItem", throwIfNotFound: true);
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
         m_PlayerActions_Crouch = m_PlayerActions.FindAction("Crouch", throwIfNotFound: true);
+        m_PlayerActions_Reload = m_PlayerActions.FindAction("Reload", throwIfNotFound: true);
         // UIActions
         m_UIActions = asset.FindActionMap("UIActions", throwIfNotFound: true);
         m_UIActions_PlayerOverview = m_UIActions.FindAction("PlayerOverview", throwIfNotFound: true);
@@ -584,6 +625,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         m_UIActions_Menu = m_UIActions.FindAction("Menu", throwIfNotFound: true);
         m_UIActions_Click = m_UIActions.FindAction("Click", throwIfNotFound: true);
         m_UIActions_RClick = m_UIActions.FindAction("RClick", throwIfNotFound: true);
+        m_UIActions_RotateInventorItem = m_UIActions.FindAction("RotateInventorItem", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_OrbitalView = m_Camera.FindAction("OrbitalView", throwIfNotFound: true);
@@ -709,6 +751,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_PickItem;
     private readonly InputAction m_PlayerActions_Jump;
     private readonly InputAction m_PlayerActions_Crouch;
+    private readonly InputAction m_PlayerActions_Reload;
     public struct PlayerActionsActions
     {
         private @PlayerControlls m_Wrapper;
@@ -719,6 +762,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         public InputAction @PickItem => m_Wrapper.m_PlayerActions_PickItem;
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
         public InputAction @Crouch => m_Wrapper.m_PlayerActions_Crouch;
+        public InputAction @Reload => m_Wrapper.m_PlayerActions_Reload;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -746,6 +790,9 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -768,6 +815,9 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -796,6 +846,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
     private readonly InputAction m_UIActions_Menu;
     private readonly InputAction m_UIActions_Click;
     private readonly InputAction m_UIActions_RClick;
+    private readonly InputAction m_UIActions_RotateInventorItem;
     public struct UIActionsActions
     {
         private @PlayerControlls m_Wrapper;
@@ -807,6 +858,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         public InputAction @Menu => m_Wrapper.m_UIActions_Menu;
         public InputAction @Click => m_Wrapper.m_UIActions_Click;
         public InputAction @RClick => m_Wrapper.m_UIActions_RClick;
+        public InputAction @RotateInventorItem => m_Wrapper.m_UIActions_RotateInventorItem;
         public InputActionMap Get() { return m_Wrapper.m_UIActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -837,6 +889,9 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
             @RClick.started += instance.OnRClick;
             @RClick.performed += instance.OnRClick;
             @RClick.canceled += instance.OnRClick;
+            @RotateInventorItem.started += instance.OnRotateInventorItem;
+            @RotateInventorItem.performed += instance.OnRotateInventorItem;
+            @RotateInventorItem.canceled += instance.OnRotateInventorItem;
         }
 
         private void UnregisterCallbacks(IUIActionsActions instance)
@@ -862,6 +917,9 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
             @RClick.started -= instance.OnRClick;
             @RClick.performed -= instance.OnRClick;
             @RClick.canceled -= instance.OnRClick;
+            @RotateInventorItem.started -= instance.OnRotateInventorItem;
+            @RotateInventorItem.performed -= instance.OnRotateInventorItem;
+            @RotateInventorItem.canceled -= instance.OnRotateInventorItem;
         }
 
         public void RemoveCallbacks(IUIActionsActions instance)
@@ -946,6 +1004,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         void OnPickItem(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
     public interface IUIActionsActions
     {
@@ -956,6 +1015,7 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         void OnMenu(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
         void OnRClick(InputAction.CallbackContext context);
+        void OnRotateInventorItem(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {

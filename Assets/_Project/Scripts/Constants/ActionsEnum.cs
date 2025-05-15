@@ -4,7 +4,6 @@ namespace _Project.Scripts.Constants {
         JUMPING,
         DOUBLEJUMPING,
         SPRINTING,
-        PICKING,
         CROUCHING,
         SEARCHING,
         ATTACKING

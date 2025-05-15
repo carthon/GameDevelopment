@@ -8,6 +8,7 @@ using _Project.Scripts.Factories;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Network.MessageUtils;
+using _Project.Scripts.Utils;
 using RiptideNetworking;
 using UnityEngine;
 using static _Project.Scripts.Network.PacketType;
@@ -97,11 +98,12 @@ namespace _Project.Scripts.Network.Server {
             int[] data = message.GetInts();
             int inventoryId = data[0];
             int otherInventoryId = data[1];
-            int slot = data[2];
-            int otherSlot = data[3];
+            Vector2Int slot = message.GetVector2Int();
+            Vector2Int otherSlot = message.GetVector2Int();
+            bool wasFlipped = message.GetBool();
             if (NetworkManager.playersList.TryGetValue(fromClientId, out Player player)) {
                 Inventory otherInventory = player.InventoryManager.Inventories[otherInventoryId];
-                player.InventoryManager.Inventories[inventoryId].SwapItemsInInventory(otherInventory, slot, otherSlot);
+                player.InventoryManager.Inventories[inventoryId].SwapItemsInInventory(otherInventory, slot, otherSlot, wasFlipped);
             }
         }
         public void ReceiveSlotChange(ushort fromClientId, Message message) {
@@ -119,10 +121,11 @@ namespace _Project.Scripts.Network.Server {
         }
         public void ReceiveDropItemAtSlot(ushort clientId, Message message) {
             if (NetworkManager.playersList.TryGetValue(clientId, out Player player)) {
-                int[] data = message.GetInts();
+                int inventoryId = message.GetInt();
+                Vector2Int cellData = message.GetVector2Int();
                 Vector3 position = message.GetVector3();
                 Quaternion rotation = message.GetQuaternion();
-                player.InventoryManager.DropItemStack(data[0], data[1], position, rotation);
+                player.InventoryManager.DropItemStack(inventoryId, cellData, position, rotation);
             }
         }
         public void ReceiveSpawnPlayer(ushort fromClientId, Message message) {
