@@ -2,6 +2,7 @@ using System;
 using _Project.Scripts.DataClasses.ItemActions;
 using EditorAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Project.Scripts.DataClasses.ItemTypes {
     [CreateAssetMenu(menuName = "Items/Stackable Item", fileName = "Stackable Item")]
@@ -9,7 +10,8 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
     public class Item : ScriptableObject, IEquatable<Item> {
         [Header("Item Information")]
         public string itemName;
-        public GameObject modelPrefab;
+        public GameObject itemPrefab;
+        public GameObject model;
         public int Width;
         public int Height;
         [ScriptableObjectId]
@@ -26,7 +28,7 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
 
             return base.Equals(other) &&
                 itemName == other.itemName &&
-                Equals(modelPrefab, other.modelPrefab) &&
+                Equals(itemPrefab, other.itemPrefab) &&
                 Width == other.Width && Height == other.Height && description == other.description && maxStackSize == other.maxStackSize;
         }
         public bool IsStackable() {
@@ -47,7 +49,7 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
             unchecked {
                 var hashCode = base.GetHashCode();
                 hashCode = (hashCode * 397) ^ (itemName != null ? itemName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (modelPrefab != null ? modelPrefab.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (itemPrefab != null ? itemPrefab.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Width;
                 hashCode = (hashCode * 397) ^ Height;
                 hashCode = (hashCode * 397) ^ (description != null ? description.GetHashCode() : 0);
@@ -56,7 +58,7 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
             }
         }
         public override string ToString() {
-            return $"Id:{id} Name:{itemName} Size:{Width},{Height} Description:{description}";
+            return $"Id:{id} Name:{itemName} Size:{Width}x{Height} Description:{description}";
         }
         public bool TryDoMainAction() => _mainAction.TryDoAction();
         public bool TryDoSecondaryAction() => _secondaryAction.TryDoAction();

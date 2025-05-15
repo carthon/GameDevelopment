@@ -58,9 +58,6 @@ namespace _Project.Scripts.Network.Client {
                     Logger.Singleton.Log(e.Message, Logger.Type.WARNING);
                 }
             _player = player;
-            if(NetworkManager.Singleton.TryGetComponent(out ContainerRenderer renderer)) {
-                renderer.InitializeRenderer(_player.InventoryManager, _player.inventorySpawnTransform);
-            }
             GameManager.Singleton.ChunkRenderer.GenerateChunksAround(player.Planet, _player.transform.position, GameManager.Singleton.gameConfiguration.renderDistance);
             CameraHandler.Singleton.InitializeCamera(_player.Head, _player.HeadFollow, _player.HeadPivot);
             OnClientReady?.Invoke();

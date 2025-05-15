@@ -24,7 +24,11 @@ namespace _Project.Scripts.DataClasses {
             _lootTables.Add(new LootTableData(itemStack.Item, itemStack.GetCount()));
         }
         public void AddToLootTable(Item item, int count) {
-            _lootTables.Add(new LootTableData(item, count));
+            while(count > 0) {
+                int maxItems = Math.Min(count, item.GetMaxStackSize());
+                _lootTables.Add(new LootTableData(item, maxItems));
+                count -= maxItems;
+            }
         }
 
         public bool IsEmpty() {

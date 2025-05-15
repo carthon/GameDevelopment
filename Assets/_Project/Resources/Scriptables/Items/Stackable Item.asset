@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031737079ed24914b99bd2f8bd1e1ef2, type: 3}
   m_Name: Stackable Item
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 0}
-  item3dIcon: {fileID: 0}
-  iconMaterial: {fileID: 0}
   itemName: Coin
-  modelPrefab: {fileID: 7010931887659289211, guid: 45d537b9a5fff5544a97e08c1667ff1b, type: 3}
-  Size: 1
+  itemPrefab: {fileID: 7010931887659289211, guid: 45d537b9a5fff5544a97e08c1667ff1b, type: 3}
+  model: {fileID: 7184084599209418726, guid: 93b11933acefc7343a5d54bc5409319a, type: 3}
+  Width: 1
+  Height: 1
   id: 6c10016d4e344e99b24ffd0cea1ec391
   description: Just a coin
   maxStackSize: 64

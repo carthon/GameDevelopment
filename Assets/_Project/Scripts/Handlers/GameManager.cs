@@ -51,25 +51,35 @@ namespace _Project.Scripts.Handlers {
             Planet planet;
             if (spawner is not null) {
                 planet = spawner.GetPlanet();
-                Chunk chunk = planet.FindChunkAtPosition(position);
+                Chunk chunk = null;
+                if (planet is not null)
+                    chunk = planet.FindChunkAtPosition(position);
+                else
+                    return SpawnItem(item, count, position, rotation, out Grabbable pickable);
                 if (chunk is not null && chunk.IsLoaded) {
-                    planet.GetHeightMapValuesAtPoint(position);
-                    GameObject itemRendered = Instantiate(item.modelPrefab, position, rotation);
-                    itemRendered.layer = LayerMask.NameToLayer("Item");
-                    var pickable = itemRendered.GetComponent<Grabbable>();
-                    var rb = itemRendered.GetComponent<Rigidbody>();
-                    if (rb is null) rb = itemRendered.AddComponent<Rigidbody>();
-                    if (pickable is null) pickable = itemRendered.AddComponent<Grabbable>();
-                    if (pickable && rb) {
-                        var lootTable = new LootTable();
-                        lootTable.AddToLootTable(item, count);
-                        pickable.SetLootTable(lootTable);
-                        pickable.Initialize(Grabbable.nextId, rb, item);
-                        Grabbable.nextId++;
-                        success = true;
+                    if (SpawnItem(item, count, position, rotation, out Grabbable pickable)) {
                         chunk.AddEntity(pickable);
+                        success = true;
                     }
                 }
+            }
+            return success;
+        }
+        public static bool SpawnItem(Item item, int count, Vector3 position, Quaternion rotation, out Grabbable pickable) {
+            bool success = false;
+            GameObject itemRendered = Instantiate(item.itemPrefab, position, rotation);
+            itemRendered.layer = LayerMask.NameToLayer("Item");
+            pickable = itemRendered.GetComponent<Grabbable>();
+            var rb = itemRendered.GetComponent<Rigidbody>();
+            if (rb is null) rb = itemRendered.AddComponent<Rigidbody>();
+            if (pickable is null) pickable = itemRendered.AddComponent<Grabbable>();
+            if (pickable && rb) {
+                var lootTable = new LootTable();
+                lootTable.AddToLootTable(item, count);
+                pickable.SetLootTable(lootTable);
+                pickable.Initialize(Grabbable.nextId, rb, item);
+                Grabbable.nextId++;
+                success = true;
             }
             return success;
         }

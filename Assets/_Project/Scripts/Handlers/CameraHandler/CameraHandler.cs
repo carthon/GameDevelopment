@@ -11,6 +11,8 @@ namespace _Project.Scripts.Handlers {
         private static CameraHandler _singleton;
     
         public int layerFirstPerson = 11;
+        public int layerInventory = 12;
+        public int layerController = 8;
 
         [SerializeField]
         private CameraData _cameraData;
@@ -21,7 +23,6 @@ namespace _Project.Scripts.Handlers {
         [SerializeField] 
         private Transform _headFollow;
         public Transform staticLookAtTransform;
-        private CinemachineVirtualCamera _activeCamera;
 
         public readonly int ActiveCameraPriorityModifier = 31337;
         private float _cameraPitch;
@@ -80,6 +81,7 @@ namespace _Project.Scripts.Handlers {
                 mainCameraBrain = MainCamera.GetComponent<CinemachineBrain>();
                 mainCameraBrain.m_UpdateMethod = CinemachineBrain.UpdateMethod.SmartUpdate;
                 mainCameraBrain.m_WorldUpOverride = cameraPivot;
+                MainCamera.cullingMask = ~(1 << layerInventory);
             }
             ChangeState(new FirstPersonCameraState(this));
         }

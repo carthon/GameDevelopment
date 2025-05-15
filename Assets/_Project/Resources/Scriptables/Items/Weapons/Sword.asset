@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b4305146d36dd47add43256157eccf, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 0}
-  item3dIcon: {fileID: 0}
-  iconMaterial: {fileID: 0}
   itemName: Sword
-  modelPrefab: {fileID: 181008, guid: 9e311f4d0c272f44ea83aed3c3b15c40, type: 3}
-  Size: 2
+  itemPrefab: {fileID: 181008, guid: 9e311f4d0c272f44ea83aed3c3b15c40, type: 3}
+  model: {fileID: 1836057242048781917, guid: 72116f7b01310c34bb71cc0d1824df44, type: 3}
+  Width: 1
+  Height: 2
   id: 795afad8218a4decbe0611833b0ba32c
   description: Just a sword
   maxStackSize: 1

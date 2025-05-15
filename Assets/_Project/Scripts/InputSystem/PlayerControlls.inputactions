@@ -161,6 +161,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "a663cccb-c7d1-45ec-b0ef-971cb1586408",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -240,6 +249,17 @@
                     "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43b242b7-09bc-4bbf-96ee-5d86d1dd6849",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -305,6 +325,15 @@
                     "name": "RClick",
                     "type": "Button",
                     "id": "438a32ce-21ca-497f-b655-9e5516c17fbe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateInventorItem",
+                    "type": "Button",
+                    "id": "d2ea9785-62e7-46d3-a2b1-63de03a1933b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -485,6 +514,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "RClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0aa83b30-28f9-4062-98c1-33dbc8f3bc40",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateInventorItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

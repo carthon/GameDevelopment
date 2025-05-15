@@ -1,20 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Mathf;
 
 namespace _Project.Scripts.Utils {
 	public static class MathUtility
 	{
-		public static uint FloatToUint(float f)
-		{
-			byte[] bytes = System.BitConverter.GetBytes(f); // 4 bytes
-			return System.BitConverter.ToUInt32(bytes, 0);
-		}
-
-		public static float UintToFloat(uint i)
-		{
-			byte[] bytes = System.BitConverter.GetBytes(i);
-			return System.BitConverter.ToSingle(bytes, 0);
-		}
 
 		public static bool SphereIntersectsBox(Vector3 sphereCentre, float sphereRadius, Vector3 boxCentre, Vector3 boxSize)
 		{
@@ -42,11 +32,11 @@ namespace _Project.Scripts.Utils {
 			return Quaternion.Inverse(rotation) * vector;
 		}
 
-		public static int CoordToIndex(int x, int y, int width) => y * width + x;
-		public static void IndexToCoord(int index, int width, ref int x, ref int y) {
-			y = index / width;
-			x = index % width;
-		}
+		public static int CeilToInt(float value) => (int)Ceil(value);
 
+		public static (int, int) IndexToCoordinates(int index, int width) {
+			return (index % width, index / width);
+		}
+		public static int CoordinatesToIndex(int x, int y, int width) => y * width + x;
 	}
 }

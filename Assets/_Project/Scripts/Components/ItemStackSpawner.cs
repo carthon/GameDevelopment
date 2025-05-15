@@ -16,12 +16,21 @@ namespace _Project.Scripts.Components {
             _planet = GameManager.Singleton.defaultPlanet;
         }
         public void Update() {
+            bool spawnItemStack = false;
             if (NetworkManager.Singleton.IsServer) {
-                _spawnChunk = _planet.FindChunkAtPosition(transform.position);
-                if (_spawnChunk is not null && _spawnChunk.IsActive && GameManager.SpawnItem(item, count, transform, this))
-                    Destroy(this.gameObject);
+                if (_planet is not null) {
+                    _spawnChunk = _planet.FindChunkAtPosition(transform.position);
+                    if (_spawnChunk is not null && _spawnChunk.IsActive)
+                        spawnItemStack = true;
+                }
+                else
+                    spawnItemStack = true;
+                if (spawnItemStack) {
+                    GameManager.SpawnItem(item, count, transform, this);
+                    Destroy(gameObject);
+                }
             } else if (NetworkManager.Singleton.IsClient)
-                Destroy(this.gameObject);
+                Destroy(gameObject);
         }
         public Planet GetPlanet() => _planet;
         public GameObject GetGameObject() => this.gameObject;

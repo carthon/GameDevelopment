@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using _Project.Scripts.Components;
+using _Project.Libraries.QuickOutline.Scripts;
+using _Project.Scripts.DiegeticUI;
 using _Project.Scripts.DiegeticUI.InterfaceControllers;
 using _Project.Scripts.Network;
 using RiptideNetworking;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
+using UnityEngine.Serialization;
 using Client = _Project.Scripts.Network.Client.Client;
-using Outline = _Project.Libraries.QuickOutline.Scripts.Outline;
 
 #if !UNITY_SERVER
 namespace _Project.Scripts.Handlers {
@@ -23,8 +22,16 @@ namespace _Project.Scripts.Handlers {
         public InterfaceAbstractBaseState CurrentState;
         public InterfaceAbstractBaseState LastState;
         private InterfaceStateFactory _stateFactory;
-        public GameObject slotSelectionVisualizer;
         public Transform itemGrabberTransform;
+
+        #region DIEGETIC_PARAMS
+
+        public ContainerRenderer currentContainer;
+        public GameObject inventoryCellIndicator;
+        public MeshRenderer inventoryCellIndicatorMeshRenderer;
+        public MeshFilter inventoryCellIndicatorMeshFilter;
+        
+        #endregion
         
         public string StateToString;
 
@@ -38,7 +45,7 @@ namespace _Project.Scripts.Handlers {
             port = NetworkManager.Singleton.port.ToString();
             NetworkManager.Singleton.Client = new Client();
             _watchedVariables = new Dictionary<string, string>();
-            _stateFactory = new InterfaceStateFactory(this);
+            inventoryCellIndicatorMeshFilter = inventoryCellIndicator.GetComponentInChildren<MeshFilter>();
         }
         private void Update() {
             CurrentState?.UpdateStates();
@@ -46,7 +53,9 @@ namespace _Project.Scripts.Handlers {
         }
 
         private void OnClientReady() {
+            _stateFactory = new InterfaceStateFactory(currentContainer);
             CurrentState = _stateFactory.DefaultState();
+            currentContainer.AttachToInventory(Client.Singleton.Player.InventoryManager.Inventories[0]);
         }
         private bool ValidateConnectionValues() {
             NetworkManager networkManager = NetworkManager.Singleton;

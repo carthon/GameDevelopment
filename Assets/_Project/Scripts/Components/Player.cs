@@ -1,20 +1,17 @@
 using System;
-using System.Collections.Concurrent;
 using _Project.Scripts.Components.LocomotionComponent;
 using _Project.Scripts.Constants;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
+using _Project.Scripts.DiegeticUI;
 using _Project.Scripts.Entities;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
 using _Project.Scripts.Network.MessageDataStructures;
 using RiptideNetworking;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
-using BodyPart = _Project.Scripts.DataClasses.BodyPart;
 using Client = _Project.Scripts.Network.Client.Client;
-using Logger = _Project.Scripts.Utils.Logger;
 using Server = _Project.Scripts.Network.Server.Server;
 
 namespace _Project.Scripts.Components {
@@ -24,6 +21,7 @@ namespace _Project.Scripts.Components {
         private AnimatorHandler _animator;
         private InventoryManager _inventoryManager;
         private EquipmentHandler _equipmentHandler;
+        public ContainerRenderer containerRenderer;
         private Grabler _grabler;
         private bool[] _actions;
         [SerializeField] private Transform model;
@@ -33,12 +31,15 @@ namespace _Project.Scripts.Components {
         private TextMeshProUGUI _usernameDisplay;
         private float grabDistance = 4f;
         private float grabRadius = 0.1f;
+        [SerializeField] private PlanetData _planetData;
         [SerializeField] private Planet _planet;
         [SerializeField] private bool isSpectator;
         private Collider _collider;
 
-        public Transform inventorySpawnTransform;
+        public Transform inventoryControllerTransform;
+        public float inventoryDistance;
         public Planet Planet { get => _planet; set => _planet = value; }
+        public PlanetData PlanetData { get => _planetData; set => _planetData = value; }
         public Planet GetPlanet() => _planet;
         public GameObject GetGameObject() => gameObject;
         public ushort Id { get; set; }
@@ -48,6 +49,7 @@ namespace _Project.Scripts.Components {
         public Transform HeadPivot { get => _headPivot; set => _headPivot = value; }
         public Transform HeadFollow { get => _headFollow; }
         public Transform Head { get => _head; set => _head = value; }
+        public Transform Model { get => model; }
         public InventoryManager InventoryManager => _inventoryManager;
         public Locomotion Locomotion => _locomotion;
         public EquipmentHandler EquipmentHandler => _equipmentHandler;
@@ -67,13 +69,17 @@ namespace _Project.Scripts.Components {
     
         private void OnDestroy() {
             enabled = false;
+            InputHandler.Singleton.OnPickAction -= HandlePicking;
         }
         private void Update() {
             _animator.UpdateAnimatorValues(_locomotion.RelativeDirection.z, _locomotion.RelativeDirection.x);
             Vector3 position = transform.position;
-            UIHandler.Instance.UpdateWatchedVariables("density", $"DensityAtPosition:{_planet.GetDensityAtPoint(position)}");
-            UIHandler.Instance.UpdateWatchedVariables("debugHitTexture", $"Continentalness:{_planet.GetHeightMapValuesAtPoint(position)}");
-            UIHandler.Instance.UpdateWatchedVariables("planetheight", $"Planet height {(position - _planet.Center).magnitude}");
+            //UIHandler.Instance.UpdateWatchedVariables("density", $"DensityAtPosition:{_planet.GetDensityAtPoint(position)}");
+            if (_planet is not null) {
+                UIHandler.Instance.UpdateWatchedVariables("continentalness", $"Continentalness:{_planet.GetContinentalnessAtPoint(position)}");
+                float planetSize = _planet.NumChunks * 100;
+                UIHandler.Instance.UpdateWatchedVariables("planetheight", $"Planet height {position.magnitude / planetSize}");
+            }
             UIHandler.Instance.UpdateWatchedVariables("2DPosition", $"2DPosition {SphericalToEquirectangular(position)}");
             _locomotion.IgnoreGround = isSpectator;
         }
@@ -94,11 +100,12 @@ namespace _Project.Scripts.Components {
         }
         private void OnTriggerEnter(Collider other) {
             if (_collider is null || !_collider.Equals(other)) {
+                Debug.Log("Trying to load planet");
                 _collider = other;
                 if (_collider.transform.TryGetComponent(out Planet planet)) {
                     _planet = planet;
-                    _locomotion.GravityCenter = _planet.Center;
-                    _locomotion.Gravity = _planet.Gravity;
+                    _locomotion.GravityCenter = PlanetData.Center;
+                    _locomotion.Gravity = PlanetData.Gravity;
                     _locomotion.Stats.groundLayer = _planet.GroundLayer;
                 }
             }
@@ -112,14 +119,22 @@ namespace _Project.Scripts.Components {
             _inventoryManager.Player = this;
             _grabler = GetComponent<Grabler>();
             _grabler.LinkedInventoryManager = _inventoryManager;
-            _inventoryManager.Add(new Inventory("PlayerInventory", this,9));
+            _inventoryManager.Add(new Inventory("PlayerInventory", this, 3, 3));
             _grabler.CanPickUp = true;
             _planet = GameManager.Singleton.defaultPlanet;
             CanRotate = true;
             CanMove = true;
             _usernameDisplay = GetComponentInChildren<TextMeshProUGUI>();
             _animator.Initialize();
-            _locomotion.SetUp(_planet.Center, _planet.Gravity);
+            if (_planet is not null)
+                _planetData = _planet.PlanetData;
+            else
+                _planetData = new PlanetData {
+                    Center = Vector3.down * float.MaxValue,
+                    Gravity = 20.9f
+                };
+            _locomotion.SetUp(_planetData.Center, _planetData.Gravity);
+            InputHandler.Singleton.OnPickAction += HandlePicking;
             _actions = new bool[typeof(ActionsEnum).GetFields().Length];
         }
         public void OnSpawn() {
@@ -156,11 +171,9 @@ namespace _Project.Scripts.Components {
             _locomotion.IsDoubleJumping = actions[(int)ActionsEnum.DOUBLEJUMPING];
             _animator.SetBool(AnimatorHandler.IsSprinting, actions[(int)ActionsEnum.SPRINTING]);
             _animator.SetBool(AnimatorHandler.IsCrouching, actions[(int)ActionsEnum.CROUCHING]);
-            _animator.SetBool(AnimatorHandler.IsPicking, actions[(int)ActionsEnum.PICKING]);
             _animator.SetBool(AnimatorHandler.IsSearching, actions[(int)ActionsEnum.SEARCHING]);
             _animator.SetBool(AnimatorHandler.IsAttacking, actions[(int)ActionsEnum.ATTACKING], actions[(int)ActionsEnum.ATTACKING]);
             _animator.SetBool(AnimatorHandler.IsFalling, !_locomotion.IsGrounded);
-            CanRotate = !actions[(int)ActionsEnum.SEARCHING];
             CanMove = !actions[(int)ActionsEnum.SEARCHING];
             if (CanRotate) {
                 RotateCharacterModel();
@@ -172,7 +185,7 @@ namespace _Project.Scripts.Components {
             float rotationSpeed = !_locomotion.IsMoving && !InputHandler.Singleton.IsInInventory ? CameraHandler.Singleton.CameraData.playerLookInputLerpSpeed * Time.deltaTime : 1f;
 
             // Calcula el "arriba" local basado en la orientación del planeta.
-            Vector3 localUp = (_locomotion.Rb.position - Planet.Center).normalized;
+            Vector3 localUp = (_locomotion.Rb.position - PlanetData.Center).normalized;
 
             // Obtiene la dirección a la cual la cabeza está mirando, pero transformada al plano local del personaje.
             Vector3 forwardOnPlanetSurface = _locomotion.lookForwardDirection;
@@ -187,7 +200,6 @@ namespace _Project.Scripts.Components {
             model.rotation = Quaternion.Slerp(model.rotation, targetRotation, rotationSpeed);
         }
         private void HandleActions(bool[] actions) {
-            if (actions[(int) ActionsEnum.PICKING]) HandlePicking();
             if (actions[(int) ActionsEnum.ATTACKING] && !actions[(int) ActionsEnum.SEARCHING]) HandleClick();
         }
         private void HandlePicking() {
@@ -201,7 +213,7 @@ namespace _Project.Scripts.Components {
         }
         private void HandleClick() {
             EquipmentDisplayer equippedItem = EquipmentHandler.GetEquipmentSlotByBodyPart(BodyPart.RightArm);
-            if (equippedItem.CurrentEquipedItem != null && !equippedItem.CurrentEquipedItem.IsEmpty()) equippedItem.CurrentEquipedItem.Item.TryDoMainAction();
+            if (!equippedItem.CurrentEquipedItem.IsEmpty()) equippedItem.CurrentEquipedItem.Item.TryDoMainAction();
         }
         public void UpdatePlayerMovementState(MovementMessageStruct movementMessage,  bool isInstant = true, float speed = 1f) {
             _locomotion.Rb.position = (isInstant) ? movementMessage.position : Vector3.Lerp(transform.position, movementMessage.position, speed);
@@ -214,7 +226,7 @@ namespace _Project.Scripts.Components {
             }
         }
         /**<summary>
-     *  <param name="itemStack">ItemStack equipado</param>
+     *  <param name="itemStack">Item equipado</param>
      *  <param name="equipmentSlot">Slot en el que se equipa</param>
      *  <param name="activeState">Estado de actividad</param>
      * <p>Si se ejecuta como servidor: notifica a todos los clientes del equipamiento del enviado</p>
