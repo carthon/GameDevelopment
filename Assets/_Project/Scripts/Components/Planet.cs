@@ -163,7 +163,7 @@ namespace _Project.Scripts.Components {
         }
         public float GetDensityAtPoint(Vector3 point) => _meshGenerator.GetDensityAtPoint(point);
         public float GetHeightMapValuesAtPoint(Vector3 point) {
-            return _meshGenerator.GetHeightMapValuesAtPoint(point);
+            return _meshGenerator.GetContinentalnessAtPoint(point);
         }
         public Chunk[] GetChunks() => chunks;
         private void OnDestroy() {

@@ -117,7 +117,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			material.EnableKeyword("_MAIN_LIGHT_SHADOWS");
 		}
 
-		public void ComputeDensity() {
+		public void ComputeDensity(Vector3 point) {
 			// Get points (each point is a vector4: xyz = position, w = density)
 			if (!ComputeHelper.CanRunEditModeCompute) {
 				Debug.LogError("Compute Buffer could'nt run in editmode");

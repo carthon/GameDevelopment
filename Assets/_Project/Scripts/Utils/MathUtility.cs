@@ -5,6 +5,17 @@ using static UnityEngine.Mathf;
 namespace _Project.Scripts.Utils {
 	public static class MathUtility
 	{
+		public static uint FloatToUint(float f)
+		{
+			byte[] bytes = System.BitConverter.GetBytes(f); // 4 bytes
+			return System.BitConverter.ToUInt32(bytes, 0);
+		}
+
+		public static float UintToFloat(uint i)
+		{
+			byte[] bytes = System.BitConverter.GetBytes(i);
+			return System.BitConverter.ToSingle(bytes, 0);
+		}
 
 		public static bool SphereIntersectsBox(Vector3 sphereCentre, float sphereRadius, Vector3 boxCentre, Vector3 boxSize)
 		{
