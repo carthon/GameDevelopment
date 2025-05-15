@@ -4,6 +4,7 @@ using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Entities;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
+using _Project.Scripts.Network.Server;
 using UnityEngine;
 
 namespace _Project.Scripts.Components {
@@ -16,12 +17,21 @@ namespace _Project.Scripts.Components {
             _planet = GameManager.Singleton.defaultPlanet;
         }
         public void Update() {
+            bool spawnItemStack = false;
             if (NetworkManager.Singleton.IsServer) {
-                _spawnChunk = _planet.FindChunkAtPosition(transform.position);
-                if (_spawnChunk is not null && _spawnChunk.IsActive && GameManager.SpawnItem(item, count, transform, this))
-                    Destroy(this.gameObject);
+                if (_planet is not null) {
+                    _spawnChunk = _planet.FindChunkAtPosition(transform.position);
+                    if (_spawnChunk is not null && _spawnChunk.IsActive)
+                        spawnItemStack = true;
+                }
+                else
+                    spawnItemStack = true;
+                if (spawnItemStack) {
+                    ServerHandler.Singleton.SpawnGrabbableOnServer(new ItemStack(item, count), transform.position, transform.rotation);
+                    Destroy(gameObject);
+                }
             } else if (NetworkManager.Singleton.IsClient)
-                Destroy(this.gameObject);
+                Destroy(gameObject);
         }
         public Planet GetPlanet() => _planet;
         public GameObject GetGameObject() => this.gameObject;

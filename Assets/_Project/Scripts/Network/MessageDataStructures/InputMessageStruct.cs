@@ -21,8 +21,12 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             this.actions = message.GetBools();
             this.tick = message.GetInt();
         }
+        public void Serialize(Message message) {
+            message.AddVector3(moveInput).AddQuaternion(headPivotRotation)
+                .AddBools(actions).AddInt(tick);
+        }
         public override string ToString() {
-            return $"{moveInput.ToString()} | tick {tick}";
+            return $"{moveInput.ToString()} | tick {tick} | headPivot {headPivotRotation.ToString()}";
         }
     }
 }

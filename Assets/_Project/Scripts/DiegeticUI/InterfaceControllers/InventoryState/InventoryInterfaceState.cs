@@ -14,12 +14,16 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
         private Vector3 _lookAtPosition;
         private float headRotationSpeed = 0.5f;
         private Player _player;
-        public List<Transform> GrabbedItems { get; set; }
+        private Grid _grid;
+        public List<Collider> GrabbedItemsCollider { get; set; }
         public List<Vector3> LastGrabbedItemsLocalPosition { get; set; }
-        public RaycastHit HitPoint;
+        public RaycastHit RayCastHit;
+        public Vector3 ProjectedPositionOverPlane;
 
-        public InventoryInterfaceState(InterfaceStateFactory factory, UIHandler context) : base(factory, context) {
+        public InventoryInterfaceState(InterfaceStateFactory factory, ContainerRenderer context) : base(factory, context) {
             _isRootState = true;
+            LastGrabbedItemsLocalPosition = new List<Vector3>();
+            GrabbedItemsCollider = new List<Collider>();
             InitializeSubState();
         }
         protected override void UpdateState() {
@@ -27,27 +31,40 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
             Camera cam = CameraHandler.Singleton.MainCamera;
             Ray ray = cam.ScreenPointToRay(mousePos);
             
-            CameraHandler.Singleton.staticLookAtTransform.position = (Vector3.Distance(CameraHandler.Singleton.staticLookAtTransform.position, _lookAtPosition) > 2f) ? _lookAtPosition :
+            CameraHandler.Singleton.staticLookAtTransform.position = 
                 Vector3.Lerp(CameraHandler.Singleton.staticLookAtTransform.position, _lookAtPosition, Time.deltaTime * headRotationSpeed);
             if(_player) {
                 Quaternion lookRotation = Quaternion.LookRotation(_lookAtPosition - _player.HeadPivot.position);
                 _player.HeadPivot.rotation = Quaternion.Lerp(_player.HeadPivot.rotation, lookRotation, Time.deltaTime * headRotationSpeed);
             }
             
-            if (Physics.Raycast(ray, out RaycastHit hit, Single.PositiveInfinity, LayerMask.GetMask("Default", "Ground"), QueryTriggerInteraction.Collide)) {
-                HitPoint = hit;
-                Context.UpdateWatchedVariables("SelectedItem", $"SelectedItem:{hit.collider.name}");
-                Outline outlineParent = hit.collider.GetComponentInParent<Outline>();
-                if (hit.collider.TryGetComponent(out Outline outline) || !(outlineParent is null)) {
-                    _lookAtPosition = hit.collider.transform.position;
-                    outline = outlineParent;
-                    if (!(HitMouseOutline is null) && !outline.transform.Equals(HitMouseOutline.transform)) {
-                        HitMouseOutline.enabled = false;
-                    }
-                    HitMouseOutline = outline;
-                    if (CurrentSubState.GetType() != typeof(InventoryGrabItemInterfaceState)) HitMouseOutline.enabled = true;
+            Plane gridPlane = new Plane(_player.Model.up, UIHandler.Instance.currentContainer.inventorySpawn.position);
+            if (gridPlane.Raycast(ray, out float enter) && enter < 4f) {
+                Vector3 hitPoint = ray.GetPoint(enter);
+                ProjectedPositionOverPlane = hitPoint;
+                Vector3Int gridPosition = _grid.WorldToCell(ProjectedPositionOverPlane);
+                Vector3 targetPosition = _grid.CellToWorld(gridPosition);
+                _lookAtPosition = hitPoint;
+                UIHandler.Instance.inventoryCellIndicator.transform.rotation = _grid.transform.rotation;
+                UIHandler.Instance.inventoryCellIndicator.transform.position = targetPosition;
+                UIHandler.Instance.UpdateWatchedVariables("SelectedCell", $"GridPosition: {gridPosition}");
+                if (Physics.Raycast(ray, out RayCastHit, Single.PositiveInfinity, LayerMask.GetMask("Inventory"), QueryTriggerInteraction.Collide)) {
+                    if (RayCastHit.collider.CompareTag(global::Constants.TAG_UISLOT)) {
+                        if (RayCastHit.collider.TryGetComponent(out Outline outline)) {
+                            if (!(HitMouseOutline is null) && outline is not null && !outline.transform.Equals(HitMouseOutline.transform)) {
+                                HitMouseOutline.enabled = false;
+                            }
+                            HitMouseOutline = outline;
+                            if (CurrentSubState.GetType() != typeof(InventoryGrabItemInterfaceState)) HitMouseOutline.enabled = true;
                     
-                } else {
+                        } else {
+                            ResetMouseSelection();
+                        }
+                    } else {
+                        ResetMouseSelection();
+                    }
+                }
+                else {
                     ResetMouseSelection();
                 }
             }
@@ -58,21 +75,55 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
         }
         public override void CheckSwitchStates() {
             if (!InputHandler.Singleton.IsInInventory) {
-                SwitchState(Context.LastState);
+                SwitchState(UIHandler.Instance.LastState);
             }
         }
         public sealed override void InitializeSubState() {
             SetSubState(Factory.InventorySelectItemState());
         }
+        
         protected sealed override void EnterState() {
-            _player = Client.Singleton.Player;
-            _lookAtPosition = ContainerRenderer.Singleton.SpawnPoint.position;
+            _player = ClientHandler.Singleton.Player;
+            _grid   = Context.inventoryGrid;
+            Vector3 cellSize = _grid.cellSize;
+
+            // 1) Datos del grid
+            float totalWidth  = Context.Inventory.Width  * cellSize.x;
+            float totalHeight = Context.Inventory.Height * cellSize.y;
+            // offset desde esquina sup-izda → centro, en local del grid:
+            // (X positivo = derecha, Z positivo = abajo)
+            Vector3 centerOffset = new Vector3(totalWidth/2f, 0f, -totalHeight/2f);
+
+            // 2) Toma el transform del controller
+            Transform inventoryTransform = _player.inventoryControllerTransform;
+
+            // 3) Usa EL forward y up del controller para rotar el Context
+            Vector3 forward = inventoryTransform.forward;
+            Vector3 up = inventoryTransform.up;  // si quieres alinear “hacia arriba” con el jugador
+            Quaternion worldRot = Quaternion.LookRotation(forward, up);
+
+            // 4) Posición del “centro” delante del controller
+            Vector3 worldCenter = inventoryTransform.position + forward * (cellSize.x * _player.inventoryDistance);
+
+            // 5) Calcula el offset rotado y la posición final
+            Vector3 offsetWorld = worldRot * centerOffset;
+            Vector3 finalPos = worldCenter - offsetWorld;
+
+            // 6) Asigna directo en world para evitar lios de jerarquías
+            Context.transform.position = finalPos;
+            Context.transform.rotation = worldRot;
+            
+            _lookAtPosition = _grid.GetCellCenterWorld(new Vector3Int(Context.Inventory.Width/2, 0 , -Context.Inventory.Height/2));
+            CameraHandler.Singleton.staticLookAtTransform.position = _lookAtPosition;
+            Quaternion lookRotation = Quaternion.LookRotation(_lookAtPosition - _player.HeadPivot.position);
+            _player.HeadPivot.rotation = lookRotation;
+            
+            UIHandler.Instance.inventoryCellIndicator.SetActive(false);
             Cursor.lockState = CursorLockMode.None;
-            ContainerRenderer.Singleton.ToggleRender(true);
-            GrabbedItems = new List<Transform>();
+            GrabbedItemsCollider = new List<Collider>();
         }
+        
         protected override void ExitState() {
-            ContainerRenderer.Singleton.ToggleRender(false);
             ResetMouseSelection();
         }
         public override string StateName() => "InventoryInterfaceState->" + CurrentSubState?.StateName();

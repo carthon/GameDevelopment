@@ -5,7 +5,9 @@ using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Handlers;
+using _Project.Scripts.Network.Client;
 using _Project.Scripts.Network.MessageDataStructures;
+using _Project.Scripts.Network.Server;
 using _Project.Scripts.Utils;
 using RiptideNetworking;
 using RiptideNetworking.Utils;
@@ -17,6 +19,8 @@ namespace _Project.Scripts.Network {
         private static NetworkManager _singleton;
         public DictionaryOfStringAndItems itemsDictionary;
         public static Dictionary<ushort, Player> playersList = new Dictionary<ushort, Player>();
+        public int MessagesSent = 0;
+        public int MessagesReceived = 0;
         public static NetworkManager Singleton
         {
             get => _singleton;
@@ -46,13 +50,15 @@ namespace _Project.Scripts.Network {
         public float minTimeBetweenTicks;
         public const int BufferSize = 1024;
         
-        public Server.Server Server { get; private set; }
-        public Client.Client Client { get; set; }  
+        public Server.ServerHandler ServerHandler { get; private set; }
+        public Client.ClientHandler ClientHandler { get; set; }  
         
         public int Tick { get => _currentTick; set => _currentTick = value; }
 
         void Awake() {
-            _singleton = this;
+            var sender = new RiptideNetworkSender(this);
+            ServerHandler = new ServerHandler(sender);
+            ClientHandler = new ClientHandler(sender);
         }
         private void OnValidate() {
             Item[] items = GameData.Singleton != null ? GameData.Singleton.items : null;
@@ -77,7 +83,7 @@ namespace _Project.Scripts.Network {
                 _timer -= minTimeBetweenTicks;
                 if (IsClient || IsServer) {
                     if (IsServer) {
-                        Server.Tick(_currentTick);
+                        ServerHandler.Tick(_currentTick);
                         StringBuilder stringBuilder = new StringBuilder();
                         foreach (var player in playersList.Values) {
                             stringBuilder.Append($"Player{player.Id}:{player.GetMovementState(Tick).ToString()}");
@@ -85,9 +91,7 @@ namespace _Project.Scripts.Network {
                         UIHandler.Instance.UpdateWatchedVariables("PlayersInfo", stringBuilder.ToString());
                     }
                     if (IsClient) {
-                        Client.Tick(_currentTick);
-                        NetworkMessageBuilder.MessagesSent = 0;
-                        NetworkMessageBuilder.MessagesReceived = 0;
+                        ClientHandler.Tick(_currentTick);
                     }
                     Physics.Simulate(Singleton.minTimeBetweenTicks);
                 }
@@ -96,50 +100,29 @@ namespace _Project.Scripts.Network {
         }
         public void InitializeServer() {
             IsServer = true;
-            Server = new Server.Server();
-            Server.Start(port, maxClientCount);
-            Server.ClientDisconnected += PlayerLeft;
+            ServerHandler.Start(port, maxClientCount);
+            ServerHandler.ClientDisconnected += ServerHandler.PlayerLeft;
         }
 #if !UNITY_SERVER
         public void InitializeClient() {
             IsClient = true;
-            Client.IsServerOwner = IsServer;
-            Client.Connected += DidConnect;
-            Client.Disconnected += DidDisconnect;
-            Client.ConnectionFailed += FailedToConnect;
-            Client.Connect($"{hostAddress}:{port}");
+            ClientHandler.IsServerOwner = IsServer;
+            ClientHandler.Connect($"{hostAddress}:{port}");
         }
         public void StopClient() {
             if (IsClient) {
                 IsClient = false;
-                Client.Connected -= DidConnect;
-                Client.Disconnected -= DidDisconnect;
-                Client.ConnectionFailed -= FailedToConnect;
-                Client.Disconnect();
+                ClientHandler.Disconnect();
             }
         }
 #endif
         public void StopServer() {
             if (IsServer) {
-                Server.Stop();
+                ServerHandler.Stop();
                 IsServer = false;
-                Server.ClientDisconnected -= PlayerLeft;
             }
         }
-        private void DidConnect(object sender, EventArgs args) { Logger.Singleton.Log("Connected succesfully!", Logger.Type.INFO); }
-        private void FailedToConnect (object sender, EventArgs args){ Logger.Singleton.Log("Error trying to connect...!", Logger.Type.INFO); }
-        private void DidDisconnect(object sender, EventArgs args) { Logger.Singleton.Log("Disconnected succesfully!", Logger.Type.INFO); }
-        private void MessageReceived(object sender, EventArgs args) { NetworkMessageBuilder.MessagesReceived++; }
-        private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) {
-            if (playersList.TryGetValue(e.Id, out Player player)) {
-                Destroy(player.gameObject);
-                playersList.Remove(e.Id);
-                Message message = Message.Create(MessageSendMode.reliable, Network.Server.Server.PacketHandler.clientPlayerDespawn);
-                message.AddUShort(e.Id);
-                Server.SendToAll(message);
-                Logger.Singleton.Log($"Player {e.Id} disconnected", Logger.Type.INFO);
-            }
-        }
+        private void MessageReceived(object sender, EventArgs args) { MessagesReceived++; }
         private void OnApplicationQuit() {
             StopServer();
 #if !UNITY_SERVER

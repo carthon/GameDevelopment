@@ -8,7 +8,7 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers {
         private Player _player;
         private Grabbable LastGrabbable { get; set; }
 
-        public DefaultInterfaceState(InterfaceStateFactory factory, UIHandler context) : base(factory, context) {
+        public DefaultInterfaceState(InterfaceStateFactory factory, ContainerRenderer context) : base(factory, context) {
             _isRootState = true;
             EnterState();
         }
@@ -16,14 +16,17 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers {
             Ray ray = new Ray(_player.HeadPivot.position, _player.HeadPivot.forward);
             Debug.DrawRay(ray.origin, ray.direction);
             Grabbable currentGrabbable = _player.GetNearGrabbable();
-            if(currentGrabbable != null) {
+            if(currentGrabbable is not null) {
                 if (!currentGrabbable.Equals(LastGrabbable)) {
+                    if (LastGrabbable && LastGrabbable is not null)
+                        LastGrabbable.SetOutline(false);
                     LastGrabbable = currentGrabbable;
                     currentGrabbable.SetOutline(true);
                 }
             }
-            else if(LastGrabbable != null) {
-                LastGrabbable.SetOutline(false);
+            else if(LastGrabbable is not null) {
+                if (LastGrabbable != null)
+                    LastGrabbable.SetOutline(false);
                 LastGrabbable = null;
             }
             CheckSwitchStates();
@@ -37,7 +40,8 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers {
         }
         protected sealed override void EnterState() {
             Cursor.lockState = CursorLockMode.Locked;
-            _player = Client.Singleton.Player;
+            
+            _player = ClientHandler.Singleton.Player;
         }
         protected override void ExitState() {
             ResetMouseSelection();

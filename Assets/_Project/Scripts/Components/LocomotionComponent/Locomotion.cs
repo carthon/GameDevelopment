@@ -1,3 +1,4 @@
+using System;
 using _Project.Scripts.Components.LocomotionComponent.LocomotionStates;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.Utils;

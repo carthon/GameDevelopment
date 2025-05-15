@@ -7,12 +7,13 @@ using _Project.Scripts.Entities;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
 using _Project.Scripts.Network.MessageDataStructures;
+using _Project.Scripts.Network.Server;
 using _Project.Scripts.Utils;
 using RiptideNetworking;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Logger = _Project.Scripts.Utils.Logger;
-using Server = _Project.Scripts.Network.Server.Server;
 
 namespace _Project.Scripts.Components {
     public class Grabbable : MonoBehaviour, IEntity {
@@ -21,9 +22,8 @@ namespace _Project.Scripts.Components {
         public bool hasGravity = true;
         private Vector3 _lastGroundPosition;
         private Rigidbody Rb { get; set; }
-        [SerializeField]
-        private LootTable _lootTable;
-        public bool HasItems => !_lootTable.IsEmpty();
+        private ItemStack _itemStack;
+        public bool HasItems { get => _itemStack.GetCount() > 0; }
         private Collider _planetCollider;
         private Planet _planet;
         private Chunk _initialChunk;
@@ -33,16 +33,18 @@ namespace _Project.Scripts.Components {
         private bool wasNearGround { get; set; }
         private Collider _collider;
         private RaycastHit hitInfo;
+        private readonly INetworkSender _networkSender;
 
         public void Initialize(ushort id, Rigidbody rb, Item prefab) {
                 Id = id;
-                Rb = rb;
                 //rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+                Rb = rb;
                 itemData = prefab;
                 _collider = GetComponentInChildren<Collider>();
                 _outline = UIHandler.AddOutlineToObject(gameObject, Color.green);
                 _planet = GameManager.Singleton.defaultPlanet;
-                _initialChunk = _planet.FindChunkAtPosition(transform.position);
+                if (_planet is not null)
+                    _initialChunk = _planet.FindChunkAtPosition(transform.position);
                 if (!GameManager.grabbableItems.ContainsKey(Id))
                     GameManager.grabbableItems.Add(Id, this);
                 else {
@@ -52,19 +54,22 @@ namespace _Project.Scripts.Components {
             GameObject childCanvas = GUIUtils.createDebugTextWithWorldCanvas(gameObject,new Vector2(0.4f,0.4f),-0.08f);
             childCanvas.GetComponent<TextMeshProUGUI>().text = Id.ToString();
 #endif
-                if (NetworkManager.Singleton.IsServer) {
-                    GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(Id, itemData.id, transform.position, transform.rotation);
-                    NetworkMessageBuilder messageBuilder = new NetworkMessageBuilder(MessageSendMode.reliable, (ushort) Server.PacketHandler.clientItemSpawn, grabbableData);
-                    messageBuilder.Send(asServer:true);
-                }
         }
 
         private void FixedUpdate() {
-            Chunk chunk = _planet.FindChunkAtPosition(transform.position);
-            if (chunk is null || !chunk.IsActive)
-                return;
-            if (!chunk.Equals(_initialChunk)) {
-                HandleChunkTransfer(chunk);
+            int groundLayer = LayerMask.NameToLayer("Ground");
+            float gravity = 9.8f;
+            Vector3 center = Vector3.down * float.MaxValue;
+            if (_planet is not null) {
+                gravity = _planet.PlanetData.Gravity;
+                center = _planet.PlanetData.Center;
+                Chunk chunk = _planet.FindChunkAtPosition(transform.position);
+                groundLayer = _planet.GroundLayer;
+                if (chunk is null || !chunk.IsActive)
+                    return;
+                if (!chunk.Equals(_initialChunk)) {
+                    HandleChunkTransfer(chunk);
+                }
             }
             Vector3 upDir = transform.up;
             Vector3 centre = Rb.position;
@@ -72,10 +77,10 @@ namespace _Project.Scripts.Components {
             float colliderBounds = bounds.extents.y;
             Vector3 castOrigin = centre + upDir * (colliderBounds * 2);
             wasNearGround = isNearGround;
-            isNearGround = Physics.Raycast(castOrigin, -upDir, out hitInfo, colliderBounds * 4, _planet.GroundLayer);
+            isNearGround = Physics.Raycast(castOrigin, -upDir, out hitInfo, colliderBounds * 4, groundLayer);
             _lastGroundPosition = hitInfo.point;
             if (hasGravity && !isNearGround) {
-                HandleGravity();
+                HandleGravity(center, gravity);
                 if (Rb.velocity.magnitude > 1f && Rb.collisionDetectionMode != CollisionDetectionMode.Continuous) {
                     Rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
                 }
@@ -83,7 +88,7 @@ namespace _Project.Scripts.Components {
                 if (Rb.collisionDetectionMode != CollisionDetectionMode.Discrete)
                     Rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
             } else if (Rb.velocity.magnitude > 0) {
-                HandleGravity();
+                HandleGravity(center, gravity);
             }
         }
         public void HandleChunkTransfer(Chunk newChunk) {
@@ -91,23 +96,19 @@ namespace _Project.Scripts.Components {
             newChunk.AddEntity(this);
             _initialChunk = newChunk;
         }
-        public void HandleGravity() {
-            Vector3 gravityUp = (Rb.position - _planet.Center).normalized;
-            Vector3 gravityForce = -gravityUp * _planet.Gravity; // La aceleración de la gravedad debe ser negativa para que 'tire' del jugador hacia el centro del planeta
+        public void HandleGravity(Vector3 center, float gravity) {
+            Vector3 gravityUp = (Rb.position - center).normalized;
+            Vector3 gravityForce = -gravityUp * gravity; // La aceleración de la gravedad debe ser negativa para que 'tire' del jugador hacia el centro del planeta
             Rb.AddForce(gravityForce, ForceMode.Acceleration); // Aplicamos la fuerza de gravedad como una aceleración
         }
-        public void HandleBounce() {
-            Vector3 gravityUp = (Rb.position - _planet.Center).normalized;
+        public void HandleBounce(Vector3 center) {
+            Vector3 gravityUp = (Rb.position - _planet.PlanetData.Center).normalized;
             Vector3 gravityForce = gravityUp * (Rb.velocity.magnitude);
             Rb.AddForce(gravityForce, ForceMode.Impulse);
             
         }
-        public void SetLootTable(LootTable lootTable) {
-            _lootTable = lootTable;
-        }
-        public LootTable GetLootTable() {
-            return _lootTable;
-        }
+        public void SetItemStack(ItemStack itemStack) { this._itemStack = itemStack; }
+        public ItemStack GetItemStack() => _itemStack;
         private void OnTriggerEnter(Collider other) {
             if (_planetCollider is null || !_planetCollider.Equals(other)) {
                 _planetCollider = other;
@@ -118,14 +119,9 @@ namespace _Project.Scripts.Components {
         }
         public void SetOutline(bool enabled) => _outline.enabled = enabled;
         public void OnDestroy() {
-            GameManager.grabbableItems.Remove(this.Id);
+            GameManager.grabbableItems.Remove(Id);
             Chunk chunk = GetPlanet()?.FindChunkAtPosition(transform.position);
             chunk?.RemoveEntity(this);
-            if (NetworkManager.Singleton.IsServer) {
-                Message message = Message.Create(MessageSendMode.reliable, Server.PacketHandler.clientItemDespawn);
-                message.AddUShort(Id);
-                NetworkManager.Singleton.Server.SendToAll(message);
-            }
         }
 
         private void OnDrawGizmos() {
@@ -135,40 +131,6 @@ namespace _Project.Scripts.Components {
             Vector3 castOrigin = centre + upDir * (colliderBounds * 2);
             Gizmos.DrawRay(castOrigin, -upDir * colliderBounds * 2);
         }
-
-        #region ClientMessages
-        [MessageHandler((ushort)Server.PacketHandler.clientItemDespawn)]
-        private static void DestroyItem(Message message) {
-            if(!NetworkManager.Singleton.IsServer)
-                if (GameManager.grabbableItems.TryGetValue(message.GetUShort(), out Grabbable grabbable)) {
-                    Destroy(grabbable.gameObject);
-                }
-        }
-        #endregion
-
-        #region ServerMessages
-        [MessageHandler((ushort)Server.PacketHandler.clientItemSpawn)]
-        private static void SpawnItemClient(Message message) {
-            if (!NetworkManager.Singleton.IsServer) {
-                GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(message);
-                Debug.Log($"Trying to get value : {grabbableData.itemId}");
-                if (NetworkManager.Singleton.itemsDictionary.TryGetValue(grabbableData.itemId, out Item prefabData)) {
-                    Rigidbody rb = null;
-                    if (!GameManager.grabbableItems.TryGetValue(grabbableData.grabbableId, out Grabbable grabbable)) {
-                        grabbable = Instantiate(prefabData.modelPrefab, grabbableData.position,
-                            grabbableData.rotation).AddComponent<Grabbable>();
-                    }
-                    else {
-                        Transform transform = grabbable.transform;
-                        transform.position = grabbableData.position;
-                        transform.rotation = grabbableData.rotation;
-                    }
-                    rb = grabbable.GetComponent<Rigidbody>();
-                    grabbable.Initialize(grabbableData.grabbableId, rb, prefabData);
-                }
-            }
-        }
-        #endregion
 
         public Planet GetPlanet() => _planet;
         public GameObject GetGameObject() => gameObject;

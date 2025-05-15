@@ -10,30 +10,25 @@ namespace _Project.Scripts.Components {
         public InventoryManager LinkedInventoryManager { get; set; }
         public bool CanPickUp { get; set; }
 
-        public LootTable TryPickItems(Grabbable closestGrabbable) {
+        public ItemStack TryPickItems(Grabbable closestGrabbable) {
             if (!CanPickUp)
-                return new LootTable();
+                return ItemStack.EMPTY;
 
-            var itemTable = closestGrabbable.GetLootTable();
-            if (itemTable == null)
-                return new LootTable();
+            var itemStack = closestGrabbable.GetItemStack();
+            if (itemStack.Item == null)
+                return ItemStack.EMPTY;
 
-            var leftOvers = new List<ItemStack>();
-            foreach (var itemInLootTable in itemTable.LootTables) {
-                var leftOver = LinkedInventoryManager.AddItemStack(new ItemStack(itemInLootTable.Item, itemInLootTable.Count));
-                leftOvers.Add(leftOver);
-                itemInLootTable.Count = leftOver.GetCount();
-            }
-            if (itemTable.IsEmpty()) {
+            var leftOver = LinkedInventoryManager.AddItemStack(itemStack);
+            if (leftOver.GetCount() > 0)
+                return itemStack;
+            else {
                 Planet planet = closestGrabbable.GetPlanet();
                 Chunk chunk = planet != null ? planet.FindChunkAtPosition(transform.position) : null;
                 if (chunk != null)
                     chunk.RemoveEntity(closestGrabbable);
                 Destroy(closestGrabbable.gameObject);
             }
-            itemTable = new LootTable();
-            foreach (var itemStack in leftOvers) itemTable.AddToLootTable(itemStack);
-            return itemTable;
+            return itemStack;
         }
 
         public Grabbable GetPickableInRange(Ray rayOrigin, float pickUpRadius, float pickUpDistance) {

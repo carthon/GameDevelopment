@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using _Project.Scripts.Constants;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
@@ -8,7 +9,7 @@ using UnityEngine;
 namespace _Project.Scripts.Network.MessageUtils {
     public static class MessageExtensions
     {
-        #region Vector2
+        #region Vector2 && Vector2Int
         /// <inheritdoc cref="AddVector2(Message, Vector2)"/>
         /// <remarks>This method is simply an alternative way of calling <see cref="AddVector2(Message, Vector2)"/>.</remarks>
         public static Message Add(this Message message, Vector2 value) => AddVector2(message, value);
@@ -27,6 +28,26 @@ namespace _Project.Scripts.Network.MessageUtils {
         {
             return new Vector2(message.GetFloat(), message.GetFloat());
         }
+        
+        /// <inheritdoc cref="AddVector2(Message, Vector2)"/>
+        /// <remarks>This method is simply an alternative way of calling <see cref="AddVector2(Message, Vector2)"/>.</remarks>
+        public static Message Add(this Message message, Vector2Int value) => AddVector2Int(message, value);
+
+        /// <summary>Adds a <see cref="Vector2"/> to the message.</summary>
+        /// <param name="value">The <see cref="Vector2"/> to add.</param>
+        /// <returns>The message that the <see cref="Vector2"/> was added to.</returns>
+        public static Message AddVector2Int(this Message message, Vector2Int value)
+        {
+            return message.AddInt(value.x).AddInt(value.y);
+        }
+
+        /// <summary>Retrieves a <see cref="Vector2"/> from the message.</summary>
+        /// <returns>The <see cref="Vector2"/> that was retrieved.</returns>
+        public static Vector2Int GetVector2Int(this Message message)
+        {
+            return new Vector2Int(message.GetInt(), message.GetInt());
+        }
+        
         #endregion
 
         #region Vector3
@@ -71,6 +92,29 @@ namespace _Project.Scripts.Network.MessageUtils {
         }
         #endregion
         
+        #region InventorySlot
+        /// <inheritdoc cref="AddInventorySlot(Message, ItemStack)"/>
+        /// <remarks>This method is simply an alternative way of calling <see cref="AddVector3(Message, Vector3)"/>.</remarks>
+        public static Message Add(this Message message, InventorySlot value) => AddInventorySlot(message, value);
+
+        /// <summary>Adds a <see cref="InventorySlot"/> to the message.</summary>
+        /// <param name="value">The <see cref="InventorySlot"/> to add.</param>
+        /// <returns>The message that the <see cref="InventorySlot"/> was added to.</returns>
+        public static Message AddInventorySlot(this Message message, InventorySlot value)
+        {
+            return message.AddItemStack(value.ItemStack ?? ItemStack.EMPTY).AddBool(value.IsFlipped).AddBool(value.IsOrigin);
+        }
+
+        /// <summary>Retrieves a <see cref="ItemStack"/> from the message.</summary>
+        /// <returns>The <see cref="ItemStack"/> that was retrieved.</returns>
+        public static InventorySlot GetInventorySlot(this Message message) {
+            ItemStack itemStack = message.GetItemStack();
+            bool isFlipped = message.GetBool();
+            bool isOrigin = message.GetBool();
+            return !itemStack.Equals(ItemStack.EMPTY) ? new InventorySlot(itemStack, isFlipped, isOrigin) : new InventorySlot();
+        }
+        #endregion
+        
         #region ItemStack
         /// <inheritdoc cref="AddItemStack(Message, ItemStack)"/>
         /// <remarks>This method is simply an alternative way of calling <see cref="AddVector3(Message, Vector3)"/>.</remarks>
@@ -81,7 +125,7 @@ namespace _Project.Scripts.Network.MessageUtils {
         /// <returns>The message that the <see cref="ItemStack"/> was added to.</returns>
         public static Message AddItemStack(this Message message, ItemStack value)
         {
-            return message.AddString(value.Item != null ? value.Item.id : string.Empty).AddInt(value.GetCount()).AddInt(value.GetSlotID());
+            return message.AddString(value.Item != null ? value.Item.id : string.Empty).AddInt(value.GetCount()).AddVector2Int(value.OriginalSlot);
         }
 
         /// <summary>Retrieves a <see cref="ItemStack"/> from the message.</summary>
@@ -90,8 +134,8 @@ namespace _Project.Scripts.Network.MessageUtils {
             string prefabId = message.GetString();
             if (prefabId != string.Empty)
                 return new ItemStack(NetworkManager.Singleton.itemsDictionary[prefabId], 
-                message.GetInt(), message.GetInt());
-            return new ItemStack(null, message.GetInt(), message.GetInt());
+                message.GetInt(), message.GetVector2Int());
+            return new ItemStack(null, message.GetInt(), message.GetVector2Int());
         }
         #endregion
         

@@ -4,113 +4,113 @@
         <name>RiptideNetworking</name>
     </assembly>
     <members>
-        <member name="T:RiptideNetworking.Client">
-            <summary>A client that can connect to a <see cref="T:RiptideNetworking.Server"/>.</summary>
+        <member name="T:RiptideNetworking.ClientHandler">
+            <summary>A client that can connect to a <see cref="T:RiptideNetworking.ServerHandler"/>.</summary>
         </member>
-        <member name="E:RiptideNetworking.Client.Connected">
+        <member name="E:RiptideNetworking.ClientHandler.Connected">
             <inheritdoc cref="E:RiptideNetworking.Transports.IClient.Connected"/>
         </member>
-        <member name="E:RiptideNetworking.Client.ConnectionFailed">
+        <member name="E:RiptideNetworking.ClientHandler.ConnectionFailed">
             <inheritdoc cref="E:RiptideNetworking.Transports.IClient.ConnectionFailed"/>
         </member>
-        <member name="E:RiptideNetworking.Client.MessageReceived">
+        <member name="E:RiptideNetworking.ClientHandler.MessageReceived">
             <inheritdoc cref="E:RiptideNetworking.Transports.IClient.MessageReceived"/>
         </member>
-        <member name="E:RiptideNetworking.Client.Disconnected">
+        <member name="E:RiptideNetworking.ClientHandler.Disconnected">
             <inheritdoc cref="E:RiptideNetworking.Transports.IClient.Disconnected"/>
         </member>
-        <member name="E:RiptideNetworking.Client.ClientConnected">
+        <member name="E:RiptideNetworking.ClientHandler.ClientConnected">
             <inheritdoc cref="E:RiptideNetworking.Transports.IClient.ClientConnected"/>
         </member>
-        <member name="E:RiptideNetworking.Client.ClientDisconnected">
+        <member name="E:RiptideNetworking.ClientHandler.ClientDisconnected">
             <inheritdoc cref="E:RiptideNetworking.Transports.IClient.ClientDisconnected"/>
         </member>
-        <member name="P:RiptideNetworking.Client.Id">
+        <member name="P:RiptideNetworking.ClientHandler.Id">
             <inheritdoc cref="P:RiptideNetworking.Transports.IConnectionInfo.Id"/>
         </member>
-        <member name="P:RiptideNetworking.Client.RTT">
+        <member name="P:RiptideNetworking.ClientHandler.RTT">
             <inheritdoc cref="P:RiptideNetworking.Transports.IConnectionInfo.RTT"/>
         </member>
-        <member name="P:RiptideNetworking.Client.SmoothRTT">
+        <member name="P:RiptideNetworking.ClientHandler.SmoothRTT">
             <inheritdoc cref="P:RiptideNetworking.Transports.IConnectionInfo.SmoothRTT"/>
         </member>
-        <member name="P:RiptideNetworking.Client.IsNotConnected">
+        <member name="P:RiptideNetworking.ClientHandler.IsNotConnected">
             <inheritdoc cref="P:RiptideNetworking.Transports.IConnectionInfo.IsNotConnected"/>
         </member>
-        <member name="P:RiptideNetworking.Client.IsConnecting">
+        <member name="P:RiptideNetworking.ClientHandler.IsConnecting">
             <inheritdoc cref="P:RiptideNetworking.Transports.IConnectionInfo.IsConnecting"/>
         </member>
-        <member name="P:RiptideNetworking.Client.IsConnected">
+        <member name="P:RiptideNetworking.ClientHandler.IsConnected">
             <inheritdoc cref="P:RiptideNetworking.Transports.IConnectionInfo.IsConnected"/>
         </member>
-        <member name="T:RiptideNetworking.Client.MessageHandler">
+        <member name="T:RiptideNetworking.ClientHandler.MessageHandler">
             <summary>Encapsulates a method that handles a message from the server.</summary>
             <param name="message">The message that was received.</param>
         </member>
-        <member name="F:RiptideNetworking.Client.messageHandlers">
+        <member name="F:RiptideNetworking.ClientHandler.messageHandlers">
             <summary>Methods used to handle messages, accessible by their corresponding message IDs.</summary>
         </member>
-        <member name="F:RiptideNetworking.Client.client">
+        <member name="F:RiptideNetworking.ClientHandler.client">
             <summary>The underlying client that is used for sending and receiving data.</summary>
         </member>
-        <member name="M:RiptideNetworking.Client.#ctor(RiptideNetworking.Transports.IClient)">
+        <member name="M:RiptideNetworking.ClientHandler.#ctor(RiptideNetworking.Transports.IClient)">
             <summary>Handles initial setup.</summary>
             <param name="client">The underlying client that is used for sending and receiving data.</param>
         </member>
-        <member name="M:RiptideNetworking.Client.#ctor(System.UInt16,System.UInt16,System.Byte,System.String)">
+        <member name="M:RiptideNetworking.ClientHandler.#ctor(System.UInt16,System.UInt16,System.Byte,System.String)">
             <summary>Handles initial setup using the built-in RUDP transport.</summary>
             <param name="timeoutTime">The time (in milliseconds) after which to disconnect if there's no heartbeat from the server.</param>
             <param name="heartbeatInterval">The interval (in milliseconds) at which heartbeats should be sent to the server.</param>
             <param name="maxConnectionAttempts">How many connection attempts to make before giving up.</param>
             <param name="logName">The name to use when logging messages via <see cref="T:RiptideNetworking.Utils.RiptideLogger"/>.</param>
         </member>
-        <member name="M:RiptideNetworking.Client.ChangeTransport(RiptideNetworking.Transports.IClient)">
+        <member name="M:RiptideNetworking.ClientHandler.ChangeTransport(RiptideNetworking.Transports.IClient)">
             <summary>Disconnects the client if it's connected and swaps out the transport it's using.</summary>
             <param name="client">The underlying client that is used for managing the connection to the server.</param>
-            <remarks>This method does not automatically reconnect to the server. To continue communicating with the server, <see cref="M:RiptideNetworking.Client.Connect(System.String,System.Byte,RiptideNetworking.Message)"/> will need to be called again.</remarks>
+            <remarks>This method does not automatically reconnect to the server. To continue communicating with the server, <see cref="M:RiptideNetworking.ClientHandler.Connect(System.String,System.Byte,RiptideNetworking.Message)"/> will need to be called again.</remarks>
         </member>
-        <member name="M:RiptideNetworking.Client.Connect(System.String,System.Byte,RiptideNetworking.Message)">
+        <member name="M:RiptideNetworking.ClientHandler.Connect(System.String,System.Byte,RiptideNetworking.Message)">
             <summary>Attempts to connect to the given host address.</summary>
             <param name="hostAddress">The host address to connect to.</param>
-            <param name="messageHandlerGroupId">The ID of the group of message handler methods to use when building <see cref="F:RiptideNetworking.Client.messageHandlers"/>.</param>
+            <param name="messageHandlerGroupId">The ID of the group of message handler methods to use when building <see cref="F:RiptideNetworking.ClientHandler.messageHandlers"/>.</param>
             <param name="message">A message containing data that should be sent to the server with the connection attempt. Use <see cref="M:RiptideNetworking.Message.Create"/> to get an empty message instance.</param>
             <remarks>
               Riptide's default transport expects the host address to consist of an IP and port, separated by a colon. For example: <c>127.0.0.1:7777</c>.<br/>
               If you are using a different transport, check the relevant documentation for what information it requires in the host address.
             </remarks>
         </member>
-        <member name="M:RiptideNetworking.Client.CreateMessageHandlersDictionary(System.Reflection.Assembly,System.Byte)">
+        <member name="M:RiptideNetworking.ClientHandler.CreateMessageHandlersDictionary(System.Reflection.Assembly,System.Byte)">
             <inheritdoc/>
         </member>
-        <member name="M:RiptideNetworking.Client.Tick">
+        <member name="M:RiptideNetworking.ClientHandler.Tick">
             <inheritdoc/>
         </member>
-        <member name="M:RiptideNetworking.Client.Send(RiptideNetworking.Message,System.Boolean)">
+        <member name="M:RiptideNetworking.ClientHandler.Send(RiptideNetworking.Message,System.Boolean)">
             <inheritdoc cref="M:RiptideNetworking.Transports.IClient.Send(RiptideNetworking.Message,System.Boolean)"/>
         </member>
-        <member name="M:RiptideNetworking.Client.Disconnect">
+        <member name="M:RiptideNetworking.ClientHandler.Disconnect">
             <summary>Disconnects from the server.</summary>
         </member>
-        <member name="M:RiptideNetworking.Client.OnConnected(System.Object,System.EventArgs)">
-            <summary>Invokes the <see cref="E:RiptideNetworking.Client.Connected"/> event.</summary>
+        <member name="M:RiptideNetworking.ClientHandler.OnConnected(System.Object,System.EventArgs)">
+            <summary>Invokes the <see cref="E:RiptideNetworking.ClientHandler.Connected"/> event.</summary>
         </member>
-        <member name="M:RiptideNetworking.Client.OnConnectionFailed(System.Object,System.EventArgs)">
-            <summary>Invokes the <see cref="E:RiptideNetworking.Client.ConnectionFailed"/> event.</summary>
+        <member name="M:RiptideNetworking.ClientHandler.OnConnectionFailed(System.Object,System.EventArgs)">
+            <summary>Invokes the <see cref="E:RiptideNetworking.ClientHandler.ConnectionFailed"/> event.</summary>
         </member>
-        <member name="M:RiptideNetworking.Client.OnMessageReceived(System.Object,RiptideNetworking.ClientMessageReceivedEventArgs)">
-            <summary>Invokes the <see cref="E:RiptideNetworking.Client.MessageReceived"/> event and initiates handling of the received message.</summary>
+        <member name="M:RiptideNetworking.ClientHandler.OnMessageReceived(System.Object,RiptideNetworking.ClientMessageReceivedEventArgs)">
+            <summary>Invokes the <see cref="E:RiptideNetworking.ClientHandler.MessageReceived"/> event and initiates handling of the received message.</summary>
         </member>
-        <member name="M:RiptideNetworking.Client.OnDisconnected(System.Object,System.EventArgs)">
-            <summary>Invokes the <see cref="E:RiptideNetworking.Client.Disconnected"/> event.</summary>
+        <member name="M:RiptideNetworking.ClientHandler.OnDisconnected(System.Object,System.EventArgs)">
+            <summary>Invokes the <see cref="E:RiptideNetworking.ClientHandler.Disconnected"/> event.</summary>
         </member>
-        <member name="M:RiptideNetworking.Client.OnClientConnected(System.Object,RiptideNetworking.ClientConnectedEventArgs)">
-            <summary>Invokes the <see cref="E:RiptideNetworking.Client.ClientConnected"/> event.</summary>
+        <member name="M:RiptideNetworking.ClientHandler.OnClientConnected(System.Object,RiptideNetworking.ClientConnectedEventArgs)">
+            <summary>Invokes the <see cref="E:RiptideNetworking.ClientHandler.ClientConnected"/> event.</summary>
         </member>
-        <member name="M:RiptideNetworking.Client.OnClientDisconnected(System.Object,RiptideNetworking.ClientDisconnectedEventArgs)">
-            <summary>Invokes the <see cref="E:RiptideNetworking.Client.ClientDisconnected"/> event.</summary>
+        <member name="M:RiptideNetworking.ClientHandler.OnClientDisconnected(System.Object,RiptideNetworking.ClientDisconnectedEventArgs)">
+            <summary>Invokes the <see cref="E:RiptideNetworking.ClientHandler.ClientDisconnected"/> event.</summary>
         </member>
         <member name="T:RiptideNetworking.Common">
-            <summary>Contains shared functionality for <see cref="T:RiptideNetworking.Server"/> and <see cref="T:RiptideNetworking.Client"/>.</summary>
+            <summary>Contains shared functionality for <see cref="T:RiptideNetworking.ServerHandler"/> and <see cref="T:RiptideNetworking.ClientHandler"/>.</summary>
         </member>
         <member name="M:RiptideNetworking.Common.CreateMessageHandlersDictionary(System.Reflection.Assembly,System.Byte)">
             <summary>Searches the given assembly for methods with the <see cref="T:RiptideNetworking.MessageHandlerAttribute"/> and adds them to the dictionary of handler methods.</summary>
@@ -123,7 +123,7 @@
         <member name="T:RiptideNetworking.ServerClientConnectedEventArgs">
             <summary>Contains event data for when a client connects to the server.</summary>
         </member>
-        <member name="P:RiptideNetworking.ServerClientConnectedEventArgs.Client">
+        <member name="P:RiptideNetworking.ServerClientConnectedEventArgs.ClientHandler">
             <summary>The newly connected client.</summary>
         </member>
         <member name="P:RiptideNetworking.ServerClientConnectedEventArgs.ConnectMessage">
@@ -202,8 +202,8 @@
             <summary>The maximum amount of bytes that a message can contain. Includes a 1 byte header.</summary>
         </member>
         <member name="P:RiptideNetworking.Message.InstancesPerSocket">
-            <summary>How many messages to add to the pool for each <see cref="T:RiptideNetworking.Server"/> or <see cref="T:RiptideNetworking.Client"/> instance that is started.</summary>
-            <remarks>Changes will not affect <see cref="T:RiptideNetworking.Server"/> and <see cref="T:RiptideNetworking.Client"/> instances which are already running until they are restarted.</remarks>
+            <summary>How many messages to add to the pool for each <see cref="T:RiptideNetworking.ServerHandler"/> or <see cref="T:RiptideNetworking.ClientHandler"/> instance that is started.</summary>
+            <remarks>Changes will not affect <see cref="T:RiptideNetworking.ServerHandler"/> and <see cref="T:RiptideNetworking.ClientHandler"/> instances which are already running until they are restarted.</remarks>
         </member>
         <member name="F:RiptideNetworking.Message.pool">
             <summary>A pool of reusable message instances.</summary>
@@ -238,10 +238,10 @@
             <param name="maxSize">The maximum amount of bytes the message can contain.</param>
         </member>
         <member name="M:RiptideNetworking.Message.IncreasePoolCount">
-            <summary>Increases the amount of messages in the pool. For use when a new <see cref="T:RiptideNetworking.Server"/> or <see cref="T:RiptideNetworking.Client"/> is started.</summary>
+            <summary>Increases the amount of messages in the pool. For use when a new <see cref="T:RiptideNetworking.ServerHandler"/> or <see cref="T:RiptideNetworking.ClientHandler"/> is started.</summary>
         </member>
         <member name="M:RiptideNetworking.Message.DecreasePoolCount">
-            <summary>Decreases the amount of messages in the pool. For use when a <see cref="T:RiptideNetworking.Server"/> or <see cref="T:RiptideNetworking.Client"/> is stopped.</summary>
+            <summary>Decreases the amount of messages in the pool. For use when a <see cref="T:RiptideNetworking.ServerHandler"/> or <see cref="T:RiptideNetworking.ClientHandler"/> is stopped.</summary>
         </member>
         <member name="M:RiptideNetworking.Message.Create">
             <summary>Gets a usable message instance.</summary>
@@ -252,7 +252,7 @@
             <param name="sendMode">The mode in which the message should be sent.</param>
             <param name="id">The message ID.</param>
             <param name="maxSendAttempts">How often to try sending the message before giving up.</param>
-            <param name="shouldAutoRelay">Whether or not <see cref="T:RiptideNetworking.Server"/> instances should automatically relay this message to all other clients. This has no effect when <see cref="P:RiptideNetworking.Server.AllowAutoMessageRelay"/> is set to <see langword="false"/> and does not affect how clients handle messages.</param>
+            <param name="shouldAutoRelay">Whether or not <see cref="T:RiptideNetworking.ServerHandler"/> instances should automatically relay this message to all other clients. This has no effect when <see cref="P:RiptideNetworking.ServerHandler.AllowAutoMessageRelay"/> is set to <see langword="false"/> and does not affect how clients handle messages.</param>
             <returns>A message instance ready to be used for sending.</returns>
         </member>
         <member name="M:RiptideNetworking.Message.Create(RiptideNetworking.MessageSendMode,System.Enum,System.Int32,System.Boolean)">
@@ -952,102 +952,102 @@
             <param name="groupId">The ID of the group of message handlers this method belongs to.</param>
             <remarks>
               <para>
-                <see cref="T:RiptideNetworking.Server"/> instances will include this method in their message handlers if its signature matches that of <see cref="T:RiptideNetworking.Server.MessageHandler"/>.<br/>
-                <see cref="T:RiptideNetworking.Client"/> instances will include this method in their message handlers if its signature matches that of <see cref="T:RiptideNetworking.Client.MessageHandler"/>.
+                <see cref="T:RiptideNetworking.ServerHandler"/> instances will include this method in their message handlers if its signature matches that of <see cref="T:RiptideNetworking.ServerHandler.MessageHandler"/>.<br/>
+                <see cref="T:RiptideNetworking.ClientHandler"/> instances will include this method in their message handlers if its signature matches that of <see cref="T:RiptideNetworking.ClientHandler.MessageHandler"/>.
               </para>
             </remarks>
         </member>
-        <member name="T:RiptideNetworking.Server">
-            <summary>A server that can accept connections from <see cref="T:RiptideNetworking.Client"/>s.</summary>
+        <member name="T:RiptideNetworking.ServerHandler">
+            <summary>A server that can accept connections from <see cref="T:RiptideNetworking.ClientHandler"/>s.</summary>
         </member>
-        <member name="E:RiptideNetworking.Server.ClientConnected">
+        <member name="E:RiptideNetworking.ServerHandler.ClientConnected">
             <inheritdoc cref="E:RiptideNetworking.Transports.IServer.ClientConnected"/>
         </member>
-        <member name="E:RiptideNetworking.Server.MessageReceived">
+        <member name="E:RiptideNetworking.ServerHandler.MessageReceived">
             <inheritdoc cref="E:RiptideNetworking.Transports.IServer.MessageReceived"/>
         </member>
-        <member name="E:RiptideNetworking.Server.ClientDisconnected">
+        <member name="E:RiptideNetworking.ServerHandler.ClientDisconnected">
             <inheritdoc cref="E:RiptideNetworking.Transports.IServer.ClientDisconnected"/>
         </member>
-        <member name="P:RiptideNetworking.Server.IsRunning">
+        <member name="P:RiptideNetworking.ServerHandler.IsRunning">
             <summary>Whether or not the server is currently running.</summary>
         </member>
-        <member name="P:RiptideNetworking.Server.Port">
+        <member name="P:RiptideNetworking.ServerHandler.Port">
             <inheritdoc cref="P:RiptideNetworking.Transports.IServer.Port"/>
         </member>
-        <member name="P:RiptideNetworking.Server.Clients">
+        <member name="P:RiptideNetworking.ServerHandler.Clients">
             <inheritdoc cref="P:RiptideNetworking.Transports.IServer.Clients"/>
         </member>
-        <member name="P:RiptideNetworking.Server.MaxClientCount">
+        <member name="P:RiptideNetworking.ServerHandler.MaxClientCount">
             <inheritdoc cref="P:RiptideNetworking.Transports.IServer.MaxClientCount"/>
         </member>
-        <member name="P:RiptideNetworking.Server.ClientCount">
+        <member name="P:RiptideNetworking.ServerHandler.ClientCount">
             <inheritdoc cref="P:RiptideNetworking.Transports.IServer.ClientCount"/>
         </member>
-        <member name="P:RiptideNetworking.Server.AllowAutoMessageRelay">
+        <member name="P:RiptideNetworking.ServerHandler.AllowAutoMessageRelay">
             <inheritdoc cref="P:RiptideNetworking.Transports.IServer.AllowAutoMessageRelay"/>
         </member>
-        <member name="T:RiptideNetworking.Server.MessageHandler">
+        <member name="T:RiptideNetworking.ServerHandler.MessageHandler">
             <summary>Encapsulates a method that handles a message from a certain client.</summary>
             <param name="fromClientId">The numeric ID of the client from whom the message was received.</param>
             <param name="message">The message that was received.</param>
         </member>
-        <member name="F:RiptideNetworking.Server.messageHandlers">
+        <member name="F:RiptideNetworking.ServerHandler.messageHandlers">
             <summary>Methods used to handle messages, accessible by their corresponding message IDs.</summary>
         </member>
-        <member name="F:RiptideNetworking.Server.server">
+        <member name="F:RiptideNetworking.ServerHandler.server">
             <summary>The underlying server that is used for managing connections and sending and receiving data.</summary>
         </member>
-        <member name="M:RiptideNetworking.Server.#ctor(RiptideNetworking.Transports.IServer)">
+        <member name="M:RiptideNetworking.ServerHandler.#ctor(RiptideNetworking.Transports.IServer)">
             <summary>Handles initial setup.</summary>
             <param name="server">The underlying server that is used for managing connections and sending and receiving data.</param>
         </member>
-        <member name="M:RiptideNetworking.Server.#ctor(System.UInt16,System.UInt16,System.String)">
+        <member name="M:RiptideNetworking.ServerHandler.#ctor(System.UInt16,System.UInt16,System.String)">
             <summary>Handles initial setup using the built-in RUDP transport.</summary>
             <param name="clientTimeoutTime">The time (in milliseconds) after which to disconnect a client without a heartbeat.</param>
             <param name="clientHeartbeatInterval">The interval (in milliseconds) at which heartbeats are to be expected from clients.</param>
             <param name="logName">The name to use when logging messages via <see cref="T:RiptideNetworking.Utils.RiptideLogger"/>.</param>
         </member>
-        <member name="M:RiptideNetworking.Server.ChangeTransport(RiptideNetworking.Transports.IServer)">
+        <member name="M:RiptideNetworking.ServerHandler.ChangeTransport(RiptideNetworking.Transports.IServer)">
             <summary>Stops the server if it's running and swaps out the transport it's using.</summary>
             <param name="server">The underlying server that is used for managing connections and sending and receiving data.</param>
-            <remarks>This method does not automatically restart the server. To continue accepting connections, <see cref="M:RiptideNetworking.Server.Start(System.UInt16,System.UInt16,System.Byte)"/> will need to be called again.</remarks>
+            <remarks>This method does not automatically restart the server. To continue accepting connections, <see cref="M:RiptideNetworking.ServerHandler.Start(System.UInt16,System.UInt16,System.Byte)"/> will need to be called again.</remarks>
         </member>
-        <member name="M:RiptideNetworking.Server.Start(System.UInt16,System.UInt16,System.Byte)">
+        <member name="M:RiptideNetworking.ServerHandler.Start(System.UInt16,System.UInt16,System.Byte)">
             <summary>Starts the server.</summary>
             <param name="port">The local port on which to start the server.</param>
             <param name="maxClientCount">The maximum number of concurrent connections to allow.</param>
-            <param name="messageHandlerGroupId">The ID of the group of message handler methods to use when building <see cref="F:RiptideNetworking.Server.messageHandlers"/>.</param>
+            <param name="messageHandlerGroupId">The ID of the group of message handler methods to use when building <see cref="F:RiptideNetworking.ServerHandler.messageHandlers"/>.</param>
         </member>
-        <member name="M:RiptideNetworking.Server.CreateMessageHandlersDictionary(System.Reflection.Assembly,System.Byte)">
+        <member name="M:RiptideNetworking.ServerHandler.CreateMessageHandlersDictionary(System.Reflection.Assembly,System.Byte)">
             <inheritdoc/>
         </member>
-        <member name="M:RiptideNetworking.Server.Tick">
+        <member name="M:RiptideNetworking.ServerHandler.Tick">
             <inheritdoc/>
         </member>
-        <member name="M:RiptideNetworking.Server.Send(RiptideNetworking.Message,System.UInt16,System.Boolean)">
+        <member name="M:RiptideNetworking.ServerHandler.Send(RiptideNetworking.Message,System.UInt16,System.Boolean)">
             <inheritdoc cref="M:RiptideNetworking.Transports.IServer.Send(RiptideNetworking.Message,System.UInt16,System.Boolean)"/>
         </member>
-        <member name="M:RiptideNetworking.Server.SendToAll(RiptideNetworking.Message,System.Boolean)">
+        <member name="M:RiptideNetworking.ServerHandler.SendToAll(RiptideNetworking.Message,System.Boolean)">
             <inheritdoc cref="M:RiptideNetworking.Transports.IServer.SendToAll(RiptideNetworking.Message,System.Boolean)"/>
         </member>
-        <member name="M:RiptideNetworking.Server.SendToAll(RiptideNetworking.Message,System.UInt16,System.Boolean)">
+        <member name="M:RiptideNetworking.ServerHandler.SendToAll(RiptideNetworking.Message,System.UInt16,System.Boolean)">
             <inheritdoc cref="M:RiptideNetworking.Transports.IServer.SendToAll(RiptideNetworking.Message,System.UInt16,System.Boolean)"/>
         </member>
-        <member name="M:RiptideNetworking.Server.DisconnectClient(System.UInt16)">
+        <member name="M:RiptideNetworking.ServerHandler.DisconnectClient(System.UInt16)">
             <inheritdoc cref="M:RiptideNetworking.Transports.IServer.DisconnectClient(System.UInt16)"/>
         </member>
-        <member name="M:RiptideNetworking.Server.Stop">
+        <member name="M:RiptideNetworking.ServerHandler.Stop">
             <summary>Stops the server.</summary>
         </member>
-        <member name="M:RiptideNetworking.Server.OnClientConnected(System.Object,RiptideNetworking.ServerClientConnectedEventArgs)">
-            <summary>Invokes the <see cref="E:RiptideNetworking.Server.ClientConnected"/> event.</summary>
+        <member name="M:RiptideNetworking.ServerHandler.OnClientConnected(System.Object,RiptideNetworking.ServerClientConnectedEventArgs)">
+            <summary>Invokes the <see cref="E:RiptideNetworking.ServerHandler.ClientConnected"/> event.</summary>
         </member>
-        <member name="M:RiptideNetworking.Server.OnMessageReceived(System.Object,RiptideNetworking.ServerMessageReceivedEventArgs)">
-            <summary>Invokes the <see cref="E:RiptideNetworking.Server.MessageReceived"/> event and initiates handling of the received message.</summary>
+        <member name="M:RiptideNetworking.ServerHandler.OnMessageReceived(System.Object,RiptideNetworking.ServerMessageReceivedEventArgs)">
+            <summary>Invokes the <see cref="E:RiptideNetworking.ServerHandler.MessageReceived"/> event and initiates handling of the received message.</summary>
         </member>
-        <member name="M:RiptideNetworking.Server.OnClientDisconnected(System.Object,RiptideNetworking.ClientDisconnectedEventArgs)">
-            <summary>Invokes the <see cref="E:RiptideNetworking.Server.ClientDisconnected"/> event.</summary>
+        <member name="M:RiptideNetworking.ServerHandler.OnClientDisconnected(System.Object,RiptideNetworking.ClientDisconnectedEventArgs)">
+            <summary>Invokes the <see cref="E:RiptideNetworking.ServerHandler.ClientDisconnected"/> event.</summary>
         </member>
         <member name="T:RiptideNetworking.Transports.IClient">
             <summary>Defines methods, properties, and events which every transport's client must implement.</summary>
@@ -1151,8 +1151,8 @@
         </member>
         <member name="P:RiptideNetworking.Transports.IServer.AllowAutoMessageRelay">
             <summary>Whether or not to allow messages to be automatically sent to all other connected clients.</summary>
-            <remarks>This should never be enabled if you want to maintain server authority, as it theoretically allows hacked clients to tell your <see cref="T:RiptideNetworking.Server"/> instance to automatically distribute any message to other clients.
-            However, it's extremely handy when building client-authoritative games where the <see cref="T:RiptideNetworking.Server"/> instance acts mostly as a relay and is directly forwarding most messages to other clients anyways.</remarks>
+            <remarks>This should never be enabled if you want to maintain server authority, as it theoretically allows hacked clients to tell your <see cref="T:RiptideNetworking.ServerHandler"/> instance to automatically distribute any message to other clients.
+            However, it's extremely handy when building client-authoritative games where the <see cref="T:RiptideNetworking.ServerHandler"/> instance acts mostly as a relay and is directly forwarding most messages to other clients anyways.</remarks>
         </member>
         <member name="M:RiptideNetworking.Transports.IServer.Start(System.UInt16,System.UInt16)">
             <summary>Starts the server.</summary>

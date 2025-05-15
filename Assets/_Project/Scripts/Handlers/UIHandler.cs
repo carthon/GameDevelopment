@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using _Project.Scripts.Components;
+using _Project.Libraries.QuickOutline.Scripts;
+using _Project.Scripts.DiegeticUI;
 using _Project.Scripts.DiegeticUI.InterfaceControllers;
 using _Project.Scripts.Network;
+using _Project.Scripts.Network.Client;
 using RiptideNetworking;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using Client = _Project.Scripts.Network.Client.Client;
-using Outline = _Project.Libraries.QuickOutline.Scripts.Outline;
 
 #if !UNITY_SERVER
 namespace _Project.Scripts.Handlers {
@@ -23,8 +21,16 @@ namespace _Project.Scripts.Handlers {
         public InterfaceAbstractBaseState CurrentState;
         public InterfaceAbstractBaseState LastState;
         private InterfaceStateFactory _stateFactory;
-        public GameObject slotSelectionVisualizer;
         public Transform itemGrabberTransform;
+
+        #region DIEGETIC_PARAMS
+
+        public ContainerRenderer currentContainer;
+        public GameObject inventoryCellIndicator;
+        public MeshRenderer inventoryCellIndicatorMeshRenderer;
+        public MeshFilter inventoryCellIndicatorMeshFilter;
+        
+        #endregion
         
         public string StateToString;
 
@@ -36,9 +42,8 @@ namespace _Project.Scripts.Handlers {
         private void Start() {
             serverIp = NetworkManager.Singleton.hostAddress;
             port = NetworkManager.Singleton.port.ToString();
-            NetworkManager.Singleton.Client = new Client();
             _watchedVariables = new Dictionary<string, string>();
-            _stateFactory = new InterfaceStateFactory(this);
+            inventoryCellIndicatorMeshFilter = inventoryCellIndicator.GetComponentInChildren<MeshFilter>();
         }
         private void Update() {
             CurrentState?.UpdateStates();
@@ -46,7 +51,9 @@ namespace _Project.Scripts.Handlers {
         }
 
         private void OnClientReady() {
+            _stateFactory = new InterfaceStateFactory(currentContainer);
             CurrentState = _stateFactory.DefaultState();
+            currentContainer.AttachToInventory(ClientHandler.Singleton.Player.InventoryManager.Inventories[0]);
         }
         private bool ValidateConnectionValues() {
             NetworkManager networkManager = NetworkManager.Singleton;
@@ -67,10 +74,10 @@ namespace _Project.Scripts.Handlers {
         }
         public void OnGUI() {
             NetworkManager networkManager = NetworkManager.Singleton;
-            bool isServer = networkManager.Server != null && networkManager.IsServer;
-            bool isClient = networkManager.Client != null && networkManager.IsClient;
-            string serverText = isServer ? "Stop Server" : "Start Server";
-            string clientText = isClient ? "Stop Client" : "Start Client";
+            bool isServer = networkManager.ServerHandler != null && networkManager.IsServer;
+            bool isClient = networkManager.ClientHandler != null && networkManager.IsClient;
+            string serverText = isServer ? "Stop ServerHandler" : "Start ServerHandler";
+            string clientText = isClient ? "Stop ClientHandler" : "Start ClientHandler";
             
             GUILayout.BeginArea(new Rect(Vector2.right * (Screen.width - 200), new Vector2(200,500)));
             if (GUILayout.Button(serverText)) {
@@ -84,9 +91,9 @@ namespace _Project.Scripts.Handlers {
             GUILayout.BeginVertical("box");
             GUILayout.Label($"IsClient: {NetworkManager.Singleton.IsClient.ToString()}");
             GUILayout.Label($"IsServer: {NetworkManager.Singleton.IsServer.ToString()}");
-            if (isClient && NetworkManager.Singleton.Client.Player) {
-                GUILayout.Label($"IsLocal: {NetworkManager.Singleton.Client.Player.IsLocal.ToString()}");
-                GUILayout.Label($"ClientId: {NetworkManager.Singleton.Client.Player.Id.ToString()}");
+            if (isClient && NetworkManager.Singleton.ClientHandler.Player) {
+                GUILayout.Label($"IsLocal: {NetworkManager.Singleton.ClientHandler.Player.IsLocal.ToString()}");
+                GUILayout.Label($"ClientId: {NetworkManager.Singleton.ClientHandler.Player.Id.ToString()}");
             }
             NetworkManager.Singleton.debugServerPosition = GUILayout.Toggle(NetworkManager.Singleton.debugServerPosition,"Enable server preview");
             foreach (string watchedVariable in _watchedVariables.Values) {
@@ -104,28 +111,20 @@ namespace _Project.Scripts.Handlers {
         }
         public void ToggleClient() {
             NetworkManager networkManager = NetworkManager.Singleton;
-            if(!networkManager.Client.IsConnected) {
+            if(!networkManager.ClientHandler.IsConnected) {
                 if (!ValidateConnectionValues()) return;
 
                 networkManager.InitializeClient();
-                SendConnectionMessage();
-                networkManager.Client.OnClientReady += OnClientReady;
+                networkManager.ClientHandler.OnClientReady += OnClientReady;
+                networkManager.ClientHandler.SendConnectionMessage(usernameField);
             } else
                 networkManager.StopClient();
         }
         public void ToggleServer() {
             NetworkManager networkManager = NetworkManager.Singleton;
         
-            if (networkManager.Server != null) networkManager.StopServer();
+            if (networkManager.ServerHandler != null) networkManager.StopServer();
             else networkManager.InitializeServer();
-        }
-        public void SendConnectionMessage() {
-            NetworkManager networkManager = NetworkManager.Singleton;
-            if (networkManager.IsClient) {
-                Message message = Message.Create(MessageSendMode.reliable, (ushort) Client.PacketHandler.serverUsername);
-                message.AddString(usernameField);
-                networkManager.Client.Send(message);
-            }
         }
         public static Outline AddOutlineToObject(GameObject gameObject, Color color = default, bool enabled = false) {
             if(!gameObject.TryGetComponent(out Outline outline))

@@ -33,6 +33,11 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             this.tick = message.GetInt();
             this.actions = message.GetBools();
         }
+        public void Serialize(Message message) {
+            message.AddUShort(id).AddVector3(position).AddVector3(velocity)
+                .AddVector3(relativeDirection).AddQuaternion(rotation).AddQuaternion(headPivotRotation)
+                .AddInt(tick).AddBools(actions);
+        }
         public override string ToString() {
             return $"ClientId:{id}, " +
                 $"Position:{position.ToString()}, " +

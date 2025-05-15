@@ -20,5 +20,9 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             equipmentSlot = message.GetInt();
             activeState = message.GetBool();
         }
+        public void Serialize(Message message) {
+            message.AddUShort(clientId).AddItemStack(itemStack)
+                .AddInt(equipmentSlot).AddBool(activeState);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _Project.Scripts.Components;
 using _Project.Scripts.Network.MessageDataStructures;
+using UnityEngine;
 
 namespace _Project.Scripts.Network.MessageUtils {
     public static class PlayerDataMessage {
@@ -17,6 +18,7 @@ namespace _Project.Scripts.Network.MessageUtils {
                 equipments.Add(new EquipmentMessageStruct(equipmentDisplayer.CurrentEquipedItem, 
                     (int) equipmentDisplayer.GetBodyPart(), equipmentDisplayer.IsActive));
             }
+            Debug.Log($"GettingPlayerData: Tick: {NetworkManager.Singleton.Tick}");
             return new PlayerDataMessageStruct(equipments, NetworkManager.Singleton.Tick, player.Id);
         }
     }
