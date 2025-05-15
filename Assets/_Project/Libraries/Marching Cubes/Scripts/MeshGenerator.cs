@@ -122,7 +122,7 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 			//ComputeHelper.CopyRenderTexture3D(processedDensityTexture, densityMap);
 			ComputeHelper.TransformTexture3DTo2D(densityMap, originalMap2D, depthToSlice % densityMap.volumeDepth);
 		}
-
+		//ComputeDensity
 		public void ComputeDensity(Vector3 point) {
 			// Get points (each point is a vector4: xyz = position, w = density)
 			if (!ComputeHelper.CanRunEditModeCompute) {
