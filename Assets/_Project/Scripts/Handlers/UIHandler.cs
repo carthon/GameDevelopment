@@ -6,7 +6,6 @@ using _Project.Scripts.DiegeticUI;
 using _Project.Scripts.DiegeticUI.InterfaceControllers;
 using _Project.Scripts.Network;
 using _Project.Scripts.Network.Client;
-using RiptideNetworking;
 using UnityEngine;
 
 #if !UNITY_SERVER
@@ -74,10 +73,10 @@ namespace _Project.Scripts.Handlers {
         }
         public void OnGUI() {
             NetworkManager networkManager = NetworkManager.Singleton;
-            bool isServer = networkManager.ServerHandler != null && networkManager.IsServer;
-            bool isClient = networkManager.ClientHandler != null && networkManager.IsClient;
-            string serverText = isServer ? "Stop ServerHandler" : "Start ServerHandler";
-            string clientText = isClient ? "Stop ClientHandler" : "Start ClientHandler";
+            bool isServer = networkManager.ServerHandler is { IsRunning: true };
+            bool isClient = networkManager.ClientHandler is { IsConnected: true };
+            string serverText = isServer ? "Stop Server" : "Start Server";
+            string clientText = isClient ? "Stop Client" : "Start Client";
             
             GUILayout.BeginArea(new Rect(Vector2.right * (Screen.width - 200), new Vector2(200,500)));
             if (GUILayout.Button(serverText)) {
@@ -122,9 +121,10 @@ namespace _Project.Scripts.Handlers {
         }
         public void ToggleServer() {
             NetworkManager networkManager = NetworkManager.Singleton;
-        
-            if (networkManager.ServerHandler != null) networkManager.StopServer();
-            else networkManager.InitializeServer();
+            if (networkManager.ServerHandler.IsRunning)
+                networkManager.ServerHandler.Stop();
+            else
+                networkManager.InitializeServer();
         }
         public static Outline AddOutlineToObject(GameObject gameObject, Color color = default, bool enabled = false) {
             if(!gameObject.TryGetComponent(out Outline outline))

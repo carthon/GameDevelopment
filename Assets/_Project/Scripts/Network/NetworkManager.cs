@@ -6,10 +6,8 @@ using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.Client;
-using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Network.Server;
 using _Project.Scripts.Utils;
-using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
 using Logger = _Project.Scripts.Utils.Logger;
@@ -50,12 +48,13 @@ namespace _Project.Scripts.Network {
         public float minTimeBetweenTicks;
         public const int BufferSize = 1024;
         
-        public Server.ServerHandler ServerHandler { get; private set; }
-        public Client.ClientHandler ClientHandler { get; set; }  
+        public ServerHandler ServerHandler { get; private set; }
+        public ClientHandler ClientHandler { get; set; }  
         
         public int Tick { get => _currentTick; set => _currentTick = value; }
 
         void Awake() {
+            Singleton = this;
             var sender = new RiptideNetworkSender(this);
             ServerHandler = new ServerHandler(sender);
             ClientHandler = new ClientHandler(sender);

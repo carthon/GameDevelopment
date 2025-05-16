@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Stackable Item
   m_EditorClassIdentifier: 
   itemName: Coin
-  itemPrefab: {fileID: 7010931887659289211, guid: 45d537b9a5fff5544a97e08c1667ff1b, type: 3}
-  model: {fileID: 7184084599209418726, guid: 93b11933acefc7343a5d54bc5409319a, type: 3}
+  itemPrefab: {fileID: 1591165099382186, guid: 160a6121b4d25254da31bdab63ad82b7, type: 3}
+  model: {fileID: 1591165099382186, guid: 160a6121b4d25254da31bdab63ad82b7, type: 3}
   Width: 1
   Height: 1
   id: 6c10016d4e344e99b24ffd0cea1ec391
