@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using _Project.Libraries.Marching_Cubes.Scripts;
+using _Project.Scripts.DataClasses;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Serialization;
@@ -54,7 +55,7 @@ namespace _Project.Scripts.Components {
             GenerateDensityMap();
         }
         public void GenerateDensityMap() {
-            _meshGenerator.ComputeDensity(Vector3.zero);
+            _meshGenerator.ComputeDensity();
         }
         public void Generate() { GenerateAllChunks(); }
         public void Generate(Chunk chunk) {

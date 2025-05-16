@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using _Project.Helper.Compute_Helper;
 using _Project.Libraries.Marching_Cubes.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.Constants;
