@@ -5,5 +5,5 @@
     
     public static readonly string DEFAULT_ITEM = "default";
 
-    public static readonly int MAX_SERVER_INPUTS = 5;
+    public static readonly int MAX_SERVER_INPUTS = 50;
 }

@@ -112,10 +112,8 @@ namespace _Project.Scripts.Handlers {
             NetworkManager networkManager = NetworkManager.Singleton;
             if(!networkManager.ClientHandler.IsConnected) {
                 if (!ValidateConnectionValues()) return;
-
-                networkManager.InitializeClient();
+                networkManager.InitializeClient(usernameField);
                 networkManager.ClientHandler.OnClientReady += OnClientReady;
-                networkManager.ClientHandler.SendConnectionMessage(usernameField);
             } else
                 networkManager.StopClient();
         }

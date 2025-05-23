@@ -3,22 +3,28 @@ using RiptideNetworking;
 
 namespace _Project.Scripts.Network {
     public class RiptideNetworkSender : INetworkSender {
-        private NetworkManager _networkManager;
+        private readonly NetworkManager _networkManager;
         public RiptideNetworkSender(NetworkManager networkManager) {
             _networkManager = networkManager;
         }
-        
-        public void Send(MessageSendMode mode, ushort messageId, IGenericMessageStruct data, ushort toClientId = 0) {
+        public void SendToClients<T>(MessageSendMode mode, ushort messageId, in T data, ushort toClientId = 0) 
+            where T : struct, IGenericMessageStruct {
+            if (!_networkManager.IsServer) return;
             var msg = Message.Create(mode, messageId);
             data.Serialize(msg);
             _networkManager.MessagesSent++;
-            if (_networkManager.IsServer && !(_networkManager.ClientHandler?.IsConnected ?? false)) {
-                if(toClientId > 0)
-                    _networkManager.ServerHandler.Send(msg, toClientId);
-                else    
-                    _networkManager.ServerHandler.SendToAll(msg);
-            } else if (_networkManager.IsClient && !_networkManager.IsServer)
-                _networkManager.ClientHandler.Send(msg);
+            if(toClientId > 0)
+                _networkManager.ServerHandler.Send(msg, toClientId);
+            else    
+                _networkManager.ServerHandler.SendToAll(msg);
+        }
+        public void SendToServer<T>(MessageSendMode mode, ushort messageId, in T data) 
+            where T : struct, IGenericMessageStruct {
+            if (!_networkManager.IsClient) return;
+            var msg = Message.Create(mode, messageId);
+            data.Serialize(msg);
+            _networkManager.MessagesSent++;
+            _networkManager.ClientHandler.Send(msg);
         }
     }
 }

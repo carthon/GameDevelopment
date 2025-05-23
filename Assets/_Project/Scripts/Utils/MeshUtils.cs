@@ -65,13 +65,13 @@ namespace _Project.Scripts.Utils {
 
             float y1 = thickness; // altura en Y es siempre thickness
 
-            // 1) Barra superior: de zBelowTopBar a zTop, en todo X
+            // 1) Barra superior: de zBelowTopBar a zTop, en X
             AddBox(
                 new Vector3(0f,         0f,    zBelowTopBar),
                 new Vector3(outerW,     y1,    zTop)
             );
 
-            // 2) Barra inferior: de zBottom a zAboveBotBar, en todo X
+            // 2) Barra inferior: de zBottom a zAboveBotBar, en X
             AddBox(
                 new Vector3(0f,         0f,    zBottom),
                 new Vector3(outerW,     y1,    zAboveBotBar)

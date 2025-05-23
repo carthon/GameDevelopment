@@ -11,8 +11,9 @@ namespace _Project.Scripts.Network.MessageDataStructures {
         public Quaternion rotation;
         public Quaternion headPivotRotation;
         public int tick;
-        public bool[] actions;
-        public MovementMessageStruct(ushort id, Vector3 position, Vector3 velocity, Vector3 relativeDirection, Quaternion rotation, Quaternion headPivotRotation, int tick, bool[] actions) {
+        public ulong actions;
+        public MovementMessageStruct(ushort id, Vector3 position, Vector3 velocity, Vector3 relativeDirection, Quaternion rotation, 
+            Quaternion headPivotRotation, int tick, ulong actions) {
             this.id = id;
             this.position = position;
             this.velocity = velocity;
@@ -24,23 +25,27 @@ namespace _Project.Scripts.Network.MessageDataStructures {
         }
         
         public MovementMessageStruct(Message message) {
-            this.id = message.GetUShort();
-            this.position = message.GetVector3();
-            this.velocity = message.GetVector3();
-            this.relativeDirection = message.GetVector3();
-            this.rotation = message.GetQuaternion();
-            this.headPivotRotation = message.GetQuaternion();
-            this.tick = message.GetInt();
-            this.actions = message.GetBools();
+            id = message.GetUShort();
+            position = message.GetVector3();
+            velocity = message.GetVector3();
+            relativeDirection = message.GetVector3();
+            rotation = message.GetQuaternion();
+            headPivotRotation = message.GetQuaternion();
+            tick = message.GetInt();
+            actions = message.GetULong();
         }
         public void Serialize(Message message) {
             message.AddUShort(id).AddVector3(position).AddVector3(velocity)
                 .AddVector3(relativeDirection).AddQuaternion(rotation).AddQuaternion(headPivotRotation)
-                .AddInt(tick).AddBools(actions);
+                .AddInt(tick).AddULong(actions);
         }
+        
         public override string ToString() {
             return $"ClientId:{id}, " +
                 $"Position:{position.ToString()}, " +
+                $"Rotation: {rotation}" +
+                $"relativeDirection: {relativeDirection}" +
+                $"velocity: {velocity}" +
                 $"Tick:{tick}";
         }
     }

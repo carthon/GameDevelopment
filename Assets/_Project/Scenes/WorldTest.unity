@@ -556,9 +556,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.2
+  near clip plane: 0.3
   far clip plane: 1000
-  field of view: 70
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1033,13 +1033,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsDictionary:
-    keys: []
-    values: []
+    keys:
+    - 6c10016d4e344e99b24ffd0cea1ec391
+    - 6c10016d4e344e99b24ffd0cea1ec390
+    - 795afad8218a4decbe0611833b0ba32c
+    values:
+    - {fileID: 11400000, guid: 197434e1ea8951544a568dc1cbf4fe3a, type: 2}
+    - {fileID: 11400000, guid: 87663d26d69029a48adc8bb8f7dd1605, type: 2}
+    - {fileID: 11400000, guid: 8b7a909eae0e96a40b9941cd9b646c86, type: 2}
+  MessagesSent: 0
+  MessagesReceived: 0
   port: 1234
   hostAddress: 127.0.0.1
   maxClientCount: 10
   debugServerPosition: 1
-  serverDummyPlayerPrefab: {fileID: 0}
+  serverDummyPlayerPrefab: {fileID: 8434159319086046882, guid: 078538c683119604d904ee10fa68eb11, type: 3}
   minTimeBetweenTicks: 0
 --- !u!114 &1383513671
 MonoBehaviour:

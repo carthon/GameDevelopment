@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Mathf;
@@ -15,6 +16,22 @@ namespace _Project.Scripts.Utils {
 		{
 			byte[] bytes = System.BitConverter.GetBytes(i);
 			return System.BitConverter.ToSingle(bytes, 0);
+		}
+		
+		public static Vector2 SphericalToEquirectangular(Vector3 position)
+		{
+			// Normalizar la posición para obtener coordenadas unitarias en la esfera
+			Vector3 normalizedPos = position.normalized;
+
+			// Calcular la longitud (lambda) y la latitud (phi)
+			double lambda = Math.Atan2(normalizedPos.z, normalizedPos.x); // Longitud
+			double phi = Math.Asin(normalizedPos.y); // Latitud
+
+			// Convertir los ángulos a coordenadas 2D (u, v)
+			double u = (lambda + Math.PI) / (2 * Math.PI); // Normalizar longitud a [0, 1]
+			double v = (phi + (Math.PI / 2)) / Math.PI; // Normalizar latitud a [0, 1]
+
+			return new Vector2((float) u, (float) v);
 		}
 
 		public static bool SphereIntersectsBox(Vector3 sphereCentre, float sphereRadius, Vector3 boxCentre, Vector3 boxSize)

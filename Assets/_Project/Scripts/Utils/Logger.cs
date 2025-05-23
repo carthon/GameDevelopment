@@ -24,24 +24,28 @@ namespace _Project.Scripts.Utils {
                 }
             }
         }
-
+        private NetworkManager _networkManager;
         private string filePath = Application.dataPath + @"\Logs\";
-        
-        public static void Initialize() {
-            _singleton = new Logger();
+
+        private Logger(NetworkManager networkManager) {
+            _networkManager = networkManager;
+        }
+        public static void Initialize(NetworkManager networkManager) {
+            _singleton = new Logger(networkManager);
         }
         
         public void Log(string message, Type type) {
-            string path = filePath + $"Log-{DateTime.Now:yyyy'-'MM'-'dd}.txt";
-            bool isClient = NetworkManager.Singleton.IsClient;
-            bool isServer = NetworkManager.Singleton.IsServer;
+            bool isClient = _networkManager.IsClient;
+            bool isServer = _networkManager.IsServer;
+            string pathServer = _networkManager.IsServer ? "SERVER" : _networkManager.IsClient ? "CLIENT" : "";
+            string path = filePath + $"Log{pathServer}-{DateTime.Now:yyyy'-'MM'-'dd}.txt";
             // Determine whether the directory exists.
             if (!Directory.Exists(filePath)){
                 Debug.Log("Creating directory");
                 Directory.CreateDirectory(filePath);
             }
             StringBuilder sb = new StringBuilder();
-            sb.Append($"{DateTime.Now:hh:mm:ss}");
+            sb.Append($"{DateTime.Now:hh:mm:ss.fff}");
             if (isClient) sb.Append("[CLIENT]");
             if (isServer) sb.Append("[SERVER]");
             sb.Append($" {type.ToString()}: ");

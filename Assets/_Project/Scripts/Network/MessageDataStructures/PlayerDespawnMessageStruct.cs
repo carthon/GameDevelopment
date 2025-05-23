@@ -1,13 +1,13 @@
 ﻿using RiptideNetworking;
 
 namespace _Project.Scripts.Network.MessageDataStructures {
-    public class PlayerDespawnMessageStruct : IGenericMessageStruct {
-        private ushort _playerId;
+    public struct PlayerDespawnMessageStruct : IGenericMessageStruct {
+        public ushort _playerId;
         public PlayerDespawnMessageStruct(ushort playerId) {
-            this._playerId = playerId;
+            _playerId = playerId;
         }
         public PlayerDespawnMessageStruct(Message message) {
-            this._playerId = message.GetUShort();
+            _playerId = message.GetUShort();
         }
         public void Serialize(Message message) {
             message.AddUShort(_playerId);

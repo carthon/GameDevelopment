@@ -4,6 +4,7 @@
         serverInput,
         serverItemSwap,
         serverItemDrop,
+        serverItemPick,
         serverItemEquip,
         serverUpdateClient,
         clientSpawnMessage,

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
@@ -33,6 +34,7 @@ namespace _Project.Scripts.Network {
         }
         public bool IsServer { get; private set; }
         public bool IsClient { get; private set; }
+        public bool IsHost { get; private set; }
 
         [SerializeField] public ushort port;
         [SerializeField] public string hostAddress;
@@ -42,22 +44,21 @@ namespace _Project.Scripts.Network {
         [SerializeField] public GameObject serverDummyPlayerPrefab;
         private GameObject _serverDummyPlayer;
         public GameObject ServerDummy { get => _serverDummyPlayer; set => _serverDummyPlayer = value; }
-
-        private float _timer;
-        private int _currentTick;
-        public float minTimeBetweenTicks;
+        public NetworkTimer NetworkTimer;
+        private StringBuilder _stringBuilder;
+        public readonly float SERVER_TICK_RATE = 60f;
         public const int BufferSize = 1024;
         
         public ServerHandler ServerHandler { get; private set; }
         public ClientHandler ClientHandler { get; set; }  
-        
-        public int Tick { get => _currentTick; set => _currentTick = value; }
 
         void Awake() {
             Singleton = this;
             var sender = new RiptideNetworkSender(this);
-            ServerHandler = new ServerHandler(sender);
-            ClientHandler = new ClientHandler(sender);
+            NetworkTimer = new NetworkTimer(SERVER_TICK_RATE);
+            _stringBuilder = new StringBuilder();
+            ServerHandler = new ServerHandler(sender, this);
+            ClientHandler = new ClientHandler(sender, this);
         }
         private void OnValidate() {
             Item[] items = GameData.Singleton != null ? GameData.Singleton.items : null;
@@ -70,31 +71,22 @@ namespace _Project.Scripts.Network {
         }
         public void Start() {
             RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
-            Logger.Initialize();
-            minTimeBetweenTicks = Time.fixedDeltaTime;
+            Logger.Initialize(this);
+            // Llamar una sola vez al arrancar
+            Physics.autoSimulation = false;
 #if UNITY_SERVER
             InitializeServer();
 #endif
         }
         private void Update() {
-            _timer += Time.deltaTime;
-            while(_timer >= minTimeBetweenTicks) {
-                _timer -= minTimeBetweenTicks;
-                if (IsClient || IsServer) {
-                    if (IsServer) {
-                        ServerHandler.Tick(_currentTick);
-                        StringBuilder stringBuilder = new StringBuilder();
-                        foreach (var player in playersList.Values) {
-                            stringBuilder.Append($"Player{player.Id}:{player.GetMovementState(Tick).ToString()}");
-                        }
-                        UIHandler.Instance.UpdateWatchedVariables("PlayersInfo", stringBuilder.ToString());
-                    }
-                    if (IsClient) {
-                        ClientHandler.Tick(_currentTick);
-                    }
-                    Physics.Simulate(Singleton.minTimeBetweenTicks);
-                }
-                _currentTick++;
+            NetworkTimer.Update(Time.deltaTime);
+        }
+        private void FixedUpdate() {
+            UIHandler.Instance.UpdateWatchedVariables("NetworkTimer", $"Tick: {NetworkTimer.CurrentTick} Timer:{NetworkTimer.Timer}");
+            while (NetworkTimer.ShouldTick()) {
+                if (IsServer) { ServerHandler.Tick(NetworkTimer.CurrentTick); }
+                if (IsClient) { ClientHandler.Tick(NetworkTimer.CurrentTick); }
+                Physics.Simulate(NetworkTimer.MinTimeBetweenTicks);
             }
         }
         public void InitializeServer() {
@@ -103,10 +95,11 @@ namespace _Project.Scripts.Network {
             ServerHandler.ClientDisconnected += ServerHandler.PlayerLeft;
         }
 #if !UNITY_SERVER
-        public void InitializeClient() {
+        public void InitializeClient(string username) {
             IsClient = true;
-            ClientHandler.IsServerOwner = IsServer;
+            IsHost = IsClient && IsServer;
             ClientHandler.Connect($"{hostAddress}:{port}");
+            ClientHandler.SetUsername(username);
         }
         public void StopClient() {
             if (IsClient) {

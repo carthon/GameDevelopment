@@ -5,7 +5,19 @@ using UnityEngine.InputSystem;
 
 namespace _Project.Scripts.Handlers {
     public class InputHandler : MonoBehaviour {
-
+        [Flags]
+        public enum PlayerActions : ulong {
+            None            = 0UL,
+            Moving          = 1UL << 0,
+            Jumping         = 1UL << 1,
+            DoubleJumping   = 1UL << 2,
+            Sprinting       = 1UL << 3,
+            Crouching       = 1UL << 4,
+            InInventory     = 1UL << 5,
+            Clicked         = 1UL << 6,
+            Searching       = 1UL << 7,
+            Attacking       = 1UL << 8,
+        } // Hasta 1UL << 63 si se necesita
         private static InputHandler _singleton;
         [Header("Basic Inputs")]
         private bool _b_Input;
@@ -62,22 +74,22 @@ namespace _Project.Scripts.Handlers {
 
         public bool IsJumping { get; private set; }
         public bool IsDoubleJumping { get; private set; }
-
-        public bool IsPicking { get; private set; }
         public bool IsCrouching { get; private set; }
 
         public bool IsUIEnabled { get; private set; }
         public bool IsInMenu { get; private set; }
         public bool IsInInventory { get; private set; }
-        public bool[] GetActions() => new[] {
-            IsMoving,
-            IsJumping,
-            IsDoubleJumping,
-            IsSprinting,
-            IsCrouching,
-            IsInInventory,
-            Clicked,
-        };
+        public PlayerActions GetActions() {
+            PlayerActions mask = PlayerActions.None;
+            if (IsMoving) mask |= PlayerActions.Moving;
+            if (IsJumping) mask |= PlayerActions.Jumping;
+            if (IsDoubleJumping) mask |= PlayerActions.DoubleJumping;
+            if (IsSprinting) mask |= PlayerActions.Sprinting;
+            if (IsCrouching) mask |= PlayerActions.Crouching;
+            if (IsInInventory) mask |= PlayerActions.InInventory;
+            if (Clicked) mask |= PlayerActions.Clicked;
+            return mask;
+        }
 
         [field: Header("UI")]
         public int HotbarSlot { get; private set; }

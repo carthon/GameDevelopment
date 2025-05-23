@@ -1,13 +1,13 @@
 using System;
+using System.Text;
 using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Factories;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.MessageDataStructures;
-using _Project.Scripts.Network.MessageUtils;
+using _Project.Scripts.Utils;
 using RiptideNetworking;
-using UnityEditor.MemoryProfiler;
 using UnityEngine;
 using static _Project.Scripts.Network.PacketType;
 using Action = System.Action;
@@ -16,9 +16,11 @@ using Object = UnityEngine.Object;
 
 #if !UNITY_SERVER
 namespace _Project.Scripts.Network.Client {
-    public partial class ClientHandler : RiptideNetworking.Client {
-        private const float ServerPositionError = 0.01f;
-        private static int TicksAheadOfServer = 5;
+    public class ClientHandler : RiptideNetworking.Client {
+        private const float ServerPositionError = 0.1f;
+        private const float ServerPositionThreshold = 5f;
+        private static int TicksAheadOfServer = 50;
+        private bool _isSynced = false;
         public event Action OnClientReady;
 
         #region ReconciliationVariables
@@ -41,10 +43,13 @@ namespace _Project.Scripts.Network.Client {
                 }
             }
         }
-        public bool IsServerOwner;
         private ServerDummy _serverDummy;
         private Player _player;
-        public INetworkSender NetworkSender;
+        private string _username;
+        private StringBuilder _stringBuilder;
+        public readonly INetworkSender NetworkSender;
+        private readonly IMovementApplier _movementApplier;
+        public NetworkManager NetworkManager { get; }
         public Player Player {
             get
             {
@@ -53,9 +58,12 @@ namespace _Project.Scripts.Network.Client {
                 return null;
             }
         }
-        public ClientHandler(INetworkSender networkSender) {
+        public ClientHandler(INetworkSender networkSender, NetworkManager networkManager) {
             _singleton = this;
             NetworkSender = networkSender;
+            NetworkManager = networkManager;
+            _movementApplier = new DefaultMovementApplier();
+            _stringBuilder = new StringBuilder();
             Connected += DidConnect;
             Disconnected += DidDisconnect;
             ConnectionFailed += FailedToConnect;
@@ -67,15 +75,18 @@ namespace _Project.Scripts.Network.Client {
             ConnectionFailed -= FailedToConnect;
             GC.SuppressFinalize(this);
         }
-        
-        private void DidConnect(object sender, EventArgs args) { Logger.Singleton.Log("Connected succesfully!", Logger.Type.INFO); }
+
+        private void DidConnect(object sender, EventArgs args) {
+            Logger.Singleton.Log("Connected succesfully!", Logger.Type.INFO);
+            SendConnectionMessage();
+        }
         private void FailedToConnect (object sender, EventArgs args){ Logger.Singleton.Log("Error trying to connect...!", Logger.Type.INFO); }
         private void DidDisconnect(object sender, EventArgs args) { Logger.Singleton.Log("Disconnected succesfully!", Logger.Type.INFO); }
         
         public void SetUpClient(Player player) {
             if (NetworkManager.Singleton.debugServerPosition)
                 try {
-                    _serverDummy = new ServerDummy(NetworkManager.Singleton.serverDummyPlayerPrefab);
+                    _serverDummy = new ServerDummy(NetworkManager.Singleton.serverDummyPlayerPrefab, NetworkManager);
                 }
                 catch (Exception e) {
                     Logger.Singleton.Log(e.Message, Logger.Type.WARNING);
@@ -91,6 +102,13 @@ namespace _Project.Scripts.Network.Client {
                 HandleCamera();
                 HandlePlayer(currentTick);
                 HandleWorld(currentTick);
+                if (_player.Planet is not null) {
+                    var position = _player.transform.position;
+                    UIHandler.Instance.UpdateWatchedVariables("continentalness", $"Continentalness:{_player.Planet.GetHeightMapValuesAtPoint(position)}");
+                    float planetSize = _player.Planet.NumChunks * 100;
+                    UIHandler.Instance.UpdateWatchedVariables("planetheight", $"Planet height {position.magnitude / planetSize}");
+                }
+                UIHandler.Instance.UpdateWatchedVariables("2DPosition", $"2DPosition {MathUtility.SphericalToEquirectangular(_player.transform.position)}");
             }
             base.Tick();
         }
@@ -105,64 +123,63 @@ namespace _Project.Scripts.Network.Client {
             GameManager.Singleton.ChunkRenderer.GenerateChunksAround(_player.Planet, _player.transform.position, GameManager.Singleton.gameConfiguration.renderDistance);
             //TODO: Handle world creation
         }
-        public void OnReceiveSpawn(PlayerSpawnMessageStruct playerSpawnMessageStruct) {
-            var player = SpawnFactory.CreatePlayerInstance(
-                GameManager.Singleton.PlayerPrefab,
-                playerSpawnMessageStruct.id,
-                playerSpawnMessageStruct.entityId,
-                playerSpawnMessageStruct.position);
-
-            // Inyectamos el sender de cliente (para que NotifyEquipment u otras llamadas hagan Send a servidor)
-            player.SetNetworking(NetworkSender);
-
-            // Si el id coincide, es nuestro propio avatar local
-            player.IsLocal = (playerSpawnMessageStruct.id == Id);
-
-            NetworkManager.playersList.Add(playerSpawnMessageStruct.id, player);
-
-            if (player.IsLocal)
-                SetUpClient(player);
-        }
         private void HandlePlayer(int currentTick) {
+            if (!_isSynced) return;
+            
             int bufferIndex = currentTick % NetworkManager.BufferSize;
             Vector3 moveInput = new Vector3(InputHandler.Singleton.Horizontal, 0, InputHandler.Singleton.Vertical);
-            
-            bool[] actions = InputHandler.Singleton.GetActions();
-            _player.SetActions(actions);
+            ulong actions = (ulong) InputHandler.Singleton.GetActions();
             _inputBuffer[bufferIndex] = SendInputs(moveInput, actions, currentTick);
-            _player.HandleAnimations(actions);
-            _player.HandleLocomotion(NetworkManager.Singleton.minTimeBetweenTicks, moveInput);
+            
+            
+            _movementApplier.ApplyMovement(_player, _inputBuffer[bufferIndex], NetworkManager.NetworkTimer.MinTimeBetweenTicks);
             _player.Locomotion.FixedTick();
             MovementMessageStruct movementMessage = _player.GetMovementState(currentTick);
             _movementBuffer[bufferIndex] = movementMessage;
-            
+            _stringBuilder.Clear();
             InputHandler.Singleton.ClearInputs();
             
-            if (!_latestServerMovement.Equals(default(MovementMessageStruct)) &&
-                (_lastProcessedMovement.Equals(default(MovementMessageStruct)) ||
-                    !_latestServerMovement.Equals(_lastProcessedMovement)))
-            {
+            if (ShouldReconcile())
                 HandleServerReconciliation(currentTick);
-            }
         }
         public void ReceiveSpawnPlayer(Message message) {
-            if (IsServerOwner) return;
             PlayerSpawnMessageStruct playerSpawnData = new PlayerSpawnMessageStruct(message);
-            NetworkManager.Singleton.Tick = playerSpawnData.tick + TicksAheadOfServer;
-            NetworkManager.Singleton.ClientHandler.OnReceiveSpawn(playerSpawnData);
-            Message updateClient = Message.Create(MessageSendMode.reliable, serverUpdateClient);
-            NetworkManager.Singleton.ClientHandler.Send(updateClient);
+            Player player;
+            NetworkTimer networkTimer = NetworkManager.NetworkTimer;
+            if (!NetworkManager.IsHost && !NetworkManager.IsServer) {
+                Logger.Singleton.Log($"Ajustando ticks de: {networkTimer.CurrentTick} a {playerSpawnData.tick + TicksAheadOfServer}: " +
+                    $"Diferencia de {networkTimer.CurrentTick - playerSpawnData.tick + TicksAheadOfServer}", Logger.Type.INFO);
+                float elapsed = Time.realtimeSinceStartup - playerSpawnData.tick;
+                int lostTicks = Mathf.FloorToInt(elapsed / Time.fixedDeltaTime);
+                NetworkManager.NetworkTimer.CurrentTick = playerSpawnData.tick + TicksAheadOfServer;
+                _isSynced = true;
+                player = SpawnFactory.CreatePlayerInstance(
+                    GameManager.Singleton.PlayerPrefab,
+                    playerSpawnData.id,
+                    playerSpawnData.entityId,
+                    playerSpawnData.position);
+                NetworkManager.playersList.Add(playerSpawnData.id, player);
+            } else if (NetworkManager.playersList.TryGetValue(playerSpawnData.id, out player)) {
+                Logger.Singleton.Log("Host se ha unido al servidor", Logger.Type.INFO);
+            } else // El jugador es null
+                return;
+            // Inyectamos el sender de cliente (para que NotifyEquipment u otras llamadas hagan Send a servidor)
+            player.SetNetworking(NetworkSender, NetworkManager);
+            // Si el id coincide, es nuestro propio avatar local
+            player.IsLocal = (playerSpawnData.id == Id);
+            if (player.IsLocal)
+                SetUpClient(player);
         }
         public void ReceiveDespawnPlayer(Message message) {
-            if (IsServerOwner) return;
-            ushort playerId = message.GetUShort();
-            if (NetworkManager.playersList.TryGetValue(playerId, out Player player)) {
+            if (NetworkManager.IsHost) return;
+            PlayerDespawnMessageStruct playerDespawn = new PlayerDespawnMessageStruct(message);
+            if (NetworkManager.playersList.TryGetValue(playerDespawn._playerId, out Player player)) {
                 Object.Destroy(player.gameObject);
-                NetworkManager.playersList.Remove(playerId);
+                NetworkManager.playersList.Remove(playerDespawn._playerId);
             }
         }
         public void ReceiveGrabbableStatus(Message message) {
-            if (IsServerOwner) return;
+            if (NetworkManager.IsHost) return;
             GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(message);
             if (GameManager.grabbableItems.TryGetValue(grabbableData.grabbableId, out Grabbable grabbable)) {
                 var transform = grabbable.transform;
@@ -171,23 +188,23 @@ namespace _Project.Scripts.Network.Client {
             }
         }
         public void ReceiveMovement(Message message) {
-            if (IsServerOwner) return;
+            if (NetworkManager.IsHost) return;
             MovementMessageStruct movementMessageStruct = new MovementMessageStruct(message);
             if (NetworkManager.playersList.TryGetValue(movementMessageStruct.id, out Player player)) {
                 if(player.IsLocal) {
-                    Singleton._latestServerMovement = movementMessageStruct;
-                    if (NetworkManager.Singleton.debugServerPosition && NetworkManager.Singleton.ClientHandler._serverDummy != null) {
-                        NetworkManager.Singleton.ClientHandler._serverDummy.UpdateServerDummy(movementMessageStruct);
+                    _latestServerMovement = movementMessageStruct;
+                    if (NetworkManager.debugServerPosition && _serverDummy != null) {
+                        _serverDummy.UpdateServerDummy(movementMessageStruct);
                     }
                 } else {
                     bool isInstant = Vector3.Distance(player.transform.position, movementMessageStruct.position) > 5f;
-                    player.UpdatePlayerMovementState(movementMessageStruct, isInstant, Time.deltaTime * movementMessageStruct.velocity.sqrMagnitude);
+                    player.UpdatePlayerMovementState(movementMessageStruct, true, Time.deltaTime * 
+                        movementMessageStruct.velocity.sqrMagnitude);
                 }
             }
         }
         public void ReceiveEquipment(Message message) {
-            if (Singleton is {IsServerOwner: true})
-                return;
+            if (NetworkManager.IsHost) return;
             EquipmentMessageStruct equipmentData = new EquipmentMessageStruct(message);
             if (NetworkManager.playersList.TryGetValue(equipmentData.clientId, out Player player)) {
                 if (!player.IsLocal) {
@@ -199,22 +216,21 @@ namespace _Project.Scripts.Network.Client {
             }
         }
         public void ReceivePlayerData(Message message) {
-            if (IsServerOwner) return;
+            if (NetworkManager.IsHost) return;
             PlayerDataMessageStruct playerData = new PlayerDataMessageStruct(message);
-            NetworkManager.Singleton.Tick = playerData.tick + TicksAheadOfServer;
+            //NetworkManager.Tick = playerData.tick + TicksAheadOfServer;
         }
-        private InputMessageStruct SendInputs(Vector3 moveInput, bool[] actions, int currentTick) {
+        private InputMessageStruct SendInputs(Vector3 moveInput, ulong actions, int currentTick) {
             InputMessageStruct inputData = new InputMessageStruct(moveInput, _player.HeadPivot.rotation, currentTick, actions);
-            NetworkSender.Send(MessageSendMode.reliable, (ushort) serverInput, inputData);
+            NetworkSender.SendToServer(MessageSendMode.unreliable, (ushort) serverInput, inputData);
             //TODO: Send relevant input feature
             return inputData;
         }
-        public void SendConnectionMessage(string username) {
-            NetworkSender.Send(MessageSendMode.reliable, (ushort)serverUsername, new PlayerConnectionMessageStruct(username));
+        private void SendConnectionMessage() {
+            NetworkSender.SendToServer(MessageSendMode.reliable, (ushort) serverUsername, new PlayerConnectionMessageStruct(_username));
         }
         public void ReceiveSpawnItem(Message message) {
-            if (NetworkManager.Singleton.IsServer)
-                return;
+            if (NetworkManager.IsHost) return;
             GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(message);
             Debug.Log($"Trying to get value : {grabbableData.itemStack}");
             if (NetworkManager.Singleton.itemsDictionary.TryGetValue(grabbableData.itemStack.Item.id, out Item prefabData)) {
@@ -229,31 +245,38 @@ namespace _Project.Scripts.Network.Client {
             }
         }
         public void ReceiveDestroyItem(Message message) {
-            if (NetworkManager.Singleton.IsServer)
-                return;
-            ushort grabbableId = message.GetUShort();
-            if (GameManager.grabbableItems.TryGetValue(grabbableId, out Grabbable grabbable)) {
+            if (NetworkManager.IsHost) return;
+            ItemDespawnMessageStruct itemDespawnMessage = new ItemDespawnMessageStruct(message);
+            GameManager.grabbableItems.Remove(itemDespawnMessage.ItemId);
+            if (GameManager.grabbableItems.TryGetValue(itemDespawnMessage.ItemId, out Grabbable grabbable)) {
                 Object.Destroy(grabbable.gameObject);
             }
-            GameManager.grabbableItems.Remove(grabbableId);
         }
         public void ReceiveInventorySlotChange(Message message) {
+            if (NetworkManager.IsHost) return;
             InventorySlotMessageStruct inventorySlotMessageStruct = new InventorySlotMessageStruct(message);
             if (NetworkManager.playersList.TryGetValue(inventorySlotMessageStruct.ownerId, out Player player)) {
                 if (player.IsLocal) return;
                 player.InventoryManager.SetInventorySlot(inventorySlotMessageStruct.itemSlot, inventorySlotMessageStruct.inventoryId);
             }
         }
-
+        private bool ShouldReconcile() {
+            return !_latestServerMovement.Equals(default(MovementMessageStruct)) &&
+                (_lastProcessedMovement.Equals(default(MovementMessageStruct)) ||
+                    !_latestServerMovement.Equals(_lastProcessedMovement));
+        }
         private void HandleServerReconciliation(int currentTick) {
+            if (NetworkManager.IsHost) return;
             _lastProcessedMovement = _latestServerMovement;
 
             int serverMovementBufferIndex = _lastProcessedMovement.tick % NetworkManager.BufferSize;
-            bool[] actions = _lastProcessedMovement.actions;
+            ulong actions = _lastProcessedMovement.actions;
             //TODO: Verificar que las acciones recibidas del server están bien enviadas
             Vector3 positionError = (_lastProcessedMovement.position - _movementBuffer[serverMovementBufferIndex].position);
-            if (positionError.sqrMagnitude > ServerPositionError)
+            UIHandler.Instance.UpdateWatchedVariables("PositionError", $"PositionError:{positionError.sqrMagnitude}");
+            if (positionError.sqrMagnitude is > ServerPositionError and < ServerPositionThreshold)
             {
+                Logger.Singleton.Log($"Rewind : positionError {positionError.sqrMagnitude} lastMovementTick: {_lastProcessedMovement.tick}", Logger.Type.DEBUG);
                 // Rewind & Replay
                 _player.UpdatePlayerMovementState(_lastProcessedMovement);
 
@@ -268,14 +291,12 @@ namespace _Project.Scripts.Network.Client {
                     int bufferIndex = tickToProcess % NetworkManager.BufferSize;
                     
                     _movementBuffer[bufferIndex] = _player.GetMovementState(tickToProcess);
-
                     // Process new movement with reconciled state
-                    _player.HandleLocomotion(NetworkManager.Singleton.minTimeBetweenTicks, _inputBuffer[bufferIndex].moveInput);
-                    
-                    Physics.Simulate(NetworkManager.Singleton.minTimeBetweenTicks);
-
+                    _player.HandleLocomotion(NetworkManager.NetworkTimer.MinTimeBetweenTicks, _inputBuffer[bufferIndex].moveInput);
                     tickToProcess++;
                 }
+            } else if (positionError.sqrMagnitude >= ServerPositionThreshold) {
+                _player.UpdatePlayerMovementState(_lastProcessedMovement);
             }
         }
 
@@ -284,20 +305,26 @@ namespace _Project.Scripts.Network.Client {
             private readonly AnimatorHandler _animator;
             private readonly Transform _transform;
             private readonly Rigidbody _rb;
-            public ServerDummy(GameObject prefab) {
+            private readonly NetworkManager _networkManager;
+            public ServerDummy(GameObject prefab, NetworkManager networkManager) {
                 _self = Object.Instantiate(prefab, Vector3.one, Quaternion.identity);
                 _transform = _self.transform;
                 _animator = _self.GetComponent<AnimatorHandler>();
                 _animator.Initialize();
                 _rb = _self.GetComponent<Rigidbody>();
-                NetworkManager.Singleton.ServerDummy = _self;
+                _networkManager = networkManager;
+                networkManager.ServerDummy = _self;
             }
             public void UpdateServerDummy(MovementMessageStruct movementMessage) {
                 _transform.position = movementMessage.position;
-                _rb.rotation = movementMessage.rotation;
+                _transform.rotation = movementMessage.rotation;
                 _rb.velocity = movementMessage.velocity;
-                _animator.UpdateAnimatorValues(movementMessage.relativeDirection.z, movementMessage.relativeDirection.x);
+                _animator.UpdateAnimatorValues(movementMessage.relativeDirection.z, movementMessage.relativeDirection.x,
+                    _networkManager.NetworkTimer.MinTimeBetweenTicks);
             }
+        }
+        public void SetUsername(string username) {
+            _username = username;
         }
     }
 #endif

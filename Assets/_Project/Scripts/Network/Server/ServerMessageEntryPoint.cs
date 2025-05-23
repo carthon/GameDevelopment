@@ -24,5 +24,7 @@ namespace _Project.Scripts.Network.Server {
         
         [MessageHandler((ushort) serverInventoryChange)]
         private static void ReceiveSlotChangeServer(ushort clientId, Message message) => ServerHandler.Singleton.ReceiveSlotChange(clientId, message);
+        [MessageHandler((ushort) serverItemPick)]
+        private static void ReceiveItemPick(ushort clientId, Message message) => ServerHandler.Singleton.ReceiveItemPick(clientId, message);
     }
 }

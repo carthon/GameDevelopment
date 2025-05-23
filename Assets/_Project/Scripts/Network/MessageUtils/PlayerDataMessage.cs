@@ -12,14 +12,13 @@ namespace _Project.Scripts.Network.MessageUtils {
          * en un NetworkMessage</p>
          * </summary>
          */
-        public static PlayerDataMessageStruct getPlayerData(Player player){
+        public static PlayerDataMessageStruct getPlayerData(Player player, int currentTick){
             List<EquipmentMessageStruct> equipments = new List<EquipmentMessageStruct>();
             foreach (EquipmentDisplayer equipmentDisplayer in player.EquipmentHandler.EquipmentDisplayers) {
                 equipments.Add(new EquipmentMessageStruct(equipmentDisplayer.CurrentEquipedItem, 
                     (int) equipmentDisplayer.GetBodyPart(), equipmentDisplayer.IsActive));
             }
-            Debug.Log($"GettingPlayerData: Tick: {NetworkManager.Singleton.Tick}");
-            return new PlayerDataMessageStruct(equipments, NetworkManager.Singleton.Tick, player.Id);
+            return new PlayerDataMessageStruct(equipments, currentTick, player.Id);
         }
     }
 }
