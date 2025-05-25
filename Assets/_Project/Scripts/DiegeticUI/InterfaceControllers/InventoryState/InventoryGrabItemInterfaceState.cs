@@ -128,7 +128,7 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
                 }
                 else {
                     Inventory inventory = itemSelected.ItemStack.GetInventory();
-                    inventory.InventoryManager.DropItemStack(inventory.Id, gridSlot,
+                    inventory.InventoryManager.DropItemStack(inventory.Id, itemSelected.CellSlot,
                         _inventoryInterfaceState.ProjectedPositionOverPlane + Vector3.up * 0.4f, Quaternion.identity);
                     _inventoryInterfaceState.GrabbedItemsCollider.Clear();
                     _inventoryInterfaceState.LastGrabbedItemsLocalPosition.Clear();

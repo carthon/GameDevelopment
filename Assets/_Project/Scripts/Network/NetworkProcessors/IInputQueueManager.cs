@@ -11,5 +11,6 @@ namespace _Project.Scripts.Network {
         void RemoveClient(ushort clientId);
         IEnumerable<ushort> GetActivePlayers();
         int GetCount(ushort clientId);
+        void AddClient(ushort clientId);
     }
 }

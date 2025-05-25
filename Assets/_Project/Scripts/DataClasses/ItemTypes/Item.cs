@@ -1,6 +1,6 @@
 using System;
 using _Project.Scripts.DataClasses.ItemActions;
-using EditorAttributes;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -14,14 +14,24 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
         public GameObject model;
         public int Width;
         public int Height;
-        [ScriptableObjectId]
-        public string id;
+        [SerializeField, HideInInspector]
+        private string _assetGuid;
+        public string Id => _assetGuid;
         [field: TextArea]
         public string description;
         private IAction _mainAction;
         private IAction _secondaryAction;
 
         [SerializeField] private int maxStackSize;
+        
+        private void OnValidate()
+        {
+#if UNITY_EDITOR
+            string path = AssetDatabase.GetAssetPath(this);
+            _assetGuid   = AssetDatabase.AssetPathToGUID(path);
+            EditorUtility.SetDirty(this);
+#endif
+        }
         public bool Equals(Item other) {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -58,7 +68,7 @@ namespace _Project.Scripts.DataClasses.ItemTypes {
             }
         }
         public override string ToString() {
-            return $"Id:{id} Name:{itemName} Size:{Width}x{Height} Description:{description}";
+            return $"Id:{Id} Name:{itemName} Size:{Width}x{Height} Description:{description}";
         }
         public bool TryDoMainAction() => _mainAction.TryDoAction();
         public bool TryDoSecondaryAction() => _secondaryAction.TryDoAction();

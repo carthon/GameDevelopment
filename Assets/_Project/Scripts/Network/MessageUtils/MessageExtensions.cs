@@ -125,7 +125,7 @@ namespace _Project.Scripts.Network.MessageUtils {
         /// <returns>The message that the <see cref="ItemStack"/> was added to.</returns>
         public static Message AddItemStack(this Message message, ItemStack value)
         {
-            return message.AddString(value.Item != null ? value.Item.id : string.Empty).AddInt(value.GetCount()).AddVector2Int(value.OriginalSlot);
+            return message.AddString(value.Item != null ? value.Item.Id : string.Empty).AddInt(value.GetCount()).AddVector2Int(value.OriginalSlot);
         }
 
         /// <summary>Retrieves a <see cref="ItemStack"/> from the message.</summary>

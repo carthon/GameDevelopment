@@ -33,6 +33,7 @@ namespace _Project.Scripts.Handlers {
         public Action OnItemRotation;
         public Action OnPickAction;
         public Action OnJumpAction;
+        public Action OnToggleInventory;
         private Action<int> _OnHotbarEquip;
         private Action<int> _OnLeftHandEquip;
         private bool _rb_Input;
@@ -123,8 +124,8 @@ namespace _Project.Scripts.Handlers {
                 _inputActions.Camera.OrbitalView.performed += i => SwapView = true;
                 _inputActions.Camera.SwapPersonCamera.performed += i => SwapPerson = true;
                 
-                _inputActions.UIActions.Menu.performed += i => IsInMenu = !IsInMenu;
-                _inputActions.UIActions.PlayerOverview.performed += i => IsInInventory = !IsInInventory;
+                _inputActions.UIActions.Menu.performed += HandleMenuCommand;
+                _inputActions.UIActions.PlayerOverview.performed += ToggleInventory;
                 _inputActions.UIActions.Click.started += i => Clicked = true;
                 _inputActions.UIActions.Click.canceled += i => Clicked = false;
                 _inputActions.UIActions.RClick.started += i => RClicked = true;
@@ -142,6 +143,18 @@ namespace _Project.Scripts.Handlers {
             }
 
             _inputActions.Enable();
+        }
+        private void ToggleInventory(InputAction.CallbackContext obj) {
+            if (obj.performed) {
+                IsInInventory = !IsInInventory;
+                OnToggleInventory?.Invoke();
+            }
+        }
+        private void HandleMenuCommand(InputAction.CallbackContext obj) {
+            if (obj.performed) {
+                IsInMenu = !IsInMenu;
+                Cursor.lockState = IsInMenu ? CursorLockMode.None : CursorLockMode.Locked;
+            }
         }
 
         private void OnDisable() {

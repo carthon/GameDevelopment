@@ -14,7 +14,7 @@ namespace _Project.Scripts.Factories {
             player.OnSpawn();
             return player;
         }
-        public static Grabbable CreateGrabbableInstance(ItemStack itemStack, Vector3 position, Quaternion rotation) {
+        public static Grabbable CreateGrabbableInstance(ushort id, ItemStack itemStack, Vector3 position, Quaternion rotation) {
             GameObject gameObject = Object.Instantiate(itemStack.Item.itemPrefab, position, rotation);
             gameObject.layer = LayerMask.NameToLayer("Item");
             Grabbable grabbable = gameObject.GetComponent<Grabbable>();
@@ -23,10 +23,13 @@ namespace _Project.Scripts.Factories {
             if (grabbable is null) grabbable = gameObject.AddComponent<Grabbable>();
             if (grabbable && rb) {
                 grabbable.SetItemStack(itemStack.GetCopy());
-                grabbable.Initialize(Grabbable.nextId, rb, itemStack.Item);
-                Grabbable.nextId++;
+                grabbable.Initialize(id, rb, itemStack.Item);
+                id++;
+                Grabbable.nextId = id;
             }
             return grabbable;
         }
+        public static Grabbable CreateGrabbableInstance(ItemStack itemStack, Vector3 position, Quaternion rotation) => 
+            CreateGrabbableInstance(Grabbable.nextId, itemStack, position, rotation); 
     }
 }

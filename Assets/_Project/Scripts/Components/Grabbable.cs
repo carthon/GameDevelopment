@@ -37,10 +37,10 @@ namespace _Project.Scripts.Components {
 
         public void Initialize(ushort id, Rigidbody rb, Item prefab) {
                 Id = id;
-                //rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
                 Rb = rb;
                 itemData = prefab;
                 _collider = GetComponentInChildren<Collider>();
+                GrabbableProxy.Attach(_collider, this);
                 _outline = UIHandler.AddOutlineToObject(gameObject, Color.green);
                 _planet = GameManager.Singleton.defaultPlanet;
                 if (_planet is not null)
@@ -120,6 +120,7 @@ namespace _Project.Scripts.Components {
         public void SetOutline(bool enabled) => _outline.enabled = enabled;
         public void OnDestroy() {
             GameManager.grabbableItems.Remove(Id);
+            GrabbableProxy.Detach(_collider);
             Chunk chunk = GetPlanet()?.FindChunkAtPosition(transform.position);
             chunk?.RemoveEntity(this);
         }

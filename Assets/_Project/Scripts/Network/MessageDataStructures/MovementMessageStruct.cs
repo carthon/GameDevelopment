@@ -8,17 +8,19 @@ namespace _Project.Scripts.Network.MessageDataStructures {
         public Vector3 position;
         public Vector3 velocity;
         public Vector3 relativeDirection;
-        public Quaternion rotation;
+        public Vector3 forwardDirection;
+        public Quaternion modelRotation;
         public Quaternion headPivotRotation;
         public int tick;
         public ulong actions;
-        public MovementMessageStruct(ushort id, Vector3 position, Vector3 velocity, Vector3 relativeDirection, Quaternion rotation, 
+        public MovementMessageStruct(ushort id, Vector3 position, Vector3 velocity, Vector3 relativeDirection, Vector3 forwardDirection, Quaternion modelRotation, 
             Quaternion headPivotRotation, int tick, ulong actions) {
             this.id = id;
             this.position = position;
             this.velocity = velocity;
             this.relativeDirection = relativeDirection;
-            this.rotation = rotation;
+            this.forwardDirection = forwardDirection;
+            this.modelRotation = modelRotation;
             this.headPivotRotation = headPivotRotation;
             this.tick = tick;
             this.actions = actions;
@@ -29,22 +31,24 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             position = message.GetVector3();
             velocity = message.GetVector3();
             relativeDirection = message.GetVector3();
-            rotation = message.GetQuaternion();
+            forwardDirection = message.GetVector3();
+            modelRotation = message.GetQuaternion();
             headPivotRotation = message.GetQuaternion();
             tick = message.GetInt();
             actions = message.GetULong();
         }
         public void Serialize(Message message) {
             message.AddUShort(id).AddVector3(position).AddVector3(velocity)
-                .AddVector3(relativeDirection).AddQuaternion(rotation).AddQuaternion(headPivotRotation)
+                .AddVector3(relativeDirection).AddVector3(forwardDirection).AddQuaternion(modelRotation).AddQuaternion(headPivotRotation)
                 .AddInt(tick).AddULong(actions);
         }
         
         public override string ToString() {
             return $"ClientId:{id}, " +
                 $"Position:{position.ToString()}, " +
-                $"Rotation: {rotation}" +
+                $"Rotation: {modelRotation}" +
                 $"relativeDirection: {relativeDirection}" +
+                $"forwardDirection: {forwardDirection}" +
                 $"velocity: {velocity}" +
                 $"Tick:{tick}";
         }

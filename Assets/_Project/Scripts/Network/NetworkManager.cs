@@ -66,7 +66,7 @@ namespace _Project.Scripts.Network {
             itemsDictionary = new DictionaryOfStringAndItems();
             if (items != null)
                 foreach (Item item in items) {
-                    itemsDictionary.Add(item.id, item);
+                    itemsDictionary.Add(item.Id, item);
                 }
         }
         public void Start() {
@@ -93,6 +93,7 @@ namespace _Project.Scripts.Network {
             IsServer = true;
             ServerHandler.Start(port, maxClientCount);
             ServerHandler.ClientDisconnected += ServerHandler.PlayerLeft;
+            InputHandler.Singleton.OnToggleInventory += ServerHandler.PrintPlayersInventory;
         }
 #if !UNITY_SERVER
         public void InitializeClient(string username) {

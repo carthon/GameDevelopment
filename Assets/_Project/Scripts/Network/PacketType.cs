@@ -4,7 +4,7 @@
         serverInput,
         serverItemSwap,
         serverItemDrop,
-        serverItemPick,
+        serverPickUpGrabbable,
         serverItemEquip,
         serverUpdateClient,
         clientSpawnMessage,

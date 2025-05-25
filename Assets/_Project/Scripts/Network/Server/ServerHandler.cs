@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
@@ -9,10 +8,10 @@ using _Project.Scripts.Factories;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Network.MessageUtils;
-using _Project.Scripts.Utils;
 using RiptideNetworking;
 using UnityEngine;
 using static _Project.Scripts.Network.PacketType;
+using Action = System.Action;
 using Logger = _Project.Scripts.Utils.Logger;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -20,7 +19,7 @@ using Random = UnityEngine.Random;
 namespace _Project.Scripts.Network.Server {
     public class ServerHandler : RiptideNetworking.Server {
         private const int ServerPositionSnapshotRate = 30;
-        private int allowedBacklog = 1;
+        private int allowedBacklog = 0;
 
         private static ServerHandler _singleton;
         private readonly INetworkSender _networkSender;
@@ -64,9 +63,11 @@ namespace _Project.Scripts.Network.Server {
                 if (!NetworkManager.playersList.TryGetValue(clientId, out Player player))
                     continue;
                 InputMessageStruct inputMessage = _inputProcessor.GetInputForTick(clientId, currentTick);
+                Logger.Singleton.Log($"InputForTick {currentTick}: {inputMessage}", Logger.Type.DEBUG);
                 _movementApplier.ApplyMovement(player, inputMessage, NetworkManager.NetworkTimer.MinTimeBetweenTicks);
                 player.Locomotion.FixedTick();
                 MovementMessageStruct movementMessage = player.GetMovementState(currentTick);
+                Logger.Singleton.Log($"Movement {currentTick}: {movementMessage}", Logger.Type.DEBUG);
                 _networkSender.SendToClients(MessageSendMode.unreliable, (ushort) clientMovementMessage, movementMessage);
             }
             if(currentTick % ServerPositionSnapshotRate == 0) {
@@ -86,11 +87,12 @@ namespace _Project.Scripts.Network.Server {
             if (NetworkManager.IsHost && fromClientId == NetworkManager.ClientHandler.Id) return;
             InputMessageStruct messageData = new InputMessageStruct(message);
             UIHandler.Instance.UpdateWatchedVariables("DiffTicks", $"Diff between client ticks {messageData.tick - NetworkManager.NetworkTimer.CurrentTick}");
+            Logger.Singleton.Log($"[{NetworkManager.NetworkTimer.CurrentTick}]Received Input {fromClientId}: {messageData}", Logger.Type.DEBUG);
             if (messageData.tick >= NetworkManager.NetworkTimer.CurrentTick) {
                 NetworkManager.ServerHandler.AddPlayerInput(fromClientId, messageData);
             }
             else {
-                Logger.Singleton.Log($"Sending player actualization clientTick:{messageData.tick} serverTick: {NetworkManager.NetworkTimer.CurrentTick}", Logger.Type.WARNING);
+                Logger.Singleton.Log($"Sending player actualization clientTick:{messageData.tick} serverTick: {NetworkManager.NetworkTimer.CurrentTick}", Logger.Type.DEBUG);
                 SendPlayerDataToClient(fromClientId);
             }
         }
@@ -123,16 +125,15 @@ namespace _Project.Scripts.Network.Server {
         }
         public void ReceiveDropItemAtSlot(ushort fromClientId, Message message) {
             if (NetworkManager.IsHost && fromClientId == NetworkManager.ClientHandler.Id) return;
+            GrabbableMessageStruct grabbable = new GrabbableMessageStruct(message);
             if (NetworkManager.playersList.TryGetValue(fromClientId, out Player player)) {
-                int inventoryId = message.GetInt();
-                Vector2Int cellData = message.GetVector2Int();
-                Vector3 position = message.GetVector3();
-                Quaternion rotation = message.GetQuaternion();
-                player.InventoryManager.DropItemStack(inventoryId, cellData, position, rotation);
+                player.InventoryManager.DropItemStack(grabbable.inventoryId, grabbable.itemStack.OriginalSlot, grabbable.position, grabbable.rotation);
             }
         }
         public void ReceiveSpawnPlayer(ushort fromClientId, Message message) {
             PlayerConnectionMessageStruct playerConnectionMessage = new PlayerConnectionMessageStruct(message);
+            _inputProcessor.AddClient(fromClientId);
+            Logger.Singleton.Log($"Cliente: {fromClientId} se está spawneando", Logger.Type.DEBUG);
             SpawnPlayerOnServer(fromClientId, playerConnectionMessage.username, GameManager.Singleton.spawnPoint.position +
                 Vector3.right * Random.value * 4, NetworkManager.NetworkTimer.CurrentTick);
         }
@@ -188,8 +189,9 @@ namespace _Project.Scripts.Network.Server {
                 Object.Destroy(player.gameObject);
                 NetworkManager.playersList.Remove(e.Id);
                 PlayerDespawnMessageStruct playerDespawn = new PlayerDespawnMessageStruct(e.Id);
+                _inputProcessor.RemoveClient(e.Id);
                 _networkSender.SendToClients(MessageSendMode.reliable, (ushort) clientPlayerDespawn, playerDespawn);
-                Logger.Singleton.Log($"Player {e.Id} disconnected", Logger.Type.INFO);
+                Logger.Singleton.Log($"Player {e.Id} disconnected", Logger.Type.DEBUG);
             }
         }
         private void SendPlayerDataToClient(ushort id = 0) {
@@ -198,11 +200,23 @@ namespace _Project.Scripts.Network.Server {
             PlayerDataMessageStruct playerData = PlayerDataMessage.getPlayerData(player, NetworkManager.NetworkTimer.CurrentTick);
             _networkSender.SendToClients(MessageSendMode.reliable, (ushort) clientReceivePlayerData, playerData, id);
         }
-        public void ReceiveItemPick(ushort clientId, Message message) {
-            ItemDespawnMessageStruct itemDespawnMessage = new ItemDespawnMessageStruct(message);
-            GameManager.grabbableItems.Remove(itemDespawnMessage.ItemId);
-            if (GameManager.grabbableItems.TryGetValue(itemDespawnMessage.ItemId, out Grabbable grabbable)) {
-                Object.Destroy(grabbable.gameObject);
+        public void PickUpGrabbable(ushort clientId, Message message) {
+            if (!NetworkManager.playersList.TryGetValue(clientId, out Player player))
+                return;
+            GrabbableMessageStruct grabbableMessage = new GrabbableMessageStruct(message);
+            if (!GameManager.grabbableItems.TryGetValue(grabbableMessage.grabbableId, out Grabbable grabbable))
+                return;
+            if (!player.HandlePicking(grabbable))
+                return;
+            Object.Destroy(grabbable.gameObject);
+            _networkSender.SendToClients(MessageSendMode.reliable, (ushort)clientItemDespawn, grabbableMessage);
+        }
+        public void PrintPlayersInventory() {
+            Debug.Log("Printing Inventories");
+            foreach (Player player in NetworkManager.playersList.Values) {
+                foreach (Inventory inventory in player.InventoryManager.Inventories) {
+                    Logger.Singleton.Log($"PlayerInventory{player.Id}-{inventory.Id}:\n{inventory}", Logger.Type.INFO);
+                }
             }
         }
     }

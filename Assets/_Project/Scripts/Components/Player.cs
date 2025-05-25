@@ -1,6 +1,4 @@
-using System;
 using _Project.Scripts.Components.LocomotionComponent;
-using _Project.Scripts.Constants;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.DiegeticUI;
@@ -13,6 +11,7 @@ using RiptideNetworking;
 using TMPro;
 using UnityEngine;
 using static _Project.Scripts.Network.PacketType;
+using Logger = _Project.Scripts.Utils.Logger;
 
 namespace _Project.Scripts.Components {
     public class Player : MonoBehaviour, IEntity {
@@ -65,7 +64,7 @@ namespace _Project.Scripts.Components {
             _grabler.GetPickableInRange(new Ray(_headPivot.position, _headPivot.forward), grabRadius, grabDistance);
         
         public MovementMessageStruct GetMovementState(int currentTick) => new MovementMessageStruct(Id, 
-            Locomotion.Rb.position, Locomotion.Rb.velocity, Locomotion.RelativeDirection, Model.rotation,
+            Locomotion.Rb.position, Locomotion.Rb.velocity, Locomotion.RelativeDirection, Locomotion.lookForwardDirection, Model.rotation,
             HeadRotation, currentTick, _actions);
         public void SetActions(ulong actions) => _actions = actions;
         public void SetNetworking(INetworkSender networkSender, NetworkManager networkManager) {
@@ -120,18 +119,26 @@ namespace _Project.Scripts.Components {
                 };
             _locomotion.SetUp(_planetData.Center, _planetData.Gravity);
             _actions = (ulong) InputHandler.PlayerActions.None;
-            if (IsLocal) {
-                InputHandler.Singleton.OnPickAction += HandlePicking;
-            }
+            InputHandler.Singleton.OnPickAction += HandlePicking;
         }
         private void OnInventorySlotChange(int inventoryId, InventorySlot inventorySlot) {
             if (!NetworkManager.Singleton.IsServer)
                 return;
             _networkSender.SendToServer(MessageSendMode.reliable, (ushort) serverInventoryChange, new InventorySlotMessageStruct(Id, inventoryId, inventorySlot));
         }
+        //Entra servidor y cliente
         private void OnItemDropped(ItemStack itemStack, Vector3 position, Quaternion rotation) {
-            Grabbable grabbable = SpawnFactory.CreateGrabbableInstance(itemStack, position, rotation);
-            _networkSender.SendToServer(MessageSendMode.reliable, (ushort) clientItemSpawn, new GrabbableMessageStruct(grabbable));
+            GrabbableMessageStruct grabbableMessage = new GrabbableMessageStruct(0, itemStack, position, rotation) {
+                inventoryId = itemStack.GetInventory()?.Id ?? -1
+            };
+            if (_networkManager.IsServer) {
+                Grabbable grabbable = SpawnFactory.CreateGrabbableInstance(itemStack, position, rotation);
+                grabbableMessage = new GrabbableMessageStruct(grabbable);
+                _networkSender.SendToClients(MessageSendMode.reliable, (ushort)clientItemSpawn, grabbableMessage);
+            }
+            else if(!_networkManager.IsHost) {
+                _networkSender.SendToServer(MessageSendMode.reliable, (ushort)serverItemDrop, grabbableMessage);
+            }
         }
         public void OnSpawn() {
             InitializeComponents();
@@ -172,7 +179,7 @@ namespace _Project.Scripts.Components {
                 (actions & (ulong) InputHandler.PlayerActions.Moving) != 0);
             _animator.SetBool(AnimatorHandler.IsFalling, !_locomotion.IsGrounded);
             CanMove = (actions & (ulong) InputHandler.PlayerActions.InInventory) == 0;
-            if (CanRotate && IsLocal) {
+            if (CanRotate) {
                 RotateCharacterModel();
             }
             HandleActions(actions);
@@ -199,29 +206,44 @@ namespace _Project.Scripts.Components {
         private void HandleActions(ulong actions) {
             if ((actions & (ulong) InputHandler.PlayerActions.Attacking) != 0) HandleClick();
         }
+        // Entrada por UIHandler
         private void HandlePicking() {
-            Grabbable lookingAtGrabbable = GetNearGrabbable();
-            if (!(lookingAtGrabbable is null)) {
-                ItemStack leftovers = _grabler.TryPickItems(lookingAtGrabbable);
-                if (!leftovers.IsEmpty()) {
-                    Debug.Log("Sobran items!");
-                }
-                _networkSender.SendToServer(MessageSendMode.reliable, (ushort) serverItemPick,new ItemDespawnMessageStruct(Id));
+            if (IsLocal)
+                HandlePicking(GetNearGrabbable());
+        }
+        //Entrada por servidor y Cliente
+        public bool HandlePicking(Grabbable lookingAtGrabbable) {
+            bool mustDestroy = false;
+            if (Vector3.Distance(lookingAtGrabbable.transform.position, transform.position) > grabDistance)
+                return false;
+            GrabbableMessageStruct grabbableMessage = new GrabbableMessageStruct(lookingAtGrabbable);
+            ItemStack pickedItems = lookingAtGrabbable.GetItemStack().GetCopy();
+            ItemStack leftovers = _grabler.TryPickItems(lookingAtGrabbable);
+            if (!leftovers.IsEmpty()) {
+                Logger.Singleton.Log($"Sobran items! {leftovers}", Logger.Type.DEBUG);
             }
+            else {
+                Logger.Singleton.Log($"Picked all items! {pickedItems}", Logger.Type.DEBUG);
+                mustDestroy = true;
+                if (IsLocal)
+                    _networkSender.SendToServer(MessageSendMode.reliable, (ushort) serverPickUpGrabbable, grabbableMessage);
+            }
+            return mustDestroy;
         }
         private void HandleClick() {
             EquipmentDisplayer equippedItem = EquipmentHandler.GetEquipmentSlotByBodyPart(BodyPart.RightArm);
             if (!equippedItem.CurrentEquipedItem.IsEmpty()) equippedItem.CurrentEquipedItem.Item.TryDoMainAction();
         }
         public void UpdatePlayerMovementState(MovementMessageStruct movementMessage,  bool isInstant = true, float speed = 1f) { 
-            transform.position = (isInstant) ? movementMessage.position : Vector3.Lerp(transform.position, movementMessage.position, 
+            _locomotion.Rb.position = (isInstant) ? movementMessage.position : Vector3.Lerp(transform.position, movementMessage.position, 
                 speed * _networkManager.NetworkTimer.MinTimeBetweenTicks);
-            _locomotion.Rb.velocity = movementMessage.velocity;
-            model.rotation = movementMessage.rotation;
+            _locomotion.lookForwardDirection = movementMessage.forwardDirection;
+            _locomotion.Rb.velocity = Vector3.zero;
+            Model.rotation = movementMessage.modelRotation;
             Locomotion.RelativeDirection = movementMessage.relativeDirection;
+            HeadPivot.rotation = movementMessage.headPivotRotation;
             SetActions(movementMessage.actions);
             HandleAnimations(movementMessage.actions);
-            HeadPivot.rotation = movementMessage.headPivotRotation;
             _locomotion.FixedTick();
         }
         public void NotifyEquipment(ItemStack itemStack, BodyPart equipmentSlot, bool activeState, ushort ofClientId = 0) {

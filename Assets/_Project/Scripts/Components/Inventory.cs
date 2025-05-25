@@ -35,7 +35,7 @@ namespace _Project.Scripts.Components {
             _itemsGrid = new InventorySlot[Width, Height];
             for (int x = 0; x < Width; x++)
             for (int y = 0; y < Height; y++) {
-                _itemsGrid[x, y] = new InventorySlot();
+                _itemsGrid[x, y] = new InventorySlot(new Vector2Int(x, y));
             }
             _itemsDict = new Dictionary<Item, List<ItemStack>>();
         }
@@ -298,10 +298,12 @@ namespace _Project.Scripts.Components {
         }
         public override string ToString() {
             StringBuilder str = new StringBuilder();
-            str.Append($"Name:{Name} FreeSpace:{_freeSpace}");
+            str.Append($"Name:{Name} FreeSpace:{_freeSpace}\n");
             foreach (InventorySlot inventorySlot in _itemsGrid) {
-                str.Append(inventorySlot.ItemStack.ToString() + "\n");
+                str.Append($"{inventorySlot} ");
+                if (inventorySlot.CellSlot.y + 1 == Height) str.Append("\n");
             }
+            str.Append("\n");
             return str.ToString();
         }
     }

@@ -21,24 +21,30 @@ namespace _Project.Scripts.Network {
             return _queueManager.GetActivePlayers();
         }
         public int GetTotalInputsForClient(ushort clientId) => _queueManager.GetCount(clientId);
+        public void RemoveClient(ushort clientId) {
+            _queueManager.RemoveClient(clientId);
+        }
+        public void AddClient(ushort clientId) {
+            _queueManager.AddClient(clientId);
+        }
         public InputMessageStruct GetInputForTick(ushort clientId, int currentTick) {
             // 1) descartar inputs demasiado viejos
             while (_queueManager.TryPeek(clientId, out var oldest) &&
                    oldest.tick < currentTick - _allowedBacklog) {
                 _queueManager.TryDequeue(clientId, out oldest);
-                Logger.Singleton.Log($"Dequeuing old inputs at tick {oldest.tick}", Logger.Type.DEBUG);
+                Logger.Singleton.Log($"Dequeuing old input at tick {oldest.tick} for client {clientId}", Logger.Type.DEBUG);
             }
-
             // 2) si hay uno para este tick, procesarlo
             InputMessageStruct currentTickMessage = new InputMessageStruct(currentTick);
-            if (_queueManager.TryPeek(clientId, out var next) && next.tick == currentTick) {
-                if (_queueManager.TryDequeue(clientId, out currentTickMessage)) {
-                    Logger.Singleton.Log($"Dequeuing input for tick {currentTick}: {currentTickMessage.tick}", Logger.Type.DEBUG);
+            if (_queueManager.TryPeek(clientId, out InputMessageStruct next) && next.tick == currentTick) {
+                Logger.Singleton.Log($"[{currentTick}]Peeking input: client {clientId} {next}", Logger.Type.DEBUG);
+                if (!_queueManager.TryDequeue(clientId, out currentTickMessage)) {
+                    Logger.Singleton.Log($"Error dequeuing for tick {currentTick} and client {clientId}", Logger.Type.DEBUG);
                 }
             }
-
-            // 3) si no, repetir el último (fallback)
-            
+            // 2) si falta, usar el último conocido
+            //if (_lastInputRegistered.TryGetValue(clientId, out var last))
+            //    return last;
             return currentTickMessage;
         }
     }

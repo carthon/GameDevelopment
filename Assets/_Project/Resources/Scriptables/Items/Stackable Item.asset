@@ -17,6 +17,6 @@ MonoBehaviour:
   model: {fileID: 7184084599209418726, guid: 93b11933acefc7343a5d54bc5409319a, type: 3}
   Width: 1
   Height: 1
-  id: 6c10016d4e344e99b24ffd0cea1ec391
+  _assetGuid: 197434e1ea8951544a568dc1cbf4fe3a
   description: Just a coin
   maxStackSize: 64

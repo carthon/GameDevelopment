@@ -6,7 +6,9 @@ using _Project.Scripts.DiegeticUI;
 using _Project.Scripts.DiegeticUI.InterfaceControllers;
 using _Project.Scripts.Network;
 using _Project.Scripts.Network.Client;
+using _Project.Scripts.Utils;
 using UnityEngine;
+using Logger = _Project.Scripts.Utils.Logger;
 
 #if !UNITY_SERVER
 namespace _Project.Scripts.Handlers {
@@ -16,6 +18,7 @@ namespace _Project.Scripts.Handlers {
         [SerializeField] private string usernameField;
         [SerializeField] private string serverIp;
         [SerializeField] private string port;
+        [SerializeField] private string logLevel;
         
         public InterfaceAbstractBaseState CurrentState;
         public InterfaceAbstractBaseState LastState;
@@ -34,6 +37,7 @@ namespace _Project.Scripts.Handlers {
         public string StateToString;
 
         private Dictionary<String,String> _watchedVariables;
+        private RuntimeEnumPopup<Logger.Type> _loggerEnumMenu;
 
         public void Awake() {
             Instance = this;
@@ -43,6 +47,10 @@ namespace _Project.Scripts.Handlers {
             port = NetworkManager.Singleton.port.ToString();
             _watchedVariables = new Dictionary<string, string>();
             inventoryCellIndicatorMeshFilter = inventoryCellIndicator.GetComponentInChildren<MeshFilter>();
+            // Define posición y tamaño del botón desplegable
+            _loggerEnumMenu = new RuntimeEnumPopup<Logger.Type>(Logger.Type.DEBUG,
+                val => Logger.Singleton.LogLevel = val
+            );
         }
         private void Update() {
             CurrentState?.UpdateStates();
@@ -77,8 +85,8 @@ namespace _Project.Scripts.Handlers {
             bool isClient = networkManager.ClientHandler is { IsConnected: true };
             string serverText = isServer ? "Stop Server" : "Start Server";
             string clientText = isClient ? "Stop Client" : "Start Client";
-            
-            GUILayout.BeginArea(new Rect(Vector2.right * (Screen.width - 200), new Vector2(200,500)));
+            Rect area = new Rect(Vector2.right * (Screen.width - 200), new Vector2(200, 500));
+            GUILayout.BeginArea(area);
             if (GUILayout.Button(serverText)) {
                 ToggleServer();
             }
@@ -99,6 +107,7 @@ namespace _Project.Scripts.Handlers {
                 GUILayout.Label(watchedVariable);
             }
             GUILayout.EndVertical();
+            _loggerEnumMenu.OnGUILayout(area);
             GUILayout.EndArea();
         }
         public void UpdateWatchedVariables(string key, string value) {

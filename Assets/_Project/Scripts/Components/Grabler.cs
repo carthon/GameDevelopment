@@ -2,12 +2,15 @@ using System.Collections.Generic;
 using _Project.Libraries.Marching_Cubes.Scripts;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
+using _Project.Scripts.Utils;
 using UnityEngine;
 
 namespace _Project.Scripts.Components {
     public class Grabler : MonoBehaviour {
         [SerializeField] private LayerMask itemMask;
         public InventoryManager LinkedInventoryManager { get; set; }
+        private Collider _lastCollider;
+        private Grabbable _lastGrabbable;
         public bool CanPickUp { get; set; }
 
         public ItemStack TryPickItems(Grabbable closestGrabbable) {
@@ -19,46 +22,22 @@ namespace _Project.Scripts.Components {
                 return ItemStack.EMPTY;
 
             var leftOver = LinkedInventoryManager.AddItemStack(itemStack);
-            if (leftOver.GetCount() > 0)
-                return itemStack;
-            else {
-                Planet planet = closestGrabbable.GetPlanet();
-                Chunk chunk = planet != null ? planet.FindChunkAtPosition(transform.position) : null;
-                if (chunk != null)
-                    chunk.RemoveEntity(closestGrabbable);
-                Destroy(closestGrabbable.gameObject);
-            }
-            return itemStack;
+            return leftOver;
         }
 
         public Grabbable GetPickableInRange(Ray rayOrigin, float pickUpRadius, float pickUpDistance) {
-            RaycastHit hitInfo;
-            Grabbable pickable = null;
-            if (Physics.SphereCast(rayOrigin, pickUpRadius, out hitInfo, pickUpDistance, itemMask)) {
+            if (Physics.SphereCast(rayOrigin, pickUpRadius, out RaycastHit hitInfo, pickUpDistance, itemMask)) {
+                if (hitInfo.collider == _lastCollider && _lastGrabbable != null)
+                    return _lastGrabbable;
                 Debug.DrawRay(rayOrigin.origin, rayOrigin.direction * pickUpDistance, Color.yellow, 3f);
-                pickable = hitInfo.collider.GetComponent<Grabbable>();
+                GrabbableProxy.TryGet(hitInfo.collider, out Grabbable pickable);
+                _lastGrabbable = pickable;
+                _lastCollider = hitInfo.collider;
+                return pickable;
             }
-            return pickable;
+            _lastCollider = null;
+            _lastGrabbable = null;
+            return null;
         }
-
-        // public Grabbable GetClosestItem() {
-        //     var results = new Collider[10];
-        //     var size = Physics.OverlapBoxNonAlloc(itemPickCenter.position, new Vector3(areaWidth, areaHeight, areaWidth), results, Quaternion.identity, itemMask);
-        //     Grabbable closestItem = null;
-        //     if (size > 0) {
-        //         var minDistance = float.MaxValue;
-        //         for (var i = 0; i < size && results[i] != null; i++) {
-        //             var pickable = results[i].GetComponent<Grabbable>();
-        //             if (results[i].gameObject != null && pickable != null) {
-        //                 var distance = Vector3.Distance(results[i].transform.position, transform.position);
-        //                 if (distance < minDistance) {
-        //                     minDistance = distance;
-        //                     closestItem = pickable;
-        //                 }
-        //             }
-        //         }
-        //     }
-        //     return closestItem;
-        // }
     }
 }

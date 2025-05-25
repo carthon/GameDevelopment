@@ -17,7 +17,7 @@ MonoBehaviour:
   model: {fileID: 1836057242048781917, guid: 72116f7b01310c34bb71cc0d1824df44, type: 3}
   Width: 1
   Height: 2
-  id: 795afad8218a4decbe0611833b0ba32c
+  _assetGuid: 8b7a909eae0e96a40b9941cd9b646c86
   description: Just a sword
   maxStackSize: 1
   isUnarmed: 0

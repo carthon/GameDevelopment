@@ -1,5 +1,5 @@
 using System;
-using System.Text;
+using _Project.Libraries.Marching_Cubes.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
@@ -18,8 +18,8 @@ using Object = UnityEngine.Object;
 namespace _Project.Scripts.Network.Client {
     public class ClientHandler : RiptideNetworking.Client {
         private const float ServerPositionError = 0.1f;
-        private const float ServerPositionThreshold = 5f;
-        private static int TicksAheadOfServer = 50;
+        private const float ServerPositionThreshold = 2f;
+        private static int TicksAheadOfServer = 10;
         private bool _isSynced = false;
         public event Action OnClientReady;
 
@@ -46,7 +46,6 @@ namespace _Project.Scripts.Network.Client {
         private ServerDummy _serverDummy;
         private Player _player;
         private string _username;
-        private StringBuilder _stringBuilder;
         public readonly INetworkSender NetworkSender;
         private readonly IMovementApplier _movementApplier;
         public NetworkManager NetworkManager { get; }
@@ -63,7 +62,6 @@ namespace _Project.Scripts.Network.Client {
             NetworkSender = networkSender;
             NetworkManager = networkManager;
             _movementApplier = new DefaultMovementApplier();
-            _stringBuilder = new StringBuilder();
             Connected += DidConnect;
             Disconnected += DidDisconnect;
             ConnectionFailed += FailedToConnect;
@@ -125,20 +123,16 @@ namespace _Project.Scripts.Network.Client {
         }
         private void HandlePlayer(int currentTick) {
             if (!_isSynced) return;
-            
             int bufferIndex = currentTick % NetworkManager.BufferSize;
             Vector3 moveInput = new Vector3(InputHandler.Singleton.Horizontal, 0, InputHandler.Singleton.Vertical);
-            ulong actions = (ulong) InputHandler.Singleton.GetActions();
+            ulong actions = (ulong)InputHandler.Singleton.GetActions();
             _inputBuffer[bufferIndex] = SendInputs(moveInput, actions, currentTick);
-            
-            
+            Logger.Singleton.Log($"Sending Inputs: {_inputBuffer[bufferIndex]}", Logger.Type.DEBUG);
             _movementApplier.ApplyMovement(_player, _inputBuffer[bufferIndex], NetworkManager.NetworkTimer.MinTimeBetweenTicks);
             _player.Locomotion.FixedTick();
             MovementMessageStruct movementMessage = _player.GetMovementState(currentTick);
             _movementBuffer[bufferIndex] = movementMessage;
-            _stringBuilder.Clear();
             InputHandler.Singleton.ClearInputs();
-            
             if (ShouldReconcile())
                 HandleServerReconciliation(currentTick);
         }
@@ -146,13 +140,14 @@ namespace _Project.Scripts.Network.Client {
             PlayerSpawnMessageStruct playerSpawnData = new PlayerSpawnMessageStruct(message);
             Player player;
             NetworkTimer networkTimer = NetworkManager.NetworkTimer;
+            bool isLocal = Id == playerSpawnData.id;
             if (!NetworkManager.IsHost && !NetworkManager.IsServer) {
-                Logger.Singleton.Log($"Ajustando ticks de: {networkTimer.CurrentTick} a {playerSpawnData.tick + TicksAheadOfServer}: " +
-                    $"Diferencia de {networkTimer.CurrentTick - playerSpawnData.tick + TicksAheadOfServer}", Logger.Type.INFO);
-                float elapsed = Time.realtimeSinceStartup - playerSpawnData.tick;
-                int lostTicks = Mathf.FloorToInt(elapsed / Time.fixedDeltaTime);
-                NetworkManager.NetworkTimer.CurrentTick = playerSpawnData.tick + TicksAheadOfServer;
-                _isSynced = true;
+                if (isLocal) {
+                    Logger.Singleton.Log($"Ajustando ticks de: {networkTimer.CurrentTick} a {playerSpawnData.tick + TicksAheadOfServer}: " +
+                        $"Diferencia de {networkTimer.CurrentTick - playerSpawnData.tick + TicksAheadOfServer}", Logger.Type.DEBUG);
+                    NetworkManager.NetworkTimer.CurrentTick = playerSpawnData.tick + TicksAheadOfServer;
+                    _isSynced = true;
+                }
                 player = SpawnFactory.CreatePlayerInstance(
                     GameManager.Singleton.PlayerPrefab,
                     playerSpawnData.id,
@@ -160,13 +155,13 @@ namespace _Project.Scripts.Network.Client {
                     playerSpawnData.position);
                 NetworkManager.playersList.Add(playerSpawnData.id, player);
             } else if (NetworkManager.playersList.TryGetValue(playerSpawnData.id, out player)) {
-                Logger.Singleton.Log("Host se ha unido al servidor", Logger.Type.INFO);
+                Logger.Singleton.Log("Host se ha unido al servidor", Logger.Type.DEBUG);
             } else // El jugador es null
                 return;
             // Inyectamos el sender de cliente (para que NotifyEquipment u otras llamadas hagan Send a servidor)
             player.SetNetworking(NetworkSender, NetworkManager);
             // Si el id coincide, es nuestro propio avatar local
-            player.IsLocal = (playerSpawnData.id == Id);
+            player.IsLocal = isLocal;
             if (player.IsLocal)
                 SetUpClient(player);
         }
@@ -191,15 +186,17 @@ namespace _Project.Scripts.Network.Client {
             if (NetworkManager.IsHost) return;
             MovementMessageStruct movementMessageStruct = new MovementMessageStruct(message);
             if (NetworkManager.playersList.TryGetValue(movementMessageStruct.id, out Player player)) {
+                Logger.Singleton.Log($"[{NetworkManager.NetworkTimer.CurrentTick}]Received Movement: {movementMessageStruct}", Logger.Type.DEBUG);
                 if(player.IsLocal) {
                     _latestServerMovement = movementMessageStruct;
                     if (NetworkManager.debugServerPosition && _serverDummy != null) {
                         _serverDummy.UpdateServerDummy(movementMessageStruct);
                     }
                 } else {
-                    bool isInstant = Vector3.Distance(player.transform.position, movementMessageStruct.position) > 5f;
                     player.UpdatePlayerMovementState(movementMessageStruct, true, Time.deltaTime * 
                         movementMessageStruct.velocity.sqrMagnitude);
+                    UIHandler.Instance.UpdateWatchedVariables("DiffTicks", 
+                        $"Diff between server ticks {NetworkManager.NetworkTimer.CurrentTick - movementMessageStruct.tick}");
                 }
             }
         }
@@ -233,9 +230,9 @@ namespace _Project.Scripts.Network.Client {
             if (NetworkManager.IsHost) return;
             GrabbableMessageStruct grabbableData = new GrabbableMessageStruct(message);
             Debug.Log($"Trying to get value : {grabbableData.itemStack}");
-            if (NetworkManager.Singleton.itemsDictionary.TryGetValue(grabbableData.itemStack.Item.id, out Item prefabData)) {
+            if (NetworkManager.Singleton.itemsDictionary.TryGetValue(grabbableData.itemStack.Item.Id, out Item prefabData)) {
                 if (!GameManager.grabbableItems.TryGetValue(grabbableData.grabbableId, out Grabbable grabbable)) {
-                    grabbable = SpawnFactory.CreateGrabbableInstance(grabbableData.itemStack, grabbableData.position, grabbableData.rotation);
+                    grabbable = SpawnFactory.CreateGrabbableInstance(grabbableData.grabbableId, grabbableData.itemStack, grabbableData.position, grabbableData.rotation);
                 }
                 else {
                     Transform transform = grabbable.transform;
@@ -246,11 +243,10 @@ namespace _Project.Scripts.Network.Client {
         }
         public void ReceiveDestroyItem(Message message) {
             if (NetworkManager.IsHost) return;
-            ItemDespawnMessageStruct itemDespawnMessage = new ItemDespawnMessageStruct(message);
-            GameManager.grabbableItems.Remove(itemDespawnMessage.ItemId);
-            if (GameManager.grabbableItems.TryGetValue(itemDespawnMessage.ItemId, out Grabbable grabbable)) {
-                Object.Destroy(grabbable.gameObject);
-            }
+            GrabbableMessageStruct grabbablePickupMessage = new GrabbableMessageStruct(message);
+            if (!GameManager.grabbableItems.TryGetValue(grabbablePickupMessage.grabbableId, out Grabbable grabbable))
+                return;
+            Object.Destroy(grabbable.gameObject);
         }
         public void ReceiveInventorySlotChange(Message message) {
             if (NetworkManager.IsHost) return;
@@ -293,6 +289,7 @@ namespace _Project.Scripts.Network.Client {
                     _movementBuffer[bufferIndex] = _player.GetMovementState(tickToProcess);
                     // Process new movement with reconciled state
                     _player.HandleLocomotion(NetworkManager.NetworkTimer.MinTimeBetweenTicks, _inputBuffer[bufferIndex].moveInput);
+                    _player.Locomotion.FixedTick();
                     tickToProcess++;
                 }
             } else if (positionError.sqrMagnitude >= ServerPositionThreshold) {
@@ -317,7 +314,7 @@ namespace _Project.Scripts.Network.Client {
             }
             public void UpdateServerDummy(MovementMessageStruct movementMessage) {
                 _transform.position = movementMessage.position;
-                _transform.rotation = movementMessage.rotation;
+                _transform.rotation = movementMessage.modelRotation;
                 _rb.velocity = movementMessage.velocity;
                 _animator.UpdateAnimatorValues(movementMessage.relativeDirection.z, movementMessage.relativeDirection.x,
                     _networkManager.NetworkTimer.MinTimeBetweenTicks);

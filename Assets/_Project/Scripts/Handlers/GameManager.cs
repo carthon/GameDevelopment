@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Project.Libraries.Marching_Cubes.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
@@ -45,6 +46,11 @@ namespace _Project.Scripts.Handlers {
             Singleton ??= this;
             ChunkRenderer = GetComponent<ChunkRenderer>();
             ChunkRenderer ??= gameObject.AddComponent<ChunkRenderer>();
+        }
+
+        private void OnApplicationQuit() {
+            if (Logger.Singleton != null)
+                Logger.Singleton.Shutdown();
         }
     }
 }

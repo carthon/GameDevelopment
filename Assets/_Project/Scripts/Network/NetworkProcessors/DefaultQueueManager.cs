@@ -11,8 +11,7 @@ namespace _Project.Scripts.Network {
                 inputBuffer.Enqueue(input);
                 return true;
             }
-            _unprocessedInputQueue.Add(clientId, new InputRingBuffer(global::Constants.MAX_SERVER_INPUTS));
-            return _unprocessedInputQueue.TryGetValue(clientId, out inputBuffer) && inputBuffer.Enqueue(input);
+            return false;
         }
         public bool TryPeek(ushort clientId, out InputMessageStruct peeked) {
             peeked = new InputMessageStruct();
@@ -42,5 +41,6 @@ namespace _Project.Scripts.Network {
             }
         }
         public int GetCount(ushort clientId) => _unprocessedInputQueue[clientId].Count;
+        public void AddClient(ushort clientId) { _unprocessedInputQueue.Add(clientId, new InputRingBuffer(global::Constants.MAX_SERVER_INPUTS)); }
     }
 }

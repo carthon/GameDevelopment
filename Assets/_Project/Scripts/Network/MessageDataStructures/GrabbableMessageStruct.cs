@@ -8,6 +8,7 @@ namespace _Project.Scripts.Network.MessageDataStructures {
     public struct GrabbableMessageStruct : IGenericMessageStruct {
         public ushort grabbableId;
         public int count;
+        public int inventoryId;
         public ItemStack itemStack;
         public Vector3 position;
         public Quaternion rotation;
@@ -18,6 +19,7 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             this.position = position;
             this.rotation = rotation;
             count = 1;
+            inventoryId = -1;
         }
         public GrabbableMessageStruct(Grabbable grabbable) {
             this.grabbableId = grabbable.Id;
@@ -26,6 +28,7 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             this.position = transform.position;
             this.rotation = transform.rotation;
             count = 1;
+            inventoryId = -1;
         }
         public GrabbableMessageStruct(Message message) {
             grabbableId = message.GetUShort();
@@ -33,9 +36,10 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             position = message.GetVector3();
             rotation = message.GetQuaternion();
             count = message.GetInt();
+            inventoryId = message.GetInt();
         }
         public void Serialize(Message message) {
-            message.AddUShort(grabbableId).AddItemStack(itemStack).AddVector3(position).AddQuaternion(rotation).AddInt(count);
+            message.AddUShort(grabbableId).AddItemStack(itemStack).AddVector3(position).AddQuaternion(rotation).AddInt(count).AddInt(inventoryId);
         }
     }
 }

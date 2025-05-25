@@ -7,5 +7,7 @@ namespace _Project.Scripts.Network {
         void AddInput(ushort playerId, InputMessageStruct inputMessageStruct);
         IEnumerable<ushort> GetPlayers();
         int GetTotalInputsForClient(ushort clientId);
+        void RemoveClient(ushort clientId);
+        void AddClient(ushort clientId);
     }
 }
