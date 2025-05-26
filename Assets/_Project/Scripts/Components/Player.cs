@@ -236,7 +236,7 @@ namespace _Project.Scripts.Components {
         }
         public void UpdatePlayerMovementState(MovementMessageStruct movementMessage,  bool isInstant = true, float speed = 1f) { 
             _locomotion.Rb.position = (isInstant) ? movementMessage.position : Vector3.Lerp(transform.position, movementMessage.position, 
-                speed * _networkManager.NetworkTimer.MinTimeBetweenTicks);
+                speed);
             _locomotion.lookForwardDirection = movementMessage.forwardDirection;
             _locomotion.Rb.velocity = Vector3.zero;
             Model.rotation = movementMessage.modelRotation;
