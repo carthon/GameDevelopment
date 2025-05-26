@@ -162,6 +162,11 @@ namespace _Project.Scripts.Network.Client {
             player.SetNetworking(NetworkSender, NetworkManager);
             // Si el id coincide, es nuestro propio avatar local
             player.IsLocal = isLocal;
+            //TODO: Realizar ajustes en la colisión servidor-servidor para replicarlo correctamente en cliente
+            int playerLayer = global::Constants.LAYER_REMOTEPLAYER;
+            if (player.IsLocal)
+                playerLayer = global::Constants.LAYER_LOCALPLAYER;
+            player.gameObject.layer = playerLayer;
             if (player.IsLocal)
                 SetUpClient(player);
         }

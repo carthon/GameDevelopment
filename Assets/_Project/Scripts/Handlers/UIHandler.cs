@@ -47,8 +47,7 @@ namespace _Project.Scripts.Handlers {
             port = NetworkManager.Singleton.port.ToString();
             _watchedVariables = new Dictionary<string, string>();
             inventoryCellIndicatorMeshFilter = inventoryCellIndicator.GetComponentInChildren<MeshFilter>();
-            // Define posición y tamaño del botón desplegable
-            _loggerEnumMenu = new RuntimeEnumPopup<Logger.Type>(Logger.Type.DEBUG,
+            _loggerEnumMenu = new RuntimeEnumPopup<Logger.Type>(Logger.Type.INFO,
                 val => Logger.Singleton.LogLevel = val
             );
         }

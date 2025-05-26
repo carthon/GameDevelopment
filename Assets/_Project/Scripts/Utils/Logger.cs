@@ -60,7 +60,7 @@ namespace _Project.Scripts.Utils {
         }
         
         public void Log(string message, Type type, bool logOnConsole = false) {
-            if (type < LogLevel) return;
+            if ((int)type < (int)LogLevel) return;
             bool isClient = _networkManager.IsClient;
             bool isServer = _networkManager.IsServer;
             string pathServer = _networkManager.IsServer ? "SERVER" : _networkManager.IsClient ? $"CLIENT[{_networkManager.ClientHandler.Id}]" : "";
