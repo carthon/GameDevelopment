@@ -23,5 +23,12 @@ namespace _Project.Scripts.Network.MessageDataStructures {
             }
             tick = message.GetInt();
         }
+        public void Serialize(Message message) {
+            message.AddUShort(clientId).AddInt(equipmentDataCount);
+            for (int i = 0; i < equipmentData.Count; i++) {
+                equipmentData[i].Serialize(message);
+            }
+            message.AddInt(tick);
+        }
     }
 }

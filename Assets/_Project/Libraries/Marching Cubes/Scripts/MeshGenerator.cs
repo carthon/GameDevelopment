@@ -215,7 +215,6 @@ namespace _Project.Libraries.Marching_Cubes.Scripts {
 		}
 
 		void Update() {
-
 			// TODO: move somewhere more sensible
 			material.SetTexture("DensityTex", originalMap);
 			//material.SetFloat("oceanRadius", FindObjectOfType<Water>().radius);

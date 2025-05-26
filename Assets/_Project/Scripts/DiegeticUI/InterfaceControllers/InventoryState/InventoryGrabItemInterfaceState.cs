@@ -123,12 +123,13 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
                 Vector3Int gridPosition = Context.inventoryGrid.WorldToCell(_inventoryInterfaceState.ProjectedPositionOverPlane);
                 Vector2Int gridSlot = new Vector2Int(gridPosition.x, gridPosition.z * -1);
                 if (Context.Inventory.IsValidSlot(gridSlot)) {
-                    //TODO: Hacer un sistema que permita el intercambio de stacks entre inventarios renderizados por el ContainerRenderer
                     Inventory selectedInventory = itemSelected.ItemStack.GetInventory();
                     switchState = selectedInventory.SwapItemsInInventory(selectedInventory, itemSelected.ItemStack.OriginalSlot, gridSlot, oringinalyFlipped);
                 }
                 else {
-                    Client.DropItemStack(itemSelected.ItemStack, _inventoryInterfaceState.ProjectedPositionOverPlane + Vector3.up * 0.4f, Quaternion.identity);
+                    Inventory inventory = itemSelected.ItemStack.GetInventory();
+                    inventory.InventoryManager.DropItemStack(inventory.Id, itemSelected.CellSlot,
+                        _inventoryInterfaceState.ProjectedPositionOverPlane + Vector3.up * 0.4f, Quaternion.identity);
                     _inventoryInterfaceState.GrabbedItemsCollider.Clear();
                     _inventoryInterfaceState.LastGrabbedItemsLocalPosition.Clear();
                 }

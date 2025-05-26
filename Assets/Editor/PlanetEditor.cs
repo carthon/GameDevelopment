@@ -50,17 +50,17 @@ namespace Editor {
                 GUILayout.EndVertical();
                 // Espacio flexible entre las texturas
                 GUILayout.FlexibleSpace();
-                for (int i = 0; i < _planet.MeshGenerator.NoiseData.noiseParams.Count; i++) {
-                    NoiseParams noiseParams = _planet.MeshGenerator.NoiseData.noiseParams[i];
-                    if (noiseParams.noiseType == DensityEnum.DENSITY_NOISE)
-                        continue;
-                    GUILayout.BeginVertical();
-                    GUILayout.Label(noiseParams.noiseName, EditorStyles.boldLabel);
-                    Rect rect = GUILayoutUtility.GetRect(128, 128, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
-                    EditorGUI.DrawPreviewTexture(rect, _planet.MeshGenerator.noiseTextures[i]);
-                    GUILayout.EndVertical();
-                    GUILayout.FlexibleSpace();
-                }
+                //for (int i = 0; i < _planet.MeshGenerator.NoiseData.noiseParams.Count; i++) {
+                //    NoiseParams noiseParams = _planet.MeshGenerator.NoiseData.noiseParams[i];
+                //    if (noiseParams.noiseType == DensityEnum.DENSITY_NOISE)
+                //        continue;
+                //    GUILayout.BeginVertical();
+                //    GUILayout.Label(noiseParams.noiseName, EditorStyles.boldLabel);
+                //    Rect rect = GUILayoutUtility.GetRect(128, 128, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+                //    EditorGUI.DrawPreviewTexture(rect, _planet.MeshGenerator.noiseTextures[i]);
+                //    GUILayout.EndVertical();
+                //    GUILayout.FlexibleSpace();
+                //}
                 GUILayout.EndHorizontal();
             }
         }

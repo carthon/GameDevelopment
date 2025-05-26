@@ -37,7 +37,7 @@ namespace _Project.Scripts.Handlers {
                 _animator = GetComponentInChildren<Animator>();
         }
 
-        public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement) {
+        public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, float delta) {
 
             #region Vertical
 
@@ -72,8 +72,8 @@ namespace _Project.Scripts.Handlers {
                 h = 0;
 
             #endregion
-            _animator.SetFloat(Vertical, v, 0.1f, Time.deltaTime);
-            _animator.SetFloat(Horizontal, h, 0.1f, Time.deltaTime);
+            _animator.SetFloat(Vertical, v, 0.1f, delta);
+            _animator.SetFloat(Horizontal, h, 0.1f, delta);
         }
 
         public void PlayTargetAnimation(string targetAnim, bool isInteracting, int layer) {

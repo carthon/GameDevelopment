@@ -7,6 +7,7 @@ namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
         public sealed override void EnterState() {
             _isRootState = true;
             locomotion.CurrentMovementSpeed = locomotion.Stats.flySpeed;
+            locomotion.IgnoreGround = true;
         }
         public override void ExitState() {
         }

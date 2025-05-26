@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Project.Libraries.Marching_Cubes.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
@@ -46,68 +47,10 @@ namespace _Project.Scripts.Handlers {
             ChunkRenderer = GetComponent<ChunkRenderer>();
             ChunkRenderer ??= gameObject.AddComponent<ChunkRenderer>();
         }
-        public static bool SpawnItem(Item item, int count, Vector3 position, Quaternion rotation, IEntity spawner) {
-            bool success = false;
-            Planet planet;
-            if (spawner is not null) {
-                planet = spawner.GetPlanet();
-                Chunk chunk = null;
-                if (planet is not null)
-                    chunk = planet.FindChunkAtPosition(position);
-                else
-                    return SpawnItem(item, count, position, rotation, out Grabbable pickable);
-                if (chunk is not null && chunk.IsLoaded) {
-                    if (SpawnItem(item, count, position, rotation, out Grabbable pickable)) {
-                        chunk.AddEntity(pickable);
-                        success = true;
-                    }
-                }
-            }
-            return success;
-        }
-        public static bool SpawnItem(Item item, int count, Vector3 position, Quaternion rotation, out Grabbable pickable) {
-            bool success = false;
-            GameObject itemRendered = Instantiate(item.itemPrefab, position, rotation);
-            itemRendered.layer = LayerMask.NameToLayer("Item");
-            pickable = itemRendered.GetComponent<Grabbable>();
-            var rb = itemRendered.GetComponent<Rigidbody>();
-            if (rb is null) rb = itemRendered.AddComponent<Rigidbody>();
-            if (pickable is null) pickable = itemRendered.AddComponent<Grabbable>();
-            if (pickable && rb) {
-                var lootTable = new LootTable();
-                lootTable.AddToLootTable(item, count);
-                pickable.SetLootTable(lootTable);
-                pickable.Initialize(Grabbable.nextId, rb, item);
-                Grabbable.nextId++;
-                success = true;
-            }
-            return success;
-        }
-        public static bool SpawnItem(ItemStack itemStack, Vector3 position, Quaternion rotation, IEntity spawner) => SpawnItem(itemStack.Item, itemStack.GetCount(), position, rotation, spawner);
-        public static bool SpawnItem(Item item, int count, Transform transform, IEntity spawner) => SpawnItem(item, count, transform.position, transform.rotation, spawner);
-        public static Player Spawn(ushort id, string username, Vector3 position, int currentTick) {
-            NetworkManager net = NetworkManager.Singleton;
-            Player playerNetwork = Instantiate(Singleton._playerPrefab, position, Quaternion.identity).GetComponent<Player>();
-        
-            playerNetwork.name = $"Player {id} {(string.IsNullOrEmpty(username) ? "Guest" : username)}";
-            playerNetwork.Id = id;
-            playerNetwork.Username = string.IsNullOrEmpty(username) ? $"Guest {id}" : username;
-            Logger.Singleton.Log($"Spawned player {playerNetwork.Id} at tick : {currentTick}", Logger.Type.DEBUG);
-            if (net.IsClient) {
-                playerNetwork.IsLocal = id == net.Client.Id;
-            }
-            if(net.IsServer) {
-                foreach (Player otherPlayer in NetworkManager.playersList.Values) {
-                    Server.NotifySpawn(otherPlayer, currentTick, id);
-                }
-                Server.NotifySpawn(playerNetwork, currentTick);
-            }
-            playerNetwork.OnSpawn();
-            if(playerNetwork.IsLocal) {
-                Client.Singleton.SetUpClient(playerNetwork);
-            }
-            NetworkManager.playersList.Add(id, playerNetwork);
-            return playerNetwork;
+
+        private void OnApplicationQuit() {
+            if (Logger.Singleton != null)
+                Logger.Singleton.Shutdown();
         }
     }
 }

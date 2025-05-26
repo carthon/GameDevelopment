@@ -5,8 +5,6 @@ using System.Text;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Entities;
-using _Project.Scripts.Handlers;
-using _Project.Scripts.Utils;
 using UnityEngine;
 
 namespace _Project.Scripts.Components {
@@ -22,12 +20,14 @@ namespace _Project.Scripts.Components {
         public string Name { get; set; }
         public int Height { get; }
         public int Width { get; }
+        public InventoryManager InventoryManager;
 
-        public Inventory(string name, IEntity owner, int width, int height) {
+        public Inventory(string name, IEntity owner, int width, int height, InventoryManager inventoryManager) {
             Name = name;
             Width = width;
             Height = height;
             Owner = owner;
+            InventoryManager = inventoryManager;
             Init();
         }
         private void Init() {
@@ -35,7 +35,7 @@ namespace _Project.Scripts.Components {
             _itemsGrid = new InventorySlot[Width, Height];
             for (int x = 0; x < Width; x++)
             for (int y = 0; y < Height; y++) {
-                _itemsGrid[x, y] = new InventorySlot();
+                _itemsGrid[x, y] = new InventorySlot(new Vector2Int(x, y));
             }
             _itemsDict = new Dictionary<Item, List<ItemStack>>();
         }
@@ -148,14 +148,6 @@ namespace _Project.Scripts.Components {
                 OnSlotChange?.Invoke(_itemsGrid[slotX, slotY]);
             }
             return itemsTaken;
-        }
-        public void DropItemInSlot(Vector2Int slot, Vector3 worldPos, Quaternion rotation) {
-            DropItemInSlot(slot, GetInventorySlot(slot).ItemStack.GetCount(), worldPos, rotation);
-        }
-        public void DropItemInSlot(Vector2Int slot, int count, Vector3 worldPos, Quaternion rotation) {
-            var itemStack = TakeItemsFromSlot(slot, count);
-            if (!itemStack.IsEmpty())
-                GameManager.SpawnItem(itemStack, worldPos, rotation, Owner);
         }
         public bool TryGetItemStack(Item item, out ItemStack itemStack) {
             List<ItemStack> itemStacks;
@@ -283,6 +275,17 @@ namespace _Project.Scripts.Components {
             }
             return true;
         }
+        public void UpdateItemDict() {
+            _itemsDict.Clear();
+            for (int i = 0; i < Width; i++)
+            for (int j = 0; j < Height; j++) {
+                InventorySlot slot = _itemsGrid[i, j];
+                if (!slot.IsOrigin)
+                    continue;
+                _itemsDict.TryAdd(slot.ItemStack.Item, new List<ItemStack>());
+                _itemsDict[slot.ItemStack.Item].Add(slot.ItemStack);
+            }
+        }
         public bool TryGetItemStacksByType(Item item, out List<ItemStack> itemStacks) {
             itemStacks = new List<ItemStack>();
             return _itemsDict.TryGetValue(item, out itemStacks);
@@ -295,10 +298,12 @@ namespace _Project.Scripts.Components {
         }
         public override string ToString() {
             StringBuilder str = new StringBuilder();
-            str.Append($"Name:{Name} FreeSpace:{_freeSpace}");
+            str.Append($"Name:{Name} FreeSpace:{_freeSpace}\n");
             foreach (InventorySlot inventorySlot in _itemsGrid) {
-                str.Append(inventorySlot.ItemStack.ToString() + "\n");
+                str.Append($"{inventorySlot} ");
+                if (inventorySlot.CellSlot.y + 1 == Height) str.Append("\n");
             }
+            str.Append("\n");
             return str.ToString();
         }
     }

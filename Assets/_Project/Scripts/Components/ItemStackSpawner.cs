@@ -4,6 +4,7 @@ using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Entities;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
+using _Project.Scripts.Network.Server;
 using UnityEngine;
 
 namespace _Project.Scripts.Components {
@@ -26,7 +27,7 @@ namespace _Project.Scripts.Components {
                 else
                     spawnItemStack = true;
                 if (spawnItemStack) {
-                    GameManager.SpawnItem(item, count, transform, this);
+                    ServerHandler.Singleton.SpawnGrabbableOnServer(new ItemStack(item, count), transform.position, transform.rotation);
                     Destroy(gameObject);
                 }
             } else if (NetworkManager.Singleton.IsClient)

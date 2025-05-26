@@ -42,7 +42,6 @@ namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
             locomotion.Rb.rotation = Quaternion.FromToRotation(localUp, gravityUp) * locomotion.Rb.rotation;
 
             if (locomotion.IsGrounded && !locomotion.IsJumping) {
-                //Vector3 groundPoint = CalculateMovableGround(hit);
                 var groundPoint = locomotion.groundRayCast.point;
                 locomotion.Trans.position = groundPoint + gravityUp * stats.height;
             }

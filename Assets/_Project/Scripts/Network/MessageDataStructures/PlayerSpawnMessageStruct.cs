@@ -4,7 +4,7 @@ using RiptideNetworking;
 using UnityEngine;
 
 namespace _Project.Scripts.Network.MessageDataStructures {
-    public struct SpawnMessageStruct : IGenericMessageStruct {
+    public struct PlayerSpawnMessageStruct : IGenericMessageStruct {
         
         public ushort id;
         public string entityId;
@@ -12,19 +12,22 @@ namespace _Project.Scripts.Network.MessageDataStructures {
         public Quaternion rotation;
         public int tick;
         
-        public SpawnMessageStruct(ushort id, string entityId, Vector3 position, Quaternion rotation, int tick) {
+        public PlayerSpawnMessageStruct(ushort id, string entityId, Vector3 position, Quaternion rotation, int tick) {
             this.id = id;
             this.entityId = entityId;
             this.position = position;
             this.rotation = rotation;
             this.tick = tick;
         }
-        public SpawnMessageStruct(Message message) {
+        public PlayerSpawnMessageStruct(Message message) {
             this.id = message.GetUShort();
             this.entityId = message.GetString();
             this.position = message.GetVector3();
             this.rotation = message.GetQuaternion();
             this.tick = message.GetInt();
+        }
+        public void Serialize(Message message) {
+            message.AddUShort(id).AddString(entityId).AddVector3(position).AddQuaternion(rotation).AddInt(tick);
         }
     }
 }

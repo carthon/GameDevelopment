@@ -83,7 +83,7 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
         }
         
         protected sealed override void EnterState() {
-            _player = Client.Singleton.Player;
+            _player = ClientHandler.Singleton.Player;
             _grid   = Context.inventoryGrid;
             Vector3 cellSize = _grid.cellSize;
 

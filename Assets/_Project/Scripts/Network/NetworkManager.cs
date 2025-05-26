@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Handlers;
-using _Project.Scripts.Network.MessageDataStructures;
+using _Project.Scripts.Network.Client;
+using _Project.Scripts.Network.Server;
 using _Project.Scripts.Utils;
-using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
 using Logger = _Project.Scripts.Utils.Logger;
@@ -17,6 +18,8 @@ namespace _Project.Scripts.Network {
         private static NetworkManager _singleton;
         public DictionaryOfStringAndItems itemsDictionary;
         public static Dictionary<ushort, Player> playersList = new Dictionary<ushort, Player>();
+        public int MessagesSent = 0;
+        public int MessagesReceived = 0;
         public static NetworkManager Singleton
         {
             get => _singleton;
@@ -31,6 +34,7 @@ namespace _Project.Scripts.Network {
         }
         public bool IsServer { get; private set; }
         public bool IsClient { get; private set; }
+        public bool IsHost { get; private set; }
 
         [SerializeField] public ushort port;
         [SerializeField] public string hostAddress;
@@ -40,19 +44,21 @@ namespace _Project.Scripts.Network {
         [SerializeField] public GameObject serverDummyPlayerPrefab;
         private GameObject _serverDummyPlayer;
         public GameObject ServerDummy { get => _serverDummyPlayer; set => _serverDummyPlayer = value; }
-
-        private float _timer;
-        private int _currentTick;
-        public float minTimeBetweenTicks;
+        public NetworkTimer NetworkTimer;
+        private StringBuilder _stringBuilder;
+        public readonly float SERVER_TICK_RATE = 60f;
         public const int BufferSize = 1024;
         
-        public Server.Server Server { get; private set; }
-        public Client.Client Client { get; set; }  
-        
-        public int Tick { get => _currentTick; set => _currentTick = value; }
+        public ServerHandler ServerHandler { get; private set; }
+        public ClientHandler ClientHandler { get; set; }  
 
         void Awake() {
-            _singleton = this;
+            Singleton = this;
+            var sender = new RiptideNetworkSender(this);
+            NetworkTimer = new NetworkTimer(SERVER_TICK_RATE);
+            _stringBuilder = new StringBuilder();
+            ServerHandler = new ServerHandler(sender, this);
+            ClientHandler = new ClientHandler(sender, this);
         }
         private void OnValidate() {
             Item[] items = GameData.Singleton != null ? GameData.Singleton.items : null;
@@ -60,86 +66,56 @@ namespace _Project.Scripts.Network {
             itemsDictionary = new DictionaryOfStringAndItems();
             if (items != null)
                 foreach (Item item in items) {
-                    itemsDictionary.Add(item.id, item);
+                    itemsDictionary.Add(item.Id, item);
                 }
         }
         public void Start() {
             RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
-            Logger.Initialize();
-            minTimeBetweenTicks = Time.fixedDeltaTime;
+            Logger.Initialize(this);
+            // Llamar una sola vez al arrancar
+            Physics.autoSimulation = false;
 #if UNITY_SERVER
             InitializeServer();
 #endif
         }
         private void Update() {
-            _timer += Time.deltaTime;
-            while(_timer >= minTimeBetweenTicks) {
-                _timer -= minTimeBetweenTicks;
-                if (IsClient || IsServer) {
-                    if (IsServer) {
-                        Server.Tick(_currentTick);
-                        StringBuilder stringBuilder = new StringBuilder();
-                        foreach (var player in playersList.Values) {
-                            stringBuilder.Append($"Player{player.Id}:{player.GetMovementState(Tick).ToString()}");
-                        }
-                        UIHandler.Instance.UpdateWatchedVariables("PlayersInfo", stringBuilder.ToString());
-                    }
-                    if (IsClient) {
-                        Client.Tick(_currentTick);
-                        NetworkMessageBuilder.MessagesSent = 0;
-                        NetworkMessageBuilder.MessagesReceived = 0;
-                    }
-                    Physics.Simulate(Singleton.minTimeBetweenTicks);
-                }
-                _currentTick++;
+            NetworkTimer.Update(Time.deltaTime);
+        }
+        private void FixedUpdate() {
+            UIHandler.Instance.UpdateWatchedVariables("NetworkTimer", $"Tick: {NetworkTimer.CurrentTick} Timer:{NetworkTimer.Timer}");
+            while (NetworkTimer.ShouldTick()) {
+                if (IsServer) { ServerHandler.Tick(NetworkTimer.CurrentTick); }
+                if (IsClient) { ClientHandler.Tick(NetworkTimer.CurrentTick); }
+                Physics.Simulate(NetworkTimer.MinTimeBetweenTicks);
             }
         }
         public void InitializeServer() {
             IsServer = true;
-            Server = new Server.Server();
-            Server.Start(port, maxClientCount);
-            Server.ClientDisconnected += PlayerLeft;
+            ServerHandler.Start(port, maxClientCount);
+            ServerHandler.ClientDisconnected += ServerHandler.PlayerLeft;
+            InputHandler.Singleton.OnToggleInventory += ServerHandler.PrintPlayersInventory;
         }
 #if !UNITY_SERVER
-        public void InitializeClient() {
+        public void InitializeClient(string username) {
             IsClient = true;
-            Client.IsServerOwner = IsServer;
-            Client.Connected += DidConnect;
-            Client.Disconnected += DidDisconnect;
-            Client.ConnectionFailed += FailedToConnect;
-            Client.Connect($"{hostAddress}:{port}");
+            IsHost = IsClient && IsServer;
+            ClientHandler.Connect($"{hostAddress}:{port}");
+            ClientHandler.SetUsername(username);
         }
         public void StopClient() {
             if (IsClient) {
                 IsClient = false;
-                Client.Connected -= DidConnect;
-                Client.Disconnected -= DidDisconnect;
-                Client.ConnectionFailed -= FailedToConnect;
-                Client.Disconnect();
+                ClientHandler.Disconnect();
             }
         }
 #endif
         public void StopServer() {
             if (IsServer) {
-                Server.Stop();
+                ServerHandler.Stop();
                 IsServer = false;
-                Server.ClientDisconnected -= PlayerLeft;
             }
         }
-        private void DidConnect(object sender, EventArgs args) { Logger.Singleton.Log("Connected succesfully!", Logger.Type.INFO); }
-        private void FailedToConnect (object sender, EventArgs args){ Logger.Singleton.Log("Error trying to connect...!", Logger.Type.INFO); }
-        private void DidDisconnect(object sender, EventArgs args) { Logger.Singleton.Log("Disconnected succesfully!", Logger.Type.INFO); }
-        private void MessageReceived(object sender, EventArgs args) { NetworkMessageBuilder.MessagesReceived++; }
-        private void PlayerLeft(object sender, ClientDisconnectedEventArgs e) {
-            if (playersList.TryGetValue(e.Id, out Player player)) {
-                Destroy(player.gameObject);
-                playersList.Remove(e.Id);
-                Message message = Message.Create(MessageSendMode.reliable, Network.Server.Server.PacketHandler.clientPlayerDespawn);
-                message.AddUShort(e.Id);
-                Server.SendToAll(message);
-                Logger.Singleton.Log($"Player {e.Id} disconnected", Logger.Type.INFO);
-            }
-        }
+        private void MessageReceived(object sender, EventArgs args) { MessagesReceived++; }
         private void OnApplicationQuit() {
             StopServer();
 #if !UNITY_SERVER

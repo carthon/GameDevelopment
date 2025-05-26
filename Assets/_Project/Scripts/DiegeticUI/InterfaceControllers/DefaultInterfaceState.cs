@@ -41,7 +41,7 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers {
         protected sealed override void EnterState() {
             Cursor.lockState = CursorLockMode.Locked;
             
-            _player = Client.Singleton.Player;
+            _player = ClientHandler.Singleton.Player;
         }
         protected override void ExitState() {
             ResetMouseSelection();

@@ -19,7 +19,7 @@ namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
         }
         public override void CheckSwitchStates() {
             if (locomotion.IsGrounded && !hasJumped && _finishedJump) SwitchState(factory.Grounded());
-            if (!locomotion.IsGrounded && locomotion.IsDoubleJumping) SwitchState(factory.Fly());
+            if (locomotion.IsDoubleJumping) SwitchState(factory.Fly());
         }
         public override void InitializeSubState() {
         }
@@ -37,8 +37,7 @@ namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
         private void HandleJump() {
             _lastJumpTime = Time.time;
             _finishedJump = false;
-            Vector3 planetCentre = Vector3.zero;
-            Vector3 gravityUp = (locomotion.Rb.position - planetCentre).normalized;
+            Vector3 gravityUp = (locomotion.Rb.position - locomotion.GravityCenter).normalized;
             var stats = locomotion.Stats;
             locomotion.Rb.AddForce(gravityUp * stats.jumpStrength, ForceMode.Impulse);
         }

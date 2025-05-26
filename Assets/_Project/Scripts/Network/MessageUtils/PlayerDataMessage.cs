@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _Project.Scripts.Components;
 using _Project.Scripts.Network.MessageDataStructures;
+using UnityEngine;
 
 namespace _Project.Scripts.Network.MessageUtils {
     public static class PlayerDataMessage {
@@ -11,13 +12,13 @@ namespace _Project.Scripts.Network.MessageUtils {
          * en un NetworkMessage</p>
          * </summary>
          */
-        public static PlayerDataMessageStruct getPlayerData(Player player){
+        public static PlayerDataMessageStruct getPlayerData(Player player, int currentTick){
             List<EquipmentMessageStruct> equipments = new List<EquipmentMessageStruct>();
             foreach (EquipmentDisplayer equipmentDisplayer in player.EquipmentHandler.EquipmentDisplayers) {
                 equipments.Add(new EquipmentMessageStruct(equipmentDisplayer.CurrentEquipedItem, 
                     (int) equipmentDisplayer.GetBodyPart(), equipmentDisplayer.IsActive));
             }
-            return new PlayerDataMessageStruct(equipments, NetworkManager.Singleton.Tick, player.Id);
+            return new PlayerDataMessageStruct(equipments, currentTick, player.Id);
         }
     }
 }
