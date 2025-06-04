@@ -8,16 +8,15 @@ namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
         
         public GroundedState(LocomotionStateFactory factory, Locomotion locomotion) : base(factory, locomotion) {
             _isRootState = true;
-            InitializeSubState();
         }
         public override void EnterState() {
+            InitializeSubState();
         }
         public override void ExitState() {
         }
         public override void CheckSwitchStates() {
-            if (!locomotion.IsGrounded)
-                SwitchState(factory.Fall());
-            else if (locomotion.IsJumping) SwitchState(factory.Jump());
+            if (!locomotion.IsGrounded || locomotion.IsJumping)
+                SwitchState(factory.Airborne());
         }
         public sealed override void InitializeSubState() {
             if (!locomotion.IsMoving && !locomotion.IsSprinting)

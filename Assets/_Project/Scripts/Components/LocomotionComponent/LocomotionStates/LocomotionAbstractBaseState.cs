@@ -29,6 +29,7 @@ namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
         protected void SetSubState(AbstractBaseState newSubState) {
             _currentSubState = newSubState;
             newSubState.SetSuperState(this);
+            _currentSubState.EnterState();
         }
         protected void SetSuperState(AbstractBaseState newSuperState) {
             _currentSuperState = newSuperState;

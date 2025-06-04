@@ -10,6 +10,7 @@ namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
             locomotion.IgnoreGround = true;
         }
         public override void ExitState() {
+            locomotion.IgnoreGround = false;
         }
         public override void CheckSwitchStates() {
             if (locomotion.IsGrounded)

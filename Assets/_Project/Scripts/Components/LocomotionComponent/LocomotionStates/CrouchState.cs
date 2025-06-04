@@ -9,7 +9,7 @@ namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
         public override void CheckSwitchStates() {
             if (!locomotion.IsCrouching)
                 SwitchState(factory.Idle());
-            else if (locomotion.IsJumping) SwitchState(factory.Jump());
+            else if (locomotion.IsJumping) SwitchState(factory.Airborne());
         }
         public override void InitializeSubState() {
         }

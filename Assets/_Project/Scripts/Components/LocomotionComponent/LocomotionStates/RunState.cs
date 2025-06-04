@@ -7,8 +7,7 @@ namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
         public override void ExitState() {
         }
         public override void CheckSwitchStates() {
-            if (locomotion.IsSprinting && locomotion.IsMoving)
-                SwitchState(factory.Sprint());
+            if (locomotion.IsSprinting && locomotion.IsMoving) SwitchState(factory.Sprint());
             else if (!locomotion.IsMoving) SwitchState(factory.Idle());
             else if (locomotion.IsCrouching) SwitchState(factory.Crouch());
         }

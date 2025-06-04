@@ -1,35 +1,26 @@
 ﻿namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
     public class LocomotionStateFactory {
         private readonly Locomotion _context;
+        private IdleState _idleState;
+        private RunState _runState;
+        private SprintState _sprintState;
+        private GroundedState _groundedState;
+        private FlyState _flyState;
+        private AirborneState _airborneState;
+        private FallDownState _fallState;
+        private JumpUpState _jumpState;
+        private CrouchState _crouchState;
         public LocomotionStateFactory(Locomotion currentContext) {
             _context = currentContext;
         }
-
-        public AbstractBaseState Idle() {
-            return new IdleState(this, _context);
-        }
-        public AbstractBaseState Run() {
-            return new RunState(this, _context);
-        }
-        public AbstractBaseState Sprint() {
-            return new SprintState(this, _context);
-        }
-        public AbstractBaseState Grounded() {
-            return new GroundedState(this, _context);
-        }
-        public AbstractBaseState Fly() {
-            return new FlyState(this, _context);
-        }
-        public AbstractBaseState Jump() {
-            var jumpState = new JumpState(this, _context);
-            jumpState.SetJumped(true);
-            return jumpState;
-        }
-        public AbstractBaseState Fall() {
-            return new JumpState(this, _context);
-        }
-        public AbstractBaseState Crouch() {
-            return new CrouchState(this, _context);
-        }
+        public AbstractBaseState Idle() => _idleState ??= new IdleState(this, _context);
+        public AbstractBaseState Run() => _runState ??= new RunState(this, _context);
+        public AbstractBaseState Sprint() => _sprintState ??= new SprintState(this, _context);
+        public AbstractBaseState Grounded() => _groundedState ??= new GroundedState(this, _context);
+        public AbstractBaseState Fly() => _flyState ??= new FlyState(this, _context);
+        public AbstractBaseState Airborne() => _airborneState ??= new AirborneState(this, _context);
+        public AbstractBaseState Fall() => _fallState ??= new FallDownState(this, _context);
+        public AbstractBaseState JumpUp() => _jumpState ??= new JumpUpState(this, _context);
+        public AbstractBaseState Crouch() => _crouchState ??= new CrouchState(this, _context);
     }
 }

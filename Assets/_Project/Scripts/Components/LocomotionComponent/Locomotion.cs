@@ -55,6 +55,7 @@ namespace _Project.Scripts.Components.LocomotionComponent {
 
         public bool IsSprinting { get; set; }
         public bool IsCrouching { get; set; }
+        public float Delta { get; set; }
 
         public string state;
 
@@ -81,15 +82,15 @@ namespace _Project.Scripts.Components.LocomotionComponent {
             state = CurrentState.StateName;
         }
 
-        public void HandleMovement(float delta, Vector3 moveInputDirection, Transform relativeTransform) {
+        public void HandleMovement(Vector3 moveInputDirection, Transform relativeTransform) {
             if (CurrentState.GetType() == typeof(FlyState) && _stats.canFly) {
-                HandleFlight(delta, moveInputDirection, relativeTransform);
+                HandleFlight(moveInputDirection, relativeTransform);
             }
             else {
-                HandleGroundMovement(delta, moveInputDirection, relativeTransform);
+                HandleGroundMovement(moveInputDirection, relativeTransform);
             }
         }
-        private void HandleFlight(float delta, Vector3 moveInputDirection, Transform relativeTransform) {
+        private void HandleFlight(Vector3 moveInputDirection, Transform relativeTransform) {
             Vector3 normalFromPlanet = (Rb.position - GravityCenter).normalized;
             Quaternion headRotation = relativeTransform.rotation;
             Quaternion groundRotation = Quaternion.FromToRotation(relativeTransform.up, normalFromPlanet) * headRotation;
@@ -103,11 +104,11 @@ namespace _Project.Scripts.Components.LocomotionComponent {
             RelativeDirection = moveInputDirection.normalized;
             WorldDirection = relativeMoveDirection.normalized;
 
-            Vector3 desiredGlobalVelocity = relativeMoveDirection * (CurrentMovementSpeed * delta);
+            Vector3 desiredGlobalVelocity = relativeMoveDirection * (CurrentMovementSpeed * Delta);
             
             AppliedMovement = desiredGlobalVelocity;
         }
-        private void HandleGroundMovement(float delta, Vector3 moveInputDirection, Transform relativeTransform) {
+        private void HandleGroundMovement(Vector3 moveInputDirection, Transform relativeTransform) {
             Vector3 normalFromPlanet = (Rb.position - GravityCenter).normalized;
             Quaternion groundRotation = Quaternion.FromToRotation(relativeTransform.up, normalFromPlanet) * relativeTransform.rotation;
             lookForwardDirection = groundRotation * Vector3.forward;
@@ -119,7 +120,7 @@ namespace _Project.Scripts.Components.LocomotionComponent {
             RelativeDirection = moveInputDirection.normalized;
             WorldDirection = relativeMoveDirection.normalized;
 
-            Vector3 desiredGlobalVelocity = relativeMoveDirection * (CurrentMovementSpeed * delta);
+            Vector3 desiredGlobalVelocity = relativeMoveDirection * (CurrentMovementSpeed * Delta);
             
             AppliedMovement = desiredGlobalVelocity;
         }

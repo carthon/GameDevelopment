@@ -82,7 +82,7 @@ namespace _Project.Scripts.Network.Client {
         private void DidDisconnect(object sender, EventArgs args) { Logger.Singleton.Log("Disconnected succesfully!", Logger.Type.INFO); }
         
         public void SetUpClient(Player player) {
-            if (NetworkManager.Singleton.debugServerPosition)
+            if (NetworkManager.Singleton.debugServerPosition && !NetworkManager.IsServer)
                 try {
                     _serverDummy = new ServerDummy(NetworkManager.Singleton.serverDummyPlayerPrefab, NetworkManager);
                 }
@@ -90,7 +90,8 @@ namespace _Project.Scripts.Network.Client {
                     Logger.Singleton.Log(e.Message, Logger.Type.WARNING);
                 }
             _player = player;
-            GameManager.Singleton.ChunkRenderer.GenerateChunksAround(player.Planet, _player.transform.position, GameManager.Singleton.gameConfiguration.renderDistance);
+            if (!NetworkManager.IsServer)
+                GameManager.Singleton.ChunkRenderer.GenerateChunksAround(player.Planet, _player.transform.position, GameManager.Singleton.gameConfiguration.renderDistance);
             CameraHandler.Singleton.InitializeCamera(_player.Head, _player.HeadFollow, _player.HeadPivot);
             OnClientReady?.Invoke();
         }
@@ -128,7 +129,7 @@ namespace _Project.Scripts.Network.Client {
             ulong actions = (ulong)InputHandler.Singleton.GetActions();
             _inputBuffer[bufferIndex] = SendInputs(moveInput, actions, currentTick);
             Logger.Singleton.Log($"Sending Inputs: {_inputBuffer[bufferIndex]}", Logger.Type.DEBUG);
-            _movementApplier.ApplyMovement(_player, _inputBuffer[bufferIndex], NetworkManager.NetworkTimer.MinTimeBetweenTicks);
+            _movementApplier.ApplyMovement(_player, _inputBuffer[bufferIndex]);
             _player.Locomotion.FixedTick();
             MovementMessageStruct movementMessage = _player.GetMovementState(currentTick);
             _movementBuffer[bufferIndex] = movementMessage;
@@ -155,6 +156,7 @@ namespace _Project.Scripts.Network.Client {
                     playerSpawnData.position);
                 NetworkManager.playersList.Add(playerSpawnData.id, player);
             } else if (NetworkManager.playersList.TryGetValue(playerSpawnData.id, out player)) {
+                _isSynced = true;
                 Logger.Singleton.Log("Host se ha unido al servidor", Logger.Type.DEBUG);
             } else // El jugador es null
                 return;
@@ -164,7 +166,7 @@ namespace _Project.Scripts.Network.Client {
             player.IsLocal = isLocal;
             //TODO: Realizar ajustes en la colisión servidor-servidor para replicarlo correctamente en cliente
             int playerLayer = global::Constants.LAYER_REMOTEPLAYER;
-            if (player.IsLocal)
+            if (player.IsLocal && !NetworkManager.IsHost)
                 playerLayer = global::Constants.LAYER_LOCALPLAYER;
             player.gameObject.layer = playerLayer;
             if (player.IsLocal)
@@ -262,7 +264,7 @@ namespace _Project.Scripts.Network.Client {
             }
         }
         private bool ShouldReconcile() {
-            return !_latestServerMovement.Equals(default(MovementMessageStruct)) &&
+            return  !NetworkManager.IsHost && !_latestServerMovement.Equals(default(MovementMessageStruct)) &&
                 (_lastProcessedMovement.Equals(default(MovementMessageStruct)) ||
                     !_latestServerMovement.Equals(_lastProcessedMovement));
         }
@@ -293,7 +295,7 @@ namespace _Project.Scripts.Network.Client {
                     
                     _movementBuffer[bufferIndex] = _player.GetMovementState(tickToProcess);
                     // Process new movement with reconciled state
-                    _player.HandleLocomotion(NetworkManager.NetworkTimer.MinTimeBetweenTicks, _inputBuffer[bufferIndex].moveInput);
+                    _player.HandleLocomotion(_inputBuffer[bufferIndex].moveInput);
                     _player.Locomotion.FixedTick();
                     tickToProcess++;
                 }

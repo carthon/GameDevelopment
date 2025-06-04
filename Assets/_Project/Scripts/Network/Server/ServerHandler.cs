@@ -64,7 +64,7 @@ namespace _Project.Scripts.Network.Server {
                     continue;
                 InputMessageStruct inputMessage = _inputProcessor.GetInputForTick(clientId, currentTick);
                 Logger.Singleton.Log($"InputForTick {currentTick}: {inputMessage}", Logger.Type.DEBUG);
-                _movementApplier.ApplyMovement(player, inputMessage, NetworkManager.NetworkTimer.MinTimeBetweenTicks);
+                _movementApplier.ApplyMovement(player, inputMessage);
                 player.Locomotion.FixedTick();
                 MovementMessageStruct movementMessage = player.GetMovementState(currentTick);
                 Logger.Singleton.Log($"Movement {currentTick}: {movementMessage}", Logger.Type.DEBUG);

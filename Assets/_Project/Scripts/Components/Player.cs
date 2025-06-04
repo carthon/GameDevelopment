@@ -70,6 +70,7 @@ namespace _Project.Scripts.Components {
         public void SetNetworking(INetworkSender networkSender, NetworkManager networkManager) {
             _networkSender = networkSender;
             _networkManager = networkManager;
+            _locomotion.Delta = networkManager.NetworkTimer.MinTimeBetweenTicks;
         }
         private void OnDestroy() {
             enabled = false;
@@ -156,10 +157,10 @@ namespace _Project.Scripts.Components {
      * <p>Se ejecuta como servidor y cliente: calcula la dirección del jugador en base a la posición de la cabeza</p>
      * </summary>
      */
-        public void HandleLocomotion( float delta, Vector3 moveInput) {
+        public void HandleLocomotion(Vector3 moveInput) {
             Transform cameraPivot = _headPivot.transform;
             if (!CanMove) moveInput = Vector3.zero;
-            _locomotion.HandleMovement(delta, moveInput, CanRotate ? cameraPivot : transform);
+            _locomotion.HandleMovement(moveInput, CanRotate ? cameraPivot : transform);
         }
         /**<summary>
      *  <param name="actions">Lista de bools</param>
