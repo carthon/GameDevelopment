@@ -6,23 +6,23 @@ namespace _Project.Scripts.Network {
     public class DefaultQueueManager : IInputQueueManager {
         private readonly Dictionary<ushort, InputRingBuffer> _unprocessedInputQueue = new Dictionary<ushort, InputRingBuffer>();
 
-        public bool Enqueue(ushort clientId, InputMessageStruct input) {
+        public bool Enqueue(ushort clientId, LocomotionInputMessage locomotionInput) {
             if (_unprocessedInputQueue.TryGetValue(clientId, out InputRingBuffer inputBuffer)) {
-                inputBuffer.Enqueue(input);
+                inputBuffer.Enqueue(locomotionInput);
                 return true;
             }
             return false;
         }
-        public bool TryPeek(ushort clientId, out InputMessageStruct peeked) {
-            peeked = new InputMessageStruct();
+        public bool TryPeek(ushort clientId, out LocomotionInputMessage peeked) {
+            peeked = new LocomotionInputMessage();
             return _unprocessedInputQueue.TryGetValue(clientId, out InputRingBuffer inputBuffer) && inputBuffer.Peek(out peeked);
         }
-        public bool TryPeekTail(ushort clientId, out InputMessageStruct peeked) {
-            peeked = new InputMessageStruct();
+        public bool TryPeekTail(ushort clientId, out LocomotionInputMessage peeked) {
+            peeked = new LocomotionInputMessage();
             return _unprocessedInputQueue.TryGetValue(clientId, out InputRingBuffer inputBuffer) && inputBuffer.Tail(out peeked);
         }
-        public bool TryDequeue(ushort clientId, out InputMessageStruct dequeued) {
-            dequeued = new InputMessageStruct();
+        public bool TryDequeue(ushort clientId, out LocomotionInputMessage dequeued) {
+            dequeued = new LocomotionInputMessage();
             if (!_unprocessedInputQueue.TryGetValue(clientId, out InputRingBuffer inputBuffer))
                 return false;
             return inputBuffer.Dequeue(out dequeued);

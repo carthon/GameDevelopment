@@ -16,6 +16,7 @@ namespace _Project.Scripts.DataClasses {
         public float jumpStrength;
         public float groundedRayRadius;
         public bool canFly;
+        public bool ignoreGround;
         public LayerMask groundLayer;
     }
 }

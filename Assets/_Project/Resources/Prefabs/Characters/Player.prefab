@@ -5480,10 +5480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613adc2804ee2e849826760a38e38bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stats: {fileID: 11400000, guid: 3385178af7ea2ec438896af52c0d73e5, type: 2}
-  lookForwardDirection: {x: 0, y: 0, z: 0}
-  lookRightDirection: {x: 0, y: 0, z: 0}
-  state: 
+  Stats: {fileID: 11400000, guid: 3385178af7ea2ec438896af52c0d73e5, type: 2}
 --- !u!1 &7222699575098919641
 GameObject:
   m_ObjectHideFlags: 0

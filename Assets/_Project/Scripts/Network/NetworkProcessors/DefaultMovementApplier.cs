@@ -3,12 +3,13 @@ using _Project.Scripts.Network.MessageDataStructures;
 
 namespace _Project.Scripts.Network {
     public class DefaultMovementApplier : IMovementApplier{
-        public void ApplyMovement(Player player, InputMessageStruct inputMessageStruct) {
-            ulong actions = inputMessageStruct.actions;
-            player.HeadPivot.rotation = inputMessageStruct.headPivotRotation;
+        public void ApplyMovement(Player player, LocomotionInputMessage locomotionInputMessage) {
+            ulong actions = locomotionInputMessage.actions;
+            player.HeadPivot.rotation = locomotionInputMessage.headPivotRotation;
             player.SetActions(actions);
-            player.HandleAnimations(actions);
-            player.HandleLocomotion(inputMessageStruct.moveInput);
+            player.HandleAnimations(locomotionInputMessage.actions);
+            if (player.LocomotionBridge != null)
+                player.LocomotionBridge.EnqueueInput(locomotionInputMessage);
         }
     }
 }

@@ -12,6 +12,10 @@ namespace _Project.Scripts.Components {
     public struct PlanetData {
         public Vector3 Center;
         public float Gravity;
+        public PlanetData(Vector3 center, float gravity) {
+            Center = center;
+            Gravity = gravity;
+        }
     }
     public class Planet : MonoBehaviour {
         [FormerlySerializedAs("_gravityRadius")] [SerializeField]

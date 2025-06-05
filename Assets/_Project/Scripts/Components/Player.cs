@@ -7,6 +7,7 @@ using _Project.Scripts.Factories;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
 using _Project.Scripts.Network.MessageDataStructures;
+using _Project.Scripts.Utils;
 using RiptideNetworking;
 using TMPro;
 using UnityEngine;
@@ -16,7 +17,7 @@ using Logger = _Project.Scripts.Utils.Logger;
 namespace _Project.Scripts.Components {
     public class Player : MonoBehaviour, IEntity {
 
-        private Locomotion _locomotion;
+        private LocomotionBridge _locomotionBridge;
         private AnimatorHandler _animator;
         private InventoryManager _inventoryManager;
         private EquipmentHandler _equipmentHandler;
@@ -50,7 +51,7 @@ namespace _Project.Scripts.Components {
         public Transform Head { get => _head; set => _head = value; }
         public Transform Model { get => model; }
         public InventoryManager InventoryManager => _inventoryManager;
-        public Locomotion Locomotion => _locomotion;
+        public LocomotionBridge LocomotionBridge => _locomotionBridge;
         public EquipmentHandler EquipmentHandler => _equipmentHandler;
         public AnimatorHandler AnimatorHandler => _animator;
 
@@ -63,22 +64,19 @@ namespace _Project.Scripts.Components {
         public Grabbable GetNearGrabbable() =>
             _grabler.GetPickableInRange(new Ray(_headPivot.position, _headPivot.forward), grabRadius, grabDistance);
         
-        public MovementMessageStruct GetMovementState(int currentTick) => new MovementMessageStruct(Id, 
-            Locomotion.Rb.position, Locomotion.Rb.velocity, Locomotion.RelativeDirection, Locomotion.lookForwardDirection, Model.rotation,
-            HeadRotation, currentTick, _actions);
         public void SetActions(ulong actions) => _actions = actions;
         public void SetNetworking(INetworkSender networkSender, NetworkManager networkManager) {
             _networkSender = networkSender;
             _networkManager = networkManager;
-            _locomotion.Delta = networkManager.NetworkTimer.MinTimeBetweenTicks;
+            _locomotionBridge.SetUp(_planetData, model, networkManager.NetworkTimer.MinTimeBetweenTicks);
         }
         private void OnDestroy() {
             enabled = false;
         }
         private void Update() {
-            _animator.UpdateAnimatorValues(_locomotion.RelativeDirection.z, _locomotion.RelativeDirection.x, 
+            _animator.UpdateAnimatorValues(_locomotionBridge.StateData.localDirection.z, _locomotionBridge.StateData.localDirection.x, 
                 Time.deltaTime);
-            _locomotion.IgnoreGround = isSpectator;
+            _locomotionBridge.Stats.ignoreGround = isSpectator;
             //UIHandler.Instance.UpdateWatchedVariables("density", $"DensityAtPosition:{_planet.GetDensityAtPoint(position)}");
         }
         private void OnTriggerEnter(Collider other) {
@@ -87,15 +85,13 @@ namespace _Project.Scripts.Components {
                 _collider = other;
                 if (_collider.transform.TryGetComponent(out Planet planet)) {
                     _planet = planet;
-                    _locomotion.GravityCenter = PlanetData.Center;
-                    _locomotion.Gravity = PlanetData.Gravity;
-                    _locomotion.Stats.groundLayer = _planet.GroundLayer;
+                    _locomotionBridge.StateData.planetData = PlanetData;
                 }
             }
         }
         
         public void InitializeComponents() {
-            _locomotion = GetComponent<Locomotion>();
+            _locomotionBridge = GetComponent<LocomotionBridge>();
             _animator = GetComponent<AnimatorHandler>();
             _inventoryManager = GetComponent<InventoryManager>();
             _equipmentHandler = GetComponent<EquipmentHandler>();
@@ -118,7 +114,6 @@ namespace _Project.Scripts.Components {
                     Center = Vector3.down * float.MaxValue,
                     Gravity = 20.9f
                 };
-            _locomotion.SetUp(_planetData.Center, _planetData.Gravity);
             _actions = (ulong) InputHandler.PlayerActions.None;
             InputHandler.Singleton.OnPickAction += HandlePicking;
         }
@@ -153,47 +148,31 @@ namespace _Project.Scripts.Components {
                 _equipmentHandler.UnloadItemModel(equipmentSlot);
         }
         /**<summary>
-     *  <param name="moveInput">Vector3 con la dirección de movimiento</param>
-     * <p>Se ejecuta como servidor y cliente: calcula la dirección del jugador en base a la posición de la cabeza</p>
-     * </summary>
-     */
-        public void HandleLocomotion(Vector3 moveInput) {
-            Transform cameraPivot = _headPivot.transform;
-            if (!CanMove) moveInput = Vector3.zero;
-            _locomotion.HandleMovement(moveInput, CanRotate ? cameraPivot : transform);
-        }
-        /**<summary>
      *  <param name="actions">Lista de bools</param>
      * <p>Se ejecuta como servidor y cliente: actualiza el estado de las animaciones del jugador</p>
      * </summary>
      */
         public void HandleAnimations(ulong actions) {
-            _locomotion.IsMoving = (actions & (ulong) InputHandler.PlayerActions.Moving) != 0;
-            _locomotion.IsJumping = (actions & (ulong) InputHandler.PlayerActions.Jumping) != 0;
-            _locomotion.IsSprinting = (actions & (ulong) InputHandler.PlayerActions.Sprinting) != 0;
-            _locomotion.IsCrouching = (actions & (ulong) InputHandler.PlayerActions.Crouching) != 0;
-            _locomotion.IsDoubleJumping = (actions & (ulong) InputHandler.PlayerActions.DoubleJumping) != 0;
-            _animator.SetBool(AnimatorHandler.IsSprinting, (actions & (ulong) InputHandler.PlayerActions.Sprinting) != 0);
-            _animator.SetBool(AnimatorHandler.IsCrouching, (actions & (ulong) InputHandler.PlayerActions.Crouching) != 0);
-            _animator.SetBool(AnimatorHandler.IsSearching, (actions & (ulong) InputHandler.PlayerActions.Searching) != 0);
-            _animator.SetBool(AnimatorHandler.IsAttacking, (actions & (ulong) InputHandler.PlayerActions.Attacking) != 0, 
-                (actions & (ulong) InputHandler.PlayerActions.Moving) != 0);
-            _animator.SetBool(AnimatorHandler.IsFalling, !_locomotion.IsGrounded);
-            CanMove = (actions & (ulong) InputHandler.PlayerActions.InInventory) == 0;
+            _animator.SetBool(AnimatorHandler.IsSprinting, LocomotionUtils.IsSprinting(actions));
+            _animator.SetBool(AnimatorHandler.IsCrouching, LocomotionUtils.IsCrouching(actions));
+            _animator.SetBool(AnimatorHandler.IsSearching, LocomotionUtils.IsSearching(actions));
+            _animator.SetBool(AnimatorHandler.IsAttacking, LocomotionUtils.IsAttacking(actions), LocomotionUtils.IsMoving(actions));
+            _animator.SetBool(AnimatorHandler.IsFalling, !_locomotionBridge.StateData.isGrounded);
+            CanMove = !LocomotionUtils.IsInInventory(actions);
             if (CanRotate) {
                 RotateCharacterModel();
             }
-            HandleActions(actions);
+            if (LocomotionUtils.IsAttacking(actions)) HandleClick();
         }
         public void RotateCharacterModel() {
             // Obtener la dirección hacia la cual el headPivot está mirando, pero solo en el plano horizontal.
-            float rotationSpeed = !_locomotion.IsMoving && !InputHandler.Singleton.IsInInventory ? CameraHandler.Singleton.CameraData.playerLookInputLerpSpeed * Time.deltaTime : 1f;
+            float rotationSpeed = !_locomotionBridge && !InputHandler.Singleton.IsInInventory ? CameraHandler.Singleton.CameraData.playerLookInputLerpSpeed * Time.deltaTime : 1f;
 
             // Calcula el "arriba" local basado en la orientación del planeta.
-            Vector3 localUp = (_locomotion.Rb.position - PlanetData.Center).normalized;
+            Vector3 localUp = (_locomotionBridge.StateData.position - PlanetData.Center).normalized;
 
             // Obtiene la dirección a la cual la cabeza está mirando, pero transformada al plano local del personaje.
-            Vector3 forwardOnPlanetSurface = _locomotion.lookForwardDirection;
+            Vector3 forwardOnPlanetSurface = _locomotionBridge.StateData.forwardDirection;
 
             // Calcula la rotación que alinea el eje "arriba" del personaje con el "arriba" local del planeta.
             Quaternion groundAlignmentRotation = Quaternion.FromToRotation(transform.up, localUp);
@@ -202,10 +181,10 @@ namespace _Project.Scripts.Components {
             Quaternion targetRotation = groundAlignmentRotation * Quaternion.LookRotation(forwardOnPlanetSurface, localUp);
 
             // Aplica la rotación al modelo del personaje.
-            model.rotation = Quaternion.Slerp(model.rotation, targetRotation, rotationSpeed);
-        }
-        private void HandleActions(ulong actions) {
-            if ((actions & (ulong) InputHandler.PlayerActions.Attacking) != 0) HandleClick();
+            var rotation = model.rotation;
+            rotation = Quaternion.Slerp(rotation, targetRotation, rotationSpeed);
+            model.rotation = rotation;
+            _locomotionBridge.StateData.modelRotation = rotation;
         }
         // Entrada por UIHandler
         private void HandlePicking() {
@@ -235,17 +214,32 @@ namespace _Project.Scripts.Components {
             EquipmentDisplayer equippedItem = EquipmentHandler.GetEquipmentSlotByBodyPart(BodyPart.RightArm);
             if (!equippedItem.CurrentEquipedItem.IsEmpty()) equippedItem.CurrentEquipedItem.Item.TryDoMainAction();
         }
-        public void UpdatePlayerMovementState(MovementMessageStruct movementMessage,  bool isInstant = true, float speed = 1f) { 
-            _locomotion.Rb.position = (isInstant) ? movementMessage.position : Vector3.Lerp(transform.position, movementMessage.position, 
-                speed);
-            _locomotion.lookForwardDirection = movementMessage.forwardDirection;
-            _locomotion.Rb.velocity = Vector3.zero;
-            Model.rotation = movementMessage.modelRotation;
-            Locomotion.RelativeDirection = movementMessage.relativeDirection;
-            HeadPivot.rotation = movementMessage.headPivotRotation;
+        public void UpdatePlayerMovementState(LocomotionStateMessage movementMessage,  bool isInstant = true, float speed = 1f) { 
+            
+            Vector3 targetPos = movementMessage.position;
+            Quaternion targetRot = movementMessage.modelRotation;
+
+            if (isInstant)
+                transform.position = targetPos;
+            else
+                transform.position = Vector3.Lerp(transform.position, targetPos, speed);
+
+            // Actualizar dirección de la cabeza/modelo:
+            model.rotation = targetRot;
+            HeadPivot.rotation = movementMessage.headRotation;
+
+            // Actualizar datos en LocomotionBridge estado interno (para mantener consistencia)
+            _locomotionBridge.StateData.position = movementMessage.position;
+            _locomotionBridge.StateData.velocity = movementMessage.velocity;
+            _locomotionBridge.StateData.modelRotation = movementMessage.modelRotation;
+            _locomotionBridge.StateData.actions  = movementMessage.actions;
+            _locomotionBridge.StateData.isGrounded = movementMessage.isGrounded;
+            _locomotionBridge.StateData.tick     = movementMessage.tick;
+            _locomotionBridge.StateData.mode     = movementMessage.mode;
+
+            // Animaciones según acciones recibidas
             SetActions(movementMessage.actions);
             HandleAnimations(movementMessage.actions);
-            _locomotion.FixedTick();
         }
         public void NotifyEquipment(ItemStack itemStack, BodyPart equipmentSlot, bool activeState, ushort ofClientId = 0) {
             EquipmentMessageStruct equipmentData = new EquipmentMessageStruct(itemStack, (int) equipmentSlot, activeState, ofClientId);

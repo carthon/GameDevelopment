@@ -24,10 +24,10 @@ namespace _Project.Scripts.Network.Client {
         public event Action OnClientReady;
 
         #region ReconciliationVariables
-        private MovementMessageStruct[] _movementBuffer = new MovementMessageStruct[NetworkManager.BufferSize];
-        private InputMessageStruct[] _inputBuffer = new InputMessageStruct[NetworkManager.BufferSize];
-        private MovementMessageStruct _latestServerMovement;
-        private MovementMessageStruct _lastProcessedMovement;
+        private LocomotionStateMessage[] _movementBuffer = new LocomotionStateMessage[NetworkManager.BufferSize];
+        private LocomotionInputMessage[] _inputBuffer = new LocomotionInputMessage[NetworkManager.BufferSize];
+        private LocomotionStateMessage _latestServerMovement;
+        private LocomotionStateMessage _lastProcessedMovement;
         private Vector3 _clientMovementError;
         #endregion
         
@@ -130,9 +130,8 @@ namespace _Project.Scripts.Network.Client {
             _inputBuffer[bufferIndex] = SendInputs(moveInput, actions, currentTick);
             Logger.Singleton.Log($"Sending Inputs: {_inputBuffer[bufferIndex]}", Logger.Type.DEBUG);
             _movementApplier.ApplyMovement(_player, _inputBuffer[bufferIndex]);
-            _player.Locomotion.FixedTick();
-            MovementMessageStruct movementMessage = _player.GetMovementState(currentTick);
-            _movementBuffer[bufferIndex] = movementMessage;
+            _player.LocomotionBridge.ClientProcessTick(currentTick, _inputBuffer[bufferIndex], out LocomotionStateMessage stateData);
+            _movementBuffer[bufferIndex] = stateData;
             InputHandler.Singleton.ClearInputs();
             if (ShouldReconcile())
                 HandleServerReconciliation(currentTick);
@@ -191,19 +190,19 @@ namespace _Project.Scripts.Network.Client {
         }
         public void ReceiveMovement(Message message) {
             if (NetworkManager.IsHost) return;
-            MovementMessageStruct movementMessageStruct = new MovementMessageStruct(message);
-            if (NetworkManager.playersList.TryGetValue(movementMessageStruct.id, out Player player)) {
-                Logger.Singleton.Log($"[{NetworkManager.NetworkTimer.CurrentTick}]Received Movement: {movementMessageStruct}", Logger.Type.DEBUG);
+            LocomotionStateMessage locomotionStateMessage = new LocomotionStateMessage(message);
+            if (NetworkManager.playersList.TryGetValue(locomotionStateMessage.id, out Player player)) {
+                Logger.Singleton.Log($"[{NetworkManager.NetworkTimer.CurrentTick}]Received Movement: {locomotionStateMessage}", Logger.Type.DEBUG);
                 if(player.IsLocal) {
-                    _latestServerMovement = movementMessageStruct;
+                    _latestServerMovement = locomotionStateMessage;
                     if (NetworkManager.debugServerPosition && _serverDummy != null) {
-                        _serverDummy.UpdateServerDummy(movementMessageStruct);
+                        _serverDummy.UpdateServerDummy(locomotionStateMessage);
                     }
                 } else {
-                    player.UpdatePlayerMovementState(movementMessageStruct, true, Time.deltaTime * 
-                        movementMessageStruct.velocity.sqrMagnitude);
+                    player.UpdatePlayerMovementState(locomotionStateMessage, true, Time.deltaTime * 
+                        locomotionStateMessage.velocity.sqrMagnitude);
                     UIHandler.Instance.UpdateWatchedVariables("DiffTicks", 
-                        $"Diff between server ticks {NetworkManager.NetworkTimer.CurrentTick - movementMessageStruct.tick}");
+                        $"Diff between server ticks {NetworkManager.NetworkTimer.CurrentTick - locomotionStateMessage.tick}");
                 }
             }
         }
@@ -224,11 +223,11 @@ namespace _Project.Scripts.Network.Client {
             PlayerDataMessageStruct playerData = new PlayerDataMessageStruct(message);
             //NetworkManager.Tick = playerData.tick + TicksAheadOfServer;
         }
-        private InputMessageStruct SendInputs(Vector3 moveInput, ulong actions, int currentTick) {
-            InputMessageStruct inputData = new InputMessageStruct(moveInput, _player.HeadPivot.rotation, currentTick, actions);
-            NetworkSender.SendToServer(MessageSendMode.unreliable, (ushort) serverInput, inputData);
+        private LocomotionInputMessage SendInputs(Vector3 moveInput, ulong actions, int currentTick) {
+            LocomotionInputMessage locomotionInputMessage = new LocomotionInputMessage(moveInput, _player.HeadPivot.rotation, currentTick, actions);
+            NetworkSender.SendToServer(MessageSendMode.unreliable, (ushort) serverInput, locomotionInputMessage);
             //TODO: Send relevant input feature
-            return inputData;
+            return locomotionInputMessage;
         }
         private void SendConnectionMessage() {
             NetworkSender.SendToServer(MessageSendMode.reliable, (ushort) serverUsername, new PlayerConnectionMessageStruct(_username));
@@ -264,8 +263,8 @@ namespace _Project.Scripts.Network.Client {
             }
         }
         private bool ShouldReconcile() {
-            return  !NetworkManager.IsHost && !_latestServerMovement.Equals(default(MovementMessageStruct)) &&
-                (_lastProcessedMovement.Equals(default(MovementMessageStruct)) ||
+            return  !NetworkManager.IsHost && !_latestServerMovement.Equals(default(LocomotionStateMessage)) &&
+                (_lastProcessedMovement.Equals(default(LocomotionStateMessage)) ||
                     !_latestServerMovement.Equals(_lastProcessedMovement));
         }
         private void HandleServerReconciliation(int currentTick) {
@@ -273,7 +272,6 @@ namespace _Project.Scripts.Network.Client {
             _lastProcessedMovement = _latestServerMovement;
 
             int serverMovementBufferIndex = _lastProcessedMovement.tick % NetworkManager.BufferSize;
-            ulong actions = _lastProcessedMovement.actions;
             //TODO: Verificar que las acciones recibidas del server están bien enviadas
             Vector3 positionError = (_lastProcessedMovement.position - _movementBuffer[serverMovementBufferIndex].position);
             UIHandler.Instance.UpdateWatchedVariables("PositionError", $"PositionError:{positionError.sqrMagnitude}");
@@ -293,10 +291,10 @@ namespace _Project.Scripts.Network.Client {
                 {
                     int bufferIndex = tickToProcess % NetworkManager.BufferSize;
                     
-                    _movementBuffer[bufferIndex] = _player.GetMovementState(tickToProcess);
                     // Process new movement with reconciled state
-                    _player.HandleLocomotion(_inputBuffer[bufferIndex].moveInput);
-                    _player.Locomotion.FixedTick();
+                    _movementApplier.ApplyMovement(_player, _inputBuffer[bufferIndex]);
+                    _player.LocomotionBridge.ClientProcessTick(tickToProcess, _inputBuffer[bufferIndex], out LocomotionStateMessage state);
+                    _movementBuffer[bufferIndex] = state;
                     tickToProcess++;
                 }
             } else if (positionError.sqrMagnitude >= ServerPositionThreshold) {
@@ -319,11 +317,11 @@ namespace _Project.Scripts.Network.Client {
                 _networkManager = networkManager;
                 networkManager.ServerDummy = _self;
             }
-            public void UpdateServerDummy(MovementMessageStruct movementMessage) {
+            public void UpdateServerDummy(LocomotionStateMessage movementMessage) {
                 _transform.position = movementMessage.position;
                 _transform.rotation = movementMessage.modelRotation;
                 _rb.velocity = movementMessage.velocity;
-                _animator.UpdateAnimatorValues(movementMessage.relativeDirection.z, movementMessage.relativeDirection.x,
+                _animator.UpdateAnimatorValues(movementMessage.localDirection.z, movementMessage.localDirection.x,
                     _networkManager.NetworkTimer.MinTimeBetweenTicks);
             }
         }

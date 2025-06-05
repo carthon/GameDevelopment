@@ -9,7 +9,7 @@ namespace _Project.Scripts.Network {
     //TODO: Mejorar el sistema de colas y recepción de inputs
     public class ConnectionContext {
         public readonly ushort ClientId;
-        public readonly Channel<InputMessageStruct> InputChannel;
+        public readonly Channel<LocomotionInputMessage> InputChannel;
         private readonly NetworkStream _stream;
         private bool _running = true;
 
@@ -21,7 +21,7 @@ namespace _Project.Scripts.Network {
                 SingleWriter = false,
                 FullMode     = BoundedChannelFullMode.DropOldest
             };
-            InputChannel = Channel.CreateBounded<InputMessageStruct>(options);
+            InputChannel = Channel.CreateBounded<LocomotionInputMessage>(options);
 
             // Arranca recepción de red
             _ = Task.Run(() => ReceiveLoopAsync());
@@ -29,11 +29,11 @@ namespace _Project.Scripts.Network {
 
         private async Task ReceiveLoopAsync() {
             while (_running) {
-                InputMessageStruct msg = await DeserializeAsync(_stream);
+                LocomotionInputMessage msg = await DeserializeAsync(_stream);
                 await InputChannel.Writer.WriteAsync(msg);
             }
         }
-        private async Task<InputMessageStruct> DeserializeAsync(NetworkStream stream)
+        private async Task<LocomotionInputMessage> DeserializeAsync(NetworkStream stream)
         {
             // Ejemplo usando un buffer fijo y BinaryReader:
             var buffer = new byte[sizeof(ushort) + sizeof(ulong) + 3 * sizeof(int)];
@@ -43,7 +43,7 @@ namespace _Project.Scripts.Network {
 
             using var ms = new MemoryStream(buffer);
             using var reader = new BinaryReader(ms);
-            return new InputMessageStruct {
+            return new LocomotionInputMessage {
                 tick       = reader.ReadUInt16(),
                 actions    = reader.ReadUInt64(),
                 moveInput   = new Vector3(
@@ -54,7 +54,7 @@ namespace _Project.Scripts.Network {
             };
         }
 
-        public bool TryGetInput(out InputMessageStruct msg)
+        public bool TryGetInput(out LocomotionInputMessage msg)
             => InputChannel.Reader.TryRead(out msg);
 
         public void Stop() {

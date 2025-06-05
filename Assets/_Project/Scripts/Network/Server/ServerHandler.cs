@@ -62,11 +62,10 @@ namespace _Project.Scripts.Network.Server {
                 _sb.Append($"ForClient:{clientId} InputQueueCount: {_inputProcessor.GetTotalInputsForClient(clientId)}");
                 if (!NetworkManager.playersList.TryGetValue(clientId, out Player player))
                     continue;
-                InputMessageStruct inputMessage = _inputProcessor.GetInputForTick(clientId, currentTick);
-                Logger.Singleton.Log($"InputForTick {currentTick}: {inputMessage}", Logger.Type.DEBUG);
-                _movementApplier.ApplyMovement(player, inputMessage);
-                player.Locomotion.FixedTick();
-                MovementMessageStruct movementMessage = player.GetMovementState(currentTick);
+                LocomotionInputMessage locomotionInputMessage = _inputProcessor.GetInputForTick(clientId, currentTick);
+                Logger.Singleton.Log($"InputForTick {currentTick}: {locomotionInputMessage}", Logger.Type.DEBUG);
+                _movementApplier.ApplyMovement(player, locomotionInputMessage);
+                player.LocomotionBridge.ServerProcessTick(currentTick, clientId, in locomotionInputMessage, out LocomotionStateMessage movementMessage);
                 Logger.Singleton.Log($"Movement {currentTick}: {movementMessage}", Logger.Type.DEBUG);
                 _networkSender.SendToClients(MessageSendMode.unreliable, (ushort) clientMovementMessage, movementMessage);
             }
@@ -80,19 +79,19 @@ namespace _Project.Scripts.Network.Server {
             _sb.Clear();
             base.Tick();
         }
-        private void AddPlayerInput(ushort playerId, InputMessageStruct inputMessageStruct) {
-            _inputProcessor.AddInput(playerId, inputMessageStruct);
+        private void AddPlayerInput(ushort playerId, LocomotionInputMessage locomotionInputMessage) {
+            _inputProcessor.AddInput(playerId, locomotionInputMessage);
         }
         public void ReceiveInput(ushort fromClientId, Message message) {
             if (NetworkManager.IsHost && fromClientId == NetworkManager.ClientHandler.Id) return;
-            InputMessageStruct messageData = new InputMessageStruct(message);
-            UIHandler.Instance.UpdateWatchedVariables("DiffTicks", $"Diff between client ticks {messageData.tick - NetworkManager.NetworkTimer.CurrentTick}");
-            Logger.Singleton.Log($"[{NetworkManager.NetworkTimer.CurrentTick}]Received Input {fromClientId}: {messageData}", Logger.Type.DEBUG);
-            if (messageData.tick >= NetworkManager.NetworkTimer.CurrentTick) {
-                NetworkManager.ServerHandler.AddPlayerInput(fromClientId, messageData);
+            LocomotionInputMessage messageMessage = new LocomotionInputMessage(message);
+            UIHandler.Instance.UpdateWatchedVariables("DiffTicks", $"Diff between client ticks {messageMessage.tick - NetworkManager.NetworkTimer.CurrentTick}");
+            Logger.Singleton.Log($"[{NetworkManager.NetworkTimer.CurrentTick}]Received Input {fromClientId}: {messageMessage}", Logger.Type.DEBUG);
+            if (messageMessage.tick >= NetworkManager.NetworkTimer.CurrentTick) {
+                NetworkManager.ServerHandler.AddPlayerInput(fromClientId, messageMessage);
             }
             else {
-                Logger.Singleton.Log($"Sending player actualization clientTick:{messageData.tick} serverTick: {NetworkManager.NetworkTimer.CurrentTick}", Logger.Type.DEBUG);
+                Logger.Singleton.Log($"Sending player actualization clientTick:{messageMessage.tick} serverTick: {NetworkManager.NetworkTimer.CurrentTick}", Logger.Type.DEBUG);
                 SendPlayerDataToClient(fromClientId);
             }
         }
