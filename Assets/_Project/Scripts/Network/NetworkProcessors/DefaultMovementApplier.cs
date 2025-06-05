@@ -8,7 +8,7 @@ namespace _Project.Scripts.Network {
             player.HeadPivot.rotation = inputMessageStruct.headPivotRotation;
             player.SetActions(actions);
             player.HandleAnimations(actions);
-            player.HandleLocomotion(inputMessageStruct.moveInput);
+            player.HandleLocomotion(inputMessageStruct);
         }
     }
 }

@@ -7,6 +7,7 @@ using _Project.Scripts.Factories;
 using _Project.Scripts.Handlers;
 using _Project.Scripts.Network;
 using _Project.Scripts.Network.MessageDataStructures;
+using _Project.Scripts.Utils;
 using RiptideNetworking;
 using TMPro;
 using UnityEngine;
@@ -157,10 +158,10 @@ namespace _Project.Scripts.Components {
      * <p>Se ejecuta como servidor y cliente: calcula la dirección del jugador en base a la posición de la cabeza</p>
      * </summary>
      */
-        public void HandleLocomotion(Vector3 moveInput) {
+        public void HandleLocomotion(InputMessageStruct input) {
             Transform cameraPivot = _headPivot.transform;
-            if (!CanMove) moveInput = Vector3.zero;
-            _locomotion.HandleMovement(moveInput, CanRotate ? cameraPivot : transform);
+            if (!CanMove) input.moveInput = Vector3.zero;
+            _locomotion.HandleMovement(input, CanRotate ? cameraPivot : transform);
         }
         /**<summary>
      *  <param name="actions">Lista de bools</param>
@@ -168,26 +169,21 @@ namespace _Project.Scripts.Components {
      * </summary>
      */
         public void HandleAnimations(ulong actions) {
-            _locomotion.IsMoving = (actions & (ulong) InputHandler.PlayerActions.Moving) != 0;
-            _locomotion.IsJumping = (actions & (ulong) InputHandler.PlayerActions.Jumping) != 0;
-            _locomotion.IsSprinting = (actions & (ulong) InputHandler.PlayerActions.Sprinting) != 0;
-            _locomotion.IsCrouching = (actions & (ulong) InputHandler.PlayerActions.Crouching) != 0;
-            _locomotion.IsDoubleJumping = (actions & (ulong) InputHandler.PlayerActions.DoubleJumping) != 0;
-            _animator.SetBool(AnimatorHandler.IsSprinting, (actions & (ulong) InputHandler.PlayerActions.Sprinting) != 0);
-            _animator.SetBool(AnimatorHandler.IsCrouching, (actions & (ulong) InputHandler.PlayerActions.Crouching) != 0);
-            _animator.SetBool(AnimatorHandler.IsSearching, (actions & (ulong) InputHandler.PlayerActions.Searching) != 0);
-            _animator.SetBool(AnimatorHandler.IsAttacking, (actions & (ulong) InputHandler.PlayerActions.Attacking) != 0, 
-                (actions & (ulong) InputHandler.PlayerActions.Moving) != 0);
+            _animator.SetBool(AnimatorHandler.IsSprinting, LocomotionUtils.IsSprinting(actions));
+            _animator.SetBool(AnimatorHandler.IsCrouching, LocomotionUtils.IsCrouching(actions));
+            _animator.SetBool(AnimatorHandler.IsSearching, LocomotionUtils.IsSearching(actions));
+            _animator.SetBool(AnimatorHandler.IsAttacking, LocomotionUtils.IsAttacking(actions), 
+                !LocomotionUtils.IsMoving(actions));
             _animator.SetBool(AnimatorHandler.IsFalling, !_locomotion.IsGrounded);
-            CanMove = (actions & (ulong) InputHandler.PlayerActions.InInventory) == 0;
+            CanMove = !LocomotionUtils.IsInInventory(actions);
             if (CanRotate) {
                 RotateCharacterModel();
             }
-            HandleActions(actions);
+            if (LocomotionUtils.IsAttacking(actions)) HandleClick();
         }
         public void RotateCharacterModel() {
             // Obtener la dirección hacia la cual el headPivot está mirando, pero solo en el plano horizontal.
-            float rotationSpeed = !_locomotion.IsMoving && !InputHandler.Singleton.IsInInventory ? CameraHandler.Singleton.CameraData.playerLookInputLerpSpeed * Time.deltaTime : 1f;
+            float rotationSpeed = !LocomotionUtils.IsMoving(_actions) && !InputHandler.Singleton.IsInInventory ? CameraHandler.Singleton.CameraData.playerLookInputLerpSpeed * Time.deltaTime : 1f;
 
             // Calcula el "arriba" local basado en la orientación del planeta.
             Vector3 localUp = (_locomotion.Rb.position - PlanetData.Center).normalized;
@@ -203,9 +199,6 @@ namespace _Project.Scripts.Components {
 
             // Aplica la rotación al modelo del personaje.
             model.rotation = Quaternion.Slerp(model.rotation, targetRotation, rotationSpeed);
-        }
-        private void HandleActions(ulong actions) {
-            if ((actions & (ulong) InputHandler.PlayerActions.Attacking) != 0) HandleClick();
         }
         // Entrada por UIHandler
         private void HandlePicking() {

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using _Project.Scripts.Network.MessageDataStructures;
+using _Project.Scripts.Utils;
+using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
 namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
@@ -11,34 +13,33 @@ namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
         }
         public override void ExitState() {}
         public override void CheckSwitchStates() {
-            if (locomotion.IsDoubleJumping) SwitchState(factory.Fly());
+            if (LocomotionUtils.IsDoubleJumping(locomotion.actions)) SwitchState(factory.Fly());
             if (locomotion.IsGrounded) SwitchState(factory.Grounded());
         }
         public sealed override void InitializeSubState() {
             if (!locomotion.IsGrounded) SetSubState(factory.Fall());
-            else if (locomotion.IsJumping) SetSubState(factory.JumpUp());
+            else if (LocomotionUtils.IsJumping(locomotion.actions)) SetSubState(factory.JumpUp());
         }
         public override void UpdateState() {
             CheckSwitchStates();
-            ApplyInAirSpeed();
             HandleGravity();
         }
-        private void ApplyInAirSpeed() {
-            // 1) Calcula la velocidad horizontal deseada
-            Vector3 horizontalDir = locomotion.WorldDirection; 
-            float delta = locomotion.Delta; // asumiendo que guardas el delta fijo en locomotion
+        public override void ComputeMovement(InputMessageStruct inputMessage, Transform camera) {
+            Vector3 normalFromPlanet = (locomotion.Rb.position - locomotion.GravityCenter).normalized;
+            Quaternion headRotation = camera.rotation;
+            Quaternion groundRotation = Quaternion.FromToRotation(camera.up, normalFromPlanet) * headRotation;
+            locomotion.lookForwardDirection = MathUtility.LocalToWorldVector(headRotation, Vector3.forward);
+            locomotion.lookRightDirection = MathUtility.LocalToWorldVector(groundRotation, Vector3.right);
+            var relativeMoveDirection = inputMessage.moveInput.z * locomotion.lookForwardDirection +
+                inputMessage.moveInput.x * locomotion.lookRightDirection;
+            relativeMoveDirection = Vector3.ProjectOnPlane(relativeMoveDirection, normalFromPlanet);
+            
+            locomotion.RelativeDirection = inputMessage.moveInput;
+            locomotion.WorldDirection = relativeMoveDirection.sqrMagnitude > 0.0001f ? relativeMoveDirection.normalized : Vector3.zero;
 
-            Vector3 desiredHorizontalVel = horizontalDir * (locomotion.CurrentMovementSpeed * delta);
-
-            // 2) Conserva la componente vertical actual
-            Vector3 currentVel = locomotion.Rb.velocity;
-            Vector3 gravityUp = (locomotion.Rb.position - locomotion.GravityCenter).normalized;
-            float verticalVel = Vector3.Dot(currentVel, gravityUp);
-
-            // 3) Combina
-            Vector3 newVel = desiredHorizontalVel 
-                + gravityUp * verticalVel;
-            locomotion.Rb.velocity = newVel;
+            Vector3 desiredGlobalVelocity = locomotion.WorldDirection * (locomotion.CurrentMovementSpeed * locomotion.Delta);
+            
+            locomotion.AppliedMovement = desiredGlobalVelocity;
         }
 
         private void HandleGravity() {

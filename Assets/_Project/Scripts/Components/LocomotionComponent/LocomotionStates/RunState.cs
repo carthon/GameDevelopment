@@ -1,15 +1,19 @@
+using _Project.Scripts.Network.MessageDataStructures;
+using _Project.Scripts.Utils;
+using UnityEngine;
+
 namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
     public class RunState : AbstractBaseState {
-        public RunState(LocomotionStateFactory factory, Locomotion locomotion) : base(factory, locomotion) { EnterState(); }
+        public RunState(LocomotionStateFactory factory, Locomotion locomotion) : base(factory, locomotion) { }
         public sealed override void EnterState() {
             locomotion.CurrentMovementSpeed = locomotion.Stats.runSpeed;
         }
         public override void ExitState() {
         }
         public override void CheckSwitchStates() {
-            if (locomotion.IsSprinting && locomotion.IsMoving) SwitchState(factory.Sprint());
-            else if (!locomotion.IsMoving) SwitchState(factory.Idle());
-            else if (locomotion.IsCrouching) SwitchState(factory.Crouch());
+            if (LocomotionUtils.IsSprinting(locomotion.actions) && LocomotionUtils.IsMoving(locomotion.actions)) SwitchState(factory.Sprint());
+            else if (!LocomotionUtils.IsMoving(locomotion.actions)) SwitchState(factory.Idle());
+            else if (LocomotionUtils.IsCrouching(locomotion.actions)) SwitchState(factory.Crouch());
         }
         public override void InitializeSubState() {
         }

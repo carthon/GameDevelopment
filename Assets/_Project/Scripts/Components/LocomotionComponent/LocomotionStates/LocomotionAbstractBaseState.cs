@@ -1,3 +1,6 @@
+using _Project.Scripts.Network.MessageDataStructures;
+using UnityEngine;
+
 namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
     public abstract class AbstractBaseState {
         protected AbstractBaseState _currentSubState;
@@ -17,6 +20,7 @@ namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
         public abstract void CheckSwitchStates();
         public abstract void InitializeSubState();
         public abstract void UpdateState();
+        public virtual void ComputeMovement(InputMessageStruct inputMessage, Transform camera) {}
 
         protected void SwitchState(AbstractBaseState newState) {
             ExitState();

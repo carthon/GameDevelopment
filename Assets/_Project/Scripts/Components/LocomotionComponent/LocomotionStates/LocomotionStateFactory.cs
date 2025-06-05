@@ -12,6 +12,15 @@
         private CrouchState _crouchState;
         public LocomotionStateFactory(Locomotion currentContext) {
             _context = currentContext;
+            Grounded();
+            Airborne();
+            Idle();
+            Run();
+            Sprint();
+            Crouch();
+            JumpUp();
+            Fall();
+            Fly();
         }
         public AbstractBaseState Idle() => _idleState ??= new IdleState(this, _context);
         public AbstractBaseState Run() => _runState ??= new RunState(this, _context);

@@ -295,7 +295,7 @@ namespace _Project.Scripts.Network.Client {
                     
                     _movementBuffer[bufferIndex] = _player.GetMovementState(tickToProcess);
                     // Process new movement with reconciled state
-                    _player.HandleLocomotion(_inputBuffer[bufferIndex].moveInput);
+                    _player.HandleLocomotion(_inputBuffer[bufferIndex]);
                     _player.Locomotion.FixedTick();
                     tickToProcess++;
                 }

@@ -1,6 +1,7 @@
 using System;
 using _Project.Scripts.Components.LocomotionComponent.LocomotionStates;
 using _Project.Scripts.DataClasses;
+using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Utils;
 using Google.Protobuf.WellKnownTypes;
 using UnityEngine;
@@ -48,13 +49,8 @@ namespace _Project.Scripts.Components.LocomotionComponent {
         public RaycastHit groundRayCast;
         private RaycastHit hitInfo;
 
-        public bool IsMoving { get; set; }
-
-        public bool IsJumping { get; set; }
-        public bool IsDoubleJumping { get; set; }
-
-        public bool IsSprinting { get; set; }
-        public bool IsCrouching { get; set; }
+        public ulong actions;
+        
         public float Delta { get; set; }
 
         public string state;
@@ -63,6 +59,7 @@ namespace _Project.Scripts.Components.LocomotionComponent {
             Rb = GetComponent<Rigidbody>();
             Trans = transform;
             Gravity = gravity;
+            actions = 0;
             GravityCenter = gravityCenter;
             CapsCollider = GetComponent<CapsuleCollider>();
             _states = new LocomotionStateFactory(this);
@@ -78,51 +75,13 @@ namespace _Project.Scripts.Components.LocomotionComponent {
                 IsGrounded = Physics.Raycast(castOrigin, -upDir, out groundRayCast, Stats.height, Stats.groundLayer);
             else
                 IsGrounded = !_ignoreGround;
-            CurrentState.UpdateStates();
+            CurrentState.UpdateStates(); //Se actualiza tambien la velocity del rigidbody
             state = CurrentState.StateName;
         }
 
-        public void HandleMovement(Vector3 moveInputDirection, Transform relativeTransform) {
-            if (CurrentState.GetType() == typeof(FlyState) && _stats.canFly) {
-                HandleFlight(moveInputDirection, relativeTransform);
-            }
-            else {
-                HandleGroundMovement(moveInputDirection, relativeTransform);
-            }
-        }
-        private void HandleFlight(Vector3 moveInputDirection, Transform relativeTransform) {
-            Vector3 normalFromPlanet = (Rb.position - GravityCenter).normalized;
-            Quaternion headRotation = relativeTransform.rotation;
-            Quaternion groundRotation = Quaternion.FromToRotation(relativeTransform.up, normalFromPlanet) * headRotation;
-            lookForwardDirection = MathUtility.LocalToWorldVector(headRotation, Vector3.forward);
-            lookRightDirection = MathUtility.LocalToWorldVector(groundRotation, Vector3.right);
-            Vector3 lookUpDirection = MathUtility.LocalToWorldVector(groundRotation, Vector3.up);
-            var relativeMoveDirection = moveInputDirection.z * lookForwardDirection +
-                moveInputDirection.x * lookRightDirection + (IsJumping ? 1 : 0) * lookUpDirection;
-            //relativeMoveDirection = Vector3.ProjectOnPlane(relativeMoveDirection, normalFromPlanet).normalized;
-            
-            RelativeDirection = moveInputDirection.normalized;
-            WorldDirection = relativeMoveDirection.normalized;
-
-            Vector3 desiredGlobalVelocity = relativeMoveDirection * (CurrentMovementSpeed * Delta);
-            
-            AppliedMovement = desiredGlobalVelocity;
-        }
-        private void HandleGroundMovement(Vector3 moveInputDirection, Transform relativeTransform) {
-            Vector3 normalFromPlanet = (Rb.position - GravityCenter).normalized;
-            Quaternion groundRotation = Quaternion.FromToRotation(relativeTransform.up, normalFromPlanet) * relativeTransform.rotation;
-            lookForwardDirection = groundRotation * Vector3.forward;
-            lookRightDirection = groundRotation * Vector3.right;
-            var relativeMoveDirection = moveInputDirection.z * lookForwardDirection +
-                moveInputDirection.x * lookRightDirection;
-            relativeMoveDirection = Vector3.ProjectOnPlane(relativeMoveDirection, normalFromPlanet).normalized;
-            
-            RelativeDirection = moveInputDirection.normalized;
-            WorldDirection = relativeMoveDirection.normalized;
-
-            Vector3 desiredGlobalVelocity = relativeMoveDirection * (CurrentMovementSpeed * Delta);
-            
-            AppliedMovement = desiredGlobalVelocity;
+        public void HandleMovement(InputMessageStruct input, Transform relativeTransform) {
+            actions = input.actions;
+            CurrentState.ComputeMovement(input, relativeTransform);
         }
         
         private void OnDrawGizmos() {
