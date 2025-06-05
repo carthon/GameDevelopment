@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using _Project.Helper.Compute_Helper;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.WorldData;
 using _Project.Scripts.Entities;
+using _Project.Scripts.Utils.Helper.Compute_Helper;
 using Unity.Mathematics;
 using UnityEngine;
 

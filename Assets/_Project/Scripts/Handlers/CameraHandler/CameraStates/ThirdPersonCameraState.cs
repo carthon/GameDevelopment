@@ -1,8 +1,7 @@
-using _Project.Scripts.Handlers;
 using Cinemachine;
 using static Cinemachine.CinemachineBlendDefinition;
 
-namespace _Project.Scripts.StateMachine.CameraStates {
+namespace _Project.Scripts.Handlers.CameraHandler.CameraStates {
     public class ThirdPersonCameraState : CameraAbstractBaseState {
         private CinemachineVirtualCamera _camera;
         public ThirdPersonCameraState(CameraHandler cameraHandler) : base(cameraHandler) {  }

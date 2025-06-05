@@ -1,7 +1,6 @@
-﻿using _Project.Scripts.DataClasses;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
+namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates.Airborne {
     public class JumpUpState : AbstractBaseState {
         private bool _impulseApplied;
         public JumpUpState(LocomotionStateFactory factory, Locomotion locomotion) : base(factory, locomotion) {

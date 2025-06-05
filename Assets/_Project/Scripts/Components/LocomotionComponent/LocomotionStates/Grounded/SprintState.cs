@@ -1,8 +1,6 @@
-using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Utils;
-using UnityEngine;
 
-namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
+namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates.Grounded {
     public class SprintState : AbstractBaseState {
         public SprintState(LocomotionStateFactory factory, Locomotion locomotion) : base(factory, locomotion) { }
         public sealed override void EnterState() {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Project.Libraries.QuickOutline.Scripts;
 using _Project.Scripts.Components;
 using _Project.Scripts.Handlers;
+using _Project.Scripts.Handlers.CameraHandler;
 using _Project.Scripts.Network.Client;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -49,7 +50,7 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
                 UIHandler.Instance.inventoryCellIndicator.transform.position = targetPosition;
                 UIHandler.Instance.UpdateWatchedVariables("SelectedCell", $"GridPosition: {gridPosition}");
                 if (Physics.Raycast(ray, out RayCastHit, Single.PositiveInfinity, LayerMask.GetMask("Inventory"), QueryTriggerInteraction.Collide)) {
-                    if (RayCastHit.collider.CompareTag(global::Constants.TAG_UISLOT)) {
+                    if (RayCastHit.collider.CompareTag(global::_Project.Scripts.Constants.Constants.TAG_UISLOT)) {
                         if (RayCastHit.collider.TryGetComponent(out Outline outline)) {
                             if (!(HitMouseOutline is null) && outline is not null && !outline.transform.Equals(HitMouseOutline.transform)) {
                                 HitMouseOutline.enabled = false;

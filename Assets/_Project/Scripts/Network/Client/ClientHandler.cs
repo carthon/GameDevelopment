@@ -1,10 +1,12 @@
 using System;
 using _Project.Libraries.Marching_Cubes.Scripts;
 using _Project.Scripts.Components;
+using _Project.Scripts.Constants;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.DataClasses.ItemTypes;
 using _Project.Scripts.Factories;
 using _Project.Scripts.Handlers;
+using _Project.Scripts.Handlers.CameraHandler;
 using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Utils;
 using RiptideNetworking;
@@ -165,9 +167,9 @@ namespace _Project.Scripts.Network.Client {
             // Si el id coincide, es nuestro propio avatar local
             player.IsLocal = isLocal;
             //TODO: Realizar ajustes en la colisión servidor-servidor para replicarlo correctamente en cliente
-            int playerLayer = global::Constants.LAYER_REMOTEPLAYER;
+            int playerLayer = global::_Project.Scripts.Constants.Constants.LAYER_REMOTEPLAYER;
             if (player.IsLocal && !NetworkManager.IsHost)
-                playerLayer = global::Constants.LAYER_LOCALPLAYER;
+                playerLayer = global::_Project.Scripts.Constants.Constants.LAYER_LOCALPLAYER;
             player.gameObject.layer = playerLayer;
             if (player.IsLocal)
                 SetUpClient(player);

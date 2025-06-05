@@ -1,6 +1,6 @@
 using _Project.Scripts.Utils;
 
-namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
+namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates.Grounded {
     public class CrouchState : AbstractBaseState {
         public CrouchState(LocomotionStateFactory factory, Locomotion locomotion) : base(factory, locomotion) { }
         public sealed override void EnterState() {

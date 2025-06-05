@@ -1,4 +1,8 @@
-﻿namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
+﻿using _Project.Scripts.Components.LocomotionComponent.LocomotionStates.Airborne;
+using _Project.Scripts.Components.LocomotionComponent.LocomotionStates.Fly;
+using _Project.Scripts.Components.LocomotionComponent.LocomotionStates.Grounded;
+
+namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
     public class LocomotionStateFactory {
         private readonly Locomotion _context;
         private IdleState _idleState;

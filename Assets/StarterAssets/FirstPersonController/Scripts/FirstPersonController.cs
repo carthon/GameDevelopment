@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-#if ENABLE_INPUT_SYSTEM
+﻿using StarterAssets.InputSystem;
+using UnityEngine;
 using UnityEngine.InputSystem;
-#endif
 
-namespace StarterAssets
+namespace StarterAssets.FirstPersonController.Scripts
 {
 	[RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM

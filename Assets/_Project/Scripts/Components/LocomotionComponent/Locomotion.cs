@@ -54,6 +54,7 @@ namespace _Project.Scripts.Components.LocomotionComponent {
         public float Delta { get; set; }
 
         public string state;
+        private LocomotionParams _locomotionData;
 
         public void SetUp(Vector3 gravityCenter, float gravity) {
             Rb = GetComponent<Rigidbody>();
@@ -81,6 +82,7 @@ namespace _Project.Scripts.Components.LocomotionComponent {
 
         public void HandleMovement(InputMessageStruct input, Transform relativeTransform) {
             actions = input.actions;
+            _locomotionData = new LocomotionParams();
             CurrentState.ComputeMovement(input, relativeTransform);
         }
         

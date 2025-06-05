@@ -1,9 +1,7 @@
-using _Project.Scripts.Handlers;
 using Cinemachine;
-using UnityEngine;
 using static Cinemachine.CinemachineBlendDefinition;
 
-namespace _Project.Scripts.StateMachine.CameraStates {
+namespace _Project.Scripts.Handlers.CameraHandler.CameraStates {
     public class InventoryCameraState : CameraAbstractBaseState {
         private CinemachineVirtualCamera _camera;
         private readonly CameraAbstractBaseState _lastState;

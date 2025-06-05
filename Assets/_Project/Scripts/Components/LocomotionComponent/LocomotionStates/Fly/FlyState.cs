@@ -2,7 +2,7 @@
 using _Project.Scripts.Utils;
 using UnityEngine;
 
-namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
+namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates.Fly {
     public class FlyState : AbstractBaseState{
         public FlyState(LocomotionStateFactory factory, Locomotion locomotion) : base(factory, locomotion) { 
             _isRootState = true;

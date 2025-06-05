@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Project.Helper.Compute_Helper.Processing
+namespace _Project.Scripts.Utils.Helper.Compute_Helper.Processing
 {
 
 	public class GaussianBlur

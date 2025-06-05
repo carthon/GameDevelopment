@@ -1,4 +1,4 @@
-﻿namespace _Project.Helper.Compute_Helper
+﻿namespace _Project.Scripts.Utils.Helper.Compute_Helper
 {
 
 	public enum Channel

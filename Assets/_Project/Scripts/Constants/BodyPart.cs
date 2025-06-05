@@ -1,5 +1,5 @@
 
-namespace _Project.Scripts.DataClasses {
+namespace _Project.Scripts.Constants {
     public enum BodyPart
     {
         None = -1, // 0xFFFFFFFF

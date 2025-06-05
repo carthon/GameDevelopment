@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using _Project.Helper.Compute_Helper;
 using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
 using _Project.Scripts.Handlers;
+using _Project.Scripts.Utils.Helper.Compute_Helper;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;

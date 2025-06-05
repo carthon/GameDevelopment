@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using _Project.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Experimental.Rendering;
@@ -8,7 +7,7 @@ using UnityEngine.Rendering;
 // This class contains some helper functions to make life a little easier working with compute shaders
 // (Very work-in-progress!)
 
-namespace _Project.Helper.Compute_Helper {
+namespace _Project.Scripts.Utils.Helper.Compute_Helper {
 	public static class ComputeHelper
 	{
 

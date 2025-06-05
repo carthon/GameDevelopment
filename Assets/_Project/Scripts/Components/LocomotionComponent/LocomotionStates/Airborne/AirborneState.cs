@@ -3,7 +3,7 @@ using _Project.Scripts.Utils;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
-namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
+namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates.Airborne {
     public class AirborneState : AbstractBaseState {
         public AirborneState(LocomotionStateFactory factory, Locomotion locomotion) : base(factory, locomotion) {
             _isRootState = true;

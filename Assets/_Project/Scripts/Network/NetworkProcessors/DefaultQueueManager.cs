@@ -41,6 +41,6 @@ namespace _Project.Scripts.Network {
             }
         }
         public int GetCount(ushort clientId) => _unprocessedInputQueue[clientId].Count;
-        public void AddClient(ushort clientId) { _unprocessedInputQueue.Add(clientId, new InputRingBuffer(global::Constants.MAX_SERVER_INPUTS)); }
+        public void AddClient(ushort clientId) { _unprocessedInputQueue.Add(clientId, new InputRingBuffer(global::_Project.Scripts.Constants.Constants.MAX_SERVER_INPUTS)); }
     }
 }

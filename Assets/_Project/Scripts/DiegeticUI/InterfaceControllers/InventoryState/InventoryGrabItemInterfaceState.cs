@@ -59,7 +59,7 @@ namespace _Project.Scripts.DiegeticUI.InterfaceControllers.InventoryState {
                     UIHandler.Instance.inventoryCellIndicatorMeshRenderer.sharedMaterial.color = Context.errorIndicator;
                 }
                 if (_inventoryInterfaceState.RayCastHit.collider is not null) {
-                    bool lookingAtSlotOccupiedSlot = _inventoryInterfaceState.RayCastHit.collider.CompareTag(global::Constants.TAG_UISLOT);
+                    bool lookingAtSlotOccupiedSlot = _inventoryInterfaceState.RayCastHit.collider.CompareTag(global::_Project.Scripts.Constants.Constants.TAG_UISLOT);
                     if (Context.renderedItems.TryGetValue(_inventoryInterfaceState.RayCastHit.collider.gameObject, out Vector2Int slot)) {
                         InventorySlot inventorySlot = Context.Inventory.GetInventorySlot(slot);
                         item = Context.Inventory.GetInventorySlot(slot).ItemStack.Item;

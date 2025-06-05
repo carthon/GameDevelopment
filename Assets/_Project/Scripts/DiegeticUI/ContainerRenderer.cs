@@ -71,7 +71,7 @@ namespace _Project.Scripts.DiegeticUI {
             else
                 itemRendered.transform.Rotate(0, 180, 0);
             itemRendered.transform.position +=  inventorySpawn.up * (itemBounds.extents.y / 2);
-            itemRendered.tag = global::Constants.TAG_UISLOT;
+            itemRendered.tag = global::_Project.Scripts.Constants.Constants.TAG_UISLOT;
             Debug.Log($"Extents: {itemBounds.extents} && Scale: {itemRendered.transform.localScale}");
             //GameObjectUtils.SetLayerRecursively(itemRendered, LayerMask.NameToLayer("Inventory"), "UISlot");
             UIHandler.AddOutlineToObject(itemRendered, Color.white);

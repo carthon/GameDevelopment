@@ -1,12 +1,9 @@
-using System;
-using _Project.Scripts.Components;
 using _Project.Scripts.DataClasses;
-using _Project.Scripts.DiegeticUI;
-using _Project.Scripts.StateMachine.CameraStates;
+using _Project.Scripts.Handlers.CameraHandler.CameraStates;
 using Cinemachine;
 using UnityEngine;
 
-namespace _Project.Scripts.Handlers {
+namespace _Project.Scripts.Handlers.CameraHandler {
     public class CameraHandler : MonoBehaviour {
         private static CameraHandler _singleton;
     

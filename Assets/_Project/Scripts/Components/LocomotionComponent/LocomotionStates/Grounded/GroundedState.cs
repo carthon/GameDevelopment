@@ -2,7 +2,7 @@ using _Project.Scripts.Network.MessageDataStructures;
 using _Project.Scripts.Utils;
 using UnityEngine;
 
-namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
+namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates.Grounded {
     public class GroundedState : AbstractBaseState {
         private GameObject _lastHit;
         private Vector3 _lastHitPosition;

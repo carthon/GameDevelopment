@@ -172,7 +172,7 @@ namespace _Project.Scripts.Handlers {
             HandleUIInput();
         }
         private void HandleCameraInput(float delta) {
-            if (CameraHandler.Singleton == null)
+            if (CameraHandler.CameraHandler.Singleton == null)
                 return;
             MouseX = _cameraInput.x;
             MouseY = _cameraInput.y;

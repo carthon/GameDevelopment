@@ -1,7 +1,6 @@
-using _Project.Scripts.Handlers;
 using Cinemachine;
 
-namespace _Project.Scripts.StateMachine.CameraStates {
+namespace _Project.Scripts.Handlers.CameraHandler.CameraStates {
     public class OrbitalCameraState : CameraAbstractBaseState {
         private CinemachineVirtualCamera _camera;
         private readonly CameraAbstractBaseState _lastState;

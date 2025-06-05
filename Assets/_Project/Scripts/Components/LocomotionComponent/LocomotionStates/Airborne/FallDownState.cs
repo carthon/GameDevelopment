@@ -1,7 +1,4 @@
-﻿using _Project.Scripts.Network.MessageDataStructures;
-using UnityEngine;
-
-namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates {
+﻿namespace _Project.Scripts.Components.LocomotionComponent.LocomotionStates.Airborne {
     public class FallDownState : AbstractBaseState {
 
         public FallDownState(LocomotionStateFactory factory, Locomotion locomotion) : base(factory, locomotion) { EnterState();}
